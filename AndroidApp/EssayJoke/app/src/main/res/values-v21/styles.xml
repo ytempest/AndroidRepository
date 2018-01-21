@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- 沉浸式状态栏 -->
+    <style name="FixWindowTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/darker_gray</item>
+    </style>
+</resources>

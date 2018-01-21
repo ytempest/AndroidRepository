@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">  <!--这个指定是否只播放一次-->
+    <item
+        android:drawable="@drawable/left_0"
+        android:duration="350"/>
+    <item
+        android:drawable="@drawable/left_25"
+        android:duration="350"/>
+    <item
+        android:drawable="@drawable/left_50"
+        android:duration="350"/>
+    <item
+        android:drawable="@drawable/left_75"
+        android:duration="350"/>
+    <item
+        android:drawable="@drawable/left_100"
+        android:duration="350"/>
+</animation-list>

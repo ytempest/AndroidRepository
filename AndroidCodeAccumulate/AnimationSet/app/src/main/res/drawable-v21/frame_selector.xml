@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 设置开启动画前的图片 -->
+    <item
+        android:id="@+id/off"
+        android:state_activated="false">
+        <bitmap android:src="@drawable/left_0" />
+    </item>
+
+    <!-- 设置动画完成后保持状态的图片 -->
+    <item
+    android:id="@+id/on"
+    android:state_activated="true">
+        <bitmap android:src="@drawable/left_100" />
+    </item>
+
+    <transition
+        android:drawable="@drawable/frame_animation_list_filling"
+        android:fromId="@id/off"
+        android:toId="@id/on"/>
+
+    <transition
+        android:drawable="@drawable/frame_animation_list_emptying"
+        android:fromId="@id/on"
+        android:toId="@id/off"/>
+</animated-selector>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:foreground="?selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/iv_channel_icon"
+        android:layout_width="55.0dip"
+        android:layout_height="55.0dip"
+        android:layout_centerVertical="true"
+        android:layout_margin="10.0dip" />
+
+    <ImageView
+        android:id="@+id/iv_recommend_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5.0dip"
+        android:src="@drawable/channel_recommend_label" />
+
+    <TextView
+        android:id="@+id/bt_channel_subscribe"
+        android:layout_width="55.0dip"
+        android:layout_height="30.0dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10.0dip"
+        android:background="@drawable/bg_channel_subscribe_btn"
+        android:gravity="center"
+        android:text="订阅"
+        android:textColor="@android:color/black"
+        android:textSize="14.0sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_channel_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:layout_toLeftOf="@+id/bt_channel_subscribe"
+        android:layout_toRightOf="@+id/iv_channel_icon"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_channel_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="222"
+            android:textColor="@android:color/black"
+            android:textSize="17.0sp" />
+
+        <TextView
+            android:id="@+id/tv_channel_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5.0dip"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="222"
+            android:textColor="@android:color/black"
+            android:textSize="11.0sp" />
+
+        <TextView
+            android:id="@+id/tv_channel_update_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6.0dip"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="222"
+            android:textColor="@android:color/black"
+            android:textSize="11.0sp" />
+    </LinearLayout>
+
+    <!--<View
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_alignLeft="@channel_default_iconicon"
+        android:layout_below="@id/channel_text_layout"
+        android:layout_marginTop="10.0dip"
+        android:background="@color/list_item_divider" />-->
+</RelativeLayout>

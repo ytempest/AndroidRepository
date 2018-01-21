@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TrackIndicatorView的自定义属性集 -->
+    <declare-styleable name="TrackIndicatorView">
+        <attr name="tabVisibleNum" format="integer"/>
+    </declare-styleable>
+
+</resources>
+

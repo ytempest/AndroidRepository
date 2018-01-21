@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.ytempest.bannerviewdemo.binnerview.BannerView
+        android:id="@+id/banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:bannerTextColor="@android:color/black"
+        app:bannerTextSize="13sp"
+        app:bottomColor="@color/banner_bottom_bar_bg_day"
+        app:dotDistance="4dp"
+        app:dotGravity="center"
+        app:dotNormalColor="@color/dot_normal_color"
+        app:dotSelectColor="@color/dot_select_color"
+        app:dotSize="8dp"
+        app:heightProportion="7"
+        app:widthProportion="20" />
+
+</LinearLayout>

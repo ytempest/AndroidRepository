@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 主界面底部指示器颜色集 -->
+    <color name="tab_text_highlight">#ff735646</color>
+    <color name="tab_text_normal">#ff999999</color>
+    <color name="tab_rg_bg">#ffdcd9cf</color>
+
+    <!-- 弹出框颜色集 -->
+    <color name="dialog_bg">#fff5f0ec</color>
+    <color name="dialog_et_text">#ff5c6266</color>
+    <color name="dialog_et_stroke">#ffcacaca</color>
+    <color name="dialog_et_bg">#ffffffff</color>
+    <color name="dialog_submit_bt_text">#ffffffff</color>
+    <color name="dialog_submit_bt_bg">#ffac9b89</color>
+    <color name="dialog_desc_text">#ff333333</color>
+
+</resources>

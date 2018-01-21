@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <Button
+        android:id="@+id/bt_base_use"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="基础使用" />
+
+    <Button
+        android:id="@+id/bt_common_use"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通用RecyclerView使用" />
+
+</LinearLayout>
