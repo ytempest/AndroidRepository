@@ -54,14 +54,14 @@ public class CategoryListAdapter extends CommonRecyclerAdapter<ChannelData> {
                 holder.setText(R.id.tv_test_item_text, "测试成功")
                         .setImageByUrl(R.id.iv_test_item_image, new GlideImageLoader("http://s0.pstatp.com/site/image/joke_zone/commenticon_discover@2x.png"));
 
-                holder.addViewClickListener(R.id.iv_test_item_image, new View.OnClickListener() {
+                holder.setOnViewClickListener(R.id.iv_test_item_image, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(v.getContext(), "你点击了测试图标", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                holder.addItemClickListener(new View.OnClickListener() {
+                holder.setOnItemClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(v.getContext(), "测试成功", Toast.LENGTH_SHORT).show();
@@ -75,28 +75,28 @@ public class CategoryListAdapter extends CommonRecyclerAdapter<ChannelData> {
     }
 
     private void initClickListener(final CommonViewHolder holder) {
-        holder.addViewClickListener(R.id.iv_channel_icon, new View.OnClickListener() {
+        holder.setOnViewClickListener(R.id.iv_channel_icon, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(holder.itemView.getContext(), "你点击了图标", Toast.LENGTH_SHORT).show();
             }
         });
 
-        holder.addViewClickListener(R.id.bt_channel_subscribe, new View.OnClickListener() {
+        holder.setOnViewClickListener(R.id.bt_channel_subscribe, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(holder.itemView.getContext(), "你点击了订阅", Toast.LENGTH_SHORT).show();
             }
         });
 
-        holder.addItemClickListener(new View.OnClickListener() {
+        holder.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(holder.itemView.getContext(), "你点击了条目", Toast.LENGTH_SHORT).show();
             }
         });
 
-        holder.addItemLongClickListener(new View.OnLongClickListener() {
+        holder.setOnItemLongClickListener(new View.OnLongClickListener() {
 
             @Override
             public boolean onLongClick(View v) {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ytempest.recycleranalysis.headerAndFooter.binnerview.BannerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/banner_view"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    app:bottomColor="@android:color/darker_gray"
+    app:dotDistance="10dp"
+    app:dotGravity="right"
+    app:dotNormalColor="@android:color/holo_orange_light"
+    app:dotSelectColor="@android:color/white"
+    app:dotSize="8dp"
+    app:heightProportion="3"
+    app:widthProportion="8" />

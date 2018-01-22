@@ -55,5 +55,4 @@ public class CommonRecyclerActivity extends AppCompatActivity {
         };
         mRecyclerView.setAdapter(new CategoryListAdapter(CommonRecyclerActivity.this, mDataList, multiTypeSupport));
     }
-
 }

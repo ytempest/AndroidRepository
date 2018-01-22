@@ -18,4 +18,10 @@
         android:layout_height="wrap_content"
         android:text="通用RecyclerView使用" />
 
+    <Button
+        android:id="@+id/bt_header_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RecyclerView添加头布局和底布局" />
+
 </LinearLayout>

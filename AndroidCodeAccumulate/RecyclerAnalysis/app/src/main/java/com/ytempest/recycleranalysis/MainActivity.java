@@ -8,11 +8,13 @@ import android.widget.Button;
 
 import com.ytempest.recycleranalysis.commonRecyclerUse.CommonRecyclerActivity;
 import com.ytempest.recycleranalysis.division.DivisionUseActivity;
+import com.ytempest.recycleranalysis.headerAndFooter.HeaderFooterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button mBaseUse;
     private Button mCommonUse;
+    private Button mHeaderFooter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, CommonRecyclerActivity.class));
+            }
+        });
+
+        mHeaderFooter = findViewById(R.id.bt_header_footer);
+        mHeaderFooter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HeaderFooterActivity.class));
             }
         });
     }

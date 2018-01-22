@@ -3,6 +3,7 @@
     package="com.ytempest.recycleranalysis">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".division.DivisionUseActivity" />
-        <activity android:name=".commonRecyclerUse.CommonRecyclerActivity"></activity>
+        <activity android:name=".commonRecyclerUse.CommonRecyclerActivity" />
+        <activity android:name=".headerAndFooter.HeaderFooterActivity"></activity>
     </application>
 
 </manifest>

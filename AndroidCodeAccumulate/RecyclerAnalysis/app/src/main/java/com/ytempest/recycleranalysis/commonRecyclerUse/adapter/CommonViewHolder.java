@@ -77,21 +77,21 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
     /**
      * RecyclerView的条目里面的view设置点击事件
      */
-    public void addViewClickListener(int viewId, View.OnClickListener listener) {
+    public void setOnViewClickListener(int viewId, View.OnClickListener listener) {
         getView(viewId).setOnClickListener(listener);
     }
 
     /**
      * 为RecyclerView的条目设置点击事件
      */
-    public void addItemClickListener(View.OnClickListener listener) {
+    public void setOnItemClickListener(View.OnClickListener listener) {
         itemView.setOnClickListener(listener);
     }
 
     /**
      * 为RecyclerView的条目设置长按点击事件
      */
-    public void addItemLongClickListener(View.OnLongClickListener listener) {
+    public void setOnItemLongClickListener(View.OnLongClickListener listener) {
         itemView.setOnLongClickListener(listener);
     }
 
