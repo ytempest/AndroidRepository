@@ -1,14 +1,12 @@
-package com.ytempest.bannerviewdemo.binnerview;
+package com.ytempest.widget.binnerview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -16,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ytempest.bannerviewdemo.R;
+import com.ytempest.widget.R;
 
 
 /**

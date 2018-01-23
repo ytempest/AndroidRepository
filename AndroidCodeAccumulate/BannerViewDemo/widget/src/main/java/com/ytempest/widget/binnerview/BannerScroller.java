@@ -1,4 +1,4 @@
-package com.ytempest.bannerviewdemo.binnerview;
+package com.ytempest.widget.binnerview;
 
 import android.content.Context;
 import android.os.Build;

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <com.ytempest.bannerviewdemo.binnerview.BannerView
+    <com.ytempest.widget.binnerview.BannerView
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"

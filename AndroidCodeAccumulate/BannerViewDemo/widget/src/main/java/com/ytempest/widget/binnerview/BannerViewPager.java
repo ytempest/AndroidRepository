@@ -1,4 +1,4 @@
-package com.ytempest.bannerviewdemo.binnerview;
+package com.ytempest.widget.binnerview;
 
 import android.app.Activity;
 import android.app.Application;
@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;

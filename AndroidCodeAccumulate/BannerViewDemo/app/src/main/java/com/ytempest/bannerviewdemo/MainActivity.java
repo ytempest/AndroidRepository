@@ -6,9 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.ytempest.bannerviewdemo.binnerview.BannerAdapter;
-import com.ytempest.bannerviewdemo.binnerview.BannerView;
-import com.ytempest.bannerviewdemo.binnerview.BannerViewPager;
+import com.ytempest.widget.binnerview.BannerAdapter;
+import com.ytempest.widget.binnerview.BannerView;
+import com.ytempest.widget.binnerview.BannerViewPager;
+
 
 public class MainActivity extends Activity {
 
