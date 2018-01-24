@@ -16,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ytempest.recycleranalysis.R;
-import com.ytempest.recycleranalysis.headerAndFooter.binnerview.BannerAdapter;
-import com.ytempest.recycleranalysis.headerAndFooter.binnerview.BannerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,33 +80,6 @@ public class DivisionUseActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
-        BannerView bannerView = (BannerView) (LayoutInflater.from(this)
-                .inflate(R.layout.layout_banner_view, mRecyclerView, true));
-
-        Log.e(TAG, "addBannerView: bannerView --> " + bannerView);
-
-
-
-        /*bannerView.setAdapter(new BannerAdapter() {
-            @Override
-            public View getView(int position, View convertView) {
-                if (convertView == null) {
-                    convertView = new ImageView(DivisionUseActivity.this);
-                }
-                ImageView imageView= (ImageView) convertView;
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-                return imageView;
-            }
-
-            @Override
-            public int getCount() {
-                return 1;
-            }
-
-        });*/
-
         mRecyclerView = findViewById(R.id.recycler_view);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(DivisionUseActivity.this, LinearLayoutManager.VERTICAL, false));

@@ -1,10 +1,14 @@
 package com.ytempest.recycleranalysis.headerAndFooter;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -219,6 +223,20 @@ public class WrapRecyclerView extends RecyclerView {
             dataChanged();
         }
     };
+
+    /**
+     * 重写该方法解决动态改变LayoutManager为GridLayoutManager时，
+     * 头部View、底部View、上拉刷新View、下拉刷新View都不占用一行的问题
+     */
+    @Override
+    public void setLayoutManager(LayoutManager layout) {
+        super.setLayoutManager(layout);
+        if (mWrapRecyclerAdapter!=null && layout instanceof GridLayoutManager) {
+            // 解决网格布局中头布View和底部View都不占用一行的问题
+            mWrapRecyclerAdapter.adjustSpanSize(WrapRecyclerView.this);
+        }
+
+    }
 
     /**
      * 更新数据

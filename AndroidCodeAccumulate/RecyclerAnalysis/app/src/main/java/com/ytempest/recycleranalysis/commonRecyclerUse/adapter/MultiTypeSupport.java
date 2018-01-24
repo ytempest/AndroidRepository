@@ -12,5 +12,5 @@ public interface MultiTypeSupport<T> {
      * @param position 当前条目位置
      * @return 布局id
      */
-    public int getLayoutId(T item, int position);
+     int getLayoutId(T item, int position);
 }

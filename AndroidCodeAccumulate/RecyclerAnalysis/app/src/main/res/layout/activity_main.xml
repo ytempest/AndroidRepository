@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+
     android:orientation="vertical"
     android:padding="6dp">
 
@@ -23,5 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="RecyclerView添加头布局和底布局" />
+
+    <Button
+        android:id="@+id/bt_load_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下拉刷新和下拉刷新" />
 
 </LinearLayout>

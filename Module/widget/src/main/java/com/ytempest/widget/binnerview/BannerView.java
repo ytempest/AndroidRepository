@@ -1,15 +1,12 @@
-package com.ytempest.recycleranalysis.headerAndFooter.binnerview;
+package com.ytempest.widget.binnerview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -17,8 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ytempest.recycleranalysis.R;
-
+import com.ytempest.widget.R;
 
 
 /**
@@ -26,8 +22,6 @@ import com.ytempest.recycleranalysis.R;
  *         Description：
  */
 public class BannerView extends RelativeLayout {
-
-    public static String TAG = "BannerView";
     /**
      * 轮播的ViewPager
      */
@@ -98,12 +92,11 @@ public class BannerView extends RelativeLayout {
 
 
     public BannerView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public BannerView(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
-
+        this(context, attrs, 0);
     }
 
     public BannerView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -170,7 +163,6 @@ public class BannerView extends RelativeLayout {
      */
     public void setAdapter(BannerAdapter adapter) {
         mBannerAdapter = adapter;
-        Log.e(TAG, "initBannerView: 1");
 
         // 初始化 轮播器
         initBannerView();
@@ -185,7 +177,6 @@ public class BannerView extends RelativeLayout {
         // 初始化底部文字
         initBannerText();
 
-        Log.e(TAG, "initBannerView: ");
         mBannerViewPager.setBannerAdapter(mBannerAdapter);
 
         // 监听 BannerViewPager 的滑动
@@ -350,7 +341,7 @@ public class BannerView extends RelativeLayout {
     /**
      * 获取指示点的显示的位置
      */
-    private int getDotGravity() {
+    public int getDotGravity() {
         switch (mDotGravity) {
             case 0:
                 return Gravity.CENTER;

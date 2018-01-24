@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ytempest.recycleranalysis.headerAndFooter.binnerview.BannerViewPager
+    <com.ytempest.widget.binnerview.BannerViewPager
         android:id="@+id/banner_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -23,9 +23,7 @@
             android:id="@+id/tv_banner_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:layout_centerVertical="true"
-            android:textSize="12sp" />
+            android:layout_centerVertical="true" />
 
         <LinearLayout
             android:id="@+id/dot_container"

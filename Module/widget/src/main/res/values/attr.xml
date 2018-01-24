@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- BannerView的自定义属性集 -->
     <declare-styleable name="BannerView">
         <!-- 点的选中的颜色值 -->
         <attr name="dotSelectColor"  format="color|reference"/>
@@ -27,5 +25,4 @@
         <!-- 底部文字大小 -->
         <attr name="bannerTextSize" format="dimension" />
     </declare-styleable>
-
 </resources>

@@ -1,4 +1,4 @@
-package com.ytempest.recycleranalysis.headerAndFooter;
+package com.ytempest.recycleranalysis.headerAndFooter.data;
 
 import java.util.List;
 

@@ -9,12 +9,14 @@ import android.widget.Button;
 import com.ytempest.recycleranalysis.commonRecyclerUse.CommonRecyclerActivity;
 import com.ytempest.recycleranalysis.division.DivisionUseActivity;
 import com.ytempest.recycleranalysis.headerAndFooter.HeaderFooterActivity;
+import com.ytempest.recycleranalysis.loadRefresh.RefreshLoadActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button mBaseUse;
     private Button mCommonUse;
     private Button mHeaderFooter;
+    private Button mRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, HeaderFooterActivity.class));
             }
         });
+
+        mRefresh = findViewById(R.id.bt_load_refresh);
+        mRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RefreshLoadActivity.class));
+            }
+        });
+
     }
 
 }

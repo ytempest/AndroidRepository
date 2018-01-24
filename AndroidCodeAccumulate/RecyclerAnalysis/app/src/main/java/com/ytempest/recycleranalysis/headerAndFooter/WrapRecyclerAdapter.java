@@ -2,6 +2,7 @@ package com.ytempest.recycleranalysis.headerAndFooter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return mHeaderViews.keyAt(position);
         } else if (isFooterPosition(position)) {
             int index = position - mAdapter.getItemCount() - mHeaderViews.size();
-            return mHeaderViews.keyAt(index);
+            return mFooterViews.keyAt(index);
         }
         position = position - mHeaderViews.size();
         return mAdapter.getItemViewType(position);
@@ -119,7 +120,7 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void addFooterView(View view) {
         int index = mFooterViews.indexOfValue(view);
         if (index < 0) {
-            mHeaderViews.put(FOOTER_BASE_ITEM_TYPE++, view);
+            mFooterViews.put(FOOTER_BASE_ITEM_TYPE++, view);
         }
         notifyDataSetChanged();
     }

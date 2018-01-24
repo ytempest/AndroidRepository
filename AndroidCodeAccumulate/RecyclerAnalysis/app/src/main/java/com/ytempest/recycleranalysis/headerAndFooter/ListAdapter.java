@@ -1,7 +1,6 @@
 package com.ytempest.recycleranalysis.headerAndFooter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
 
@@ -9,6 +8,7 @@ import com.ytempest.recycleranalysis.R;
 import com.ytempest.recycleranalysis.commonRecyclerUse.GlideImageLoader;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.CommonRecyclerAdapter;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.CommonViewHolder;
+import com.ytempest.recycleranalysis.headerAndFooter.data.ChannelListResult;
 
 import java.util.List;
 

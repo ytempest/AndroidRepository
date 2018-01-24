@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".division.DivisionUseActivity" />
         <activity android:name=".commonRecyclerUse.CommonRecyclerActivity" />
-        <activity android:name=".headerAndFooter.HeaderFooterActivity"></activity>
+        <activity android:name=".headerAndFooter.HeaderFooterActivity"/>
+        <activity android:name=".loadRefresh.RefreshLoadActivity"/>
     </application>
 
 </manifest>

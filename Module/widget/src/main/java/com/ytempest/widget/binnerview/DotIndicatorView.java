@@ -1,4 +1,4 @@
-package com.ytempest.recycleranalysis.headerAndFooter.binnerview;
+package com.ytempest.widget.binnerview;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -3,8 +3,7 @@ package com.ytempest.recycleranalysis.headerAndFooter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,8 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.ytempest.recycleranalysis.R;
-import com.ytempest.recycleranalysis.headerAndFooter.binnerview.BannerAdapter;
-import com.ytempest.recycleranalysis.headerAndFooter.binnerview.BannerView;
+import com.ytempest.recycleranalysis.division.GridItemDecoration;
+import com.ytempest.recycleranalysis.headerAndFooter.data.ChannelListResult;
+import com.ytempest.widget.binnerview.BannerAdapter;
+import com.ytempest.widget.binnerview.BannerView;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,10 +27,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class HeaderFooterActivity extends AppCompatActivity {
-    private static final String TAG = "HeaderFooterActivity";
     private WrapRecyclerView mRecyclerView;
     private OkHttpClient mOkHttpClient;
     private static Handler mHandler = new Handler();
+
+    private String[] mBannerText = {"挑战花式讲段子", "天蝎宝宝嗨起来~"};
+    private String[] mBannerPaths = {"http://p9.pstatp.com/origin/e59001214a23d34b940",
+            "http://p9.pstatp.com/origin/ef400087b7d7fbdec85"};
 
     List<ChannelListResult.DataBean.CategoriesBean.CategoryListBean> mData;
 
@@ -39,9 +43,9 @@ public class HeaderFooterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_header_footer);
         mRecyclerView = (WrapRecyclerView) findViewById(R.id.rv_header_footer);
         // 设置显示分割 ListView样式
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         // 添加分割线
-//        mRecyclerView.addItemDecoration(new CategoryItemDecoration(ContextCompat.getDrawable(this, R.drawable.category_list_divider)));
+        mRecyclerView.addItemDecoration(new GridItemDecoration(this));
         mOkHttpClient = new OkHttpClient();
 
         requestListData();
@@ -78,52 +82,59 @@ public class HeaderFooterActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         showListData(categoryList);
-                        addBannerView(channelList.getData().getRotate_banner().getBanners());
+                        addBannerView();
+                        addFooterView();
                     }
                 });
             }
         });
     }
 
+    private void addFooterView() {
+        TextView tv = new TextView(this);
+        tv.setTextSize(20);
+        tv.setText("AAAAAAAAA");
+        mRecyclerView.addFooterView(tv);
+    }
+
+
     /**
      * 添加Banner轮播图
      */
-    private void addBannerView(final List<ChannelListResult.DataBean.BannerBean> banners) {
+    private void addBannerView() {
 
         BannerView bannerView = (BannerView) (LayoutInflater.from(this)
                 .inflate(R.layout.layout_banner_view, mRecyclerView, false));
 
-  /*      bannerView.setAdapter(new BannerAdapter() {
+        bannerView.setAdapter(new BannerAdapter() {
             @Override
             public View getView(int position, View convertView) {
                 if (convertView == null) {
                     convertView = new ImageView(HeaderFooterActivity.this);
                 }
-                ImageView imageView= (ImageView) convertView;
+                ImageView imageView = (ImageView) convertView;
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-                Glide.with(HeaderFooterActivity.this).load(banners.get(position).banner_url.url_list.get(0).url).into(imageView);
-               return imageView;
+                Glide.with(HeaderFooterActivity.this).load(mBannerPaths[position]).into(imageView);
+                return imageView;
             }
 
             @Override
             public int getCount() {
-                return banners.size();
+                return mBannerPaths.length;
             }
 
             @Override
             public String getBannerText(int position) {
-                return banners.get(position).banner_url.title;
+                return mBannerText[position];
             }
-        });*/
+        });
 
-       mRecyclerView.addHeaderView(bannerView);
+        mRecyclerView.addHeaderView(bannerView);
     }
 
     /**
      * 显示列表数据
-     *
-     * @param categoryList
      */
     private void showListData(List<ChannelListResult.DataBean.CategoriesBean.CategoryListBean> categoryList) {
         mData = categoryList;
