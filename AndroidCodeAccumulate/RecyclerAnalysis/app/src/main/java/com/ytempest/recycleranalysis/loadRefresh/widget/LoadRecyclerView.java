@@ -45,8 +45,6 @@ public class LoadRecyclerView extends RefreshRecyclerView {
     private int mCurrentLoadStatus = LOAD_STATUS_NORMAL;
 
     private OnLoadMoreListener mLoadMoreListener;
-    private String TAG = "AAAAAAAAAAAAAAAAAA";
-
 
     public LoadRecyclerView(Context context) {
         super(context);
@@ -140,7 +138,6 @@ public class LoadRecyclerView extends RefreshRecyclerView {
         if (bottomMargin < mLoadViewHeight) {
             bottomMargin = mLoadViewHeight;
         }
-        Log.e(TAG, "setLoadViewBottomMargin: bottomMargin-- > " + bottomMargin);
         params.bottomMargin = bottomMargin;
         mLoadView.setLayoutParams(params);
     }

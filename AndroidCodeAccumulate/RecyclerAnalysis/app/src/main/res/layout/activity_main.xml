@@ -30,4 +30,10 @@
         android:layout_height="wrap_content"
         android:text="下拉刷新和下拉刷新" />
 
+    <Button
+        android:id="@+id/bt_drag_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="条目滑动删除" />
+
 </LinearLayout>

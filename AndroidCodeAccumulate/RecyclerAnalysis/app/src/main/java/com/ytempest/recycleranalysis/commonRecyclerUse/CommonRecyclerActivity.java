@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.ytempest.recycleranalysis.R;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.MultiTypeSupport;
-import com.ytempest.recycleranalysis.division.DividerItemDecoration;
+import com.ytempest.recycleranalysis.divisionUse.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

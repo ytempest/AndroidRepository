@@ -1,4 +1,4 @@
-package com.ytempest.recycleranalysis.division;
+package com.ytempest.recycleranalysis.divisionUse;
 
 
 import android.content.Context;

@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ytempest.recycleranalysis.commonRecyclerUse.CommonRecyclerActivity;
-import com.ytempest.recycleranalysis.division.DivisionUseActivity;
+import com.ytempest.recycleranalysis.divisionUse.DivisionUseActivity;
 import com.ytempest.recycleranalysis.headerAndFooter.HeaderFooterActivity;
+import com.ytempest.recycleranalysis.itemDragUse.DragItemActivity;
 import com.ytempest.recycleranalysis.loadRefresh.RefreshLoadActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mCommonUse;
     private Button mHeaderFooter;
     private Button mRefresh;
+    private Button mDragItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, RefreshLoadActivity.class));
+            }
+        });
+
+
+        mDragItem = findViewById(R.id.bt_drag_item);
+        mDragItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DragItemActivity.class));
             }
         });
 

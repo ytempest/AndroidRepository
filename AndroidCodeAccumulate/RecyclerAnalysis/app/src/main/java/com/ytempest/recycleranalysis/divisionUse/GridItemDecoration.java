@@ -1,4 +1,4 @@
-package com.ytempest.recycleranalysis.division;
+package com.ytempest.recycleranalysis.divisionUse;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -16,7 +17,6 @@ import android.view.View;
  */
 public class GridItemDecoration extends RecyclerView.ItemDecoration {
 
-    private static final String TAG = "DividerGrid";
     /**
      * 默认分割线样式
      */

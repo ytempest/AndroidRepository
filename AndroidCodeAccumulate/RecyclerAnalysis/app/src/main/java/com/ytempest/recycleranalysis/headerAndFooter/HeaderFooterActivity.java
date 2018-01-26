@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.ytempest.recycleranalysis.R;
-import com.ytempest.recycleranalysis.division.GridItemDecoration;
+import com.ytempest.recycleranalysis.divisionUse.GridItemDecoration;
 import com.ytempest.recycleranalysis.headerAndFooter.data.ChannelListResult;
 import com.ytempest.widget.binnerview.BannerAdapter;
 import com.ytempest.widget.binnerview.BannerView;

@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#68f4e4"
-    tools:context="com.ytempest.recycleranalysis.division.DivisionUseActivity">
+    tools:context="com.ytempest.recycleranalysis.divisionUse.DivisionUseActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+        android:layout_height="match_parent" />
 
-    </LinearLayout>
+</LinearLayout>

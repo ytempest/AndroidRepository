@@ -1,4 +1,4 @@
-package com.ytempest.recycleranalysis.division;
+package com.ytempest.recycleranalysis.divisionUse;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,13 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ytempest.recycleranalysis.R;

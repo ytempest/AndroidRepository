@@ -1,4 +1,4 @@
-package com.ytempest.recycleranalysis.division;
+package com.ytempest.recycleranalysis.divisionUse;
 
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;

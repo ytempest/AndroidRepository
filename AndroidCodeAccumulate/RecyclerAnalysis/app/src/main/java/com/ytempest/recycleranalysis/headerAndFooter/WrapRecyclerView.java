@@ -1,6 +1,7 @@
 package com.ytempest.recycleranalysis.headerAndFooter;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -79,8 +80,16 @@ public class WrapRecyclerView extends RecyclerView {
         if (mLoadingView != null && mLoadingView.getVisibility() == View.VISIBLE) {
             mLoadingView.setVisibility(View.GONE);
         }
-
     }
+
+    /**
+     * 重写该方法，返回原Adapter，防止因为加了头部View和底部View导致列表条目的变化
+     */
+    @Override
+    public Adapter getAdapter() {
+        return mAdapter;
+    }
+
 
     /**
      * 添加头部View
@@ -134,6 +143,7 @@ public class WrapRecyclerView extends RecyclerView {
         mLoadingView.setVisibility(View.VISIBLE);
     }
 
+    private String TAG="WrapRecyclerView";
     /**
      * Adapter数据观察者，监测列表数据的变化
      */
@@ -175,7 +185,7 @@ public class WrapRecyclerView extends RecyclerView {
             if (mAdapter == null) {
                 return;
             }
-            if (mWrapRecyclerAdapter != null) {
+            if (mWrapRecyclerAdapter != mAdapter) {
                 mWrapRecyclerAdapter.notifyItemRangeChanged(positionStart, itemCount, payload);
             }
             dataChanged();
@@ -186,10 +196,10 @@ public class WrapRecyclerView extends RecyclerView {
          */
         @Override
         public void onItemRangeInserted(int positionStart, int itemCount) {
-            if (mAdapter != null) {
+            if (mAdapter == null) {
                 return;
             }
-            if (mWrapRecyclerAdapter != null) {
+            if (mWrapRecyclerAdapter != mAdapter) {
                 mWrapRecyclerAdapter.notifyItemRangeInserted(positionStart, itemCount);
             }
             dataChanged();
@@ -200,12 +210,13 @@ public class WrapRecyclerView extends RecyclerView {
          */
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
-            if (mAdapter != null) {
+            if (mAdapter == null) {
                 return;
             }
             if (mWrapRecyclerAdapter != mAdapter) {
                 mWrapRecyclerAdapter.notifyItemRangeRemoved(positionStart, itemCount);
             }
+
             dataChanged();
         }
 
@@ -231,7 +242,7 @@ public class WrapRecyclerView extends RecyclerView {
     @Override
     public void setLayoutManager(LayoutManager layout) {
         super.setLayoutManager(layout);
-        if (mWrapRecyclerAdapter!=null && layout instanceof GridLayoutManager) {
+        if (mWrapRecyclerAdapter != null && layout instanceof GridLayoutManager) {
             // 解决网格布局中头布View和底部View都不占用一行的问题
             mWrapRecyclerAdapter.adjustSpanSize(WrapRecyclerView.this);
         }
@@ -251,6 +262,13 @@ public class WrapRecyclerView extends RecyclerView {
             } else {
                 mEmptyView.setVisibility(View.GONE);
             }
+        }
+    }
+
+    public abstract class ItemDecoration extends RecyclerView.ItemDecoration {
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
+
         }
     }
 

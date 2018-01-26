@@ -18,10 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".division.DivisionUseActivity" />
+        <activity android:name=".divisionUse.DivisionUseActivity" />
         <activity android:name=".commonRecyclerUse.CommonRecyclerActivity" />
         <activity android:name=".headerAndFooter.HeaderFooterActivity"/>
         <activity android:name=".loadRefresh.RefreshLoadActivity"/>
+        <activity android:name=".itemDragUse.DragItemActivity" />
     </application>
 
 </manifest>

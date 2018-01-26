@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import com.ytempest.recycleranalysis.R;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.CommonRecyclerAdapter;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.CommonViewHolder;
-import com.ytempest.recycleranalysis.division.GridItemDecoration;
+import com.ytempest.recycleranalysis.divisionUse.GridItemDecoration;
 import com.ytempest.recycleranalysis.loadRefresh.widget.LoadRecyclerView;
 import com.ytempest.recycleranalysis.loadRefresh.widget.RefreshRecyclerView;
 
@@ -40,6 +40,7 @@ public class RefreshLoadActivity extends AppCompatActivity implements RefreshRec
         initView();
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+
         mRecyclerView.addItemDecoration(new GridItemDecoration(this));
 
         // 获取数据，然后将数据设置到Adapter中
