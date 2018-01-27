@@ -1,6 +1,7 @@
 package com.ytempest.framelibrary.http;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -26,14 +27,14 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- *
  * @author ytempest
- * Description: OkHttp默认的引擎
+ *         Description: OkHttp默认的引擎
  */
 public class OkHttpEngine implements IHttpEngine {
 
     private static final String TAG = "OkHttpEngine";
     private static OkHttpClient mOkHttpClient = new OkHttpClient();
+    private Handler mHandler = new Handler();
 
     @Override
     public void post(boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
@@ -90,15 +91,27 @@ public class OkHttpEngine implements IHttpEngine {
         Request request = requestBuilder.build();
 
         mOkHttpClient.newCall(request).enqueue(new Callback() {
+            /**
+             *  这个方法不是在主线程中执行的
+             */
             @Override
-            public void onFailure(Call call, IOException e) {
-                callBack.onError(e);
+            public void onFailure(Call call, final IOException e) {
+                // 提交给主线程处理
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onError(e);
+                    }
+                });
             }
 
+            /**
+             *  这个方法不是在主线程中执行的
+             */
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 // 3. 获取服务器返回的数据
-                String resultJson = response.body().string();
+                final String resultJson = response.body().string();
 
                 // 4. 判断是否需要缓存服务器返回的数据
                 if (cache) {
@@ -112,8 +125,15 @@ public class OkHttpEngine implements IHttpEngine {
                         }
                     }
                 }
-                // 5. 执行网络请求成功的方法
-                callBack.onSuccess(resultJson);
+                // 提交给主线程处理
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 5. 执行网络请求成功的方法
+                        callBack.onSuccess(resultJson);
+                    }
+                });
+
                 Log.e(TAG, "Get返回结果：" + resultJson);
                 if (cache) {
                     // 4.3 数据不一样，缓存服务器返回的数据
@@ -150,7 +170,7 @@ public class OkHttpEngine implements IHttpEngine {
                 } else if (value instanceof List) {
                     // 代表提交的是 List集合
                     try {
-                        List listFiles = (List)value;
+                        List listFiles = (List) value;
                         for (int i = 0; i < listFiles.size(); i++) {
                             // 获取文件
                             File file = (File) listFiles.get(i);
