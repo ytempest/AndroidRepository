@@ -2,10 +2,11 @@ package com.ytempest.framelibrary.navigation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ytempest.baselibrary.navigation.AbsNavigationBar;
+import com.ytempest.baselibrary.view.navigation.AbsNavigationBar;
 import com.ytempest.framelibrary.R;
 
 /**
@@ -34,6 +35,9 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         setOnClickListener(R.id.tv_right_text, getParams().mRightClickListener);
         setOnClickListener(R.id.ib_back, getParams().mLeftClickListener);
         setVisibility(R.id.ib_back, getParams().isLeftIconVisible);
+        setBackground(getParams().mBackgroundResId);
+        setTextColor(R.id.tv_title,getParams().mTitleColor);
+        setTextColor(R.id.tv_right_text, getParams().mRightTextColor);
     }
 
 
@@ -89,13 +93,30 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             return this;
         }
 
+        /**
+         * 设置背景颜色
+         */
+        public Builder setBackground(@DrawableRes int resId) {
+            P.mBackgroundResId = resId;
+            return this;
+        }
+
+        public Builder setTitleColor(@DrawableRes int colorId) {
+            P.mTitleColor = colorId;
+            return this;
+        }
+
+        public Builder setRightTextColor(@DrawableRes int colorId) {
+            P.mRightTextColor = colorId;
+            return this;
+        }
         @Override
         public DefaultNavigationBar build() {
             return new DefaultNavigationBar(P);
         }
 
 
-        public static class DefaultNavigationParams extends AbsNavigationBar.Builder.AbsNavigationParams {
+        public static class DefaultNavigationParams extends AbsNavigationParams {
 
             public String mTitle;
             public String mRightText;
@@ -108,6 +129,9 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
                 }
             };
             public int isLeftIconVisible = View.VISIBLE;
+            public int mBackgroundResId = R.color.navigation_bar_bg;
+            public int mTitleColor =R.color.navigation_title_color;
+            public int mRightTextColor = R.color.navigation_right_color;
 
 
             public DefaultNavigationParams(Context context, ViewGroup parent) {

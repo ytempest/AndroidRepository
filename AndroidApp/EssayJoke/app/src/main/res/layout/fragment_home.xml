@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <com.ytempest.baselibrary.indicator.TrackIndicatorView
+    <com.ytempest.baselibrary.view.indicator.TrackIndicatorView
         android:id="@+id/indicator_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

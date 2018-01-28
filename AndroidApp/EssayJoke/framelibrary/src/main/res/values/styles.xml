@@ -3,7 +3,6 @@
 
     <!-- 导航条的样式 -->
     <style name="navigation_bar_style">
-        <item name="android:background">@color/navigation_bar_bg</item>
         <item name="android:paddingLeft">0.0dp</item>
         <item name="android:paddingRight">0.0dp</item>
         <item name="android:layout_width">match_parent</item>

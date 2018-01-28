@@ -1,4 +1,4 @@
-package com.ytempest.baselibrary.navigation;
+package com.ytempest.baselibrary.view.navigation;
 
 /**
  * @author ytempest

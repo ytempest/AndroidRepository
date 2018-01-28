@@ -12,12 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ytempest.baselibrary.base.BaseFragment;
-import com.ytempest.baselibrary.dialog.AlertDialog;
-import com.ytempest.baselibrary.indicator.IndicatorAdapter;
-import com.ytempest.baselibrary.indicator.TrackIndicatorView;
 import com.ytempest.baselibrary.ioc.ViewById;
+
+import com.ytempest.baselibrary.view.dialog.AlertDialog;
+import com.ytempest.baselibrary.view.indicator.IndicatorAdapter;
+import com.ytempest.baselibrary.view.indicator.TrackIndicatorView;
 import com.ytempest.essayjoke.R;
 import com.ytempest.framelibrary.navigation.DefaultNavigationBar;
+
 
 /**
  * @author ytempest

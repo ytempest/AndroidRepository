@@ -1,7 +1,11 @@
-package com.ytempest.baselibrary.navigation;
+package com.ytempest.baselibrary.view.navigation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +68,26 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
      */
     public void setVisibility(int viewId, int visible) {
         findViewById(viewId).setVisibility(visible);
+    }
+
+    /**
+     * 设置背景颜色
+     */
+    public void setBackground(@DrawableRes int resid) {
+        mNavigationView.setBackgroundResource(resid);
+    }
+
+    /**
+     * 设置文字颜色
+     */
+    public void setTextColor(int viewId,  int colorId) {
+        int color;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            color = mNavigationView.getContext().getResources().getColor(colorId, null);
+        } else {
+            color = mNavigationView.getContext().getResources().getColor(colorId);
+        }
+        ((TextView)findViewById(viewId)).setTextColor(color);
     }
 
 

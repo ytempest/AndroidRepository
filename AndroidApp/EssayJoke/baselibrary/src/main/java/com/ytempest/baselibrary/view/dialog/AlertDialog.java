@@ -1,4 +1,4 @@
-package com.ytempest.baselibrary.dialog;
+package com.ytempest.baselibrary.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

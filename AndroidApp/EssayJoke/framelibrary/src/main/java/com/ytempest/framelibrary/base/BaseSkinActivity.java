@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * @author ytempest
- *         Description: 兼容换肤
+ *         Description: 兼容换肤，使用该类时要先在业务层自定义一个Application类，然后在其中初始化
  */
 public abstract class BaseSkinActivity extends BaseActivity implements LayoutInflaterFactory, ISkinChangeListener {
 

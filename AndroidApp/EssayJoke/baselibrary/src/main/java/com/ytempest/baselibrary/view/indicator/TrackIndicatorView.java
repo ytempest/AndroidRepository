@@ -1,4 +1,4 @@
-package com.ytempest.baselibrary.indicator;
+package com.ytempest.baselibrary.view.indicator;
 
 import android.content.Context;
 import android.content.res.TypedArray;

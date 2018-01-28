@@ -1,6 +1,7 @@
 package com.ytempest.essayjoke.fragment;
 
 import com.ytempest.baselibrary.base.BaseFragment;
+
 import com.ytempest.essayjoke.R;
 import com.ytempest.framelibrary.binnerview.BannerViewPager;
 
