@@ -36,4 +36,5 @@
         android:layout_height="wrap_content"
         android:text="条目滑动删除" />
 
+
 </LinearLayout>

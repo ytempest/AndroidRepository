@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 导航条的样式 -->
+    <style name="navigation_bar_style">
+        <item name="android:paddingLeft">0.0dp</item>
+        <item name="android:paddingRight">0.0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44.0dp</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <!-- 导航条标题的样式 -->
+    <style name="navigation_title_style">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/navigation_title_color</item>
+    </style>
+
+    <!-- 导航条右边文字的样式 -->
+    <style name="navigation_right_text_style">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/navigation_title_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingLeft">5.0dp</item>
+        <item name="android:paddingRight">5.0dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">0.0dp</item>
+        <item name="android:layout_marginRight">10.0dp</item>
+    </style>
+
+    <!-- 导航条后退view的样式 -->
+    <style name="navigation_back_view_style" parent="@style/navigation_right_text_style">
+        <item name="android:gravity">center</item>
+        <item name="android:src">@drawable/selector_dialog_back_view</item>
+        <item name="android:paddingLeft">0.0dp</item>
+        <item name="android:paddingRight">0.0dp</item>
+        <item name="android:layout_marginLeft">0.0dp</item>
+        <item name="android:layout_marginRight">0.0dp</item>
+        <item name="android:text">@null</item>
+        <item name="android:drawableLeft">@null</item>
+    </style>
+
+</resources>

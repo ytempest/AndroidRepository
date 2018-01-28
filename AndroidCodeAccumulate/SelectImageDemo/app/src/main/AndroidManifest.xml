@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ytempest.recycleranalysis">
+    package="com.ytempest.selectimagedemo">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,12 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".divisionUse.DivisionUseActivity" />
-        <activity android:name=".commonRecyclerUse.CommonRecyclerActivity" />
-        <activity android:name=".headerAndFooter.HeaderFooterActivity" />
-        <activity android:name=".loadRefresh.RefreshLoadActivity" />
-        <activity android:name=".itemDragUse.DragItemActivity" />
-        <activity android:name=".selectImage.SelectImageActivity"></activity>
+        <activity android:name=".imageSelect.ImageSelectActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
