@@ -18,7 +18,7 @@ import com.ytempest.baselibrary.view.dialog.AlertDialog;
 import com.ytempest.baselibrary.view.indicator.IndicatorAdapter;
 import com.ytempest.baselibrary.view.indicator.TrackIndicatorView;
 import com.ytempest.essayjoke.R;
-import com.ytempest.framelibrary.navigation.DefaultNavigationBar;
+import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 
 /**

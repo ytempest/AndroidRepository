@@ -1,4 +1,4 @@
-package com.ytempest.framelibrary.binnerview;
+package com.ytempest.framelibrary.view.binnerview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
