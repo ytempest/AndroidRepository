@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\AndroidRepository\\AndroidApp\\DroidPluginDemo\\DroidPlugin\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v14\\values-v14.xml",
+            "map": [
+                {
+                    "source": "D:\\AndroidRepository\\AndroidApp\\DroidPluginDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values-v14\\values-v14.xml",
+                    "from": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,246",
+                        "endLines": "4,7",
+                        "endColumns": "12,12",
+                        "endOffsets": "241,433"
+                    }
+                }
+            ]
+        }
+    ]
+}
