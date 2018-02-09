@@ -2,14 +2,13 @@ package com.ytempest.baselibrary.view.navigation;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -80,14 +79,14 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
     /**
      * 设置文字颜色
      */
-    public void setTextColor(int viewId,  int colorId) {
+    public void setTextColor(int viewId, int colorId) {
         int color;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             color = mNavigationView.getContext().getResources().getColor(colorId, null);
         } else {
             color = mNavigationView.getContext().getResources().getColor(colorId);
         }
-        ((TextView)findViewById(viewId)).setTextColor(color);
+        ((TextView) findViewById(viewId)).setTextColor(color);
     }
 
 
@@ -101,11 +100,24 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
     private void createAndBindView() {
 
         if (mParams.mParent == null) {
-            // 获取activity的根布局
-            ViewGroup activityRoot = (ViewGroup) ((Activity) (mParams.mContext))
+            // 设置导航条在顶部的两个方法
+            // 方法一：这种方法可能会导致在Android4.4版本实现沉浸式状态栏时会出现问题，故不再采用这种方式
+          /*  ViewGroup activityRoot = (ViewGroup) ((Activity) (mParams.mContext))
                     .getWindow().getDecorView();
-            mParams.mParent = (ViewGroup) activityRoot.getChildAt(0);
+            mParams.mParent = (ViewGroup) activityRoot.getChildAt(0);*/
+
+            // 方法二：通过给Activity的布局增加一层LinearLayout布局实现
+            // 获取Activity的根布局
+            ViewGroup androidContainer = (ViewGroup) ((Activity) (mParams.mContext)).findViewById(android.R.id.content);
+            // 获取Activity的布局，也就是setContentView设置的布局
+            ViewGroup originView = (ViewGroup) androidContainer.getChildAt(0);
+            androidContainer.removeViewAt(0);
+            // 给原布局加上一层LinearLayout
+            LinearLayout wrapperView = wrapperContentView(originView);
+            androidContainer.addView(wrapperView, 0);
+            mParams.mParent = wrapperView;
         }
+
 
         if (mParams.mParent == null) {
             return;
@@ -119,6 +131,19 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
         mParams.mParent.addView(mNavigationView, 0);
         // 让子类添加navigation的业务功能
         applyView();
+    }
+
+    /**
+     * 给 originView添加一层LinearLayout
+     */
+    private LinearLayout wrapperContentView(ViewGroup originView) {
+        LinearLayout wrapperView = new LinearLayout(mParams.mContext);
+        wrapperView.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.
+                LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        wrapperView.addView(originView, param);
+        return wrapperView;
     }
 
 
