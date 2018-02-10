@@ -10,11 +10,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        ndk{
-            moduleName "compressimage"
-            abiFilters 'armeabi','armeabi-v7a'
-        }
-
     }
     buildTypes {
         release {

@@ -16,8 +16,8 @@
 //统一编译方式
 extern "C" {
 #include "jpeg/jpeglib.h"
-#include "jpeg/cdjpeg.h"        /* Common decls for cjpeg/djpeg applications */
-#include "jpeg/jversion.h"        /* for version message */
+#include "jpeg/cdjpeg.h"
+#include "jpeg/jversion.h"
 #include "jpeg/jconfig.h"
 }
 
@@ -59,6 +59,7 @@ int generateJPEG(BYTE *data, int w, int h, int quality,
 
     //当读完整个文件的时候就会回调my_error_exit这个退出方法。
     struct my_error_mgr jem;
+
     jcs.err = jpeg_std_error(&jem.pub);
     jem.pub.error_exit = my_error_exit;
     // setjmp是一个系统级函数，是一个回调。
