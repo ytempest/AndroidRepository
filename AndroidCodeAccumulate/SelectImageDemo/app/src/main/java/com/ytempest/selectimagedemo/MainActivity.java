@@ -7,8 +7,6 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 
 import com.ytempest.selectimagedemo.imageSelect.ImageSelectActivity;
@@ -43,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
             // 一般后台会规定尺寸  800  小米 规定了宽度 720
             // 上传的时候可能会多张 for循环 最好用线程池 （2-3）
             Log.e(TAG, "selectImage: path --> " + path);
-            Bitmap bitmap = ImageUtil.decodeFile(path);
+            Bitmap bitmap = ImageUtils.decodeFile(path);
             String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
                     new File(path).getName();
             // 调用写好的native方法
             // 用Bitmap.compress压缩1/10
-            ImageUtil.compressBitmap(bitmap, 75, fileName);
+            ImageUtils.compressBitmap(bitmap, 75, fileName);
         }
     }
 
