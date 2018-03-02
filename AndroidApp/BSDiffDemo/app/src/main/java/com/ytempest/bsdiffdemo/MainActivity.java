@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ///5、安装新版本的Apk
+        // 5、安装新版本的Apk
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(new File(mNewApkPath)),
                 "application/vnd.android.package-archive");
