@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 
 import com.ytempest.baselibrary.R;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -95,6 +98,10 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
      * @param smoothScroll 是否平滑移动
      */
     public void setAdapter(IndicatorAdapter adapter, ViewPager viewPager, boolean smoothScroll) {
+        if (adapter == null) {
+            throw new NullPointerException("indicatorAdapter is null!");
+        }
+
         if (viewPager == null) {
             throw new NullPointerException("ViewPager is null!");
         }
@@ -109,9 +116,6 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
      * 设置一个适配器
      */
     public void setAdapter(IndicatorAdapter adapter) {
-        if (adapter == null) {
-            throw new NullPointerException("indicatorAdapter is null!");
-        }
 
         this.mIndicatorAdapter = adapter;
 
@@ -187,7 +191,8 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mIsExecuteScroll) {
-            // 滑动的时候会不断的调用
+            Log.e(TAG, "onPageScrolled: position --> " + position + "  || positionOffset -->" + positionOffset);
+            // 滑动时不断改变指示器的位置
             scrollCurrentIndicator(position, positionOffset);
             mIndicatorGroup.scrollBottomTrack(position, positionOffset);
             // 如果是点击就不要执行onPageScrolled这个方法
@@ -202,6 +207,7 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
      */
     @Override
     public void onPageSelected(int position) {
+        Log.e(TAG, "onPageSelected: position --> " + position);
         // 上一个位置的 ViewPager 重置，将当前位置点亮，
         mIndicatorAdapter.restoreIndicator(mIndicatorGroup.getItemAt(mCurrentPosition));
         // 记录当前ViewPager的位置
@@ -212,6 +218,7 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        Log.e(TAG, "onPageScrollStateChanged: state --> " + state);
         if (state == ViewPager.SCROLL_STATE_DRAGGING) {
             mIsExecuteScroll = true;
         }
