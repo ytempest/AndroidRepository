@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 
 import com.ytempest.baselibrary.R;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -95,6 +98,10 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
      * @param smoothScroll 是否平滑移动
      */
     public void setAdapter(IndicatorAdapter adapter, ViewPager viewPager, boolean smoothScroll) {
+        if (adapter == null) {
+            throw new NullPointerException("indicatorAdapter is null!");
+        }
+
         if (viewPager == null) {
             throw new NullPointerException("ViewPager is null!");
         }
@@ -108,10 +115,7 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
     /**
      * 设置一个适配器
      */
-    public void setAdapter(IndicatorAdapter adapter) {
-        if (adapter == null) {
-            throw new NullPointerException("indicatorAdapter is null!");
-        }
+    private void setAdapter(IndicatorAdapter adapter) {
 
         this.mIndicatorAdapter = adapter;
 
@@ -129,7 +133,7 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
 
         // 点击或者切换的时候改变状态 默认点亮第一个位置，把第一个位置
         // 的View传递过去，让实现 IndicatorAdapter的子类实现对view 的点亮（颜色的设置）
-        mIndicatorAdapter.highLightIndicator(mIndicatorGroup.getItemAt(0));
+        mIndicatorAdapter.highLightIndicator(mIndicatorGroup.getItemAt(0), 1);
     }
 
     /**
@@ -187,8 +191,13 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mIsExecuteScroll) {
-            // 滑动的时候会不断的调用
+            // 滑动时不断改变指示器的位置
             scrollCurrentIndicator(position, positionOffset);
+            if (position + 1 < mIndicatorAdapter.getCount()) {
+                // 滑动的时候不断改变条目的状态
+                mIndicatorAdapter.highLightIndicator(mIndicatorGroup.getItemAt(position + 1), positionOffset);
+                mIndicatorAdapter.restoreIndicator(mIndicatorGroup.getItemAt(position), positionOffset);
+            }
             mIndicatorGroup.scrollBottomTrack(position, positionOffset);
             // 如果是点击就不要执行onPageScrolled这个方法
         }
@@ -203,20 +212,18 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
     @Override
     public void onPageSelected(int position) {
         // 上一个位置的 ViewPager 重置，将当前位置点亮，
-        mIndicatorAdapter.restoreIndicator(mIndicatorGroup.getItemAt(mCurrentPosition));
+        mIndicatorAdapter.restoreIndicator(mIndicatorGroup.getItemAt(mCurrentPosition), 1);
         // 记录当前ViewPager的位置
         mCurrentPosition = position;
         // 将当前位置的ViewPager点亮
-        mIndicatorAdapter.highLightIndicator(mIndicatorGroup.getItemAt(mCurrentPosition));
+        mIndicatorAdapter.highLightIndicator(mIndicatorGroup.getItemAt(mCurrentPosition), 1);
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
         if (state == ViewPager.SCROLL_STATE_DRAGGING) {
             mIsExecuteScroll = true;
-        }
-
-        if (state == ViewPager.SCROLL_STATE_IDLE) {
+        } else if (state == ViewPager.SCROLL_STATE_IDLE) {
             mIsExecuteScroll = false;
         }
     }

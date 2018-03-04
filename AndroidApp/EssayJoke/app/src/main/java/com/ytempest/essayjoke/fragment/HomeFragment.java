@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.ytempest.baselibrary.base.BaseFragment;
 import com.ytempest.baselibrary.ioc.ViewById;
 
 import com.ytempest.baselibrary.view.dialog.AlertDialog;
+import com.ytempest.baselibrary.view.indicator.item.ColorTrackTextView;
 import com.ytempest.baselibrary.view.indicator.IndicatorAdapter;
 import com.ytempest.baselibrary.view.indicator.TrackIndicatorView;
 import com.ytempest.essayjoke.R;
@@ -27,7 +27,7 @@ import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
  */
 public class HomeFragment extends BaseFragment {
 
-    private String[] items = {"直播", "推荐", "视频", "图片", "段子", "精华","同城","游戏"};
+    private String[] items = {"直播", "推荐", "视频", "图片", "段子", "精华", "同城", "游戏"};
     @ViewById(R.id.indicator_view)
     private TrackIndicatorView mIndicatorContainer;
     @ViewById(R.id.view_pager)
@@ -42,7 +42,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        DefaultNavigationBar navigationBar = new DefaultNavigationBar.Builder(context,mRootView)
+        DefaultNavigationBar navigationBar = new DefaultNavigationBar.Builder(context, mRootView)
                 .setTitle("首页")
                 .setRightText("测试")
                 .setRightClickListener(new View.OnClickListener() {
@@ -101,26 +101,28 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public View getView(int position, ViewGroup parent) {
-                TextView textView = new TextView(context);
-                textView.setTextSize(15);
+                ColorTrackTextView textView = new ColorTrackTextView(context);
+                textView.setTextSize(16);
                 textView.setGravity(Gravity.CENTER);
                 textView.setText(items[position]);
-                textView.setTextColor(Color.BLACK);
+                textView.setChangeColor(Color.RED);
                 int padding = 20;
                 textView.setPadding(padding, padding, padding, padding);
                 return textView;
             }
 
             @Override
-            public void highLightIndicator(View view) {
-                TextView textView = (TextView) view;
-                textView.setTextColor(Color.RED);
+            public void highLightIndicator(View view, float positionOffset) {
+                ColorTrackTextView right = (ColorTrackTextView) view;
+                right.setDirection(ColorTrackTextView.Direction.LEFT_TO_RIGHT);
+                right.setCurrentProgress(positionOffset);
             }
 
             @Override
-            public void restoreIndicator(View view) {
-                TextView textView = (TextView) view;
-                textView.setTextColor(Color.BLACK);
+            public void restoreIndicator(View view, float positionOffset) {
+                ColorTrackTextView left = (ColorTrackTextView) view;
+                left.setDirection(ColorTrackTextView.Direction.RIGHT_TO_LEFT);
+                left.setCurrentProgress(1 - positionOffset);
             }
 
             @Override
