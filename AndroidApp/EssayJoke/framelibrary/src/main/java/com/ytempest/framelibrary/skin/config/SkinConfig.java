@@ -2,7 +2,7 @@ package com.ytempest.framelibrary.skin.config;
 
 /**
  * @author ytempest
- *         Description: SkinPreUtils类的配置类
+ *         Description: 皮肤资源的配置类，用于标识换肤路径，以及表示获取皮肤出现的问题
  */
 public class SkinConfig {
     /**
@@ -10,23 +10,23 @@ public class SkinConfig {
      */
     public static final String SKIN_INFO_NAME = "skinInfo";
     /**
-     * 皮肤的路径
+     * 标识皮肤的路径
      */
     public static final String SKIN_PATH_NAME = "skinPath";
-    /**
-     * 表示没有皮肤
-     */
-    public static final int SKIN_LOADED = -1;
     /**
      * 表示换肤成功
      */
     public static final int SKIN_LOADED_SUCCESS = 1;
     /**
-     * 皮肤文件不存在
+     * 表示当前app中没有该皮肤
      */
-    public static final int SKIN_FILE_NOEXIST = -2;
+    public static final int SKIN_NOTEXIST = -1;
     /**
-     * 获取皮肤文件包名失败，皮肤文件不是一个apk
+     * 表示资源包中的皮肤文件不存在
+     */
+    public static final int SKIN_FILE_NOTEXIST = -2;
+    /**
+     * 表示皮肤文件不是一个apk
      */
     public static final int SKIN_FILE_ERROR = -3;
 }

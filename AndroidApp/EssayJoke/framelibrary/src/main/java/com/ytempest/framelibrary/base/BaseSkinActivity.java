@@ -29,7 +29,8 @@ import java.util.List;
 
 /**
  * @author ytempest
- *         Description: 兼容换肤，使用该类时要先在业务层自定义一个Application类，然后在其中初始化
+ *         Description: 拦截当前Activity的所有View，然后把每一个View需要换肤的属性集合保存起来，并判断是否要换肤
+ *         使用该类时要先在业务层自定义一个Application类，然后在其中初始化
  */
 public abstract class BaseSkinActivity extends BaseActivity implements LayoutInflaterFactory, ISkinChangeListener {
 
@@ -59,7 +60,7 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
      * @param name    View的名称
      * @param context 上下文
      * @param attrs   View的属性集
-     * @return
+     * @return 一个由V7包创建的View，如果有皮肤资源则该View同时已经换肤
      */
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
@@ -86,8 +87,6 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
 
     /**
      * 将 SkinView添加到 SkinManager中需要换肤的View集合中，由 SkinManager统一管理
-     *
-     * @param skinView
      */
     private void managerSkinView(SkinView skinView) {
         // 获取当前的 this 指向的 Activity下的所有需要换肤的View
@@ -104,12 +103,6 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
 
     /**
      * 创建V7包兼容的View
-     *
-     * @param parent
-     * @param name
-     * @param context
-     * @param attrs
-     * @return
      */
     public View createView(View parent, final String name, @NonNull Context context,
                            @NonNull AttributeSet attrs) {
@@ -144,6 +137,11 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
         }
     }
 
+    /**
+     * 如果子类Activity有自定义View，则要重写该方法，自己实现自定义View的换肤
+     *
+     * @param skinResource 皮肤包的资源
+     */
     @Override
     public void changeSkin(SkinResource skinResource) {
     }

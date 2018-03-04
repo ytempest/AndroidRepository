@@ -46,7 +46,8 @@ public enum SkinType {
                 view.setBackgroundColor(color.getDefaultColor());
             }
         }
-    }, SRC("src") {
+    },
+    SRC("src") {
         @Override
         public void changeSkin(View view, String resName) {
             SkinResource skinResource = getSkinResource();
@@ -58,7 +59,6 @@ public enum SkinType {
         }
     };
 
-    private static final String TAG = "SkinType";
     /**
      * 会根据名字调对应的方法
      */

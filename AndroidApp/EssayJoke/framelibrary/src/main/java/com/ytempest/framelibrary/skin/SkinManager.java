@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.ytempest.framelibrary.skin.attr.SkinView;
 import com.ytempest.framelibrary.skin.callback.ISkinChangeListener;
 import com.ytempest.framelibrary.skin.config.SkinConfig;
-import com.ytempest.framelibrary.skin.config.SkinPreUtils;
+import com.ytempest.framelibrary.skin.config.SkinUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * @author ytempest
- *         Description: 皮肤管理类
+ *         Description: 皮肤管理类；负责管理每一个Activity下所有需要换肤的View，提供加载新皮肤以及恢复默认皮肤的功能
  */
 public class SkinManager {
 
@@ -69,14 +69,12 @@ public class SkinManager {
 
     /**
      * 恢复默认皮肤
-     *
-     * @return
      */
     public int restoreDefault() {
         // 1. 判断有没有皮肤，如果没有皮肤则返回
         String curSkinPath = getSkinPath();
         if (TextUtils.isEmpty(curSkinPath)) {
-            return SkinConfig.SKIN_LOADED;
+            return SkinConfig.SKIN_NOTEXIST;
         }
 
         // 2. 获取当前运行 apk 的包路径
@@ -99,13 +97,12 @@ public class SkinManager {
      * 加载并更换皮肤
      *
      * @param skinPath 皮肤的路径
-     * @return
      */
     public int loadSkin(String skinPath) {
 
         // 1. 判断皮肤文件是否存在
         if (!existSkinFile(skinPath)) {
-            return SkinConfig.SKIN_FILE_NOEXIST;
+            return SkinConfig.SKIN_FILE_NOTEXIST;
         }
 
         // 2. 判断是否能获取皮肤文件的包名
@@ -139,16 +136,11 @@ public class SkinManager {
 
     private boolean existSkinFile(String skinPath) {
         File skinFile = new File(skinPath);
-        if (!skinFile.exists()) {
-            return false;
-        }
-        return true;
+        return skinFile.exists();
     }
 
     /**
      * 初始化指定包名的皮肤资源管理类
-     *
-     * @param curSkinPath
      */
     private void initSkinResource(String curSkinPath) {
         mSkinResource = new SkinResource(mContext, curSkinPath);
@@ -175,8 +167,7 @@ public class SkinManager {
     /**
      * 通过 activity 获取 skinView
      *
-     * @param skinChangeListener
-     * @return
+     * @return 当前Activity下所有需要换肤的View
      */
     public List<SkinView> getSkinViews(ISkinChangeListener skinChangeListener) {
         return mSkinViews.get(skinChangeListener);
@@ -184,9 +175,6 @@ public class SkinManager {
 
     /**
      * 如果该 Activity还没有初始化，那就先注册
-     *
-     * @param skinChangeListener
-     * @param skinViews
      */
     public void register(ISkinChangeListener skinChangeListener, List<SkinView> skinViews) {
         mSkinViews.put(skinChangeListener, skinViews);
@@ -194,8 +182,6 @@ public class SkinManager {
 
     /**
      * 获取当前皮肤资源类
-     *
-     * @return
      */
     public SkinResource getSkinResource() {
         return mSkinResource;
@@ -222,15 +208,15 @@ public class SkinManager {
 
     private void saveSkinStatus(String skinPath) {
         // 不使用之前的数据库是不想让一个框架嵌套另外一个框架
-        SkinPreUtils.getInstance(mContext).saveSkinPath(skinPath);
+        SkinUtils.getInstance(mContext).saveSkinPath(skinPath);
     }
 
     private String getSkinPath() {
-        return SkinPreUtils.getInstance(mContext).getSkinPath();
+        return SkinUtils.getInstance(mContext).getSkinPath();
     }
 
     private void clearSkinInfo() {
-        SkinPreUtils.getInstance(mContext).clearSkinInfo();
+        SkinUtils.getInstance(mContext).clearSkinInfo();
     }
 
     /**

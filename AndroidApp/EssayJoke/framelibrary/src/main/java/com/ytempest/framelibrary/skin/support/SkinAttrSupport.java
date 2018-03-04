@@ -15,11 +15,10 @@ import java.util.List;
 
 /**
  * @author ytempest
- *         Description:
+ *         Description: 换肤获取资源的支持类，
+ *         提供获取一个View换肤需要的属性集合的方法
  */
 public class SkinAttrSupport {
-
-    private static final String TAG = "SkinAttrSupport";
 
     /**
      * 从 attrs 获取换肤需要的属性

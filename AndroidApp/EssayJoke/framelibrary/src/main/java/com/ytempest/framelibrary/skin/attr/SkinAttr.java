@@ -4,17 +4,18 @@ import android.view.View;
 
 /**
  * @author ytempest
- *         Description: 需要换肤的每一个属性
+ *         Description: 每一个SkinAttr保存着一个属性名以及其引用的资源名；
+ *         如src="@drawable/iv_photo" ，属性名：src，资源名：iv_photo
  */
 public class SkinAttr {
     /**
-     * 资源名，如：src="@drawable/iv_photo" 中的 iv_photo
-     */
-    private String mResName;
-    /**
-     * 属性名，如：src
+     * 属性名
      */
     private SkinType mSkinType;
+    /**
+     * 资源名
+     */
+    private String mResName;
 
     public SkinAttr(String resName, SkinType skinType) {
         this.mResName = resName;

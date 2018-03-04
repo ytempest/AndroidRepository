@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author ytempest
- *         Description: 对要换肤的一个 View 进行换肤
+ *         Description: 保存着需要换肤的View以及它的所有需要换肤的属性，在需要换肤的时候能实现对这个View实现换肤
  */
 public class SkinView {
     /**

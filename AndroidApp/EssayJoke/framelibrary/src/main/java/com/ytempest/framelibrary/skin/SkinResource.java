@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -41,7 +42,13 @@ public class SkinResource {
             // 获取 skinPath 皮肤包名
             mPackageName = context.getPackageManager()
                     .getPackageArchiveInfo(skinPath, PackageManager.GET_ACTIVITIES).packageName;
-        } catch (Exception e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
     }
