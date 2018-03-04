@@ -19,16 +19,22 @@ public abstract class IndicatorAdapter<T extends View> {
     public abstract T getView(int position, ViewGroup parent);
 
     /**
-     * 高亮当前位置
+     * 高亮当前位置的状态
+     *
+     * @param view           当前位置的View
+     * @param positionOffset 状态改变的度量，范围为 0 - 1
      */
-    public void highLightIndicator(T view) {
+    public void highLightIndicator(T view, float positionOffset) {
 
     }
 
     /**
-     * 重置当前位置
+     * 重置当前位置的状态
+     *
+     * @param view           当前位置的View
+     * @param positionOffset 状态改变的度量，范围为 0 - 1
      */
-    public void restoreIndicator(T view) {
+    public void restoreIndicator(T view, float positionOffset) {
 
     }
 
