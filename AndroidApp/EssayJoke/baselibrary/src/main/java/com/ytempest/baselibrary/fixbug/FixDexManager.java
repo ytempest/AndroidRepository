@@ -3,7 +3,7 @@ package com.ytempest.baselibrary.fixbug;
 import android.content.Context;
 import android.util.Log;
 
-import com.ytempest.baselibrary.util.FileUtil;
+import com.ytempest.baselibrary.util.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -56,7 +56,7 @@ public class FixDexManager {
         }
 
         // 将srcFile 复制到 destFile
-        FileUtil.copyFile(srcFile, destFile);
+        FileUtils.copyFile(srcFile, destFile);
 
         // ClassLoader读取fixDex路径
         // 为什么加入到集合，因为程序一启动 loadFixDex方法就要修复bug
