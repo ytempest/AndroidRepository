@@ -27,8 +27,8 @@ public class FixDexManager {
     private File mDexDir;
 
     public FixDexManager(Context context) {
-        this.mContext = context;
-        // 获取应用可以访问的dex目录
+        this.mContext = context.getApplicationContext();
+        // 获取应用可以访问的dex目录，如果没有则会自动创建
         this.mDexDir = context.getDir("dexdir", Context.MODE_PRIVATE);
     }
 
@@ -36,7 +36,7 @@ public class FixDexManager {
     /**
      * 对外接口方法，修复dex包
      *
-     * @param fixDexPath
+     * @param fixDexPath 修复包所在的路径
      */
     public void fixDex(String fixDexPath) throws Exception {
         // 获取下载好的补丁的 dexElement
@@ -66,52 +66,11 @@ public class FixDexManager {
         fixDexFiles(fixDexFileList);
     }
 
-    /**
-     * 把dexElements注入到classLoader中
-     *
-     * @param classLoader
-     * @param dexElements
-     */
-    private void injectDexElements(ClassLoader classLoader, Object dexElements) throws Exception {
-        // 1. 先获取 pathList
-        Field pathListField = BaseDexClassLoader.class.getDeclaredField("pathList");
-        pathListField.setAccessible(true);
-        Object pathList = pathListField.get(classLoader);
-
-        // 2. 获取 pathList里面的dexElements
-        Field dexElementsField = pathList.getClass().getDeclaredField("dexElements");
-        dexElementsField.setAccessible(true);
-
-        dexElementsField.set(pathList, dexElements);
-    }
-
 
     /**
-     * 通过反射合并两个数组，这样就可以忽略数组的类型就行合并
+     * 从指定的classLoader类加载器中获取 该类加载器中相应的dexElements
      *
-     * @param arrayLhs
-     * @param arrayRhs
-     * @return 合并好的数组
-     */
-    private static Object combineArray(Object arrayLhs, Object arrayRhs) {
-        Class<?> localClass = arrayLhs.getClass().getComponentType();
-        int i = Array.getLength(arrayLhs);
-        int j = i + Array.getLength(arrayRhs);
-        Object result = Array.newInstance(localClass, j);
-        for (int k = 0; k < j; ++k) {
-            if (k < i) {
-                Array.set(result, k, Array.get(arrayLhs, k));
-            } else {
-                Array.set(result, k, Array.get(arrayRhs, k - i));
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 从指定的classLoader类加载器中中获取 该类加载器中相应的dexElements
-     *
-     * @param classLoader
+     * @param classLoader app的ClassLoader 或者 修复包中的 ClassLoader
      * @return dexElements
      */
     private Object getDexElementsByClassLoader(ClassLoader classLoader) throws Exception {
@@ -149,10 +108,10 @@ public class FixDexManager {
     /**
      * 通过将每一个修复了bug的dex文件插到没有修复bug的dex文件前面来进行热修复
      *
-     * @param fixDexFileList
+     * @param fixDexFileList 所有的修复包
      */
     private void fixDexFiles(List<File> fixDexFileList) throws Exception {
-        // 1. 先获取已经运行的含有 bug的 dexElement
+        // 1、先获取已经运行的含有 bug的 dexElement
         ClassLoader applicationClassLoader = mContext.getClassLoader();
 
         Object applicationDexElements = getDexElementsByClassLoader(applicationClassLoader);
@@ -184,17 +143,58 @@ public class FixDexManager {
                     applicationClassLoader
             );
 
-            // 获取下载的解决了 bug的 dexElement
+            // 2、获取dex包中解决了 bug的 dexElement
             Object fixDexElements = getDexElementsByClassLoader(fixDexClassLoader);
 
-            // 3.1 把补丁的dexElement 插到 已经运行的 dexElement 的最前面，合并applicationDexElements
+            // 3、把补丁的dexElement 插到已经运行的 dexElement 的最前面，合并applicationDexElements
             // 数组 合并 fixDexElements 数组，合并好的数组放在applicationDexElements
             applicationDexElements = combineArray(fixDexElements, applicationDexElements);
         }
 
-        // 3.2 把合并的数组注入到原来的 applicationClassLoader类加载器中，这样
+        // /4、把合并的数组注入到原来的 applicationClassLoader类加载器中，这样
         // 程序运行的时候就会自动加载 修复了bug的dex文件而不会加载有bug的文件
         injectDexElements(applicationClassLoader, applicationDexElements);
+    }
+
+    /**
+     * 通过反射合并两个数组，这样就可以忽略数组的类型就行合并
+     *
+     * @param arrayLhs
+     * @param arrayRhs
+     * @return 合并好的数组
+     */
+    private static Object combineArray(Object arrayLhs, Object arrayRhs) {
+        Class<?> localClass = arrayLhs.getClass().getComponentType();
+        int i = Array.getLength(arrayLhs);
+        int j = i + Array.getLength(arrayRhs);
+        Object result = Array.newInstance(localClass, j);
+        for (int k = 0; k < j; ++k) {
+            if (k < i) {
+                Array.set(result, k, Array.get(arrayLhs, k));
+            } else {
+                Array.set(result, k, Array.get(arrayRhs, k - i));
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 把dexElements注入到app中的classLoader中
+     *
+     * @param classLoader
+     * @param dexElements
+     */
+    private void injectDexElements(ClassLoader classLoader, Object dexElements) throws Exception {
+        // 1. 先获取 pathList
+        Field pathListField = BaseDexClassLoader.class.getDeclaredField("pathList");
+        pathListField.setAccessible(true);
+        Object pathList = pathListField.get(classLoader);
+
+        // 2. 获取 pathList里面的dexElements
+        Field dexElementsField = pathList.getClass().getDeclaredField("dexElements");
+        dexElementsField.setAccessible(true);
+
+        dexElementsField.set(pathList, dexElements);
     }
 
 }

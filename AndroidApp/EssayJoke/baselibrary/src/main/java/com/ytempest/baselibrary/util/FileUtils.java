@@ -15,11 +15,10 @@ import java.nio.channels.FileChannel;
 public class FileUtils {
 
     /**
-     * copy src to dest
+     * 将 src文件复制到 dest 文件
      *
      * @param src  source file
      * @param dest target file
-     * @throws IOException
      */
     public static void copyFile(File src, File dest) throws IOException {
         FileChannel inChannel = null;
@@ -44,14 +43,14 @@ public class FileUtils {
     /**
      * 递归删除文件夹以及文件下的所有文件和文件夹
      *
-     * @param dir
+     * @param dir 要删除的文件夹
      */
     public static boolean deleteDir(File dir) {
         if (dir == null) {
             return false;
         }
         if (!dir.exists() || !dir.isDirectory()) {
-            return true;
+            return false;
         }
         for (File file : dir.listFiles()) {
             if (dir.isFile()) {
@@ -69,18 +68,16 @@ public class FileUtils {
      * @param dir
      */
     public static boolean deleteFileInDir(File dir) {
-        if (dir == null || !dir.isDirectory()) {
+        if (dir == null) {
             return false;
         }
-        if (!dir.exists()) {
-            return true;
+        if (!dir.exists() || !dir.isDirectory()) {
+            return false;
         }
         for (File file : dir.listFiles()) {
             if (dir.isFile()) {
-                Log.e("TAG", "deleteFileInDir: delete ;" + file.getName());
                 file.delete();
             } else {
-                Log.e("TAG", "deleteFileInDir: delete ;" + file.getName());
                 deleteDir(file);
             }
         }
