@@ -22,12 +22,14 @@ import java.util.Map;
 
 /**
  * @author ytempest
- * Description:  捕获全局异常的类，并记录异常日志（单线程）
+ *         Description:  捕获全局异常的类，并记录异常日志（单线程）
  */
 public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
     private static final String TAG = "ExceptionCrashHandler";
     private static final String CRASH_FILE_NAME = "crash_file_name";
-    /** 系统默认的全局异常类 */
+    /**
+     * 系统默认的全局异常类
+     */
     private static ExceptionCrashHandler mInstance = null;
     private Context mContext;
     private Thread.UncaughtExceptionHandler mDefaultExceptionHandler;
@@ -48,6 +50,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 初始化自己的异常捕获器
+     *
      * @param context 应用的上下文
      */
     public void init(Context context) {
@@ -59,9 +62,10 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     /**
-     * 当出现异常时，会调用此方法
-     * @param thread
-     * @param throwable
+     * 当出现异常时，会自动调用此方法
+     *
+     * @param thread    出错的线程
+     * @param throwable 出错的信息
      */
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
@@ -72,7 +76,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
         // 1. 崩溃的详细信息
         // 2. 应用信息 包名 版本号
         // 3. 手机信息
-        // 4.保存当前文件，等应用再次启动再上传，（上传文件不在这里处理）
+        // 4. 保存当前文件，等应用再次启动再上传，（上传文件不在这里处理）
 
 
         // 保存日志文件，然后获取该日志文件路径
@@ -88,6 +92,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 缓存崩溃的日志信息
+     *
      * @param fileName 缓存文件的绝对路径和名称
      */
     private void cacheCrashFile(String fileName) {
@@ -97,6 +102,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 对外开放，获取保存了日志信息的txt文件
+     *
      * @return 保存了异常日志的txt文件
      */
     public File getCrashFile() {
@@ -106,7 +112,8 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
 
     /**
-     *  将崩溃信息，崩溃时手机的信息，应用的信息保存到sd卡中（应用程序的内部存储器）
+     * 将崩溃信息，崩溃时手机的信息，应用的信息保存到sd卡中（应用程序的内部存储器）
+     *
      * @param throwable 崩溃时的throwable
      * @return 保存了异常日志的txt文件的绝对路径和名称
      */
@@ -115,7 +122,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
         String fileName = null;
         StringBuilder sb = new StringBuilder();
         // 获取 应用信息和手机信息
-        for (Map.Entry<String, String> entry : obtainSimpleInfo(mContext).entrySet()) {
+        for (Map.Entry<String, String> entry : obtainAppInfo(mContext).entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
             sb.append(key).append(" = ").append(value).append("\n");
@@ -132,7 +139,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
                 dir.mkdir();
             }
             try {
-                fileName = dir.toString() + File.separator + getAssignTime("yyyy_MM_dd_HH_mm") + ".txt";
+                fileName = dir.getAbsolutePath() + File.separator + getAssignTime("yyyy_MM_dd_HH_mm") + ".txt";
                 FileOutputStream fos = new FileOutputStream(fileName);
                 fos.write(sb.toString().getBytes());
                 fos.flush();
@@ -141,14 +148,14 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
                 e.printStackTrace();
             }
         }
-        Log.e(TAG, "saveInfoToSD: fileName = " + fileName);
+        Log.e(TAG, "saveInfoToSD: The exception crash file path is < " + fileName + " >");
         return fileName;
     }
 
 
-
     /**
      * 根据传入的字符串格式化时间
+     *
      * @param dateFormatStr 格式化的规范
      * @return 格式化后的时间
      */
@@ -159,12 +166,12 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     /**
-     * 获取手机信息，版本信息，保存到 haspMap 中
+     * 获取应用信息和手机信息，保存到 haspMap 中
      *
-     * @param context apk的上下文
+     * @param context app的上下文
      * @return 存储了相关信息的 haspMap
      */
-    private HashMap<String, String> obtainSimpleInfo(Context context) {
+    private HashMap<String, String> obtainAppInfo(Context context) {
         HashMap<String, String> hashMap = new HashMap<>();
         PackageManager manager = context.getPackageManager();
         try {
@@ -183,27 +190,29 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 获取手机信息
+     *
      * @return 包含手机信息的字符串
      */
     private String getMobileInfo() {
         StringBuilder sb = new StringBuilder();
         try {
-                Field[] fields = Build.class.getDeclaredFields();
-                for (Field field : fields) {
-                    field.setAccessible(true);
-                    String name = field.getName();
-                    String value = field.get(null).toString();
-                    sb.append(name).append(" = ").append(value);
-                    sb.append("\n");
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+            Field[] fields = Build.class.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                String name = field.getName();
+                String value = field.get(null).toString();
+                sb.append(name).append(" = ").append(value);
+                sb.append("\n");
             }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         return sb.toString();
     }
 
     /**
      * 获取尚未捕获的异常
+     *
      * @param throwable 出现异常时的throwable
      * @return 异常的字符串
      */
