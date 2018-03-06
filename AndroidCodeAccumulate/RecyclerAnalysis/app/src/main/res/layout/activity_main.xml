@@ -37,4 +37,10 @@
         android:text="条目滑动删除" />
 
 
+    <Button
+        android:id="@+id/bt_list_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="列表条目指示器" />
+
 </LinearLayout>

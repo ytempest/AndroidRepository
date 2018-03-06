@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.ytempest.recycleranalysis.ListIndicator.ListIndicatorActivity;
 import com.ytempest.recycleranalysis.commonRecyclerUse.CommonRecyclerActivity;
 import com.ytempest.recycleranalysis.divisionUse.DivisionUseActivity;
 import com.ytempest.recycleranalysis.headerAndFooter.HeaderFooterActivity;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mHeaderFooter;
     private Button mRefresh;
     private Button mDragItem;
+    private Button mListIndicator;
 
 
     @Override
@@ -64,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, DragItemActivity.class));
+            }
+        });
+
+        mListIndicator = findViewById(R.id.bt_list_indicator);
+        mListIndicator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ListIndicatorActivity.class));
             }
         });
 

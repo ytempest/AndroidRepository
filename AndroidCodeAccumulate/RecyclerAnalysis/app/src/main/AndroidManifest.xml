@@ -23,6 +23,7 @@
         <activity android:name=".headerAndFooter.HeaderFooterActivity" />
         <activity android:name=".loadRefresh.RefreshLoadActivity" />
         <activity android:name=".itemDragUse.DragItemActivity" />
+        <activity android:name=".ListIndicator.ListIndicatorActivity"></activity>
     </application>
 
 </manifest>
