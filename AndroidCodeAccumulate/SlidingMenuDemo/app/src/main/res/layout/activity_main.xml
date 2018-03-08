@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ytempest.slidingmenudemo.ui.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:menuRightMargin="55dp"
+    app:contentScale="0.8"
+    app:menuAlpha="0.7"
+    app:menuScale="0.8"
+    app:menuTranslationX="0.7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tween"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="AAAA"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="60sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light"
+            android:gravity="center"
+            android:text="BBBB"
+            android:textSize="60sp" />
+
+    </LinearLayout>
+
+</com.ytempest.slidingmenudemo.ui.SlidingMenu>

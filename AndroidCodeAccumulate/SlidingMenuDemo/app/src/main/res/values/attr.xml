@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlidingMenu">
+        <attr name="menuRightMargin" format="dimension|reference" />
+        <attr name="menuAlpha" format="float|reference" />
+        <attr name="menuScale" format="float|reference" />
+        <attr name="menuTranslationX" format="float|reference" />
+        <attr name="contentScale" format="float|reference" />
+    </declare-styleable>
+</resources>
