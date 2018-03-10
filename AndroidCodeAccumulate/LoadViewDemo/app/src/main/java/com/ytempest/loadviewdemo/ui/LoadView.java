@@ -26,8 +26,6 @@ public class LoadView extends LinearLayout {
      */
     public static long ANIMATOR_TIME = 400;
 
-    private Context mContext;
-
     private ShapeView mShapeView;
     private View mShadowView;
     /**
@@ -53,7 +51,7 @@ public class LoadView extends LinearLayout {
 
     public LoadView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mContext = context;
+
         // 把布局文件加载到本类中
         inflate(context, R.layout.ui_load_view, this);
 
