@@ -1,6 +1,7 @@
 package com.ytempest.baselibrary.view.dialog;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import java.lang.ref.WeakReference;
  *         Description: 负责管理Dialog的布局View，同时处理Dialog的内部view的功能,
  */
 class DialogViewHelper {
-
     /**
      * Dialog组件
      */
@@ -25,7 +25,8 @@ class DialogViewHelper {
 
     public DialogViewHelper(Context context, int layoutResId) {
         this();
-        mContentView = LayoutInflater.from(context).inflate(layoutResId, null);
+        // 使用context.getApplicationContext()上下文加载布局，以免使用context加载一些自定义布局的时候出错
+        mContentView = LayoutInflater.from(context.getApplicationContext()).inflate(layoutResId, null);
     }
 
     public DialogViewHelper() {
@@ -34,8 +35,6 @@ class DialogViewHelper {
 
     /**
      * 设置布局View
-     *
-     * @param contentView
      */
     public void setContentView(View contentView) {
         this.mContentView = contentView;
@@ -43,8 +42,6 @@ class DialogViewHelper {
 
     /**
      * 获取ContentView
-     *
-     * @return
      */
     public View getContentView() {
         return mContentView;
@@ -67,9 +64,6 @@ class DialogViewHelper {
 
     /**
      * 设置文本
-     *
-     * @param viewId
-     * @param text
      */
     public void setText(int viewId, CharSequence text) {
         // 每次都 findViewById   减少findViewById的次数
@@ -81,9 +75,6 @@ class DialogViewHelper {
 
     /**
      * 设置点击事件
-     *
-     * @param viewId
-     * @param listener
      */
     public void setOnclickListener(int viewId, View.OnClickListener listener) {
         View view = getView(viewId);

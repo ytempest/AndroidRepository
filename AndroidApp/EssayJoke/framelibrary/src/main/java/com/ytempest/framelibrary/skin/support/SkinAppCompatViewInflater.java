@@ -77,12 +77,12 @@ public class SkinAppCompatViewInflater {
         final Context originalContext = context;
 
         // We can emulate Lollipop's android:theme attribute propagating down the view hierarchy
-        // by using the parent's context
+        // by using the parent's mContext
         if (inheritContext && parent != null) {
             context = parent.getContext();
         }
         if (readAndroidTheme || readAppTheme) {
-            // We then apply the theme on the context, if specified
+            // We then apply the theme on the mContext, if specified
             context = themifyContext(context, attrs, readAndroidTheme, readAppTheme);
         }
         if (wrapContext) {
@@ -137,7 +137,7 @@ public class SkinAppCompatViewInflater {
         }
 
         if (view == null) {
-            // If the original context does not equal our themed context, then we need to manually
+            // If the original mContext does not equal our themed mContext, then we need to manually
             // inflate it using the name so that android:theme takes effect.
             view = createViewFromTag(context, name, attrs);
         }
@@ -175,7 +175,7 @@ public class SkinAppCompatViewInflater {
             // try
             return null;
         } finally {
-            // Don't retain references on context.
+            // Don't retain references on mContext.
             mConstructorArgs[0] = null;
             mConstructorArgs[1] = null;
         }
@@ -247,7 +247,7 @@ public class SkinAppCompatViewInflater {
 
         if (themeId != 0 && (!(context instanceof ContextThemeWrapper)
                 || ((ContextThemeWrapper) context).getThemeResId() != themeId)) {
-            // If the context isn't a ContextThemeWrapper, or it is but does not have
+            // If the mContext isn't a ContextThemeWrapper, or it is but does not have
             // the same theme as we need, wrap it in a new wrapper
             context = new ContextThemeWrapper(context, themeId);
         }
@@ -256,7 +256,7 @@ public class SkinAppCompatViewInflater {
 
     /**
      * An implementation of OnClickListener that attempts to lazily load a
-     * named click handling method from a parent or ancestor context.
+     * named click handling method from a parent or ancestor mContext.
      */
     private static class DeclaredOnClickListener implements View.OnClickListener {
         private final View mHostView;
