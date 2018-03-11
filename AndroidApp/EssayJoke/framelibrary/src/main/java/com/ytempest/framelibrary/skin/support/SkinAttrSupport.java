@@ -23,7 +23,7 @@ public class SkinAttrSupport {
     /**
      * 从 attrs 获取换肤需要的属性
      *
-     * @param context 需要换肤View的 context
+     * @param context 需要换肤View的 mContext
      * @param attrs   需要换肤View的属性集
      * @return 一个View换肤需要的所有属性集合
      */

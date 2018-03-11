@@ -4,11 +4,13 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.ytempest.baselibrary.base.BaseFragment;
 import com.ytempest.baselibrary.ioc.ViewById;
@@ -19,6 +21,9 @@ import com.ytempest.baselibrary.view.indicator.IndicatorAdapter;
 import com.ytempest.baselibrary.view.indicator.TrackIndicatorView;
 import com.ytempest.essayjoke.R;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
+import com.ytempest.framelibrary.view.payment.PayView;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -42,20 +47,38 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        DefaultNavigationBar navigationBar = new DefaultNavigationBar.Builder(context, mRootView)
+        DefaultNavigationBar navigationBar = new DefaultNavigationBar.Builder(mContext, mRootView)
                 .setTitle("首页")
-                .setRightText("测试")
+                .setRightText("支付测试")
                 .setRightClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        AlertDialog dialog = new AlertDialog.Builder(context)
-                                .setContentView(R.layout.dialog)
+                        final AlertDialog dialog = new AlertDialog.Builder(mContext)
+                                .setContentView(new PayView(mContext.getApplicationContext()))
                                 .fullWidth()
-                                .formBottom(true).show();
+                                .formBottom(true)
+                                .setCanceledOnTouchOutside(false)
+                                .show();
+
+                        PayView payView = (PayView) dialog.getContentView();
+                        payView.setOnClosePayViewListener(new PayView.OnClosePayViewListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        payView.setOnInputFinishListener(new PayView.OnInputFinishListener() {
+                            @Override
+                            public void onFinish(String password) {
+                                Toast.makeText(mContext, "密码：" + password, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     }
-                })
-                .hideLeftIcon()
+                }).hideLeftIcon()
                 .build();
+
 
     }
 
@@ -101,7 +124,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public View getView(int position, ViewGroup parent) {
-                ColorTrackTextView textView = new ColorTrackTextView(context);
+                ColorTrackTextView textView = new ColorTrackTextView(mContext);
                 textView.setTextSize(16);
                 textView.setGravity(Gravity.CENTER);
                 textView.setText(items[position]);
@@ -127,7 +150,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public View getBottomTrackView() {
-                View view = new View(context);
+                View view = new View(mContext);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(80, 5);
                 view.setBackgroundColor(Color.GRAY);
                 view.setLayoutParams(params);

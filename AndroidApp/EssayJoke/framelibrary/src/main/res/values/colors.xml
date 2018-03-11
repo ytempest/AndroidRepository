@@ -5,6 +5,12 @@
     <color name="navigation_bar_bg">#ffdcd9cf</color>
     <color name="navigation_title_color">#ff6b5547</color>
     <color name="navigation_right_color">#ff6b5547</color>
+
+    <!-- PayView的颜色集 -->
+    <color name="password_keyboard_bg">#E2E7ED</color>
+    <color name="password_keyboard_number_color">#353535</color>
+    <color name="selector_keyboard_number_normal_bg">#FFFFFF</color>
+    <color name="selector_keyboard_number_pressed_bg">#E0E0E0</color>
 </resources>
 
 

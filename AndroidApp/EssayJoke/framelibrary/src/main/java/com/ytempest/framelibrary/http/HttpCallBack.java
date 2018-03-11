@@ -17,7 +17,7 @@ public abstract class HttpCallBack<T> implements EngineCallBack {
     public void onPreExecute(Context context, Map<String, Object> params) {
         // 大大方方的添加公用参数  与项目业务逻辑有关
 		// 这里的参数是写死了，而在实际开发中需要动态获取
-        // 项目名称  context
+        // 项目名称  mContext
         params.put("app_name","joke_essay");
         params.put("version_name","5.7.0");
         params.put("ac","wifi");
