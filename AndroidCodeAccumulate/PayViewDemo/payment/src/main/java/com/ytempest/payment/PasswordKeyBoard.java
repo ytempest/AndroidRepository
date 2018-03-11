@@ -1,4 +1,4 @@
-package com.ytempest.payviewdemo.ui;
+package com.ytempest.payment;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.ytempest.payviewdemo.R;
 
 /**
  * @author ytempest

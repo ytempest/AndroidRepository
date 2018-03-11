@@ -1,12 +1,10 @@
-package com.ytempest.payviewdemo.ui;
+package com.ytempest.payment;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import com.ytempest.payviewdemo.R;
 
 
 /**
@@ -57,7 +55,7 @@ public class PayView extends LinearLayout {
         mPasswordEditText.setOnInputFinishListener(listener);
     }
 
-    public void setOnClosePayViewListener(View.OnClickListener listener) {
+    public void setOnClosePayViewListener(OnClickListener listener) {
         mCloseView.setOnClickListener(listener);
     }
 
@@ -89,7 +87,7 @@ public class PayView extends LinearLayout {
     /**
      * 点击PayView的关闭按钮会回调该接口
      */
-    public interface OnClosePayViewListener extends View.OnClickListener {
+    public interface OnClosePayViewListener extends OnClickListener {
     }
 
 }

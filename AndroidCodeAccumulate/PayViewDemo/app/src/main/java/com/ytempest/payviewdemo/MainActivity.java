@@ -1,14 +1,11 @@
 package com.ytempest.payviewdemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ytempest.payviewdemo.ui.PasswordEditText;
-import com.ytempest.payviewdemo.ui.PasswordKeyBoard;
-import com.ytempest.payviewdemo.ui.PayView;
+import com.ytempest.payment.PayView;
 
 public class MainActivity extends AppCompatActivity {
 

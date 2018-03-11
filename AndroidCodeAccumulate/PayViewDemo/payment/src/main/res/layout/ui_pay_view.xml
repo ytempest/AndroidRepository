@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="15dp"
-            android:src="@mipmap/pay_view_black" />
+            android:src="@drawable/pay_view_black" />
 
         <TextView
             android:layout_width="match_parent"
@@ -32,13 +32,13 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
-    <com.ytempest.payviewdemo.ui.PasswordEditText
+    <com.ytempest.payment.PasswordEditText
         android:id="@+id/pay_view_input"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="6dp" />
 
-    <com.ytempest.payviewdemo.ui.PasswordKeyBoard
+    <com.ytempest.payment.PasswordKeyBoard
         android:id="@+id/pay_view_keyboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

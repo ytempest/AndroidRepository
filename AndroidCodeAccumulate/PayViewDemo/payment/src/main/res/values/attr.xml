@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- 自定义密码输入框的属性 -->
     <declare-styleable name="PasswordEditText">
         <!-- 密码框的边框大小 -->
         <attr name="frameSize" format="dimension|reference" />

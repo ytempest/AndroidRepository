@@ -1,4 +1,4 @@
-package com.ytempest.payviewdemo.ui;
+package com.ytempest.payment;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,8 +13,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-
-import com.ytempest.payviewdemo.R;
 
 /**
  * @author ytempest

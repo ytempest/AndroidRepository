@@ -1,0 +1,23 @@
+<resources>
+    <!-- PasswordKeyboard键盘上的数字样式 -->
+    <style name="password_keyboard_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:textColor">@color/password_keyboard_number_color</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_password_keyboard_number</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <!-- PasswordKeyboard键盘每一行的LinearLayout的样式 -->
+    <style name="password_keyboard_row_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+</resources>
