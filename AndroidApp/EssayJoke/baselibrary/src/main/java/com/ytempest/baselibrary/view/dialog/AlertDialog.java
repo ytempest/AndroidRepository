@@ -2,6 +2,7 @@ package com.ytempest.baselibrary.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,11 @@ import com.ytempest.baselibrary.R;
  */
 public class AlertDialog extends Dialog {
 
-    private AlertController mAlert;
+    private AlertController mAlertController;
 
     public AlertDialog(Context context, int themeResId) {
         super(context, themeResId);
-        mAlert = new AlertController(this, getWindow());
+        mAlertController = new AlertController(this, getWindow());
     }
 
     /**
@@ -29,21 +30,25 @@ public class AlertDialog extends Dialog {
      * @param text   文本内容
      */
     public void setText(int viewId, CharSequence text) {
-        mAlert.setText(viewId, text);
+        mAlertController.setText(viewId, text);
     }
 
     public <T extends View> T getView(int viewId) {
-        return mAlert.getView(viewId);
+        return mAlertController.getView(viewId);
     }
 
     /**
      * 设置点击事件
-     *
-     * @param viewId
-     * @param listener
      */
     public void setOnClickListener(int viewId, View.OnClickListener listener) {
-        mAlert.setOnclickListener(viewId, listener);
+        mAlertController.setOnclickListener(viewId, listener);
+    }
+
+    /**
+     * 获取dialog的布局
+     */
+    public View getContentView() {
+        return mAlertController.getContentView();
     }
 
 
@@ -53,6 +58,9 @@ public class AlertDialog extends Dialog {
 
         public Builder(Context context) {
             this(context, R.style.dialog);
+            if (context == context.getApplicationContext()) {
+                throw new IllegalArgumentException("AlertDialog 的上下文不能使用ApplicationContext！ ");
+            }
         }
 
         public Builder(Context context, int themeResId) {
@@ -61,9 +69,6 @@ public class AlertDialog extends Dialog {
 
         /**
          * 通过 view设置dialog的布局view
-         *
-         * @param view
-         * @return
          */
         public Builder setContentView(View view) {
             P.mView = view;
@@ -73,9 +78,6 @@ public class AlertDialog extends Dialog {
 
         /**
          * 通过 layoutId设置dialog的布局
-         *
-         * @param layoutId
-         * @return
          */
         public Builder setContentView(int layoutId) {
             P.mView = null;
@@ -133,10 +135,6 @@ public class AlertDialog extends Dialog {
 
         /**
          * 设置Dialog的宽高
-         *
-         * @param width
-         * @param height
-         * @return Builder
          */
         public Builder setWidthAndHeight(int width, int height) {
             P.mWidth = width;
@@ -146,8 +144,6 @@ public class AlertDialog extends Dialog {
 
         /**
          * 添加默认动画
-         *
-         * @return Builder
          */
         public Builder addDefaultAnimation() {
             P.mAnimations = R.style.dialog_scale_anim;
@@ -158,7 +154,6 @@ public class AlertDialog extends Dialog {
          * 设置自定义动画
          *
          * @param styleAnimation 自定义动画
-         * @return Builder
          */
         public Builder setAnimations(int styleAnimation) {
             P.mAnimations = styleAnimation;
@@ -166,19 +161,15 @@ public class AlertDialog extends Dialog {
         }
 
         /**
-         * 设置dialog触碰灰色区域是否可取消
-         *
-         * @param cancelable
-         * @return
+         * 设置dialog触碰灰色区域以及按Back键不可关闭dialog
          */
-        public Builder setCancelable(boolean cancelable) {
-            P.mCancelable = cancelable;
+        public Builder setCanceledOnTouchOutside(boolean cancelable) {
+            P.mCanceledOnTouchOutside = cancelable;
             return this;
         }
 
         /**
-         * @param onCancelListener
-         * @return
+         * 设置dialog取消时的监听器
          */
         public Builder setOnCancelListener(OnCancelListener onCancelListener) {
             P.mOnCancelListener = onCancelListener;
@@ -186,8 +177,7 @@ public class AlertDialog extends Dialog {
         }
 
         /**
-         * @param onDismissListener
-         * @return
+         * 设置dialog消失时的监听器
          */
         public Builder setOnDismissListener(OnDismissListener onDismissListener) {
             P.mOnDismissListener = onDismissListener;
@@ -195,8 +185,7 @@ public class AlertDialog extends Dialog {
         }
 
         /**
-         * @param onKeyListener
-         * @return
+         * 设置 key监听器
          */
         public Builder setOnKeyListener(OnKeyListener onKeyListener) {
             P.mOnKeyListener = onKeyListener;
@@ -211,9 +200,9 @@ public class AlertDialog extends Dialog {
         private AlertDialog create() {
             // Context has already been wrapped with the appropriate theme.
             final AlertDialog dialog = new AlertDialog(P.mContext, P.mThemeResId);
-            P.apply(dialog.mAlert);
-            dialog.setCancelable(P.mCancelable);
-            if (P.mCancelable) {
+            P.apply(dialog.mAlertController);
+            dialog.setCanceledOnTouchOutside(P.mCanceledOnTouchOutside);
+            if (P.mCanceledOnTouchOutside) {
                 dialog.setCanceledOnTouchOutside(true);
             }
             dialog.setOnCancelListener(P.mOnCancelListener);

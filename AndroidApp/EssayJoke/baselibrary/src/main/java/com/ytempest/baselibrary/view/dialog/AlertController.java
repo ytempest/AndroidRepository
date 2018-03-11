@@ -2,6 +2,7 @@ package com.ytempest.baselibrary.view.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
  */
 class AlertController {
 
+    private static String TAG = "AlertController";
     /**
      * 保存AlertDialog对象，管理Dialog框架的功能
      */
@@ -23,6 +25,7 @@ class AlertController {
      * 保存Dialog内部的View的处理类，管理内部View
      */
     private DialogViewHelper mViewHelper;
+
     private Window mWindow;
 
     public AlertController(AlertDialog dialog, Window window) {
@@ -36,9 +39,6 @@ class AlertController {
 
     /**
      * 设置文本
-     *
-     * @param viewId
-     * @param text
      */
     public void setText(int viewId, CharSequence text) {
         mViewHelper.setText(viewId, text);
@@ -50,12 +50,16 @@ class AlertController {
 
     /**
      * 设置点击事件
-     *
-     * @param viewId
-     * @param listener
      */
     public void setOnclickListener(int viewId, View.OnClickListener listener) {
         mViewHelper.setOnclickListener(viewId, listener);
+    }
+
+    /**
+     * 获取 dialog的布局
+     */
+    public View getContentView() {
+        return mViewHelper.getContentView();
     }
 
     /**
@@ -80,9 +84,9 @@ class AlertController {
         public Context mContext;
         public int mThemeResId = 0;
         /**
-         * 点击空白是否能够取消  默认点击阴影可以取消
+         * 默认点击阴影以及按Back键可以取消
          */
-        public boolean mCancelable = true;
+        public boolean mCanceledOnTouchOutside = true;
         /**
          * 布局View
          */
@@ -158,6 +162,7 @@ class AlertController {
             mAlert.setViewHelper(viewHelper);
 
             // 调用父类Dialog的方法给当前的dialog设置布局
+            Log.e(TAG, "apply: viewHelper.getContentView() --> " + viewHelper.getContentView());
             mAlert.getDialog().setContentView(viewHelper.getContentView());
 
             // 2.设置文本
