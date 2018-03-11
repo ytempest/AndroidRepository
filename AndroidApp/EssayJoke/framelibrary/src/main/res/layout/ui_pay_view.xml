@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@color/pay_view_bg"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -28,7 +28,7 @@
             android:gravity="center"
             android:padding="15dp"
             android:text="请输入支付密码"
-            android:textColor="#444a59"
+            android:textColor="@color/pay_view_title_color"
             android:textSize="20sp" />
     </RelativeLayout>
 
