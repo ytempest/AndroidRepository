@@ -1,8 +1,13 @@
 package com.ytempest.essayjoke.fragment;
 
+import android.Manifest;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,16 +19,15 @@ import android.widget.Toast;
 
 import com.ytempest.baselibrary.base.BaseFragment;
 import com.ytempest.baselibrary.ioc.ViewById;
-
-import com.ytempest.baselibrary.view.dialog.AlertDialog;
-import com.ytempest.baselibrary.view.indicator.item.ColorTrackTextView;
+import com.ytempest.baselibrary.permission.PermissionFail;
+import com.ytempest.baselibrary.permission.SmartPermission;
+import com.ytempest.baselibrary.permission.PermissionSucceed;
+import com.ytempest.baselibrary.util.StatusBarUtils;
 import com.ytempest.baselibrary.view.indicator.IndicatorAdapter;
 import com.ytempest.baselibrary.view.indicator.TrackIndicatorView;
+import com.ytempest.baselibrary.view.indicator.item.ColorTrackTextView;
 import com.ytempest.essayjoke.R;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
-import com.ytempest.framelibrary.view.payment.PayView;
-
-import static android.content.ContentValues.TAG;
 
 
 /**
@@ -32,6 +36,10 @@ import static android.content.ContentValues.TAG;
  */
 public class HomeFragment extends BaseFragment {
 
+    private static String TAG = "HomeFragment";
+
+    private final static int NUM = 11;
+
     private String[] items = {"直播", "推荐", "视频", "图片", "段子", "精华", "同城", "游戏"};
     @ViewById(R.id.indicator_view)
     private TrackIndicatorView mIndicatorContainer;
@@ -39,6 +47,7 @@ public class HomeFragment extends BaseFragment {
     private ViewPager mViewPager;
     @ViewById(R.id.ll_home_fragment_root)
     private LinearLayout mRootView;
+    private String[] perms;
 
     @Override
     protected int getLayoutId() {
@@ -53,7 +62,8 @@ public class HomeFragment extends BaseFragment {
                 .setRightClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final AlertDialog dialog = new AlertDialog.Builder(mContext)
+                        requireSomePermission();
+                        /*final AlertDialog dialog = new AlertDialog.Builder(mContext)
                                 .setContentView(new PayView(mContext.getApplicationContext()))
                                 .fullWidth()
                                 .formBottom(true)
@@ -73,14 +83,53 @@ public class HomeFragment extends BaseFragment {
                             public void onFinish(String password) {
                                 Toast.makeText(mContext, "密码：" + password, Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        });*/
 
                     }
-                }).hideLeftIcon()
+                })
+                .hideLeftIcon()
                 .build();
-
+        StatusBarUtils.statusBarTintColor(getActivity(), ContextCompat.getColor(getActivity(),R.color.navigation_bar_bg));
 
     }
+
+
+    private void requireSomePermission() {
+        // 把你想要申请的权限放进这里就行，注意用逗号隔开
+        perms = new String[]{
+
+                // 把你想要申请的权限放进这里就行，注意用逗号隔开
+                Manifest.permission.CAMERA,
+                Manifest.permission.CALL_PHONE,
+        };
+        SmartPermission.with(HomeFragment.this)
+                .requestCode(NUM)
+                .requestPermission(perms)
+                .request();
+    }
+
+    @PermissionSucceed(requestCode = NUM)
+    private void callPhone() {
+
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:10086");
+        intent.setData(data);
+        startActivity(intent);
+        Toast.makeText(mContext, "已经授权", Toast.LENGTH_SHORT).show();
+    }
+
+    @PermissionFail(requestCode = NUM)
+    private void failPhone() {
+        Toast.makeText(mContext, "请授权！！！", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        Log.e(TAG, "onRequestPermissionsResult: 授权结果已经回调 -->" + grantResults);
+        SmartPermission.onRequestPermissionResult(HomeFragment.this, NUM, grantResults);
+    }
+
 
     @Override
     protected void initData() {
