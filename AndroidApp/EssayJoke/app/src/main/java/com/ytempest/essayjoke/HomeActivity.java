@@ -1,7 +1,16 @@
 package com.ytempest.essayjoke;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
 import com.ytempest.baselibrary.ioc.OnClick;
+import com.ytempest.baselibrary.permission.PermissionFail;
+import com.ytempest.baselibrary.permission.SmartPermission;
+import com.ytempest.baselibrary.permission.PermissionSucceed;
 import com.ytempest.essayjoke.fragment.FindFragment;
 import com.ytempest.essayjoke.fragment.HomeFragment;
 import com.ytempest.essayjoke.fragment.MessageFragment;
@@ -22,6 +31,7 @@ public class HomeActivity extends BaseSkinActivity {
      * Fragment的管理类
      */
     private FragmentManagerHelper mFragmentHelper;
+    private String[] perms;
 
     @Override
     protected int getLayoutResId() {
@@ -30,8 +40,8 @@ public class HomeActivity extends BaseSkinActivity {
 
     @Override
     protected void initTitle() {
-
     }
+
 
     @Override
     protected void initData() {
@@ -76,4 +86,6 @@ public class HomeActivity extends BaseSkinActivity {
         }
         mFragmentHelper.switchFragment(mMessageFragment);
     }
+
+
 }
