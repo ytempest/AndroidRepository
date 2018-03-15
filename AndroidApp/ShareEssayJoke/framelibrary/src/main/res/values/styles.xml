@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 导航条的样式 -->
+    <style name="navigation_bar_style">
+        <item name="android:paddingLeft">0.0dp</item>
+        <item name="android:paddingRight">0.0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44.0dp</item>
+    </style>
+
+    <!-- 导航条标题的样式 -->
+    <style name="navigation_title_style">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/navigation_title_color</item>
+    </style>
+
+    <!-- 导航条右边文字的样式 -->
+    <style name="navigation_right_text_style">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/navigation_title_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingLeft">5.0dp</item>
+        <item name="android:paddingRight">5.0dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">0.0dp</item>
+        <item name="android:layout_marginRight">10.0dp</item>
+    </style>
+
+    <!-- 导航条后退view的样式 -->
+    <style name="navigation_back_view_style" parent="@style/navigation_right_text_style">
+        <item name="android:gravity">center</item>
+        <item name="android:src">@drawable/selector_dialog_back_view</item>
+        <item name="android:paddingLeft">0.0dp</item>
+        <item name="android:paddingRight">0.0dp</item>
+        <item name="android:layout_marginLeft">0.0dp</item>
+        <item name="android:layout_marginRight">0.0dp</item>
+        <item name="android:text">@null</item>
+        <item name="android:drawableLeft">@null</item>
+    </style>
+
+    <!-- PasswordKeyboard键盘上的数字样式 -->
+    <style name="password_keyboard_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:textColor">@color/password_keyboard_number_color</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_password_keyboard_number</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <!-- PasswordKeyboard键盘每一行的LinearLayout的样式 -->
+    <style name="password_keyboard_row_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+</resources>
