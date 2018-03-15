@@ -7,10 +7,10 @@ import java.lang.annotation.Target;
 
 /**
  * @author ytempest
+ *         Description: 该注解用于检测网络状态，然后不联网则会阻止点击事件的产生；
+ *         如果要使用该注解，需要将添加权限：android.permission.ACCESS_NETWORK_STATE
  */
-// @Target(ElementType.FIELD) 代表Annotation的位置  FIELD属性  TYPE类上  CONSTRUCTOR 构函数上
 @Target(ElementType.METHOD)
-// @Retention(RetentionPolicy.CLASS) 什么时候生效 CLASS编译时   RUNTIME运行时  SOURCE源码资源
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckNet {
 }

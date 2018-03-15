@@ -13,6 +13,5 @@ import java.lang.annotation.Target;
 // @Retention(RetentionPolicy.CLASS) 什么时候生效 CLASS编译时   RUNTIME运行时  SOURCE源码资源
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ViewById {
-    // --> @ViewById(R.id.xxx)
     int value();
 }

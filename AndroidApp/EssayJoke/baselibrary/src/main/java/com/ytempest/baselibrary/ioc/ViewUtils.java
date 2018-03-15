@@ -12,13 +12,12 @@ import java.lang.reflect.Method;
 
 /**
  * @author ytempest
+ *         Description：IOC注解框架
  */
 public class ViewUtils {
 
     /**
      * 前期使用
-     *
-     * @param activity
      */
     public static void inject(Activity activity) {
         inject(new ViewFinder(activity), activity);
@@ -26,8 +25,6 @@ public class ViewUtils {
 
     /**
      * 后期使用
-     *
-     * @param view
      */
     public static void inject(View view) {
         inject(new ViewFinder(view), view);
@@ -35,9 +32,6 @@ public class ViewUtils {
 
     /**
      * 后期使用
-     *
-     * @param view
-     * @param object
      */
     public static void inject(View view, Object object) {
         inject(new ViewFinder(view), object);
@@ -45,7 +39,9 @@ public class ViewUtils {
 
 
     /**
-     * 兼容 上面三个方法  object --> 反射需要执行的类
+     * 兼容 上面三个方法
+     *
+     * @param object 反射需要执行的类
      */
     private static void inject(ViewFinder finder, Object object) {
         injectFiled(finder, object);
@@ -54,7 +50,7 @@ public class ViewUtils {
 
 
     /**
-     * 为每一个设置了ViewById注解的组件实例化其组件
+     * 为每一个设置了ViewById注解的属性实例化其组件
      */
     private static void injectFiled(ViewFinder finder, Object object) {
         // 1. 获取类里面所有的属性
@@ -85,7 +81,7 @@ public class ViewUtils {
     }
 
     /**
-     * 为每一个设置了OnClick 注解的组件生成其点击事件方法
+     * 为每一个设置了OnClick 注解的方法生成其点击事件方法
      */
     private static void injectEvent(ViewFinder finder, Object object) {
         // 1. 获取类里面所有的方法
@@ -122,8 +118,7 @@ public class ViewUtils {
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetworkInfo = connectivityManager
-                    .getActiveNetworkInfo();
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
             if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
                 return true;
             }
@@ -133,6 +128,10 @@ public class ViewUtils {
         return false;
     }
 
+
+    /**
+     * Description：用于给标志了OnClick注解的方法设置点击事件的一个监听器
+     */
     private static class DeclaredOnClickListener implements View.OnClickListener {
         private Object mObject;
         private Method mMethod;
@@ -145,13 +144,13 @@ public class ViewUtils {
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
             // 判断是否需要检测网络
             if (mIsCheckNet) {
                 // 需要
-                if (!networkAvailable(v.getContext())) {
+                if (!networkAvailable(view.getContext())) {
                     // 打印Toast   "亲，您的网络不太给力"  写死有点问题  需要配置
-                    Toast.makeText(v.getContext(), "亲，您的网络不太给力", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "亲，您的网络不太给力", Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -160,7 +159,7 @@ public class ViewUtils {
                 // 所有方法都可以 包括私有共有
                 mMethod.setAccessible(true);
                 // 5. 反射执行方法
-                mMethod.invoke(mObject, v);
+                mMethod.invoke(mObject, view);
             } catch (Exception e) {
                 e.printStackTrace();
                 // 传一个空数组

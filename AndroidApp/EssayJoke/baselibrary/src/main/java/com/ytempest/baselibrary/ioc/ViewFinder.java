@@ -5,6 +5,7 @@ import android.view.View;
 
 /**
  * @author ytempest
+ *         Description：IOC注解的辅助类，用于findViewById
  */
 public class ViewFinder {
     private Activity mActivity;
