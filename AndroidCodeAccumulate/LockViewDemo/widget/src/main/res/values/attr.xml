@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- LockView的自定义属性集 -->
+    <declare-styleable name="LockView">
+        <attr name="normalColor" format="color" />
+        <attr name="selectColor" format="color" />
+        <attr name="errorColor" format="color" />
+        <attr name="innerCircleRadius" format="dimension" />
+        <attr name="outerCircleRadius" format="dimension" />
+        <attr name="circleSize" format="dimension" />
+    </declare-styleable>
+
+</resources>
