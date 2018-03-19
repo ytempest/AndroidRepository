@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ThumbUpLayout">
+        <attr name="diffuseWidth" format="dimension" />
+        <attr name="diffuseHeight" format="dimension" />
+        <attr name="offsetX" format="dimension" />
+        <attr name="offsetY" format="dimension" />
+    </declare-styleable>
+
+</resources>
