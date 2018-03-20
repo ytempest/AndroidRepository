@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 加载动画的一个View -->
+    <declare-styleable name="SplashLoadView">
+        <!-- 旋转半径的大小 -->
+        <attr name="rotationRadius" format="dimension" />
+        <!-- 旋转的圆点的半径 -->
+        <attr name="circleRadius" format="dimension" />
+        <!-- 加载界面的背景颜色 -->
+        <attr name="loadingBackground" format="color" />
+    </declare-styleable>
+
+</resources>
