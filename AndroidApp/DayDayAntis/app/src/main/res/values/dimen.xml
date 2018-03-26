@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 主页的底部指示器的文字大小 -->
+    <dimen name="rb_text_size">13sp</dimen>
+</resources>

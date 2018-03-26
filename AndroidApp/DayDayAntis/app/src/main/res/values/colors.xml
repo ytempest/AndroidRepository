@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <!-- 标题栏背景颜色 -->
+    <color name="title_bar_bg_color"> #323a45</color>
+    <!-- 标题栏文字颜色-->
+    <color name="title_bar_text_color">#FFFFFF</color>
+
+    <!-- MainActivity 布局的背景色 -->
+    <color name="activity_main_bg">#cdc6c6</color>
+
+    <!-- 主页 RadioButton 选择的颜色 -->
+    <color name="rb_text_press_color">#24cfa2</color>
+    <!-- 主页 RadioButton 默认的颜色 -->
+    <color name="rb_text_normal_color">#636363</color>
+    <!-- 主页 RadioGroup 的背景色 -->
+    <color name="rg_bg">#F9F9F9</color>
+
+    <color name="home_fragment_item_normal_bg">#f6f6f6</color>
+    <color name="home_fragment_item_press_bg">#d3d3d3</color>
+
+    <color name="recommend_text_color">#272727</color>
+    <color name="recommend_tv_bg">@color/rg_bg</color>
+
+
+    <!-- 根布局的背景 -->
+    <color name="root_bg_color">#efeded</color>
+
+    <!-- 线条的背景灰色 -->
+    <color name="gray">#F4F4F4</color>
+
+    <!-- 标题黑色 -->
+    <color name="title_black">#121212</color>
+
+
+</resources>
