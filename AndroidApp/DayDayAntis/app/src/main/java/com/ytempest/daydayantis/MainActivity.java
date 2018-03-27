@@ -64,6 +64,8 @@ public class MainActivity extends BaseSkinActivity {
 
         mViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), mFragments));
         mViewPager.addOnPageChangeListener(new MainViewPagerListener());
+        // 缓存ViePager的页数，缓存当前页面的左右两边各3个
+        mViewPager.setOffscreenPageLimit(3);
     }
 
 

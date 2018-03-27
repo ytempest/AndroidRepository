@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#454c55</color>
     <color name="colorAccent">#FFFFFF</color>
 
     <!-- 标题栏背景颜色 -->
-    <color name="title_bar_bg_color"> #323a45</color>
+    <color name="title_bar_bg_color">#454c55</color>
     <!-- 标题栏文字颜色-->
     <color name="title_bar_text_color">#FFFFFF</color>
 
+
     <!-- MainActivity 布局的背景色 -->
     <color name="activity_main_bg">#cdc6c6</color>
+
 
     <!-- 主页 RadioButton 选择的颜色 -->
     <color name="rb_text_press_color">#24cfa2</color>
@@ -19,11 +21,17 @@
     <!-- 主页 RadioGroup 的背景色 -->
     <color name="rg_bg">#F9F9F9</color>
 
+    <!-- HomeFragment中的主内容的条目被点击时的背景色 -->
     <color name="home_fragment_item_normal_bg">#f6f6f6</color>
     <color name="home_fragment_item_press_bg">#d3d3d3</color>
 
+    <!-- HomeFragment 中推荐企业中的颜色  -->
     <color name="recommend_text_color">#272727</color>
     <color name="recommend_tv_bg">@color/rg_bg</color>
+
+    <!-- HomeFragment中热点资讯的列表条目的文字大小 -->
+    <color name="hot_info_item_content_color">#868686</color>
+    <color name="hot_info_item_date_color">#868686</color>
 
 
     <!-- 根布局的背景 -->
@@ -34,6 +42,5 @@
 
     <!-- 标题黑色 -->
     <color name="title_black">#121212</color>
-
 
 </resources>

@@ -79,7 +79,6 @@
         <RadioButton
             android:id="@+id/rb_personal"
             style="@style/radio_button_style"
-            android:drawablePadding="3dp"
             android:drawableTop="@drawable/selector_rb_personal"
             android:text="@string/rb_personal" />
     </RadioGroup>

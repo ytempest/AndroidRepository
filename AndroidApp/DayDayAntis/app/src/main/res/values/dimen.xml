@@ -3,4 +3,8 @@
 
     <!-- 主页的底部指示器的文字大小 -->
     <dimen name="rb_text_size">13sp</dimen>
+
+    <!-- HomeFragment中热点资讯的列表条目的文字大小 -->
+    <dimen name="hot_info_item_content_size">16sp</dimen>
+    <dimen name="hot_into_item_date_size">13sp</dimen>
 </resources>

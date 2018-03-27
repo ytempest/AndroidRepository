@@ -1,28 +1,27 @@
 package com.ytempest.daydayantis.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 
+import com.bumptech.glide.Glide;
 import com.ytempest.baselibrary.base.BaseFragment;
 import com.ytempest.baselibrary.http.HttpUtils;
+import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.view.recyclerview.division.DividerItemDecoration;
+import com.ytempest.daydayantis.DetailLinkActivity;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.fragment.adapter.HotInfoAdapter;
 import com.ytempest.daydayantis.fragment.mode.HomeDataResult;
 import com.ytempest.framelibrary.http.HttpCallBack;
-import com.ytempest.framelibrary.http.OkHttpEngine;
-
-import java.util.List;
 
 
 /**
@@ -31,7 +30,6 @@ import java.util.List;
  */
 public class HomeFragment extends BaseFragment {
 
-    private static String TAG = "HomeFragment";
 
     @ViewById(R.id.iv_advertise)
     private ImageView mIvAdvertise;
@@ -53,13 +51,7 @@ public class HomeFragment extends BaseFragment {
     @ViewById(R.id.rv_hot_info)
     private RecyclerView mRvHotInfo;
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-        }
-    };
+    private HomeDataResult mHomeDataResult;
 
 
     @Override
@@ -86,7 +78,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void requestHomeData() {
-        Log.e(TAG, "requestHomeData: ");
         HttpUtils.with(mContext)
                 .addParam("appid", "1")
                 .url("http://v2.ffu365.com/index.php?m=Api&c=Index&a=home")
@@ -99,6 +90,7 @@ public class HomeFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(HomeDataResult result) {
+                        mHomeDataResult = result;
                         showHotInfo(result.getData());
                     }
 
@@ -108,22 +100,37 @@ public class HomeFragment extends BaseFragment {
                     }
 
                     private void showHotInfo(final HomeDataResult.DataBean result) {
-                        Log.e(TAG, "showHotInfo: ");
                         mRvHotInfo.setAdapter(new HotInfoAdapter(mContext, result.getNews_list(), R.layout.item_rv_hot_info));
 
-            //        Log.e(TAG, "result.getAd_list().get(0).getImage() --> " + result.getAd_list().get(0).getImage());
-            //        Log.e(TAG, "result.getCompany_list().get(0).getImage() -->  " + result.getCompany_list().get(0).getImage());
-                    /*Glide.with(HomeFragment.this)
-                            .load(result.getAd_list().get(0).getImage());
-                    Glide.with(HomeFragment.this)
-                            .load(result.getCompany_list().get(0).getImage());*/
+                        Glide.with(HomeFragment.this)
+                                .load(result.getAd_list().get(0).getImage())
+                                .into(mIvAdvertise);
+                        Glide.with(HomeFragment.this)
+                                .load(result.getCompany_list().get(0).getImage())
+                                .into(mIvRecommend);
 
 
                     }
                 });
+    }
 
+    @OnClick(R.id.iv_advertise)
+    private void onIvAdvertiseClick(View view) {
+        String url = mHomeDataResult.getData().getAd_list().get(0).getLink();
+        startActivity(getDetailLinkIntent(url));
+    }
+
+    @OnClick(R.id.iv_recommend)
+    private void onIvRecommendClick(View view) {
+        String url = mHomeDataResult.getData().getCompany_list().get(0).getLink();
+        startActivity(getDetailLinkIntent(url));
     }
 
 
-
+    public Intent getDetailLinkIntent(String url) {
+        Intent intent = new Intent(mContext, DetailLinkActivity.class);
+        intent.putExtra(DetailLinkActivity.URL_KEY, url);
+        return intent;
+    }
 }
+

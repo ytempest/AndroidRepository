@@ -53,17 +53,27 @@ public class OkHttpEngine implements IHttpEngine {
         mOkHttpClient.newCall(request).enqueue(
                 new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(Call call, final IOException e) {
                         // 回调自己定义的回调方法
-                        callBack.onError(e);
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onError(e);
+                            }
+                        });
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
-                        String postResultJson = response.body().string();
+                        final String postResultJson = response.body().string();
                         Log.e(TAG, "Post返回结果：" + postResultJson);
-                        callBack.onSuccess(postResultJson);
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onSuccess(postResultJson);
+                            }
+                        });
                     }
                 }
         );
@@ -77,12 +87,17 @@ public class OkHttpEngine implements IHttpEngine {
 
         // 2.判断需不需要缓存
         if (cache) {
-            String cacheResultJson = CacheDataUtils.getCacheResultJson(requestUrl);
+            final String cacheResultJson = CacheDataUtils.getCacheResultJson(requestUrl);
             // 2.1 如果缓存不为空，就直接回调执行成功的方法
             if (!TextUtils.isEmpty(cacheResultJson)) {
                 Log.e(TAG, " --> 已经读到缓存");
                 // 2.2 数据库有缓存,直接就去执行，里面执行成功
-                callBack.onSuccess(cacheResultJson);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSuccess(cacheResultJson);
+                    }
+                });
             }
         }
 
