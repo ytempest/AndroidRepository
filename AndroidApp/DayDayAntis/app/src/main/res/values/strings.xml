@@ -8,19 +8,19 @@
     <string name="rb_message">消息</string>
     <string name="rb_personal">个人中心</string>
 
-    <!-- 首页 item 的文字 -->
+    <!-- 首页 主内容中的 item 的文字 -->
     <string name="ll_labour_title">劳务</string>
-    <string name="ll_labour_text">找信息、找团队、\n找工人</string>
+    <string name="ll_labour_text">找信息、找团队、找工人</string>
     <string name="ll_insurance_title">保险</string>
-    <string name="ll_insurance_text">按天买的意外\n保险</string>
+    <string name="ll_insurance_text">按天买的意外保险</string>
     <string name="ll_technology_title">技术</string>
-    <string name="ll_technology_text">找技术专家解决\n技术难题</string>
+    <string name="ll_technology_text">找技术专家解决技术难题</string>
     <string name="ll_equipment_title">设备</string>
-    <string name="ll_equipment_text">闲置设备租\n赁、买卖</string>
+    <string name="ll_equipment_text">闲置设备租赁、买卖</string>
     <string name="ll_league_title">加盟</string>
-    <string name="ll_league_text">个人加盟、企业\n聘证、联营企业</string>
+    <string name="ll_league_text">个人加盟、企业聘证、联营企业</string>
     <string name="ll_cost_title">成本交流</string>
-    <string name="ll_cost_text">工程成本\n讨论</string>
+    <string name="ll_cost_text">工程成本讨论</string>
 
     <string name="tv_recommend">推荐企业</string>
     <string name="tv_hot_info">热点资讯</string>

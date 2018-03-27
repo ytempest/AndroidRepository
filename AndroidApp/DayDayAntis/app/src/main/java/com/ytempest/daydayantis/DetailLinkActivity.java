@@ -11,6 +11,10 @@ import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.view.load.LoadView;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 
+/**
+ * @author ytempest
+ *         Description：这是一个用于打开Url网址的查看网页内容的一个Activity
+ */
 public class DetailLinkActivity extends BaseSkinActivity {
 
     public static String URL_KEY = "url_key";

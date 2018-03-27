@@ -2,12 +2,9 @@ package com.ytempest.daydayantis.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -26,7 +23,7 @@ import com.ytempest.framelibrary.http.HttpCallBack;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：主页的Fragment
  */
 public class HomeFragment extends BaseFragment {
 
@@ -74,6 +71,7 @@ public class HomeFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // 向服务器请求主页的数据
         requestHomeData();
     }
 
@@ -88,6 +86,10 @@ public class HomeFragment extends BaseFragment {
 
                     }
 
+                    /**
+                     * 这几个回调方法一般不是运行在主线程中的，但是OnHttpEngine做了处理，
+                     * 把方法放到了主线程中
+                     */
                     @Override
                     public void onSuccess(HomeDataResult result) {
                         mHomeDataResult = result;
