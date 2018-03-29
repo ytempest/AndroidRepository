@@ -3,7 +3,6 @@ package com.ytempest.daydayantis.activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -16,8 +15,6 @@ import com.ytempest.daydayantis.fragment.HomeFragment;
 import com.ytempest.daydayantis.fragment.MessageFragment;
 import com.ytempest.daydayantis.fragment.PersonalFragment;
 import com.ytempest.daydayantis.fragment.adapter.MainPagerAdapter;
-import com.ytempest.daydayantis.utils.SpConfig;
-import com.ytempest.daydayantis.utils.SpUtils;
 import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 

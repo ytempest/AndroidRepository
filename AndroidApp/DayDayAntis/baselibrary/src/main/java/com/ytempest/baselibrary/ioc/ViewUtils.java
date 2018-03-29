@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ytempest.baselibrary.R;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -150,7 +152,7 @@ public class ViewUtils {
                 // 需要
                 if (!networkAvailable(view.getContext())) {
                     // 打印Toast   "亲，您的网络不太给力"  写死有点问题  需要配置
-                    Toast.makeText(view.getContext(), "亲，您的网络不太给力", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), R.string.toast_ioc_check_net_text, Toast.LENGTH_LONG).show();
                     return;
                 }
             }

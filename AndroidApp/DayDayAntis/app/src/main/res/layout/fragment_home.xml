@@ -15,9 +15,7 @@
 
         <ImageView
             android:id="@+id/iv_advertise"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:scaleType="centerCrop" />
+            style="@style/fragment_home_iv_style" />
 
         <LinearLayout style="@style/fragment_home_row_style">
 
@@ -143,9 +141,7 @@
 
         <ImageView
             android:id="@+id/iv_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:scaleType="centerCrop" />
+            style="@style/fragment_home_iv_style" />
 
         <TextView
             style="@style/home_fragment_content_heading"

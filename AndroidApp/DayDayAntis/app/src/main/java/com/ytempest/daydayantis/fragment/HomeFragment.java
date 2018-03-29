@@ -8,14 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.ytempest.baselibrary.base.BaseFragment;
 import com.ytempest.baselibrary.http.HttpUtils;
+import com.ytempest.baselibrary.imageloader.ImageLoaderManager;
+import com.ytempest.baselibrary.imageloader.LoaderOptions;
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.view.recyclerview.division.DividerItemDecoration;
-import com.ytempest.daydayantis.activity.DetailLinkActivity;
 import com.ytempest.daydayantis.R;
+import com.ytempest.daydayantis.activity.DetailLinkActivity;
 import com.ytempest.daydayantis.fragment.adapter.HotInfoAdapter;
 import com.ytempest.daydayantis.fragment.mode.HomeDataResult;
 import com.ytempest.framelibrary.http.HttpCallBack;
@@ -104,12 +105,17 @@ public class HomeFragment extends BaseFragment {
                     private void showHotInfo(final HomeDataResult.DataBean result) {
                         mRvHotInfo.setAdapter(new HotInfoAdapter(mContext, result.getNews_list(), R.layout.item_rv_hot_info));
 
-                        Glide.with(HomeFragment.this)
-                                .load(result.getAd_list().get(0).getImage())
-                                .into(mIvAdvertise);
-                        Glide.with(HomeFragment.this)
-                                .load(result.getCompany_list().get(0).getImage())
-                                .into(mIvRecommend);
+                        LoaderOptions loaderOptions =
+                                new LoaderOptions.Builder()
+                                        .errorDrawableId(R.drawable.image_loading_error)
+                                        .placeHolder(R.drawable.image_loading_error)
+                                        .build();
+
+                        ImageLoaderManager.getInstance().showImage(mIvAdvertise,
+                                result.getAd_list().get(0).getImage(), loaderOptions);
+
+                        ImageLoaderManager.getInstance().showImage(mIvRecommend,
+                                result.getCompany_list().get(0).getImage(), loaderOptions);
 
 
                     }

@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.ytempest.baselibrary.http.HttpUtils;
+import com.ytempest.baselibrary.ioc.CheckNet;
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.security.MD5Utils;
@@ -80,6 +81,7 @@ public class UserLoginActivity extends BaseSkinActivity {
 
 
     @OnClick(R.id.bt_sign_in)
+    @CheckNet
     private void onSignInClick(View view) {
         if (!checkUserAndPassword()) {
             return;

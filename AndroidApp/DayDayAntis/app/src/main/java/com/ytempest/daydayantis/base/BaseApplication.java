@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.ytempest.baselibrary.exception.ExceptionCrashHandler;
 import com.ytempest.baselibrary.http.HttpUtils;
-import com.ytempest.daydayantis.utils.SpConfig;
-import com.ytempest.daydayantis.utils.SpUtils;
 import com.ytempest.framelibrary.http.OkHttpEngine;
 import com.ytempest.framelibrary.skin.SkinManager;
 

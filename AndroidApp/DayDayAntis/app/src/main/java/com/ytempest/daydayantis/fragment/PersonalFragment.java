@@ -6,9 +6,9 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.ytempest.baselibrary.base.BaseFragment;
+import com.ytempest.baselibrary.imageloader.ImageLoaderManager;
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.daydayantis.R;
@@ -119,7 +119,8 @@ public class PersonalFragment extends BaseFragment {
             return;
         }
         UserDataResult.DataBean userData = new Gson().fromJson(userInfoString, UserDataResult.DataBean.class);
-        Glide.with(mContext).load(userData.getMember_info().getMember_avatar()).into(mIvUserHead);
+        ImageLoaderManager.getInstance().showImage(mIvUserHead,
+                userData.getMember_info().getMember_avatar(), null);
         mTvUserName.setText(userData.getMember_info().getMember_name());
         mTvUserRegion.setText(userData.getMember_info().getMember_location_text());
     }
