@@ -7,7 +7,14 @@
 
     <!--————————————————————————-->
 
-    <!-- HomeFragment中热点资讯的列表条目的文字大小 -->
+    <!-- HomeFragment中主内容item的标题文字大小 -->
+    <dimen name="fragment_home_item_title_size">17sp</dimen>
+    <!-- HomeFragment中主内容item的内容文字大小 -->
+    <dimen name="fragment_home_item_content_size">12sp</dimen>
+
+    <!-- HomeFragment 中推荐企业以及热点资讯标题的文字大小  -->
+    <dimen name="home_fragment_content_heading_text_size">18sp</dimen>
+
     <dimen name="hot_info_item_content_size">16sp</dimen>
     <dimen name="hot_into_item_date_size">13sp</dimen>
 
@@ -24,7 +31,7 @@
     <dimen name="personal_fragment_task_item_bottom_text">14sp</dimen>
 
     <!-- PersonalFragment中主内容目的文字大小 -->
-    <dimen name="personal_fragment_content_item_text">16sp</dimen>
+    <dimen name="personal_fragment_content_item_text">14sp</dimen>
 
     <!-- PersonalFragment 底部问题列表的文字大小 -->
     <dimen name="personal_fragment_problem_list_text">14sp</dimen>

@@ -27,15 +27,20 @@
     <!-- HomeFragment中的主内容的条目被点击时的背景色 -->
     <color name="fragment_home_bg">#c8c5c5</color>
 
+    <!-- HomeFragment中的主内容的条目的标题文字的颜色 -->
+    <color name="fragment_home_item_title_color">#636363</color>
+    <!-- HomeFragment中的主内容的条目的内容文字的颜色 -->
+    <color name="fragment_home_item_content_color">#636363</color>
+
     <!-- HomeFragment中的主内容的条目被点击时的背景色 -->
     <color name="fragment_home_item_normal_bg">#f6f6f6</color>
     <color name="fragment_home_item_press_bg">#d3d3d3</color>
 
-    <!-- HomeFragment 中推荐企业中的颜色  -->
-    <color name="recommend_text_color">#272727</color>
-    <color name="recommend_tv_bg">@color/rg_bg</color>
+    <!-- HomeFragment 中推荐企业以及热点资讯标题的颜色  -->
+    <color name="home_fragment_content_heading_color">#272727</color>
+    <color name="home_fragment_content_heading_bg">@color/rg_bg</color>
 
-    <!-- HomeFragment中热点资讯的列表条目的文字大小 -->
+    <!-- HomeFragment中热点资讯的列表条目的文字颜色 -->
     <color name="hot_info_item_content_color">#868686</color>
     <color name="hot_info_item_date_color">#868686</color>
 

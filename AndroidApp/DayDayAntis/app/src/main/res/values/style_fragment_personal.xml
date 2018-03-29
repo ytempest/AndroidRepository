@@ -81,8 +81,7 @@
     <!-- PersonalFragment 的主内容一个Item的的文字标题样式 -->
     <style name="fragment_personal_row_item_text_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:padding">6dp</item>
+        <item name="android:layout_height">30dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/personal_fragment_content_item_text</item>
         <item name="android:textSize">@dimen/personal_fragment_content_item_text</item>

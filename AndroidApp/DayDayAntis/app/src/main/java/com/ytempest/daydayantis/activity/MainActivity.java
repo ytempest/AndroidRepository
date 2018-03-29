@@ -3,6 +3,7 @@ package com.ytempest.daydayantis.activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -29,6 +30,12 @@ public class MainActivity extends BaseSkinActivity {
 
     private final static int LOGIN_REQUEST_CODE = 100;
 
+    private final int FRAGMENT_HOME = 0;
+    private final int FRAGMENT_COLLECT = 1;
+    private final int FRAGMENT_MESSAGE = 2;
+    private final int FRAGMENT_PERSONAL = 3;
+    private int mCurrentItem = FRAGMENT_HOME;
+
     @ViewById(R.id.vp_fragment)
     private ViewPager mViewPager;
 
@@ -45,7 +52,6 @@ public class MainActivity extends BaseSkinActivity {
     private RadioButton mRbMessage;
     @ViewById(R.id.rb_personal)
     private RadioButton mRbPersonal;
-    private List<Fragment> mFragments;
 
 
     @Override
@@ -59,107 +65,111 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initView() {
-
-    }
-
-    @Override
-    protected void initData() {
-        mFragments = new ArrayList<>();
+        List<Fragment> mFragments = new ArrayList<>();
         mFragments.add(new HomeFragment());
         mFragments.add(new CollectFragment());
         mFragments.add(new MessageFragment());
         mFragments.add(new PersonalFragment());
 
         mViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), mFragments));
-        mViewPager.addOnPageChangeListener(new MainViewPagerListener());
         // 缓存ViePager的页数，缓存当前页面的左右两边各3个
         mViewPager.setOffscreenPageLimit(3);
     }
 
-
-    @OnClick(R.id.rb_home)
-    public void homeClick(View view) {
-        mViewPager.setCurrentItem(0, false);
+    @Override
+    protected void initData() {
     }
 
+
+    /**
+     * 首页按钮
+     */
+    @OnClick(R.id.rb_home)
+    public void homeClick(View view) {
+        setCurrentItem(FRAGMENT_HOME);
+    }
+
+    /**
+     * 收藏按钮
+     */
     @OnClick(R.id.rb_collect)
     public void collectClick(View view) {
         // 如果没有登录
         if (!UserLoginUtils.isUserLogin(MainActivity.this)) {
-            startActivity(UserLoginActivity.class);
+            startActivityForResult(UserLoginActivity.class, LOGIN_REQUEST_CODE);
         } else {
-            mViewPager.setCurrentItem(1, false);
+            setCurrentItem(FRAGMENT_COLLECT);
         }
     }
 
+
+    /**
+     * 发布按钮
+     */
     @OnClick(R.id.ll_publish)
     public void publishClick(View view) {
 
     }
 
+    /**
+     * 消息按钮
+     */
     @OnClick(R.id.rb_message)
     public void messageClick(View view) {
-        mViewPager.setCurrentItem(2, false);
+        setCurrentItem(FRAGMENT_MESSAGE);
     }
 
+    /**
+     * 个人中心按钮
+     */
     @OnClick(R.id.rb_personal)
     public void personalClick(View view) {
-        mViewPager.setCurrentItem(3, false);
+        setCurrentItem(FRAGMENT_PERSONAL);
 
     }
 
-
-    private class MainViewPagerListener implements ViewPager.OnPageChangeListener {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            switch (position) {
-                case 0:
-                    mRbHome.setChecked(true);
-                    break;
-
-                case 1:
-                    mRbCollect.setChecked(true);
-                    break;
-
-                case 2:
-                    mRbMessage.setChecked(true);
-                    break;
-
-                case 3:
-                    mRbPersonal.setChecked(true);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    }
-
+    /**
+     * 启动Activity的返回结果
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            // 如果是用户登录
             case LOGIN_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
-                    mViewPager.setCurrentItem(1, false);
+                    setCurrentItem(FRAGMENT_COLLECT);
                 } else {
-                    mViewPager.setCurrentItem(mViewPager.getCurrentItem(), false);
+                    setCurrentItem(mCurrentItem);
                 }
                 break;
             default:
                 break;
 
         }
+    }
+
+    /**
+     * 根据位置设置指定的ViewPager页面同时将 RadioButton 的状态更改
+     */
+    public void setCurrentItem(int position) {
+        mCurrentItem = position;
+        switch (position) {
+            case FRAGMENT_HOME:
+                mRbHome.setChecked(true);
+                break;
+            case FRAGMENT_COLLECT:
+                mRbCollect.setChecked(true);
+                break;
+            case FRAGMENT_MESSAGE:
+                mRbMessage.setChecked(true);
+                break;
+            case FRAGMENT_PERSONAL:
+                mRbPersonal.setChecked(true);
+                break;
+            default:
+                break;
+        }
+        mViewPager.setCurrentItem(position, false);
     }
 }
 

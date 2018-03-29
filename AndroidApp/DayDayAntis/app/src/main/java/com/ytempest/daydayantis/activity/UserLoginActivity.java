@@ -1,13 +1,11 @@
 package com.ytempest.daydayantis.activity;
 
-import android.content.Intent;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -23,10 +21,13 @@ import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
 
+/**
+ * @author ytempest
+ *         Description：这是一个用于登录的一个Activity，登录成功后会返回结果给上一层
+ */
 public class UserLoginActivity extends BaseSkinActivity {
 
     private static String TAG = "UserLoginActivity";
-    public static String IS_SIGN_IN_SUCCESS = "is_sign_in_success";
 
     @ViewById(R.id.et_input_user)
     private EditText mEtUserName;
@@ -36,15 +37,13 @@ public class UserLoginActivity extends BaseSkinActivity {
 
     @ViewById(R.id.cb_password_status)
     private CheckBox mCbPasswordStatus;
-
-    @ViewById(R.id.bt_sign_in)
-    private Button mBtSignIn;
-
+    /**
+     * 是否登录成功
+     */
     private boolean isLoginSuccess = false;
 
     @Override
     protected int getLayoutResId() {
-
         return R.layout.activity_user_login;
     }
 
@@ -55,6 +54,7 @@ public class UserLoginActivity extends BaseSkinActivity {
 
     @Override
     protected void initView() {
+        // 设置显示密码的CheckBox的监听
         mCbPasswordStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -88,6 +88,27 @@ public class UserLoginActivity extends BaseSkinActivity {
     }
 
 
+    /**
+     * 对用户输入的用户名和密码进行判空
+     */
+    private boolean checkUserAndPassword() {
+        String user = mEtUserName.getText().toString().trim();
+        String password = mEtPassword.getText().toString().trim();
+        if (TextUtils.isEmpty(user)) {
+            showToastShort("请输入手机号码");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            showToastShort("请输入密码");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 登录请求数据
+     */
     private void startSignIn() {
         String userPhone = mEtUserName.getText().toString().trim();
         String password = mEtPassword.getText().toString().trim();
@@ -115,58 +136,49 @@ public class UserLoginActivity extends BaseSkinActivity {
     }
 
     /**
-     * 登录成功后做后续处理
-     */
-    private void changeUserStatue() {
-        finish();
-    }
-
-    /**
      * 处理登录返回的数据
      */
     private void dealDataResult(UserDataResult result) {
         int loginErrorCode = result.getErrcode();
-        // 登录失败
         if (loginErrorCode == 0) {
+            // 登录失败
+            isLoginSuccess = false;
             showToastShort("手机号码不正确或密码错误");
         } else {
+            // 登录成功
             isLoginSuccess = true;
             // 设置用户状态为已经登录
             UserLoginUtils.saveUserLoginStatus(UserLoginActivity.this,isLoginSuccess);
             Gson gson = new Gson();
             String userInfo = gson.toJson(result.getData());
             // 存储用户数据
-            UserLoginUtils.setUserInfo(UserLoginActivity.this, userInfo);
-
+            UserLoginUtils.saveUserInfo(UserLoginActivity.this, userInfo);
             changeUserStatue();
         }
     }
 
-    private boolean checkUserAndPassword() {
-        String user = mEtUserName.getText().toString().trim();
-        String password = mEtPassword.getText().toString().trim();
 
-        if (TextUtils.isEmpty(user)) {
-            showToastShort("请输入手机号码");
-            return false;
-        }
+    /**
+     * 登录成功后做后续处理
+     */
+    private void changeUserStatue() {
+        finish();
+    }
 
-        if (TextUtils.isEmpty(password)) {
-            showToastShort("请输入密码");
-            return false;
-        }
-        return true;
+    @Override
+    public void finish() {
+        // 设置返回结果给启动本Activity的Activity或Fragment
+        setActivityResult();
+        super.finish();
     }
 
     /**
-     * 登录结果返回
+     * 设置登录结果
      */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
+    private void setActivityResult() {
         int isSuccess = isLoginSuccess ? RESULT_OK : RESULT_CANCELED;
         setResult(isSuccess);
     }
+
 }
 

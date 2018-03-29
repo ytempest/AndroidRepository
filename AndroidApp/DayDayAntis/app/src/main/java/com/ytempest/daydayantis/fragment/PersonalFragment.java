@@ -26,8 +26,7 @@ public class PersonalFragment extends BaseFragment {
 
     @ViewById(R.id.sl_root_view)
     private ScrollView mScrollView;
-    @ViewById(R.id.tv_login_register)
-    private TextView mTvLoginRegister;
+
     @ViewById(R.id.lo_default_head)
     private View mDefaultHead;
     @ViewById(R.id.lo_login_head)
@@ -38,8 +37,6 @@ public class PersonalFragment extends BaseFragment {
     private TextView mTvUserName;
     @ViewById(R.id.tv_login_user_region)
     private TextView mTvUserRegion;
-    @ViewById(R.id.tv_exit_login)
-    private TextView mTvExitLogin;
 
     @Override
     protected int getLayoutId() {
@@ -61,10 +58,9 @@ public class PersonalFragment extends BaseFragment {
         super.onResume();
 
         // 检查用户的登录状态
-        changeUserLoginStatus();
+        changeUserLoginLayout();
 
     }
-
 
     @OnClick(R.id.tv_login_register)
     private void onLoginRegisterClick(View view) {
@@ -72,28 +68,52 @@ public class PersonalFragment extends BaseFragment {
     }
 
     /**
-     * 退出登录的按钮
+     * 根据用户的登录状态设置相应的布局
      */
-    @OnClick(R.id.tv_exit_login)
-    private void onExitLoginClick(View view) {
-        exitUserLogin();
-    }
-
-    private void changeUserLoginStatus() {
-        // 如果还没有登录
+    private void changeUserLoginLayout() {
         if (!UserLoginUtils.isUserLogin(mContext)) {
-            exitUserLogin();
+            // 如果用户没有登录，就更改布局为默认布局
+            switchDefaultLayout();
         } else {
-            signInUserLogin();
+            // 如果用户已经登录就切换到用户布局
+            switchUserLayout();
         }
 
     }
 
-    private void signInUserLogin() {
+    /**
+     * 退出登录的按钮
+     */
+    @OnClick(R.id.tv_exit_login)
+    private void onExitLoginClick(View view) {
+        // 设置用户登录状态为已退出
+        boolean isLogin = UserLoginUtils.isUserLogin(mContext);
+        if (!isLogin) {
+            return;
+        }
+        UserLoginUtils.saveUserLoginStatus(mContext, false);
+        onResume();
+    }
+
+
+    /**
+     * 切换到默认的未登录的用户布局
+     */
+    private void switchDefaultLayout() {
+        mDefaultHead.setVisibility(View.VISIBLE);
+        mLoginHead.setVisibility(View.GONE);
+        // 退出登录后把页面滑动到顶部
+        mScrollView.setScrollY(0);
+    }
+
+    /**
+     * 切换到登录后的用户布局
+     */
+    private void switchUserLayout() {
         mDefaultHead.setVisibility(View.GONE);
         mLoginHead.setVisibility(View.VISIBLE);
         // 获取用户信息
-        String userInfoString = UserLoginUtils.saveUserInfo(mContext);
+        String userInfoString = UserLoginUtils.getUserInfo(mContext);
         // 如果存储的用户信息为空则return
         if (TextUtils.isEmpty(userInfoString)) {
             return;
@@ -102,15 +122,6 @@ public class PersonalFragment extends BaseFragment {
         Glide.with(mContext).load(userData.getMember_info().getMember_avatar()).into(mIvUserHead);
         mTvUserName.setText(userData.getMember_info().getMember_name());
         mTvUserRegion.setText(userData.getMember_info().getMember_location_text());
-    }
-
-    private void exitUserLogin() {
-        mDefaultHead.setVisibility(View.VISIBLE);
-        mLoginHead.setVisibility(View.GONE);
-        // 设置用户登录状态为已退出
-        UserLoginUtils.saveUserLoginStatus(mContext, false);
-        // 退出登录后把页面滑动到顶部
-        mScrollView.setScrollY(0);
     }
 
 }

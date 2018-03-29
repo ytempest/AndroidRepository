@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：这是一个 SharedPreferences 存储的工具类
  */
 public class SpUtils {
 
