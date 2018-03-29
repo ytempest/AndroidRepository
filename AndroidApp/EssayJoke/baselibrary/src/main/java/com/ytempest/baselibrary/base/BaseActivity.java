@@ -65,6 +65,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * 启动Activity，带结果
+     */
+    protected void startActivityForResult(Class<?> clazz,int requetCode) {
+        Intent intent = new Intent(this, clazz);
+        startActivityForResult(intent, requetCode);
+    }
+
+    /**
      * findViewById
      *
      * @return View
