@@ -2,14 +2,12 @@ package com.ytempest.daydayantis.fragment.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 
 import com.ytempest.baselibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
 import com.ytempest.baselibrary.view.recyclerview.adapter.CommonViewHolder;
-import com.ytempest.daydayantis.DetailLinkActivity;
+import com.ytempest.daydayantis.activity.DetailLinkActivity;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.fragment.mode.HomeDataResult;
 

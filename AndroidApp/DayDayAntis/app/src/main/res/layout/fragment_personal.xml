@@ -1,14 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sl_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/rb_personal" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/fragment_personal_bg"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/title_bar" />
+
+        <include
+            android:id="@+id/lo_default_head"
+            layout="@layout/fragment_personal_head_default"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/lo_login_head"
+            layout="@layout/fragment_personal_head_login"
+            android:visibility="gone" />
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout style="@style/fragment_personal_task_item_container_style">
+
+                <TextView
+                    style="@style/fragment_personal_task_item_top_style"
+                    android:text="未签到" />
+
+                <TextView
+                    style="@style/fragment_personal_task_item_bottom_style"
+                    android:text="我的任务" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/fragment_personal_task_item_container_style"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp">
+
+                <TextView
+                    style="@style/fragment_personal_task_item_top_style"
+                    android:text="未签到" />
+
+                <TextView
+                    style="@style/fragment_personal_task_item_bottom_style"
+                    android:text="我的任务" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/fragment_personal_task_item_container_style">
+
+                <TextView
+                    style="@style/fragment_personal_task_item_top_style"
+                    android:text="未签到" />
+
+                <TextView
+                    style="@style/fragment_personal_task_item_bottom_style"
+                    android:text="我的任务" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/fragment_home_row_style">
+
+            <LinearLayout
+                android:id="@+id/ll_labour"
+                style="@style/fragment_personal_row_item_style">
+
+                <ImageView
+                    style="@style/fragment_personal_row_item_iv_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/purchase_records" />
+
+                <TextView
+                    style="@style/fragment_personal_row_item_text_style"
+                    android:text="@string/ll_purchase_records" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_insurance"
+                style="@style/fragment_personal_row_item_style"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp">
+
+                <ImageView
+                    style="@style/fragment_personal_row_item_iv_style"
+                    android:src="@drawable/my_order" />
+
+                <TextView
+                    style="@style/fragment_personal_row_item_text_style"
+                    android:text="@string/ll_my_order" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/fragment_personal_row_item_style">
+
+                <ImageView
+                    android:id="@+id/ll_technology"
+                    style="@style/fragment_personal_row_item_iv_style"
+                    android:src="@drawable/my_publish" />
+
+                <TextView
+                    style="@style/fragment_personal_row_item_text_style"
+                    android:text="@string/ll_my_publish" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/fragment_home_row_style">
+
+            <LinearLayout
+                android:id="@+id/ll_equipment"
+                style="@style/fragment_personal_row_item_style">
+
+                <ImageView
+                    style="@style/fragment_personal_row_item_iv_style"
+                    android:src="@drawable/worker_manage_center" />
+
+                <TextView
+                    style="@style/fragment_personal_row_item_text_style"
+                    android:text="@string/ll_worker_manager_center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_league"
+                style="@style/fragment_personal_row_item_style"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp">
+
+                <ImageView
+                    style="@style/fragment_personal_row_item_iv_style"
+                    android:src="@drawable/team_manage_center" />
+
+                <TextView
+                    style="@style/fragment_personal_row_item_text_style"
+                    android:text="@string/ll_team_manager_center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_cost"
+                style="@style/fragment_personal_row_item_style">
+
+                <ImageView
+                    style="@style/fragment_personal_row_item_iv_style"
+                    android:src="@drawable/expert_manage_center" />
+
+                <TextView
+                    style="@style/fragment_personal_row_item_text_style"
+                    android:text="@string/ll_technology_manger_center" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/fragment_personal_problem_list_style"
+                android:text="常见问题" />
+
+            <TextView
+                style="@style/fragment_personal_problem_list_style"
+                android:text="常见问题" />
+
+            <TextView
+                style="@style/fragment_personal_problem_list_style"
+                android:text="@string/personal_fragment_problem_list_text" />
+
+            <TextView
+                android:id="@+id/tv_exit_login"
+                style="@style/fragment_personal_problem_list_style"
+                android:text="@string/personal_fragment_exit_login" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

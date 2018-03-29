@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/fragment_personal_head_container_style">
+
+    <ImageView
+        style="@style/fragment_personal_head_user_iv_style"
+        android:src="@drawable/personal_default_head" />
+
+    <LinearLayout style="@style/fragment_personal_head_user_container_style">
+
+        <TextView
+            android:id="@+id/tv_login_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="@string/personal_fragment_head_user_no_login"
+            android:textColor="@color/personal_fragment_head_user_no_login"
+            android:textSize="@dimen/personal_fragment_head_user_no_login" />
+
+    </LinearLayout>
+</LinearLayout>

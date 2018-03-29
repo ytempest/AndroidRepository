@@ -4,15 +4,16 @@
     <color name="colorPrimaryDark">#454c55</color>
     <color name="colorAccent">#FFFFFF</color>
 
+
     <!-- 标题栏背景颜色 -->
     <color name="title_bar_bg_color">#454c55</color>
     <!-- 标题栏文字颜色-->
     <color name="title_bar_text_color">#FFFFFF</color>
 
+    <!--———————————————————————-->
 
     <!-- MainActivity 布局的背景色 -->
-    <color name="activity_main_bg">#cdc6c6</color>
-
+    <color name="activity_main_bg">#0ad479</color>
 
     <!-- 主页 RadioButton 选择的颜色 -->
     <color name="rb_text_press_color">#24cfa2</color>
@@ -21,9 +22,14 @@
     <!-- 主页 RadioGroup 的背景色 -->
     <color name="rg_bg">#F9F9F9</color>
 
+    <!--———————————————————————-->
+
     <!-- HomeFragment中的主内容的条目被点击时的背景色 -->
-    <color name="home_fragment_item_normal_bg">#f6f6f6</color>
-    <color name="home_fragment_item_press_bg">#d3d3d3</color>
+    <color name="fragment_home_bg">#c8c5c5</color>
+
+    <!-- HomeFragment中的主内容的条目被点击时的背景色 -->
+    <color name="fragment_home_item_normal_bg">#f6f6f6</color>
+    <color name="fragment_home_item_press_bg">#d3d3d3</color>
 
     <!-- HomeFragment 中推荐企业中的颜色  -->
     <color name="recommend_text_color">#272727</color>
@@ -33,6 +39,49 @@
     <color name="hot_info_item_content_color">#868686</color>
     <color name="hot_info_item_date_color">#868686</color>
 
+    <!--———————————————————————-->
+
+    <!-- PersonalFragment 的背景颜色 -->
+    <color name="fragment_personal_bg">#dedbdb</color>
+
+    <!-- PersonalFragment 的用户登录头部的背景色 -->
+    <color name="fragment_personal_head_user_bg">#626870</color>
+    <color name="personal_fragment_head_user_name">#dd272727</color>
+    <color name="personal_fragment_head_user_region">#dd272727</color>
+    <color name="personal_fragment_head_user_no_login">#dd272727</color>
+
+    <!-- PersonalFragment 的任务条目的文字颜色 -->
+    <color name="personal_fragment_task_item_top_text">#5e5d5d</color>
+    <color name="personal_fragment_task_item_bottom_text">#8f8d8d</color>
+
+    <!-- PersonalFragment 的主内容每一个条目的的文字颜色 -->
+    <color name="personal_fragment_content_item_text">#636363</color>
+
+    <!-- PersonalFragment 的底部问题列表的文字颜色 -->
+    <color name="personal_fragment_problem_list_text">#434242</color>
+
+    <!--———————————————————————-->
+
+    <!-- 登录页面的背景色 -->
+    <color name="activity_user_login_bg">#D3D5D1</color>
+    <!-- 登录页面输入框的文字颜色 -->
+    <color name="activity_user_login_input_text">#6f6e6e</color>
+    <!-- 登录页面登录按钮的文字颜色 -->
+    <color name="activity_user_login_button_text">#edeaea</color>
+    <!-- 登录页面忘记密码的文字颜色 -->
+    <color name="activity_user_login_forget_password_text">#03A48C</color>
+    <!-- 登录页面手机登录的文字颜色 -->
+    <color name="activity_user_login_phone_login_text">#03A48C</color>
+
+    <!-- 登录页面输入框的背景颜色 -->
+    <color name="activity_user_login_input_bg">#E3E5E1</color>
+    <!-- 登录页面登录按钮的背景颜色 -->
+    <color name="activity_user_login_button_normal_bg">#02A38B</color>
+    <!-- 登录页面登录按钮的背景颜色 -->
+    <color name="activity_user_login_button_press_bg">#059680</color>
+
+
+    <!--———————————————————————-->
 
     <!-- 根布局的背景 -->
     <color name="root_bg_color">#efeded</color>

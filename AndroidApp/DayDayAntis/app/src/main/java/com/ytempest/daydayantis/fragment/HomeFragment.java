@@ -14,7 +14,7 @@ import com.ytempest.baselibrary.http.HttpUtils;
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.view.recyclerview.division.DividerItemDecoration;
-import com.ytempest.daydayantis.DetailLinkActivity;
+import com.ytempest.daydayantis.activity.DetailLinkActivity;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.fragment.adapter.HotInfoAdapter;
 import com.ytempest.daydayantis.fragment.mode.HomeDataResult;

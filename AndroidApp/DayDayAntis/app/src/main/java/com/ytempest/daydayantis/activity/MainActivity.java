@@ -1,5 +1,6 @@
-package com.ytempest.daydayantis;
+package com.ytempest.daydayantis.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -8,17 +9,25 @@ import android.widget.RadioButton;
 
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
+import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.fragment.CollectFragment;
 import com.ytempest.daydayantis.fragment.HomeFragment;
 import com.ytempest.daydayantis.fragment.MessageFragment;
 import com.ytempest.daydayantis.fragment.PersonalFragment;
 import com.ytempest.daydayantis.fragment.adapter.MainPagerAdapter;
+import com.ytempest.daydayantis.utils.SpConfig;
+import com.ytempest.daydayantis.utils.SpUtils;
+import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseSkinActivity {
+
+    private static String TAG = "MainActivity";
+
+    private final static int LOGIN_REQUEST_CODE = 100;
 
     @ViewById(R.id.vp_fragment)
     private ViewPager mViewPager;
@@ -34,7 +43,6 @@ public class MainActivity extends BaseSkinActivity {
 
     @ViewById(R.id.rb_message)
     private RadioButton mRbMessage;
-
     @ViewById(R.id.rb_personal)
     private RadioButton mRbPersonal;
     private List<Fragment> mFragments;
@@ -76,7 +84,12 @@ public class MainActivity extends BaseSkinActivity {
 
     @OnClick(R.id.rb_collect)
     public void collectClick(View view) {
-        mViewPager.setCurrentItem(1, false);
+        // 如果没有登录
+        if (!UserLoginUtils.isUserLogin(MainActivity.this)) {
+            startActivity(UserLoginActivity.class);
+        } else {
+            mViewPager.setCurrentItem(1, false);
+        }
     }
 
     @OnClick(R.id.ll_publish)
@@ -92,6 +105,7 @@ public class MainActivity extends BaseSkinActivity {
     @OnClick(R.id.rb_personal)
     public void personalClick(View view) {
         mViewPager.setCurrentItem(3, false);
+
     }
 
 
@@ -127,6 +141,23 @@ public class MainActivity extends BaseSkinActivity {
 
         @Override
         public void onPageScrollStateChanged(int state) {
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case LOGIN_REQUEST_CODE:
+                if (resultCode == RESULT_OK) {
+                    mViewPager.setCurrentItem(1, false);
+                } else {
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem(), false);
+                }
+                break;
+            default:
+                break;
 
         }
     }

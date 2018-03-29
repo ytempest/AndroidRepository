@@ -8,7 +8,9 @@
     <string name="rb_message">消息</string>
     <string name="rb_personal">个人中心</string>
 
-    <!-- 首页 主内容中的 item 的文字 -->
+    <!--————————————————————————-->
+
+    <!-- HomeFragment 中的 item 的文字 -->
     <string name="ll_labour_title">劳务</string>
     <string name="ll_labour_text">找信息、找团队、找工人</string>
     <string name="ll_insurance_title">保险</string>
@@ -25,5 +27,40 @@
     <string name="tv_recommend">推荐企业</string>
     <string name="tv_hot_info">热点资讯</string>
 
+    <!--————————————————————————-->
+
+    <!-- PersonalFragment 用户头部的用户名的文字大小 -->
+    <string name="personal_fragment_head_user_name">用户名</string>
+    <string name="personal_fragment_head_user_region">地区</string>
+    <string name="personal_fragment_head_user_no_login">登录/注册</string>
+
+    <!-- PersonalFragment 中的 item 的文字 -->
+    <string name="ll_purchase_records">购买记录</string>
+    <string name="ll_my_order">我的订单</string>
+    <string name="ll_my_publish">我的发布</string>
+    <string name="ll_worker_manager_center">工人管理中心</string>
+    <string name="ll_team_manager_center">团队管理中心</string>
+    <string name="ll_technology_manger_center">技术管理中心</string>
+
+    <!-- PersonalFragment 中的底部问题的文字-->
+    <string name="personal_fragment_problem_list_text">常见问题</string>
+    <string name="personal_fragment_exit_login">退出登录</string>
+
+
+    <!--————————————————————————-->
+
+    <!-- UserLoginActivity 中的用户输入框的hint文字-->
+    <string name="activity_user_login_user_hint">手机号码</string>
+    <!-- UserLoginActivity 中的用户输入框的hint文字-->
+    <string name="activity_user_login_password_hint">密码</string>
+    <!-- UserLoginActivity 中的登录按钮的文字-->
+    <string name="activity_user_login_button">登录</string>
+    <!-- UserLoginActivity 中的忘记密码的文字-->
+    <string name="activity_user_login_forget_password">忘记密码？</string>
+    <!-- UserLoginActivity 中的手机快捷登录的文字-->
+    <string name="activity_user_login_phone_login">手机快捷登录</string>
+
+
+    <!--————————————————————————-->
 
 </resources>

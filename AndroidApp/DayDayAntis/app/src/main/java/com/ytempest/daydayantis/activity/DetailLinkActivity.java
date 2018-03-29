@@ -1,4 +1,4 @@
-package com.ytempest.daydayantis;
+package com.ytempest.daydayantis.activity;
 
 import android.view.View;
 import android.webkit.WebResourceError;
@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.view.load.LoadView;
+import com.ytempest.daydayantis.R;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 
 /**

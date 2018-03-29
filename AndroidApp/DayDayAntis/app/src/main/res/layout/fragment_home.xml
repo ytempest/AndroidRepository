@@ -5,9 +5,12 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:background="@color/fragment_home_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <include layout="@layout/title_bar" />
 
         <ImageView
             android:id="@+id/iv_advertise"
@@ -15,7 +18,7 @@
             android:layout_height="170dp"
             android:scaleType="centerCrop" />
 
-        <LinearLayout style="@style/home_fragment_row_style">
+        <LinearLayout style="@style/fragment_home_row_style">
 
             <LinearLayout
                 android:id="@+id/ll_labour"
@@ -27,11 +30,11 @@
                     android:src="@drawable/labour_icon" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_title_style"
+                    style="@style/fragment_home_row_item_title_style"
                     android:text="@string/ll_labour_title" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_text_style"
+                    style="@style/fragment_home_row_item_text_style"
                     android:text="@string/ll_labour_text" />
             </LinearLayout>
 
@@ -47,11 +50,11 @@
                     android:src="@drawable/insurance_icon" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_title_style"
+                    style="@style/fragment_home_row_item_title_style"
                     android:text="@string/ll_insurance_title" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_text_style"
+                    style="@style/fragment_home_row_item_text_style"
                     android:text="@string/ll_insurance_text" />
             </LinearLayout>
 
@@ -64,17 +67,17 @@
                     android:src="@drawable/technology_icon" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_title_style"
+                    style="@style/fragment_home_row_item_title_style"
                     android:text="@string/ll_technology_title" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_text_style"
+                    style="@style/fragment_home_row_item_text_style"
                     android:text="@string/ll_technology_text" />
             </LinearLayout>
         </LinearLayout>
 
 
-        <LinearLayout style="@style/home_fragment_row_style">
+        <LinearLayout style="@style/fragment_home_row_style">
 
             <LinearLayout
                 android:id="@+id/ll_equipment"
@@ -86,11 +89,11 @@
                     android:src="@drawable/equipment_icon" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_title_style"
+                    style="@style/fragment_home_row_item_title_style"
                     android:text="@string/ll_equipment_title" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_text_style"
+                    style="@style/fragment_home_row_item_text_style"
                     android:text="@string/ll_equipment_text" />
             </LinearLayout>
 
@@ -106,11 +109,11 @@
                     android:src="@drawable/league_icon" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_title_style"
+                    style="@style/fragment_home_row_item_title_style"
                     android:text="@string/ll_league_title" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_text_style"
+                    style="@style/fragment_home_row_item_text_style"
                     android:text="@string/ll_league_text" />
             </LinearLayout>
 
@@ -124,11 +127,11 @@
                     android:src="@drawable/cost_exchange" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_title_style"
+                    style="@style/fragment_home_row_item_title_style"
                     android:text="@string/ll_cost_title" />
 
                 <TextView
-                    style="@style/home_fragment_row_item_text_style"
+                    style="@style/fragment_home_row_item_text_style"
                     android:text="@string/ll_cost_text" />
             </LinearLayout>
         </LinearLayout>

@@ -1,6 +1,7 @@
 package com.ytempest.baselibrary.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -37,6 +38,23 @@ public abstract class BaseFragment extends Fragment {
         initView();
         initData();
     }
+
+    /**
+     * 启动Activity
+     */
+    protected void startActivity(Class<?> clazz) {
+        Intent intent = new Intent(mContext, clazz);
+        startActivity(intent);
+    }
+
+    /**
+     * 启动Activity，带结果
+     */
+    protected void startActivityForResult(Class<?> clazz,int requetCode) {
+        Intent intent = new Intent(mContext, clazz);
+        startActivityForResult(intent, requetCode);
+    }
+
 
     protected abstract int getLayoutId();
 
