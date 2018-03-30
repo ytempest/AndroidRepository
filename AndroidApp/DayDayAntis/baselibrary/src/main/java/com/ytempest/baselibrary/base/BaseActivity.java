@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ytempest.baselibrary.ioc.ViewUtils;
+import com.ytempest.baselibrary.util.ActivityStackManager;
 
 /**
  * @author ytempest
@@ -17,6 +19,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 添加 Activity 到 ActivityStackManager 中进行管理
+        ActivityStackManager.getInstance().registerActivity(this);
 
         // 设置布局layout
         setContentView(getLayoutResId());
@@ -31,6 +36,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // 初始化数据
         initData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 注销 Activity，防止内存泄漏
+        ActivityStackManager.getInstance().unregisterActivity(this);
+
     }
 
     /**

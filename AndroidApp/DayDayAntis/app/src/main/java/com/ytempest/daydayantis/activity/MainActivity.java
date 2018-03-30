@@ -1,14 +1,17 @@
 package com.ytempest.daydayantis.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
+import com.ytempest.baselibrary.util.ActivityStackManager;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.fragment.CollectFragment;
 import com.ytempest.daydayantis.fragment.HomeFragment;
@@ -19,7 +22,9 @@ import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends BaseSkinActivity {
 
@@ -83,6 +88,7 @@ public class MainActivity extends BaseSkinActivity {
      */
     @OnClick(R.id.rb_home)
     public void homeClick(View view) {
+        ActivityStackManager.getInstance().finishActivity(UserLoginActivity.class);
         setCurrentItem(FRAGMENT_HOME);
     }
 
