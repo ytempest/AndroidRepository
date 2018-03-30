@@ -27,6 +27,7 @@ public class UserRegisterActivity extends BaseSkinActivity {
         DefaultNavigationBar navigationBar =
                 new DefaultNavigationBar.Builder(UserRegisterActivity.this, mRootView)
                         .setTitle("注册")
+                        .setLeftIcon(R.drawable.icon_back)
                         .setTitleColor(R.color.title_bar_text_color)
                         .setBackground(R.color.title_bar_bg_color)
                         .build();

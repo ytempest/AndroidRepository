@@ -38,6 +38,7 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         setBackground(getParams().mBackgroundResId);
         setTextColor(R.id.tv_title,getParams().mTitleColor);
         setTextColor(R.id.tv_right_text, getParams().mRightTextColor);
+        setDrawable(R.id.ib_back,getParams().mLeftIconId);
     }
 
 
@@ -84,6 +85,14 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         /**
          * 设置右边的图片
          */
+        public Builder setLeftIcon(int leftRes) {
+            P.mLeftIconId = leftRes;
+            return this;
+        }
+
+        /**
+         * 设置右边的图片
+         */
         public Builder setRightIcon(int rightRes) {
             return this;
         }
@@ -119,6 +128,7 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         public static class DefaultNavigationParams extends AbsNavigationParams {
 
             public String mTitle;
+            public int mLeftIconId = R.drawable.navigation_back_normal;
             public String mRightText;
             public View.OnClickListener mRightClickListener;
             public View.OnClickListener mLeftClickListener = new View.OnClickListener() {

@@ -58,6 +58,7 @@ public class UserLoginActivity extends BaseSkinActivity {
         DefaultNavigationBar navigationBar =
                 new DefaultNavigationBar.Builder(UserLoginActivity.this, mRootView)
                         .setTitle("登录")
+                        .setLeftIcon(R.drawable.icon_back)
                         .setTitleColor(R.color.title_bar_text_color)
                         .setBackground(R.color.title_bar_bg_color)
                         .setRightText("注册")
