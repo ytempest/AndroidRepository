@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- NavigationBar 标题文字的大小 -->
+    <dimen name="navigation_bar_title_text_size">20sp</dimen>
+    <!-- NavigationBar 右边文字的大小 -->
+    <dimen name="navigation_bar_right_text_size">17sp</dimen>
+    <!-- NavigationBar 的高度 -->
+    <dimen name="navigation_bar_height">45dp</dimen>
+    
+</resources>

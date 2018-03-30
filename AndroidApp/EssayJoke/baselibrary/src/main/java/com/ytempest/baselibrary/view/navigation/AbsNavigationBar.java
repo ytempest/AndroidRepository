@@ -8,8 +8,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.ytempest.baselibrary.R;
 
 /**
  * @author ytempest
@@ -87,6 +91,16 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
             color = mNavigationView.getContext().getResources().getColor(colorId);
         }
         ((TextView) findViewById(viewId)).setTextColor(color);
+    }
+
+    /**
+     * 设置icon
+     */
+    public void setDrawable(int viewId, int drawableId) {
+        View view = findViewById(viewId);
+        if (view instanceof ImageButton) {
+            ((ImageButton) view).setImageResource(drawableId);
+        }
     }
 
 

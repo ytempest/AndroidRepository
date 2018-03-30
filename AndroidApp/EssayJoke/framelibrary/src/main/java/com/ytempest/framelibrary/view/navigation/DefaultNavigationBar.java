@@ -36,8 +36,9 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         setOnClickListener(R.id.ib_back, getParams().mLeftClickListener);
         setVisibility(R.id.ib_back, getParams().isLeftIconVisible);
         setBackground(getParams().mBackgroundResId);
-        setTextColor(R.id.tv_title,getParams().mTitleColor);
+        setTextColor(R.id.tv_title, getParams().mTitleColor);
         setTextColor(R.id.tv_right_text, getParams().mRightTextColor);
+        setDrawable(R.id.ib_back, getParams().mLeftIconId);
     }
 
 
@@ -84,6 +85,14 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         /**
          * 设置右边的图片
          */
+        public Builder setLeftIcon(int leftRes) {
+            P.mLeftIconId = leftRes;
+            return this;
+        }
+
+        /**
+         * 设置右边的图片
+         */
         public Builder setRightIcon(int rightRes) {
             return this;
         }
@@ -110,6 +119,7 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             P.mRightTextColor = colorId;
             return this;
         }
+
         @Override
         public DefaultNavigationBar build() {
             return new DefaultNavigationBar(P);
@@ -119,6 +129,7 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         public static class DefaultNavigationParams extends AbsNavigationParams {
 
             public String mTitle;
+            public int mLeftIconId = R.drawable.navigation_back_normal;
             public String mRightText;
             public View.OnClickListener mRightClickListener;
             public View.OnClickListener mLeftClickListener = new View.OnClickListener() {
@@ -130,7 +141,7 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             };
             public int isLeftIconVisible = View.VISIBLE;
             public int mBackgroundResId = R.color.navigation_bar_bg;
-            public int mTitleColor =R.color.navigation_title_color;
+            public int mTitleColor = R.color.navigation_title_color;
             public int mRightTextColor = R.color.navigation_right_color;
 
 
