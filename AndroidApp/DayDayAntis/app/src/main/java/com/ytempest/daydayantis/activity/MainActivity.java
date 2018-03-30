@@ -20,6 +20,7 @@ import com.ytempest.daydayantis.fragment.PersonalFragment;
 import com.ytempest.daydayantis.fragment.adapter.MainPagerAdapter;
 import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
+import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initTitle() {
+
     }
 
     @Override

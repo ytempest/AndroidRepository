@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.ytempest.baselibrary.http.HttpUtils;
@@ -21,6 +22,7 @@ import com.ytempest.daydayantis.activity.mode.UserDataResult;
 import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
+import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 /**
  * @author ytempest
@@ -29,6 +31,9 @@ import com.ytempest.framelibrary.http.HttpCallBack;
 public class UserLoginActivity extends BaseSkinActivity {
 
     private static String TAG = "UserLoginActivity";
+
+    @ViewById(R.id.ll_user_login_root)
+    private LinearLayout mRootView;
 
     @ViewById(R.id.et_input_user)
     private EditText mEtUserName;
@@ -50,6 +55,20 @@ public class UserLoginActivity extends BaseSkinActivity {
 
     @Override
     protected void initTitle() {
+        DefaultNavigationBar navigationBar =
+                new DefaultNavigationBar.Builder(UserLoginActivity.this, mRootView)
+                        .setTitle("登录")
+                        .setTitleColor(R.color.title_bar_text_color)
+                        .setBackground(R.color.title_bar_bg_color)
+                        .setRightText("注册")
+                        .setRightTextColor(R.color.title_bar_text_color)
+                        .setRightClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startActivity(UserRegisterActivity.class);
+                            }
+                        })
+                        .build();
 
     }
 
@@ -150,7 +169,7 @@ public class UserLoginActivity extends BaseSkinActivity {
             // 登录成功
             isLoginSuccess = true;
             // 设置用户状态为已经登录
-            UserLoginUtils.saveUserLoginStatus(UserLoginActivity.this,isLoginSuccess);
+            UserLoginUtils.saveUserLoginStatus(UserLoginActivity.this, isLoginSuccess);
             Gson gson = new Gson();
             String userInfo = gson.toJson(result.getData());
             // 存储用户数据

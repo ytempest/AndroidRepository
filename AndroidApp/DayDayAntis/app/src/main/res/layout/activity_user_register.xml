@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_user_register_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_user_register_bg"
+    android:orientation="vertical"
+    tools:context="com.ytempest.daydayantis.activity.UserRegisterActivity">
+
+    <LinearLayout
+        style="@style/user_register_input_container_style"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            style="@style/user_register_input_et_style"
+            android:hint="@string/activity_user_register_input_phone_text"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <LinearLayout
+            style="@style/user_register_input_container_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="3">
+
+            <EditText
+                style="@style/user_register_input_et_style"
+                android:hint="@string/activity_user_register_input_code_text"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="2"
+            android:background="@drawable/selector_green_button_bg"
+            android:gravity="center"
+            android:text="@string/activity_user_register_button_get_code_text"
+            android:textColor="@color/activity_user_register_get_code_text"
+            android:textSize="@dimen/activity_user_register_get_code_text" />
+    </LinearLayout>
+
+
+    <LinearLayout style="@style/user_register_input_container_style">
+
+        <EditText
+            style="@style/user_register_input_et_style"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="@string/activity_user_register_input_password_text"
+            android:inputType="textPassword" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:button="@drawable/selector_check_password"
+            android:checked="false" />
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:text="@string/activity_user_register_button_confirm_text"
+        android:textColor="@color/activity_user_register_button_text"
+        android:textSize="@dimen/activity_user_register_button_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:drawableLeft="@drawable/user_register_consent_protocol_icon"
+        android:drawablePadding="6dp"
+        android:padding="16dp"
+        android:textSize="@dimen/activity_user_register_protocol_text_size"
+        android:text="我已阅读并同意《天天防腐》用户协议" />
+
+
+</LinearLayout>

@@ -63,4 +63,18 @@
 
     <!--————————————————————————-->
 
+    <!-- UserRegisterActivity 中的手机号码输入框的文字-->
+    <string name="activity_user_register_input_phone_text">请输入手机号码</string>
+    <!-- UserRegisterActivity 中的验证码输入框的文字-->
+    <string name="activity_user_register_input_code_text">请输入验证码</string>
+    <!-- UserRegisterActivity 中的密码输入框的文字-->
+    <string name="activity_user_register_input_password_text">请输入6~18位密码</string>
+
+    <!-- UserRegisterActivity 中的获取验证码按钮的文字-->
+    <string name="activity_user_register_button_get_code_text">获取验证码</string>
+    <!-- UserRegisterActivity 中的注册按钮的文字-->
+    <string name="activity_user_register_button_confirm_text">注册</string>
+
+    <!--————————————————————————-->
+
 </resources>

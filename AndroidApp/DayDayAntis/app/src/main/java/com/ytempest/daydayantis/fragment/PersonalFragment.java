@@ -2,7 +2,9 @@ package com.ytempest.daydayantis.fragment;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.activity.UserLoginActivity;
 import com.ytempest.daydayantis.activity.mode.UserDataResult;
 import com.ytempest.daydayantis.utils.UserLoginUtils;
+import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 /**
  * @author ytempest
@@ -24,9 +27,11 @@ public class PersonalFragment extends BaseFragment {
 
     private static String TAG = "PersonalFragment";
 
+    @ViewById(R.id.ll_personal_root)
+    private LinearLayout mRootView;
+
     @ViewById(R.id.sl_root_view)
     private ScrollView mScrollView;
-
     @ViewById(R.id.lo_default_head)
     private View mDefaultHead;
     @ViewById(R.id.lo_login_head)
@@ -45,7 +50,13 @@ public class PersonalFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        DefaultNavigationBar navigationBar =
+                new DefaultNavigationBar.Builder(mContext, mRootView)
+                        .hideLeftIcon()
+                        .setTitle(getResources().getString(R.string.app_name))
+                        .setTitleColor(R.color.title_bar_text_color)
+                        .setBackground(R.color.title_bar_bg_color)
+                        .build();
     }
 
     @Override

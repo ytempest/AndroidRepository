@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.ytempest.baselibrary.base.BaseFragment;
 import com.ytempest.baselibrary.http.HttpUtils;
@@ -17,9 +18,11 @@ import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.view.recyclerview.division.DividerItemDecoration;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.activity.DetailLinkActivity;
+import com.ytempest.daydayantis.activity.MainActivity;
 import com.ytempest.daydayantis.fragment.adapter.HotInfoAdapter;
 import com.ytempest.daydayantis.fragment.mode.HomeDataResult;
 import com.ytempest.framelibrary.http.HttpCallBack;
+import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 
 /**
@@ -28,6 +31,9 @@ import com.ytempest.framelibrary.http.HttpCallBack;
  */
 public class HomeFragment extends BaseFragment {
 
+
+    @ViewById(R.id.ll_home_root)
+    private LinearLayout mRootView;
 
     @ViewById(R.id.iv_advertise)
     private ImageView mIvAdvertise;
@@ -61,6 +67,14 @@ public class HomeFragment extends BaseFragment {
     protected void initView() {
         mRvHotInfo.setLayoutManager(new LinearLayoutManager(mContext));
         mRvHotInfo.addItemDecoration(new DividerItemDecoration(mContext));
+
+        DefaultNavigationBar navigationBar =
+                new DefaultNavigationBar.Builder(mContext, mRootView)
+                        .hideLeftIcon()
+                        .setTitle(getResources().getString(R.string.app_name))
+                        .setTitleColor(R.color.title_bar_text_color)
+                        .setBackground(R.color.title_bar_bg_color)
+                        .build();
     }
 
     @Override

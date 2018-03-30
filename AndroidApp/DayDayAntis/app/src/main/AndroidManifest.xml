@@ -24,7 +24,8 @@
         </activity>
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.DetailLinkActivity" />
-        <activity android:name=".activity.UserLoginActivity"></activity>
+        <activity android:name=".activity.UserLoginActivity" />
+        <activity android:name=".activity.UserRegisterActivity"></activity>
     </application>
 
 </manifest>

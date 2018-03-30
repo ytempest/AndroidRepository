@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- 输入框的容器通用样式-->
+    <style name="base_input_container_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/shape_base_et_input_bg</item>
+    </style>
+
+    <!-- 输入框的通用样式-->
+    <style name="base_input_et_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textCursorDrawable">@drawable/shape_base_et_input_cursor</item>
+    </style>
+
+</resources>

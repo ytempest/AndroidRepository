@@ -5,6 +5,9 @@
     <dimen name="rb_text_size">13sp</dimen>
     <dimen name="title_bar_text_size">24sp</dimen>
 
+    <!-- 登录以及注册页面中的输入框以及登录按钮的圆角大小 -->
+    <dimen name="user_login_register_corner_size">6dp</dimen>
+
     <!--————————————————————————-->
 
     <!-- HomeFragment中主内容item的标题文字大小 -->
@@ -38,19 +41,26 @@
 
     <!--————————————————————————-->
 
-    <!-- 登录页面中的输入框以及登录按钮的圆角大小 -->
-    <dimen name="activity_user_login_corner_size">7dp</dimen>
     <!-- 登录页面中的输入框的文字大小 -->
     <dimen name="activity_user_login_input_size">16sp</dimen>
-    <!-- 登录页面中的输入框以及登录按钮的圆角大小 -->
+    <!-- 登录页面中的登录按钮的文字大小 -->
     <dimen name="activity_user_login_button_text_size">20sp</dimen>
-    <!-- 登录页面中的输入框以及登录按钮的圆角大小 -->
+    <!-- 登录页面中的忘记密码的文字大小 -->
     <dimen name="activity_user_login_forget_password_size">13dp</dimen>
-    <!-- 登录页面中的输入框以及登录按钮的圆角大小 -->
+    <!-- 登录页面中的手机快捷登录的文字大小 -->
     <dimen name="activity_user_login_phone_login_size">13dp</dimen>
-
 
     <!--————————————————————————-->
 
+    <!-- 注册页面中的输入框以及登录按钮的圆角大小 -->
+    <dimen name="activity_user_register_input_text_size">16sp</dimen>
+    <!-- 注册页面中的获取验证码按钮的文字大小 -->
+    <dimen name="activity_user_register_get_code_text">15sp</dimen>
+    <!-- 注册页面中的注册按钮的文字大小 -->
+    <dimen name="activity_user_register_button_text_size">20sp</dimen>
+    <!-- 注册页面中同意注册协议的文字大小 -->
+    <dimen name="activity_user_register_protocol_text_size">14sp</dimen>
+
+    <!--————————————————————————-->
 
 </resources>

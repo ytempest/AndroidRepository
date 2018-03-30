@@ -2,33 +2,18 @@
 <resources>
 
     <!-- UserLoginActivity 中输入框的容器样式 -->
-    <style name="user_login_input_container_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="user_login_input_container_style" parent="base_input_container_style">
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
-        <item name="android:background">@drawable/shape_login_input_bg</item>
         <item name="android:gravity">center</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
     </style>
 
     <!-- UserLoginActivity 中输入框的样式 -->
-    <style name="user_login_input_et_style">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:background">@null</item>
+    <style name="user_login_input_et_style"  parent="base_input_et_style">
         <item name="android:drawablePadding">10dp</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:paddingBottom">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">16dp</item>
         <item name="android:textSize">@dimen/activity_user_login_input_size</item>
         <item name="android:textColor">@color/activity_user_login_input_text</item>
-        <item name="android:textCursorDrawable">@drawable/shape_login_input_cursor</item>
     </style>
 
 </resources>

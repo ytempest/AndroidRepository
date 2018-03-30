@@ -88,6 +88,17 @@
 
     <!--———————————————————————-->
 
+    <!-- 注册页面的背景颜色 -->
+    <color name="activity_user_register_bg">#D3D5D1</color>
+    <!-- 注册页面的输入框的文字颜色 -->
+    <color name="activity_user_register_input_text">#434343</color>
+    <!-- 注册页面的获取验证码按钮的文字颜色 -->
+    <color name="activity_user_register_get_code_text">#f0ecec</color>
+    <!-- 注册页面注册按钮的文字颜色 -->
+    <color name="activity_user_register_button_text">#edeaea</color>
+
+    <!--———————————————————————-->
+
     <!-- 根布局的背景 -->
     <color name="root_bg_color">#efeded</color>
 
