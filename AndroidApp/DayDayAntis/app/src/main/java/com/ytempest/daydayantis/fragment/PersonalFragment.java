@@ -13,6 +13,7 @@ import com.ytempest.baselibrary.imageloader.ImageLoaderManager;
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.daydayantis.R;
+import com.ytempest.daydayantis.activity.UserInfoActivity;
 import com.ytempest.daydayantis.activity.UserLoginActivity;
 import com.ytempest.daydayantis.data.UserDataResult;
 import com.ytempest.daydayantis.utils.UserLoginUtils;
@@ -41,6 +42,7 @@ public class PersonalFragment extends BaseFragment {
     private TextView mTvUserName;
     @ViewById(R.id.tv_login_user_region)
     private TextView mTvUserRegion;
+
 
     @Override
     protected int getLayoutId() {
@@ -72,9 +74,20 @@ public class PersonalFragment extends BaseFragment {
 
     }
 
+    /**
+     * 用户登录和注册点击事件
+     */
     @OnClick(R.id.tv_login_register)
     private void onLoginRegisterClick(View view) {
         startActivity(UserLoginActivity.class);
+    }
+
+    /**
+     * 用户个人信息展示的点击事件
+     */
+    @OnClick(R.id.ll_user_info)
+    private void onUserInfoClick(View view) {
+        startActivity(UserInfoActivity.class);
     }
 
     /**

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="user_info_base_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!-- UserInfoActivity 行容器样式 -->
+    <style name="user_info_row_container_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:background">@color/activity_user_info_row_container_bg</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <!-- UserInfoActivity 左边文字的样式 -->
+    <style name="user_info_left_text_style">
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/activity_user_info_row_left_text</item>
+        <item name="android:textSize">@dimen/activity_user_info_left_text</item>
+    </style>
+
+    <!-- UserInfoActivity 右边文字的样式 -->
+    <style name="user_info_right_text_style" parent="user_info_base_style">
+        <item name="android:textSize">@dimen/activity_user_info_right_text</item>
+        <item name="android:textColor">@color/activity_user_info_row_right_text</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+    <!-- UserInfoActivity 右边的右箭头的样式 -->
+    <style name="user_info_right_arrow_style" parent="user_info_base_style">
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <!-- UserInfoActivity 右边输入框的样式 -->
+    <style name="user_info_input_style" parent="user_info_base_style">
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/activity_user_info_row_input_text</item>
+        <item name="android:textSize">@dimen/activity_user_info_input_text</item>
+    </style>
+
+</resources>

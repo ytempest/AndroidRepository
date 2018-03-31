@@ -107,6 +107,18 @@
 
     <!--———————————————————————-->
 
+    <color name="activity_user_info_bg">#e3e3e3</color>
+    <color name="activity_user_info_row_container_bg">#ffffff</color>
+    <color name="activity_user_info_row_left_text">#3c3a3a</color>
+    <color name="activity_user_info_row_right_text">#827b7b</color>
+    <color name="activity_user_info_change_phone_text">#16ceb2</color>
+    <color name="activity_user_info_row_input_text">#5e5b5b</color>
+    <color name="activity_user_info_commit_tip_text">#2f2d2d</color>
+    <color name="activity_user_info_commit_button_text">#ffffff</color>
+
+
+    <!--———————————————————————-->
+
     <!-- 根布局的背景 -->
     <color name="root_bg_color">#efeded</color>
 

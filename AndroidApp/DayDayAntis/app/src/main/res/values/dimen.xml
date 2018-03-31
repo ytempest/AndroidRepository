@@ -64,4 +64,14 @@
 
     <!--————————————————————————-->
 
+    <!-- ActivityUserInfo 界面的文字大小 -->
+    <dimen name="activity_user_info_left_text">16sp</dimen>
+    <dimen name="activity_user_info_right_text">15sp</dimen>
+    <dimen name="activity_user_info_input_text">15sp</dimen>
+    <dimen name="activity_user_info_base_data_text">16sp</dimen>
+    <dimen name="activity_user_info_commit_tip_text">13sp</dimen>
+    <dimen name="activity_user_info_commit_button_text">17sp</dimen>
+
+    <!--————————————————————————-->
+
 </resources>

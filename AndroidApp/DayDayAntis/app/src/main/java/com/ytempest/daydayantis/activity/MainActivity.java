@@ -1,10 +1,8 @@
 package com.ytempest.daydayantis.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -20,12 +18,9 @@ import com.ytempest.daydayantis.fragment.PersonalFragment;
 import com.ytempest.daydayantis.fragment.adapter.MainPagerAdapter;
 import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
-import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends BaseSkinActivity {
 

@@ -25,7 +25,12 @@
         <item name="android:gravity">center</item>
     </style>
 
-
-
+    <!-- 通用ScrollView 样式-->
+    <style name="scroll_view_common_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:scrollbars">none</item>
+    </style>
 
 </resources>

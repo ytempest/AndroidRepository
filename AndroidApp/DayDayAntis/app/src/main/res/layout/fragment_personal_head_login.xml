@@ -7,7 +7,8 @@
         android:src="@drawable/personal_default_head"
         style="@style/fragment_personal_head_user_iv_style" />
 
-    <LinearLayout style="@style/fragment_personal_head_user_container_style">
+    <LinearLayout android:id="@+id/ll_user_info"
+        style="@style/fragment_personal_head_user_container_style">
 
         <TextView
             android:id="@+id/tv_login_user_name"

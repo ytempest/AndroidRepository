@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_user_info_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_user_info_bg"
+    android:orientation="vertical"
+    tools:context="com.ytempest.daydayantis.activity.UserInfoActivity">
+
+    <ScrollView xmlns:tools="http://schemas.android.com/tools"
+        style="@style/scroll_view_common_style"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout style="@style/user_info_row_container_style">
+
+                <TextView
+                    style="@style/user_info_left_text_style"
+                    android:text="@string/activity_user_info_head" />
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@id/iv_ar1"
+                    android:src="@drawable/personal_default_head" />
+
+                <ImageView
+                    android:id="@+id/iv_ar1"
+                    style="@style/user_info_right_arrow_style"
+                    android:src="@drawable/icon_right_arrow" />
+            </RelativeLayout>
+
+
+            <RelativeLayout style="@style/user_info_row_container_style">
+
+                <TextView
+                    style="@style/user_info_left_text_style"
+                    android:text="@string/activity_user_info_qr_code" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/iv_ar2"
+                    android:src="@drawable/icon_black_qr_code" />
+
+                <ImageView
+                    android:id="@+id/iv_ar2"
+                    style="@style/user_info_right_arrow_style"
+                    android:src="@drawable/icon_right_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/user_info_row_container_style">
+
+                <TextView
+                    style="@style/user_info_left_text_style"
+                    android:text="@string/activity_user_real_check" />
+
+                <TextView
+                    style="@style/user_info_right_text_style"
+                    android:layout_toLeftOf="@id/iv_ar3"
+                    android:src="@drawable/personal_default_head"
+                    android:text="何其都" />
+
+                <ImageView
+                    android:id="@+id/iv_ar3"
+                    style="@style/user_info_right_arrow_style"
+                    android:src="@drawable/icon_right_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/user_info_row_container_style">
+
+                <TextView
+                    style="@style/user_info_left_text_style"
+                    android:text="@string/activity_user_info_phone" />
+
+                <TextView
+                    style="@style/user_info_right_text_style"
+                    android:layout_toLeftOf="@id/tv_change_phone"
+                    android:src="@drawable/personal_default_head"
+                    android:text="13435065579" />
+
+                <TextView
+                    android:id="@+id/tv_change_phone"
+                    style="@style/user_info_right_arrow_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:src="@drawable/icon_right_arrow"
+                    android:text="@string/activity_user_info_phone_change"
+                    android:textColor="@color/activity_user_info_change_phone_text" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/activity_user_info_base_data"
+                android:textSize="@dimen/activity_user_info_base_data_text" />
+
+            <RelativeLayout style="@style/user_info_row_container_style">
+
+                <TextView
+                    style="@style/user_info_left_text_style"
+                    android:text="@string/activity_user_info_name" />
+
+                <EditText
+                    style="@style/user_info_input_style"
+                    android:layout_toLeftOf="@id/iv_ar4"
+                    android:hint="@string/activity_user_info_input_name"
+                    android:src="@drawable/personal_default_head" />
+
+                <ImageView
+                    android:id="@+id/iv_ar4"
+                    style="@style/user_info_right_arrow_style"
+                    android:src="@drawable/icon_right_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/user_info_row_container_style">
+
+                <TextView
+                    style="@style/user_info_left_text_style"
+                    android:text="@string/activity_user_info_sex" />
+
+                <EditText
+                    style="@style/user_info_input_style"
+                    android:layout_toLeftOf="@id/iv_ar5"
+                    android:hint="@string/activity_user_info_input_sex"
+                    android:src="@drawable/personal_default_head" />
+
+
+                <ImageView
+                    android:id="@+id/iv_ar5"
+                    style="@style/user_info_right_arrow_style"
+                    android:src="@drawable/icon_right_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/user_info_row_container_style">
+
+                <TextView
+                    style="@style/user_info_left_text_style"
+                    android:text="@string/activity_user_info_birth" />
+
+                <EditText
+                    style="@style/user_info_input_style"
+                    android:layout_toLeftOf="@id/iv_ar6"
+                    android:hint="@string/activity_user_info_input_birth"
+                    android:src="@drawable/personal_default_head" />
+
+
+                <ImageView
+                    android:id="@+id/iv_ar6"
+                    style="@style/user_info_right_arrow_style"
+                    android:src="@drawable/icon_right_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/user_info_row_container_style">
+
+                <TextView
+                    style="@style/user_info_left_text_style"
+                    android:text="@string/activity_user_info_address" />
+
+                <EditText
+                    style="@style/user_info_input_style"
+                    android:layout_toLeftOf="@id/iv_ar7"
+                    android:hint="@string/activity_user_info_input_address"
+                    android:src="@drawable/personal_default_head" />
+
+
+                <ImageView
+                    android:id="@+id/iv_ar7"
+                    style="@style/user_info_right_arrow_style"
+                    android:src="@drawable/icon_right_arrow" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_tip"
+                android:drawablePadding="10dp"
+                android:padding="16dp"
+                android:text="@string/activity_user_info_commit_tip"
+                android:textColor="@color/activity_user_info_commit_tip_text"
+                android:textSize="@dimen/activity_user_info_commit_tip_text" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/selector_green_button_bg"
+                android:text="@string/activity_user_info_commit_button"
+                android:textColor="@color/activity_user_info_commit_button_text"
+                android:textSize="@dimen/activity_user_info_commit_button_text" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

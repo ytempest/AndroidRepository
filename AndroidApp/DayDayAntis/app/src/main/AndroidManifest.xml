@@ -26,6 +26,8 @@
         <activity android:name=".activity.DetailLinkActivity" />
         <activity android:name=".activity.UserLoginActivity" />
         <activity android:name=".activity.UserRegisterActivity" />
+        <activity android:name=".activity.UserInfoActivity" />
+
     </application>
 
 </manifest>

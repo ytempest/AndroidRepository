@@ -93,4 +93,24 @@
 
     <!--————————————————————————-->
 
+    <string name="activity_user_info_title_bar">用户信息</string>
+    <string name="activity_user_info_head">头像：</string>
+    <string name="activity_user_info_qr_code">我的二维码：</string>
+    <string name="activity_user_real_check">实名认证</string>
+    <string name="activity_user_info_phone">手机号码</string>
+    <string name="activity_user_info_base_data">基本资料</string>
+    <string name="activity_user_info_name">姓名：</string>
+    <string name="activity_user_info_input_name">请输入姓名：</string>
+    <string name="activity_user_info_sex">性别：</string>
+    <string name="activity_user_info_input_sex">请选择性别：</string>
+    <string name="activity_user_info_birth">出生日期：</string>
+    <string name="activity_user_info_input_birth">请选择出生日期：</string>
+    <string name="activity_user_info_address">籍贯：</string>
+    <string name="activity_user_info_input_address">请选择籍贯：</string>
+    <string name="activity_user_info_commit_tip">资料一旦提交后就不允许修改</string>
+    <string name="activity_user_info_commit_button">提 交</string>
+    <string name="activity_user_info_phone_change"><u>更换</u></string>
+
+
+    <!--————————————————————————-->
 </resources>
