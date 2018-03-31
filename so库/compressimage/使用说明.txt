@@ -4,4 +4,9 @@
 使用说明：
 1、在 app/main/ 下新建一个 jniLibs文件夹，然后将 armeabi-v7a文件夹拷到 jniLibs文件夹下
 
-2、把 ImageUtils拷到 main/java 下就可以使用了
+2、把 ImageUtil拷到 main/java 下就可以使用了
+
+注意事项：很重要
+
+ImageUtil 的名称不能改！不能改！不能改！
+不然会到时 native 方法无法使用
