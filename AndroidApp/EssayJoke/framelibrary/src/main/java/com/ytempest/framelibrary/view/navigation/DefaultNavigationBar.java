@@ -3,11 +3,16 @@ package com.ytempest.framelibrary.view.navigation;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ytempest.baselibrary.view.navigation.AbsNavigationBar;
 import com.ytempest.framelibrary.R;
+
+import java.io.Serializable;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * @author ytempest
@@ -30,8 +35,8 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
      */
     @Override
     public void applyView() {
-        setText(R.id.tv_title, getParams().mTitle);
-        setText(R.id.tv_right_text, getParams().mRightText);
+        setTextByStatus(R.id.tv_title, getParams().mTitle, getParams().mTitleId);
+        setTextByStatus(R.id.tv_right_text, getParams().mRightText, getParams().mRightTextId);
         setOnClickListener(R.id.tv_right_text, getParams().mRightClickListener);
         setOnClickListener(R.id.ib_back, getParams().mLeftClickListener);
         setVisibility(R.id.ib_back, getParams().isLeftIconVisible);
@@ -39,6 +44,14 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         setTextColor(R.id.tv_title, getParams().mTitleColor);
         setTextColor(R.id.tv_right_text, getParams().mRightTextColor);
         setDrawable(R.id.ib_back, getParams().mLeftIconId);
+    }
+
+    private void setTextByStatus(int viewId, String text, int textId) {
+        if (text != null) {
+            setText(viewId, text);
+        } else if (textId != 0) {
+            setText(viewId, textId);
+        }
     }
 
 
@@ -61,8 +74,18 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             return this;
         }
 
+        public Builder setTitle(int titleId) {
+            P.mTitleId = titleId;
+            return this;
+        }
+
         public Builder setRightText(String rightText) {
             P.mRightText = rightText;
+            return this;
+        }
+
+        public Builder setRightText(int rightTextId) {
+            P.mRightTextId = rightTextId;
             return this;
         }
 
@@ -98,7 +121,7 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         }
 
         public Builder hideLeftIcon() {
-            P.isLeftIconVisible = View.INVISIBLE;
+            P.isLeftIconVisible = View.GONE;
             return this;
         }
 
@@ -129,8 +152,10 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
         public static class DefaultNavigationParams extends AbsNavigationParams {
 
             public String mTitle;
+            public int mTitleId;
             public int mLeftIconId = R.drawable.navigation_back_normal;
             public String mRightText;
+            public int mRightTextId;
             public View.OnClickListener mRightClickListener;
             public View.OnClickListener mLeftClickListener = new View.OnClickListener() {
                 @Override

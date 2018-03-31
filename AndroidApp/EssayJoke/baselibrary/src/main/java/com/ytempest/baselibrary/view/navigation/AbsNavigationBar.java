@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,9 +48,6 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
 
     /**
      * 设置文本
-     *
-     * @param viewId View的id
-     * @param text   文本
      */
     protected void setText(int viewId, String text) {
         TextView tv = findViewById(viewId);
@@ -57,6 +55,15 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
             tv.setVisibility(View.VISIBLE);
             tv.setText(text);
         }
+    }
+
+    /**
+     * 设置文本
+     */
+    protected void setText(int viewId, int textId) {
+        TextView tv = findViewById(viewId);
+        tv.setVisibility(View.VISIBLE);
+        tv.setText(textId);
     }
 
     /**
@@ -76,8 +83,8 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
     /**
      * 设置背景颜色
      */
-    public void setBackground(@DrawableRes int resid) {
-        mNavigationView.setBackgroundResource(resid);
+    public void setBackground(@DrawableRes int resId) {
+        mNavigationView.setBackgroundResource(resId);
     }
 
     /**
