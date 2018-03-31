@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_user_login_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_user_login_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_user_login_bg"
@@ -26,29 +27,31 @@
         <EditText
             android:id="@+id/et_input_password"
             style="@style/user_login_input_et_style"
-            android:layout_weight="1"
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:drawableLeft="@drawable/login_user_password_icon"
             android:hint="@string/activity_user_login_password_hint"
             android:inputType="textPassword" />
 
         <CheckBox
-            android:checked="false"
             android:id="@+id/cb_password_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
             android:button="@drawable/selector_check_password"
-            android:layout_marginRight="16dp" />
+            android:checked="false" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/bt_sign_in"
+    <com.ytempest.framelibrary.view.Button.ModifiableButton
+        android:id="@+id/mbt_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
         android:text="@string/activity_user_login_button"
+        app:disable_bg="@drawable/shape_button_enable_status_bg"
         android:textColor="@color/activity_user_login_button_text"
         android:textSize="@dimen/activity_user_login_button_text_size" />
 
@@ -61,17 +64,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:textSize="@dimen/activity_user_login_forget_password_size"
             android:text="@string/activity_user_login_forget_password"
-            android:textColor="@color/activity_user_login_forget_password_text" />
+            android:textColor="@color/activity_user_login_forget_password_text"
+            android:textSize="@dimen/activity_user_login_forget_password_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="@dimen/activity_user_login_phone_login_size"
             android:text="@string/activity_user_login_phone_login"
-            android:textColor="@color/activity_user_login_phone_login_text" />
+            android:textColor="@color/activity_user_login_phone_login_text"
+            android:textSize="@dimen/activity_user_login_phone_login_size" />
     </RelativeLayout>
 
 

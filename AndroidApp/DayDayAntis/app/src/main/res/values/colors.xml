@@ -10,6 +10,10 @@
     <!-- 标题栏文字颜色-->
     <color name="title_bar_text_color">#FFFFFF</color>
 
+    <!-- 条目被点击时的背景色 -->
+    <color name="base_item_normal_bg">#f6f6f6</color>
+    <color name="base_item_press_bg">#d3d3d3</color>
+
     <!--———————————————————————-->
 
     <!-- MainActivity 布局的背景色 -->
@@ -27,14 +31,13 @@
     <!-- HomeFragment中的主内容的条目被点击时的背景色 -->
     <color name="fragment_home_bg">#c8c5c5</color>
 
+    <!-- HomeFragment中的大图片的背景颜色 -->
+    <color name="fragment_home_big_image_bg">#f5f2f2</color>
+
     <!-- HomeFragment中的主内容的条目的标题文字的颜色 -->
     <color name="fragment_home_item_title_color">#636363</color>
     <!-- HomeFragment中的主内容的条目的内容文字的颜色 -->
     <color name="fragment_home_item_content_color">#636363</color>
-
-    <!-- HomeFragment中的主内容的条目被点击时的背景色 -->
-    <color name="fragment_home_item_normal_bg">#f6f6f6</color>
-    <color name="fragment_home_item_press_bg">#d3d3d3</color>
 
     <!-- HomeFragment 中推荐企业以及热点资讯标题的颜色  -->
     <color name="home_fragment_content_heading_color">#272727</color>
@@ -96,6 +99,11 @@
     <color name="activity_user_register_get_code_text">#f0ecec</color>
     <!-- 注册页面注册按钮的文字颜色 -->
     <color name="activity_user_register_button_text">#edeaea</color>
+    <!-- 注册页面获取验证码按钮不可用时的背景颜色 -->
+    <color name="activity_user_register_button_get_code_bg">#bebebe</color>
+    <!-- 注册页面同意注册协议的文字颜色 -->
+    <color name="activity_user_register_protocol_text">#24cfa2</color>
+
 
     <!--———————————————————————-->
 

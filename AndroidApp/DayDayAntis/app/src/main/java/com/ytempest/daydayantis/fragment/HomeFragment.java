@@ -18,9 +18,8 @@ import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.view.recyclerview.division.DividerItemDecoration;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.activity.DetailLinkActivity;
-import com.ytempest.daydayantis.activity.MainActivity;
 import com.ytempest.daydayantis.fragment.adapter.HotInfoAdapter;
-import com.ytempest.daydayantis.fragment.mode.HomeDataResult;
+import com.ytempest.daydayantis.data.HomeDataResult;
 import com.ytempest.framelibrary.http.HttpCallBack;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
@@ -71,7 +70,7 @@ public class HomeFragment extends BaseFragment {
         DefaultNavigationBar navigationBar =
                 new DefaultNavigationBar.Builder(mContext, mRootView)
                         .hideLeftIcon()
-                        .setTitle(getResources().getString(R.string.app_name))
+                        .setTitle(R.string.app_name)
                         .setTitleColor(R.color.title_bar_text_color)
                         .setBackground(R.color.title_bar_bg_color)
                         .build();
@@ -122,11 +121,12 @@ public class HomeFragment extends BaseFragment {
                         LoaderOptions loaderOptions =
                                 new LoaderOptions.Builder()
                                         .errorDrawableId(R.drawable.image_loading_error)
-                                        .placeHolder(R.drawable.image_loading_error)
+                                        .placeHolder(R.drawable.image_loading)
                                         .build();
 
                         ImageLoaderManager.getInstance().showImage(mIvAdvertise,
                                 result.getAd_list().get(0).getImage(), loaderOptions);
+
 
                         ImageLoaderManager.getInstance().showImage(mIvRecommend,
                                 result.getCompany_list().get(0).getImage(), loaderOptions);

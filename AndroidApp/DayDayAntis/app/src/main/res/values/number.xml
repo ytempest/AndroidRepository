@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 验证码的位数 -->
+    <integer name="verification_code_count">6</integer>
+
+
+    <!-- 用户密码的最小位数 -->
+    <integer name="user_password_min_count">6</integer>
+
+    <!-- 用户密码的最大位数 -->
+    <integer name="user_password_max_count">18</integer>
+
+</resources>

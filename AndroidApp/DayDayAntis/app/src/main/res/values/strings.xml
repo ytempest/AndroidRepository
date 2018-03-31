@@ -49,6 +49,12 @@
 
     <!--————————————————————————-->
 
+    <!-- UserLoginActivity 页面中的的标题栏标题文字 -->
+    <string name="activity_user_login_title_bar_text">登录</string>
+    <!-- UserLoginActivity 页面中的的标题栏右边的文字 -->
+    <string name="activity_user_login_title_bar_right_text">注册</string>
+
+
     <!-- UserLoginActivity 中的用户输入框的hint文字-->
     <string name="activity_user_login_user_hint">手机号码</string>
     <!-- UserLoginActivity 中的用户输入框的hint文字-->
@@ -63,6 +69,9 @@
 
     <!--————————————————————————-->
 
+    <!-- 注册页面中的的标题文字 -->
+    <string name="activity_user_register_title_bar_text">注册</string>
+
     <!-- UserRegisterActivity 中的手机号码输入框的文字-->
     <string name="activity_user_register_input_phone_text">请输入手机号码</string>
     <!-- UserRegisterActivity 中的验证码输入框的文字-->
@@ -74,6 +83,13 @@
     <string name="activity_user_register_button_get_code_text">获取验证码</string>
     <!-- UserRegisterActivity 中的注册按钮的文字-->
     <string name="activity_user_register_button_confirm_text">注册</string>
+
+    <!-- UserRegisterActivity 中的获取验证码失败的文字-->
+    <string name="activity_user_register_code_get_fail_text">网络不好，请重试</string>
+
+    <!-- UserRegisterActivity 中的无网络连接的文字-->
+    <string name="activity_user_register_internet_error_text">请检查你的网络</string>
+
 
     <!--————————————————————————-->
 

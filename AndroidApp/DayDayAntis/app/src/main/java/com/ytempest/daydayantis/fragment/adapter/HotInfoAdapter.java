@@ -9,7 +9,7 @@ import com.ytempest.baselibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
 import com.ytempest.baselibrary.view.recyclerview.adapter.CommonViewHolder;
 import com.ytempest.daydayantis.activity.DetailLinkActivity;
 import com.ytempest.daydayantis.R;
-import com.ytempest.daydayantis.fragment.mode.HomeDataResult;
+import com.ytempest.daydayantis.data.HomeDataResult;
 
 import java.util.List;
 

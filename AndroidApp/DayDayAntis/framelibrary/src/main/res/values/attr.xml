@@ -48,4 +48,12 @@
         <attr name="passwordCount" format="integer|reference" />
     </declare-styleable>
 
+
+    <!-- BinderButton的自定义属性集 -->
+    <declare-styleable name="ModifiableButton">
+        <attr name="disable_text_color" format="color" />
+        <attr name="disable_bg" format="reference" />
+    </declare-styleable>
+
+
 </resources>

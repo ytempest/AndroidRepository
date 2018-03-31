@@ -4,7 +4,9 @@ import android.app.Application;
 
 import com.ytempest.baselibrary.exception.ExceptionCrashHandler;
 import com.ytempest.baselibrary.http.HttpUtils;
+import com.ytempest.baselibrary.imageloader.ImageLoaderManager;
 import com.ytempest.framelibrary.http.OkHttpEngine;
+import com.ytempest.framelibrary.imageloader.GlideImageLoader;
 import com.ytempest.framelibrary.skin.SkinManager;
 
 
@@ -16,6 +18,10 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
+        // 初始化同意图片统一加载框架
+        ImageLoaderManager.getInstance().init(new GlideImageLoader());
 
         // 初始化网络引擎
         HttpUtils.init(new OkHttpEngine());

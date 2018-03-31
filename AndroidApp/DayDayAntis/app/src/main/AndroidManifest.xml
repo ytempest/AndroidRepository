@@ -25,7 +25,7 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.DetailLinkActivity" />
         <activity android:name=".activity.UserLoginActivity" />
-        <activity android:name=".activity.UserRegisterActivity"></activity>
+        <activity android:name=".activity.UserRegisterActivity" />
     </application>
 
 </manifest>

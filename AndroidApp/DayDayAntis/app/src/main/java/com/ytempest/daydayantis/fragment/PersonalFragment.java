@@ -2,7 +2,6 @@ package com.ytempest.daydayantis.fragment;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -15,7 +14,7 @@ import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.activity.UserLoginActivity;
-import com.ytempest.daydayantis.activity.mode.UserDataResult;
+import com.ytempest.daydayantis.data.UserDataResult;
 import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 

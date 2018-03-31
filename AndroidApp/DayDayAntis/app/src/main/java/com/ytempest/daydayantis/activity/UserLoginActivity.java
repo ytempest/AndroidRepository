@@ -18,10 +18,14 @@ import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.security.MD5Utils;
 import com.ytempest.daydayantis.R;
-import com.ytempest.daydayantis.activity.mode.UserDataResult;
+import com.ytempest.daydayantis.common.PasswordStatusChangeListener;
+import com.ytempest.daydayantis.common.TextWatcherAdapter;
+import com.ytempest.daydayantis.data.UserDataResult;
+import com.ytempest.daydayantis.utils.GeneralUtils;
 import com.ytempest.daydayantis.utils.UserLoginUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
+import com.ytempest.framelibrary.view.Button.ModifiableButton;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 /**
@@ -31,6 +35,19 @@ import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 public class UserLoginActivity extends BaseSkinActivity {
 
     private static String TAG = "UserLoginActivity";
+
+    /**
+     * 标志是否已经输入手机号码
+     */
+    private static int IS_INPUT_PHONE = 0x000033;
+    /**
+     * 标志是否已经输入密码
+     */
+    private static int IS_INPUT_PASSWORD = 0x110000;
+    /**
+     * 标志输入状态
+     */
+    private static int INPUT_STATUS = 0x00;
 
     @ViewById(R.id.ll_user_login_root)
     private LinearLayout mRootView;
@@ -43,6 +60,10 @@ public class UserLoginActivity extends BaseSkinActivity {
 
     @ViewById(R.id.cb_password_status)
     private CheckBox mCbPasswordStatus;
+
+    @ViewById(R.id.mbt_sign_in)
+    private ModifiableButton mMbtSignIn;
+
     /**
      * 是否登录成功
      */
@@ -57,11 +78,11 @@ public class UserLoginActivity extends BaseSkinActivity {
     protected void initTitle() {
         DefaultNavigationBar navigationBar =
                 new DefaultNavigationBar.Builder(UserLoginActivity.this, mRootView)
-                        .setTitle("登录")
+                        .setTitle(R.string.activity_user_login_title_bar_text)
                         .setLeftIcon(R.drawable.icon_back)
                         .setTitleColor(R.color.title_bar_text_color)
                         .setBackground(R.color.title_bar_bg_color)
-                        .setRightText("注册")
+                        .setRightText(R.string.activity_user_login_title_bar_right_text)
                         .setRightTextColor(R.color.title_bar_text_color)
                         .setRightClickListener(new View.OnClickListener() {
                             @Override
@@ -76,20 +97,39 @@ public class UserLoginActivity extends BaseSkinActivity {
     @Override
     protected void initView() {
         // 设置显示密码的CheckBox的监听
-        mCbPasswordStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // 显示密码
-                    mEtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else {
-                    // 隐藏密码
-                    mEtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
+        mCbPasswordStatus.setOnCheckedChangeListener(new PasswordStatusChangeListener(mEtPassword));
 
-                // 把光标移动到最后
-                Editable editable = mEtPassword.getText();
-                Selection.setSelection(editable, editable.length());
+        // 设置登录按钮为不可用状态
+        mMbtSignIn.switchDisableStatus();
+
+        // 通过动态监听用户名输入框和密码输入框的内容来改变登录按钮的可用状态
+
+        // 1、监听用户名输入框的状态
+        mEtUserName.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (GeneralUtils.judgePhoneQual(s.toString().trim())) {
+                    INPUT_STATUS |= IS_INPUT_PHONE;
+                } else {
+                    INPUT_STATUS &= ~IS_INPUT_PHONE;
+                }
+                checkFinishInput();
+            }
+        });
+
+        // 2、监听密码输入框的状态
+        // 设置密码的最大位数
+        final int minCount = getResources().getInteger(R.integer.user_password_min_count);
+        final int maxCount = getResources().getInteger(R.integer.user_password_max_count);
+        mEtPassword.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() >= minCount && s.length() <= maxCount){
+                    INPUT_STATUS |= IS_INPUT_PASSWORD;
+                } else{
+                    INPUT_STATUS &= ~IS_INPUT_PASSWORD;
+                }
+                checkFinishInput();
             }
         });
     }
@@ -99,8 +139,18 @@ public class UserLoginActivity extends BaseSkinActivity {
 
     }
 
+    private void checkFinishInput() {
+        // 如果全部信息都输入
+        if (INPUT_STATUS == (IS_INPUT_PHONE | IS_INPUT_PASSWORD)) {
+            mMbtSignIn.switchNormalStatus();
+        } else {
+            if (mMbtSignIn.isEnabled()) {
+                mMbtSignIn.switchDisableStatus();
+            }
+        }
+    }
 
-    @OnClick(R.id.bt_sign_in)
+    @OnClick(R.id.mbt_sign_in)
     @CheckNet
     private void onSignInClick(View view) {
         if (!checkUserAndPassword()) {
@@ -165,7 +215,7 @@ public class UserLoginActivity extends BaseSkinActivity {
         if (loginErrorCode == 0) {
             // 登录失败
             isLoginSuccess = false;
-            showToastShort("手机号码不正确或密码错误");
+            showToastShort(result.getErrmsg());
         } else {
             // 登录成功
             isLoginSuccess = true;

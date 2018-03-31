@@ -1,10 +1,10 @@
-package com.ytempest.daydayantis.activity.mode;
+package com.ytempest.daydayantis.data;
 
 /**
  * @author ytempest
  *         Description：
  */
-public class UserDataResult {
+public class UserDataResult extends BaseDataResult {
 
     /**
      * data : {"member_info":{"uid":"71","member_location_text":"北京市-市辖区-东城区","member_name":"曾辉","member_avatar":"http://resource.ffu365.com/upload/images/avatar/2017-08-17/59957ac50caa6.png","is_account_certification":0,"is_account_complete":"1","member_cell_phone":"14726932514","user_token":"1wRbmK0XzWEyBrK7EsygNd/lsp9zlWjFBkWFrhJM6wE="},"zone_info":{"trade_record":0,"my_task":0,"my_gold":0,"my_order":0,"my_publish":0,"my_post":0,"worker_center":0,"team_center":0,"expert_center":0}}
@@ -14,9 +14,6 @@ public class UserDataResult {
      */
 
     private DataBean data;
-    private int errcode;
-    private String errmsg;
-    private int errdialog;
 
     public DataBean getData() {
         return data;
@@ -26,29 +23,6 @@ public class UserDataResult {
         this.data = data;
     }
 
-    public int getErrcode() {
-        return errcode;
-    }
-
-    public void setErrcode(int errcode) {
-        this.errcode = errcode;
-    }
-
-    public String getErrmsg() {
-        return errmsg;
-    }
-
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
-    }
-
-    public int getErrdialog() {
-        return errdialog;
-    }
-
-    public void setErrdialog(int errdialog) {
-        this.errdialog = errdialog;
-    }
 
     public static class DataBean {
         /**

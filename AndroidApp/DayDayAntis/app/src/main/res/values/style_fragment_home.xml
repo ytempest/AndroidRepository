@@ -3,7 +3,8 @@
 
     <!-- HomeFragment 中大图片的样式 -->
     <style name="fragment_home_iv_style">
-        <item name="android:background">#e4dede</item>
+        <item name="android:background">@color/fragment_home_big_image_bg</item>
+        <item name="android:src">@drawable/image_loading</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">170dp</item>
         <item name="android:scaleType">centerCrop</item>

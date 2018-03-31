@@ -61,6 +61,7 @@
     <!-- 注册页面中同意注册协议的文字大小 -->
     <dimen name="activity_user_register_protocol_text_size">14sp</dimen>
 
+
     <!--————————————————————————-->
 
 </resources>

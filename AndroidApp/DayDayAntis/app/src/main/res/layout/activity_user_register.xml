@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_user_register_root"
     android:layout_width="match_parent"
@@ -13,6 +14,7 @@
         android:layout_marginTop="30dp">
 
         <EditText
+            android:id="@+id/et_register_phone"
             style="@style/user_register_input_et_style"
             android:hint="@string/activity_user_register_input_phone_text"
             android:inputType="number" />
@@ -31,12 +33,15 @@
             android:layout_weight="3">
 
             <EditText
+
+                android:id="@+id/et_register_verify_code"
                 style="@style/user_register_input_et_style"
                 android:hint="@string/activity_user_register_input_code_text"
                 android:inputType="number" />
         </LinearLayout>
 
-        <Button
+        <com.ytempest.framelibrary.view.Button.VerifyButton
+            android:id="@+id/vbt_get_code"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -45,13 +50,15 @@
             android:gravity="center"
             android:text="@string/activity_user_register_button_get_code_text"
             android:textColor="@color/activity_user_register_get_code_text"
-            android:textSize="@dimen/activity_user_register_get_code_text" />
+            android:textSize="@dimen/activity_user_register_get_code_text"
+            app:disable_bg="@drawable/shape_button_enable_status_bg" />
     </LinearLayout>
 
 
     <LinearLayout style="@style/user_register_input_container_style">
 
         <EditText
+            android:id="@+id/et_register_password"
             style="@style/user_register_input_et_style"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -59,6 +66,7 @@
             android:inputType="textPassword" />
 
         <CheckBox
+            android:id="@+id/cb_register_password_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -67,27 +75,28 @@
     </LinearLayout>
 
 
-    <Button
+    <com.ytempest.framelibrary.view.Button.ModifiableButton
+        android:id="@+id/mbt_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:background="@drawable/selector_green_button_bg"
         android:text="@string/activity_user_register_button_confirm_text"
         android:textColor="@color/activity_user_register_button_text"
-        android:textSize="@dimen/activity_user_register_button_text_size" />
+        android:textSize="@dimen/activity_user_register_button_text_size"
+        app:disable_bg="@drawable/shape_button_enable_status_bg" />
 
     <TextView
+        android:id="@+id/tv_protocol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_margin="16dp"
         android:drawableLeft="@drawable/user_register_consent_protocol_icon"
         android:drawablePadding="6dp"
-        android:padding="16dp"
-        android:textSize="@dimen/activity_user_register_protocol_text_size"
-        android:text="我已阅读并同意《天天防腐》用户协议" />
+        android:textSize="@dimen/activity_user_register_protocol_text_size" />
 
 
 </LinearLayout>

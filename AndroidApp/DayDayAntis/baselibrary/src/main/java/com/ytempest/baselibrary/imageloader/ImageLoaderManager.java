@@ -7,7 +7,8 @@ import android.view.View;
 
 /**
  * @author ytempest
- *         Description：图片加载策略的管理类
+ *         Description：图片加载策略的管理类，使用的时候可以在 Application中的onCreate() 中初始化
+ *         网络加载框架，或者使用的时候再指定加载图片的策略
  */
 public class ImageLoaderManager implements ImageLoaderStrategy {
     private static ImageLoaderManager INSTANCE;
@@ -28,12 +29,11 @@ public class ImageLoaderManager implements ImageLoaderStrategy {
     }
 
     /**
-     * 在 onCreate() 中初始化网络加载框架
+     * 在 Application中的onCreate() 中初始化网络加载框架
      */
     public void init(@NonNull ImageLoaderStrategy imageLoader) {
         mImageLoader = imageLoader;
     }
-
 
 
     /**
