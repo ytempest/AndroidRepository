@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
  * @author ytempest
  *         Description: 使用JPEG图片压缩算法对图片进行压缩
  */
-public class ImageUtils {
+public class ImageUtil {
     static {
         System.loadLibrary("compressimg");
         System.loadLibrary("jpeg");

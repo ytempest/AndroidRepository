@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
             // 一般后台会规定尺寸  800  小米 规定了宽度 720
             // 上传的时候可能会多张 for循环 最好用线程池 （2-3）
             Log.e(TAG, "selectImage: path --> " + path);
-            Bitmap bitmap = ImageUtils.decodeFile(path);
+            Bitmap bitmap = ImageUtil.decodeFile(path);
             String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
                     new File(path).getName();
             // 调用写好的native方法
             // 用Bitmap.compress压缩1/10
-            ImageUtils.compressBitmap(bitmap, 75, fileName);
+            ImageUtil.compressBitmap(bitmap, 75, fileName);
         }
     }
 
