@@ -14,6 +14,14 @@
     <color name="base_item_normal_bg">#f6f6f6</color>
     <color name="base_item_press_bg">#d3d3d3</color>
 
+    <!-- 绿色按钮的背景颜色 -->
+    <color name="shape_green_button_normal_bg">#02A38B</color>
+    <color name="shape_green_button_press_bg">#059680</color>
+
+    <!-- 灰色按钮的背景颜色 -->
+    <color name="shape_gray_button_normal_bg">#cecece</color>
+    <color name="shape_gray_button_press_bg">#b6b6b6</color>
+
     <!--———————————————————————-->
 
     <!-- MainActivity 布局的背景色 -->
@@ -83,10 +91,6 @@
 
     <!-- 登录页面输入框的背景颜色 -->
     <color name="activity_user_login_input_bg">#E3E5E1</color>
-    <!-- 登录页面登录按钮的背景颜色 -->
-    <color name="activity_user_login_button_normal_bg">#02A38B</color>
-    <!-- 登录页面登录按钮的背景颜色 -->
-    <color name="activity_user_login_button_press_bg">#059680</color>
 
 
     <!--———————————————————————-->
@@ -107,6 +111,7 @@
 
     <!--———————————————————————-->
 
+    <!-- 用户信息界面的颜色集合 -->
     <color name="activity_user_info_bg">#e3e3e3</color>
     <color name="activity_user_info_row_container_bg">#ffffff</color>
     <color name="activity_user_info_row_left_text">#3c3a3a</color>
@@ -116,6 +121,12 @@
     <color name="activity_user_info_commit_tip_text">#2f2d2d</color>
     <color name="activity_user_info_commit_button_text">#ffffff</color>
 
+
+    <!--———————————————————————-->
+
+    <!-- 选择图片的对话框的按钮文字的颜色 -->
+    <color name="dialog_choose_photo_button_text">#16a286</color>
+    <color name="dialog_choose_photo_divider_line">#c1bcbc</color>
 
     <!--———————————————————————-->
 

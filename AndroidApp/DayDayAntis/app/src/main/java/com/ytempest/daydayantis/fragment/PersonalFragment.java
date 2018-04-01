@@ -1,6 +1,7 @@
 package com.ytempest.daydayantis.fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,14 +10,17 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.ytempest.baselibrary.base.BaseFragment;
+import com.ytempest.baselibrary.http.HttpUtils;
 import com.ytempest.baselibrary.imageloader.ImageLoaderManager;
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
+import com.ytempest.baselibrary.security.MD5Utils;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.activity.UserInfoActivity;
 import com.ytempest.daydayantis.activity.UserLoginActivity;
 import com.ytempest.daydayantis.data.UserDataResult;
-import com.ytempest.daydayantis.utils.UserLoginUtils;
+import com.ytempest.daydayantis.utils.UserInfoUtils;
+import com.ytempest.framelibrary.http.HttpCallBack;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 /**
@@ -72,6 +76,41 @@ public class PersonalFragment extends BaseFragment {
         // 检查用户的登录状态
         changeUserLoginLayout();
 
+        // TODO: 2018/4/1/001 刷新页面 这只是测试使用的
+        flashData();
+
+    }
+
+    // TODO: 2018/4/1/001 刷新页面 这只是测试使用的，测试完毕记得删除
+    private void flashData() {
+        String userInfo = UserInfoUtils.getUserInfo(mContext);
+        if (TextUtils.isEmpty(userInfo)) {
+            return;
+        }
+        UserDataResult.DataBean dataBean = new Gson().fromJson(userInfo, UserDataResult.DataBean.class);
+        HttpUtils.with(mContext)
+                .addParam("appid", "1")
+                .addParam("cell_phone", dataBean.getMember_info().getMember_cell_phone())
+                .addParam("password", MD5Utils.stringToMD5("123456"))
+                .url("http://v2.ffu365.com/index.php?m=Api&c=Member&a=login")
+                .post()
+                .execute(new HttpCallBack<UserDataResult>() {
+                    @Override
+                    public void onPreExecute() {
+                    }
+
+                    @Override
+                    public void onSuccess(UserDataResult result) {
+                        ImageLoaderManager.getInstance().showImage(mIvUserHead,
+                                result.getData().getMember_info().getMember_avatar(), null);
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                    }
+                });
+
     }
 
     /**
@@ -94,7 +133,7 @@ public class PersonalFragment extends BaseFragment {
      * 根据用户的登录状态设置相应的布局
      */
     private void changeUserLoginLayout() {
-        if (!UserLoginUtils.isUserLogin(mContext)) {
+        if (!UserInfoUtils.isUserLogin(mContext)) {
             // 如果用户没有登录，就更改布局为默认布局
             switchDefaultLayout();
         } else {
@@ -110,11 +149,11 @@ public class PersonalFragment extends BaseFragment {
     @OnClick(R.id.tv_exit_login)
     private void onExitLoginClick(View view) {
         // 设置用户登录状态为已退出
-        boolean isLogin = UserLoginUtils.isUserLogin(mContext);
+        boolean isLogin = UserInfoUtils.isUserLogin(mContext);
         if (!isLogin) {
             return;
         }
-        UserLoginUtils.saveUserLoginStatus(mContext, false);
+        UserInfoUtils.saveUserLoginStatus(mContext, false);
         onResume();
     }
 
@@ -136,14 +175,13 @@ public class PersonalFragment extends BaseFragment {
         mDefaultHead.setVisibility(View.GONE);
         mLoginHead.setVisibility(View.VISIBLE);
         // 获取用户信息
-        String userInfoString = UserLoginUtils.getUserInfo(mContext);
+        String userInfoString = UserInfoUtils.getUserInfo(mContext);
         // 如果存储的用户信息为空则return
         if (TextUtils.isEmpty(userInfoString)) {
             return;
         }
         UserDataResult.DataBean userData = new Gson().fromJson(userInfoString, UserDataResult.DataBean.class);
-        ImageLoaderManager.getInstance().showImage(mIvUserHead,
-                userData.getMember_info().getMember_avatar(), null);
+
         mTvUserName.setText(userData.getMember_info().getMember_name());
         mTvUserRegion.setText(userData.getMember_info().getMember_location_text());
     }

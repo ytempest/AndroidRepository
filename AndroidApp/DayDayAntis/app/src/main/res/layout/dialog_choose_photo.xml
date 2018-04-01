@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/dialog_choose_photo_root_style"
+    tools:context="com.ytempest.daydayantis.activity.DetailLinkActivity">
+
+    <Button
+        android:id="@+id/bt_form_phone"
+        style="@style/dialog_choose_photo_button_style"
+        android:text="@string/dialog_choose_photo_form_phone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/button_rectangle_corner_size"
+        android:layout_marginRight="@dimen/button_rectangle_corner_size"
+        android:background="@color/dialog_choose_photo_divider_line" />
+
+    <Button
+        android:id="@+id/bt_form_camera"
+        style="@style/dialog_choose_photo_button_style"
+        android:text="@string/dialog_choose_photo_form_camera" />
+
+
+    <Button
+        android:id="@+id/bt_cancel"
+        style="@style/dialog_choose_photo_button_style"
+        android:layout_marginTop="15dp"
+        android:text="@string/dialog_choose_photo_cancel" />
+
+</LinearLayout>

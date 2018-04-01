@@ -16,7 +16,7 @@ import com.ytempest.daydayantis.fragment.HomeFragment;
 import com.ytempest.daydayantis.fragment.MessageFragment;
 import com.ytempest.daydayantis.fragment.PersonalFragment;
 import com.ytempest.daydayantis.fragment.adapter.MainPagerAdapter;
-import com.ytempest.daydayantis.utils.UserLoginUtils;
+import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class MainActivity extends BaseSkinActivity {
     @OnClick(R.id.rb_collect)
     public void collectClick(View view) {
         // 如果没有登录
-        if (!UserLoginUtils.isUserLogin(MainActivity.this)) {
+        if (!UserInfoUtils.isUserLogin(MainActivity.this)) {
             startActivityForResult(UserLoginActivity.class, LOGIN_REQUEST_CODE);
         } else {
             setCurrentItem(FRAGMENT_COLLECT);

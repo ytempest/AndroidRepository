@@ -6,7 +6,7 @@
     <dimen name="title_bar_text_size">24sp</dimen>
 
     <!-- 登录以及注册页面中的输入框以及登录按钮的圆角大小 -->
-    <dimen name="user_login_register_corner_size">6dp</dimen>
+    <dimen name="button_rectangle_corner_size">6dp</dimen>
 
     <!--————————————————————————-->
 
@@ -73,5 +73,12 @@
     <dimen name="activity_user_info_commit_button_text">17sp</dimen>
 
     <!--————————————————————————-->
+
+    <!--———————————————————————-->
+
+    <!-- 选择图片的对话框的按钮文字的大小 -->
+    <dimen name="dialog_choose_photo_button_text">17sp</dimen>
+
+    <!--———————————————————————-->
 
 </resources>

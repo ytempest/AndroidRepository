@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout style="@style/user_info_row_container_style">
@@ -25,6 +25,7 @@
                     android:text="@string/activity_user_info_head" />
 
                 <ImageView
+                    android:id="@+id/iv_user_head"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_centerVertical="true"
@@ -68,10 +69,10 @@
                     android:text="@string/activity_user_real_check" />
 
                 <TextView
+                    android:id="@+id/tv_user_name"
                     style="@style/user_info_right_text_style"
                     android:layout_toLeftOf="@id/iv_ar3"
-                    android:src="@drawable/personal_default_head"
-                    android:text="何其都" />
+                    android:src="@drawable/personal_default_head" />
 
                 <ImageView
                     android:id="@+id/iv_ar3"
@@ -86,10 +87,10 @@
                     android:text="@string/activity_user_info_phone" />
 
                 <TextView
+                    android:id="@+id/tv_user_phone"
                     style="@style/user_info_right_text_style"
                     android:layout_toLeftOf="@id/tv_change_phone"
-                    android:src="@drawable/personal_default_head"
-                    android:text="13435065579" />
+                    android:src="@drawable/personal_default_head" />
 
                 <TextView
                     android:id="@+id/tv_change_phone"
@@ -195,6 +196,7 @@
                 android:textSize="@dimen/activity_user_info_commit_tip_text" />
 
             <Button
+                android:id="@+id/bt_commit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

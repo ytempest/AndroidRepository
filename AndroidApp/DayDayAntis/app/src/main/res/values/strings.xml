@@ -113,4 +113,9 @@
 
 
     <!--————————————————————————-->
+
+    <!-- 选择图片的对话框的文字 -->
+    <string name="dialog_choose_photo_form_phone">从手机选择</string>
+    <string name="dialog_choose_photo_form_camera">拍照</string>
+    <string name="dialog_choose_photo_cancel">取消</string>
 </resources>

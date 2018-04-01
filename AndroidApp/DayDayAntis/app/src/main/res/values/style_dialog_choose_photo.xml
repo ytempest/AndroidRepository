@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="dialog_choose_photo_root_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
+
+    <style name="dialog_choose_photo_button_style" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_gray_button_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/dialog_choose_photo_button_text</item>
+        <item name="android:textSize">@dimen/dialog_choose_photo_button_text</item>
+    </style>
+
+</resources>

@@ -1,13 +1,8 @@
 package com.ytempest.daydayantis.activity;
 
-import android.text.Editable;
-import android.text.Selection;
 import android.text.TextUtils;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -22,7 +17,7 @@ import com.ytempest.daydayantis.common.PasswordStatusChangeListener;
 import com.ytempest.daydayantis.common.TextWatcherAdapter;
 import com.ytempest.daydayantis.data.UserDataResult;
 import com.ytempest.daydayantis.utils.GeneralUtils;
-import com.ytempest.daydayantis.utils.UserLoginUtils;
+import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
 import com.ytempest.framelibrary.view.Button.ModifiableButton;
@@ -220,11 +215,11 @@ public class UserLoginActivity extends BaseSkinActivity {
             // 登录成功
             isLoginSuccess = true;
             // 设置用户状态为已经登录
-            UserLoginUtils.saveUserLoginStatus(UserLoginActivity.this, isLoginSuccess);
+            UserInfoUtils.saveUserLoginStatus(UserLoginActivity.this, isLoginSuccess);
             Gson gson = new Gson();
             String userInfo = gson.toJson(result.getData());
             // 存储用户数据
-            UserLoginUtils.saveUserInfo(UserLoginActivity.this, userInfo);
+            UserInfoUtils.saveUserInfo(UserLoginActivity.this, userInfo);
             changeUserStatue();
         }
     }

@@ -1,9 +1,7 @@
 package com.ytempest.daydayantis.activity;
 
-import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,7 +19,7 @@ import com.ytempest.daydayantis.common.TextWatcherAdapter;
 import com.ytempest.daydayantis.data.BaseDataResult;
 import com.ytempest.daydayantis.data.UserDataResult;
 import com.ytempest.daydayantis.utils.GeneralUtils;
-import com.ytempest.daydayantis.utils.UserLoginUtils;
+import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
 import com.ytempest.framelibrary.view.Button.ModifiableButton;
@@ -268,11 +266,11 @@ public class UserRegisterActivity extends BaseSkinActivity {
         } else {
             // 登录成功
             // 设置用户状态为已经登录
-            UserLoginUtils.saveUserLoginStatus(UserRegisterActivity.this, true);
+            UserInfoUtils.saveUserLoginStatus(UserRegisterActivity.this, true);
             Gson gson = new Gson();
             String userInfo = gson.toJson(result.getData());
             // 存储用户数据
-            UserLoginUtils.saveUserInfo(UserRegisterActivity.this, userInfo);
+            UserInfoUtils.saveUserInfo(UserRegisterActivity.this, userInfo);
             ActivityStackManager.getInstance().finishActivity(UserRegisterActivity.class);
             ActivityStackManager.getInstance().finishActivity(UserLoginActivity.class);
         }
