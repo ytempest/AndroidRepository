@@ -16,6 +16,7 @@ import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.security.MD5Utils;
 import com.ytempest.daydayantis.R;
+import com.ytempest.daydayantis.activity.RechargeCoinActivity;
 import com.ytempest.daydayantis.activity.UserInfoActivity;
 import com.ytempest.daydayantis.activity.UserLoginActivity;
 import com.ytempest.daydayantis.data.UserDataResult;
@@ -186,5 +187,10 @@ public class PersonalFragment extends BaseFragment {
         mTvUserRegion.setText(userData.getMember_info().getMember_location_text());
     }
 
+
+    @OnClick(R.id.ll_coin_num)
+    private void onCoinNumberClick(View view) {
+        startActivity(RechargeCoinActivity.class);
+    }
 }
 

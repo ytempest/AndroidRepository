@@ -118,4 +118,21 @@
     <string name="dialog_choose_photo_form_phone">从手机选择</string>
     <string name="dialog_choose_photo_form_camera">拍照</string>
     <string name="dialog_choose_photo_cancel">取消</string>
+
+    <!--————————————————————————-->
+
+    <!-- 充值金币界面的颜色集合 -->
+    <string name="activity_recharge_title_text">购买金币</string>
+    <string name="activity_recharge_headline_purchase_coin">输入金币数量</string>
+    <string name="activity_recharge_coin_coin_num">金币数量：</string>
+    <string name="activity_recharge_coin_num_input_text">输入金币数量</string>
+    <string name="activity_recharge_coin_num_tip">10金币 = 1元</string>
+    <string name="activity_recharge_headline_pay_mode">支付方式</string>
+    <string name="activity_recharge_pay_mode_alipay">支付宝支付</string>
+    <string name="activity_recharge_pay_mode_wxpay">微信支付</string>
+    <string name="activity_recharge_coin_confirm_pay_text">立即支付</string>
+
+
+    <!--————————————————————————-->
+
 </resources>

@@ -1,0 +1,61 @@
+<resources>
+
+    <!-- 每一块内容标题的容器样式 -->
+    <style name="activity_recharge_headline_container_style">
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- 每一块内容标题的线样式 -->
+    <style name="activity_recharge_coin_headline_line_style">
+        <item name="android:background">@color/activity_recharge_coin_headline_line</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- 每一块内容标题的文字样式 -->
+    <style name="activity_recharge_headline_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/activity_recharge_headline_text</item>
+        <item name="android:textSize">@dimen/activity_recharge_headline_text</item>
+    </style>
+
+    <!-- 付款模式的容器 -->
+    <style name="activity_recharge_coin_pay_mode_container_style">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/selector_recharge_coin_pay_mode_bg</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 付款模式的文字样式 -->
+    <style name="activity_recharge_coin_pay_mode_text_style">
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/activity_recharge_coin_pay_mode_text</item>
+        <item name="android:textColor">@color/activity_recharge_coin_pay_mode_text</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 付款模式的标记 -->
+    <style name="activity_recharge_coin_pay_mode_select_style">
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:clickable">false</item>
+        <item name="android:button">@drawable/selector_green_hook_bg</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>

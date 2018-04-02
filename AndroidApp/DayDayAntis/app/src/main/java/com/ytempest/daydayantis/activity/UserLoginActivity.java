@@ -137,7 +137,9 @@ public class UserLoginActivity extends BaseSkinActivity {
     private void checkFinishInput() {
         // 如果全部信息都输入
         if (INPUT_STATUS == (IS_INPUT_PHONE | IS_INPUT_PASSWORD)) {
-            mMbtSignIn.switchNormalStatus();
+            if (!mMbtSignIn.isEnabled()) {
+                mMbtSignIn.switchNormalStatus();
+            }
         } else {
             if (mMbtSignIn.isEnabled()) {
                 mMbtSignIn.switchDisableStatus();

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_recharge_coin_bg"
+    android:orientation="vertical">
+
+    <ScrollView style="@style/scroll_view_common_style">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/activity_recharge_headline_container_style">
+
+                <View style="@style/activity_recharge_coin_headline_line_style" />
+
+                <TextView
+                    style="@style/activity_recharge_headline_text_style"
+                    android:text="@string/activity_recharge_headline_purchase_coin" />
+
+                <View style="@style/activity_recharge_coin_headline_line_style" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/activity_recharge_coin_row_content_bg">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="14dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="14dp"
+                    android:text="@string/activity_recharge_coin_coin_num"
+                    android:textColor="@color/activity_recharge_coin_coin_num"
+                    android:textSize="@dimen/activity_recharge_coin_coin_num" />
+
+                <EditText
+                    android:id="@+id/et_coin_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/activity_recharge_coin_row_content_bg"
+                    android:cursorVisible="false"
+                    android:hint="@string/activity_recharge_coin_num_input_text"
+                    android:inputType="number"
+                    android:paddingBottom="14dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="14dp"
+                    android:textColor="@color/activity_recharge_coin_num_input_text"
+                    android:textSize="@dimen/activity_recharge_coin_num_input_text" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/activity_recharge_coin_row_content_bg"
+                android:gravity="right"
+                android:paddingBottom="14dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="14dp"
+                android:text="@string/activity_recharge_coin_num_tip"
+                android:textColor="@color/activity_recharge_coin_num_tip"
+                android:textSize="@dimen/activity_recharge_coin_num_tip" />
+
+            <LinearLayout
+                style="@style/activity_recharge_headline_container_style"
+                android:layout_marginTop="30dp">
+
+                <View style="@style/activity_recharge_coin_headline_line_style" />
+
+                <TextView
+                    style="@style/activity_recharge_headline_text_style"
+                    android:text="@string/activity_recharge_headline_pay_mode" />
+
+                <View style="@style/activity_recharge_coin_headline_line_style" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_alipay"
+                style="@style/activity_recharge_coin_pay_mode_container_style">
+
+                <TextView
+                    style="@style/activity_recharge_coin_pay_mode_text_style"
+                    android:drawableLeft="@drawable/pay_alipay_icon"
+                    android:text="@string/activity_recharge_pay_mode_alipay" />
+
+                <CheckBox
+                    android:id="@+id/cb_alipay"
+                    style="@style/activity_recharge_coin_pay_mode_select_style"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_wxpay"
+                style="@style/activity_recharge_coin_pay_mode_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/activity_recharge_coin_pay_mode_text_style"
+                    android:drawableLeft="@drawable/pay_wx_icon"
+                    android:text="@string/activity_recharge_pay_mode_wxpay" />
+
+                <CheckBox
+                    android:id="@+id/cb_wxpay"
+                    style="@style/activity_recharge_coin_pay_mode_select_style" />
+            </LinearLayout>
+
+            <com.ytempest.framelibrary.view.Button.ModifiableButton
+                android:id="@+id/bt_confirm_pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/selector_green_button_bg"
+                android:gravity="center"
+                android:text="@string/activity_recharge_coin_confirm_pay_text"
+                android:textColor="@color/activity_recharge_coin_confirm_pay_text"
+                android:textSize="@dimen/activity_recharge_coin_confirm_pay_text"
+                app:disable_bg="@drawable/shape_button_enable_status_bg" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

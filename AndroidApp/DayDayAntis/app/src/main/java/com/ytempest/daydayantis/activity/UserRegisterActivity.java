@@ -104,8 +104,10 @@ public class UserRegisterActivity extends BaseSkinActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // 如果手机号码的格式正确，同时验证码按钮没有在倒计时
                 if (GeneralUtils.judgePhoneQual(mEtPhone) && !mVerifyButton.isInCountDown()) {
-                    mVerifyButton.switchNormalStatus();
-                    INPUT_STATUS |= IS_INPUT_PHONE;
+                    if (!mVerifyButton.isEnabled()) {
+                        mVerifyButton.switchNormalStatus();
+                        INPUT_STATUS |= IS_INPUT_PHONE;
+                    }
                 } else {
                     // 如果验证码按钮是可用状态就设置为不可用，避免重复设置不可用状态
                     if (mVerifyButton.isEnabled()) {
@@ -185,7 +187,9 @@ public class UserRegisterActivity extends BaseSkinActivity {
     private void checkFinishInput() {
         // 如果全部信息都输入
         if (INPUT_STATUS == (IS_INPUT_PHONE | IS_INPUT_VERIFY_CODE | IS_INPUT_PASSWORD)) {
-            mMbtRegister.switchNormalStatus();
+            if (!mMbtRegister.isEnabled()) {
+                mMbtRegister.switchNormalStatus();
+            }
         } else {
             if (mMbtRegister.isEnabled()) {
                 mMbtRegister.switchDisableStatus();

@@ -28,4 +28,9 @@ dependencies {
     implementation project(':baselibrary')
     implementation project(':framelibrary')
     implementation 'com.google.code.gson:gson:2.2.4'
+    implementation files('libs/alipaysdk.jar')
+    implementation files('libs/alipaysecsdk.jar')
+    implementation files('libs/alipayutdid.jar')
+    implementation files('libs/SocialSDK_WeiXin_1.jar')
+    implementation files('libs/SocialSDK_WeiXin_2.jar')
 }

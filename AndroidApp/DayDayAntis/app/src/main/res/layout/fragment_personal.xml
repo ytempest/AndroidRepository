@@ -54,15 +54,17 @@
             </LinearLayout>
 
 
-            <LinearLayout style="@style/fragment_personal_task_item_container_style">
+            <LinearLayout
+                android:id="@+id/ll_coin_num"
+                style="@style/fragment_personal_task_item_container_style">
 
                 <TextView
                     style="@style/fragment_personal_task_item_top_style"
-                    android:text="未签到" />
+                    android:text="0" />
 
                 <TextView
                     style="@style/fragment_personal_task_item_bottom_style"
-                    android:text="我的任务" />
+                    android:text="金币数量" />
             </LinearLayout>
 
         </LinearLayout>

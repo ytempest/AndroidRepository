@@ -77,7 +77,6 @@ public class UserInfoActivity extends BaseSkinActivity {
 
     @Override
     protected void initTitle() {
-        ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
         DefaultNavigationBar navigationBar =
                 new DefaultNavigationBar.Builder(UserInfoActivity.this, mRootView)
                         .setTitle(R.string.activity_user_info_title_bar)
