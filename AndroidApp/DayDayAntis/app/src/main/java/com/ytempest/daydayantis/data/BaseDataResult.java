@@ -2,7 +2,7 @@ package com.ytempest.daydayantis.data;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：基本的返回数据
  */
 public class BaseDataResult {
     private int errcode;

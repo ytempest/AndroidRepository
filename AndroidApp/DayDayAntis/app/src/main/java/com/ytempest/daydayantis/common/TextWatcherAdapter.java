@@ -5,7 +5,7 @@ import android.text.TextWatcher;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：TextWatcher 适配器
  */
 public class TextWatcherAdapter implements TextWatcher {
     @Override

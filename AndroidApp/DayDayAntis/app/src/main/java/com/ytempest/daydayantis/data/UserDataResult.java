@@ -2,7 +2,7 @@ package com.ytempest.daydayantis.data;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：登录之后的返回结果
  */
 public class UserDataResult extends BaseDataResult {
 

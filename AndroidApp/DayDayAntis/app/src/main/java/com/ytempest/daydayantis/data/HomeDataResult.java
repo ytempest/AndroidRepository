@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：HomeFragment 请求数据的返回结果
  */
 public class HomeDataResult extends BaseDataResult {
 
