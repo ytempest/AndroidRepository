@@ -3,6 +3,7 @@ package com.ytempest.baselibrary.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -94,22 +95,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         return (T) findViewById(viewId);
     }
 
-    /**
-     * 打印短时间的吐司
-     *
-     * @param tip
-     */
+
     protected void showToastShort(String tip) {
         Toast.makeText(BaseActivity.this, tip, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * 打印长时间的吐司
-     *
-     * @param tip
-     */
+
+    protected void showToastShort(@StringRes int resId) {
+        Toast.makeText(BaseActivity.this, resId, Toast.LENGTH_SHORT).show();
+    }
+
+
+
     protected void showToastLong(String tip) {
         Toast.makeText(BaseActivity.this, tip, Toast.LENGTH_LONG).show();
+    }
+
+    protected void showToastLong(@StringRes int resId) {
+        Toast.makeText(BaseActivity.this, resId, Toast.LENGTH_LONG).show();
     }
 
     // 只能放一些通用的方法，基本每个Activity都需要使用的方法，readDataBase最好不要放进来 ，

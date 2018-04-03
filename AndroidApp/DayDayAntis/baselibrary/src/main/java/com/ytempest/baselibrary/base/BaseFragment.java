@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ytempest.baselibrary.ioc.ViewUtils;
 
@@ -54,6 +56,23 @@ public abstract class BaseFragment extends Fragment {
         Intent intent = new Intent(mContext, clazz);
         startActivityForResult(intent, requetCode);
     }
+
+    protected void showToastShort(String tip) {
+        Toast.makeText(mContext, tip, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showToastShort(@StringRes int resId) {
+        Toast.makeText(mContext, resId, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showToastLong(String tip) {
+        Toast.makeText(mContext, tip, Toast.LENGTH_LONG).show();
+    }
+
+    protected void showToastLong(@StringRes int resId) {
+        Toast.makeText(mContext, resId, Toast.LENGTH_LONG).show();
+    }
+
 
 
     protected abstract int getLayoutId();

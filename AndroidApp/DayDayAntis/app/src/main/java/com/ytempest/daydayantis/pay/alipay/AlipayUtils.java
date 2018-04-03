@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 @SuppressLint("HandlerLeak")
-public class PayUtils {
+public class AlipayUtils {
 	private Activity mActivity;
 	private final int payMessageWhat = 1;
 	private Handler mHandler;
@@ -29,7 +29,7 @@ public class PayUtils {
 		void payFail();
 	}
 
-	public PayUtils(Activity activity) {
+	public AlipayUtils(Activity activity) {
 		this.mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {

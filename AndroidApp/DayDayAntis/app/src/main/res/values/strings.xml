@@ -132,6 +132,10 @@
     <string name="activity_recharge_pay_mode_wxpay">微信支付</string>
     <string name="activity_recharge_coin_confirm_pay_text">立即支付</string>
 
+    <string name="activity_recharge_coin_pay_success">支付成功</string>
+    <string name="activity_recharge_coin_pay_fail">支付失败</string>
+    <string name="activity_recharge_coin_lose_login">登录过期，请你重新登录</string>
+
 
     <!--————————————————————————-->
 

@@ -1,7 +1,6 @@
 package com.ytempest.daydayantis.fragment;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +46,8 @@ public class PersonalFragment extends BaseFragment {
     private TextView mTvUserName;
     @ViewById(R.id.tv_login_user_region)
     private TextView mTvUserRegion;
+
+    private boolean isUserLogined = false;
 
 
     @Override
@@ -134,7 +135,8 @@ public class PersonalFragment extends BaseFragment {
      * 根据用户的登录状态设置相应的布局
      */
     private void changeUserLoginLayout() {
-        if (!UserInfoUtils.isUserLogin(mContext)) {
+        isUserLogined = UserInfoUtils.isUserLogin(mContext);
+        if (!isUserLogined) {
             // 如果用户没有登录，就更改布局为默认布局
             switchDefaultLayout();
         } else {
@@ -149,12 +151,13 @@ public class PersonalFragment extends BaseFragment {
      */
     @OnClick(R.id.tv_exit_login)
     private void onExitLoginClick(View view) {
-        // 设置用户登录状态为已退出
-        boolean isLogin = UserInfoUtils.isUserLogin(mContext);
-        if (!isLogin) {
+        if (!isUserLogined) {
             return;
         }
+        // 设置用户登录状态为已退出
         UserInfoUtils.saveUserLoginStatus(mContext, false);
+        // 清空用户信息
+        UserInfoUtils.saveUserInfo(mContext, "");
         onResume();
     }
 
@@ -190,7 +193,21 @@ public class PersonalFragment extends BaseFragment {
 
     @OnClick(R.id.ll_coin_num)
     private void onCoinNumberClick(View view) {
-        startActivity(RechargeCoinActivity.class);
+        if (beginLoginIfNot()) {
+            startActivity(RechargeCoinActivity.class);
+        }
+    }
+
+    /**
+     * 在执行某些操作前检查用户是否已经登录，如果没有就转到登录页面
+     */
+    private boolean beginLoginIfNot() {
+        if (isUserLogined) {
+            return true;
+        } else {
+            startActivity(UserLoginActivity.class);
+            return false;
+        }
     }
 }
 

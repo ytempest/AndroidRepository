@@ -14,46 +14,50 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.ytempest.daydayantis.R;
 
 public class WXPayEntryActivity extends AppCompatActivity implements
-		IWXAPIEventHandler {
-	private IWXAPI api;
+        IWXAPIEventHandler {
 
-	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_wx_pay_reback);
-		api = WXAPIFactory.createWXAPI(this, null);
-		api.handleIntent(getIntent(), this);
-	}
+    private final static String TAG = "WXPayEntryActivity";
+    private IWXAPI api;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wx_pay_reback);
+        api = WXAPIFactory.createWXAPI(this, null);
+        api.handleIntent(getIntent(), this);
+    }
 
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        api.handleIntent(intent, this);
+    }
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-		api.handleIntent(intent, this);
-	}
+    @Override
+    public void onReq(BaseReq req) {
 
-	@Override
-	public void onReq(BaseReq req) {
+    }
 
-	}
+    /**
+     * 执行完之后回调这个方法  resp.errCode== 0 :表示支付成功  签名失败
+     */
+    @Override
+    public void onResp(BaseResp resp) {
+        Log.e(TAG, "微信支付结果回调：errStr = " + resp.errStr);
+        Log.e(TAG, "微信支付结果回调：errCode = " + resp.errCode + "");
+        if (resp.errCode == -2) {
+            return;
+        }
+        if (resp.errCode == -1) {
+            return;
+        }
+    }
 
-	@Override
-	public void onResp(BaseResp resp) {// 执行完之后回调这个方法  resp.errCode== 0 :表示支付成功  签名失败
-		Log.e("TAG","errStr = "+resp.errStr);
-		Log.e("TAG","errCode = "+resp.errCode+"");
-		if (resp.errCode == -2) {
-			return;
-		}
-		if (resp.errCode == -1) {
-			return;
-		}
-	}
-
-	private void close() {
-		this.finish();
-		overridePendingTransition(0, 0);
-	}
+    private void close() {
+        this.finish();
+        overridePendingTransition(0, 0);
+    }
 
 }
