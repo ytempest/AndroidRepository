@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@color/item_hot_info_bg"
     android:orientation="horizontal"
     android:padding="10dp"
     tools:context="com.ytempest.daydayantis.activity.MainActivity">
@@ -15,7 +15,7 @@
         android:layout_weight="3"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:textColor="@color/hot_info_item_content_color"
+        android:textColor="@color/item_hot_info_content_color"
         android:textSize="@dimen/hot_info_item_content_size" />
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right"
-        android:textColor="@color/hot_info_item_date_color"
+        android:textColor="@color/item_hot_info_date_color"
         android:textSize="@dimen/hot_into_item_date_size" />
 
 </LinearLayout>

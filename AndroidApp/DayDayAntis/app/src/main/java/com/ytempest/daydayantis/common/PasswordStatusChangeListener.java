@@ -7,6 +7,8 @@ import android.text.method.PasswordTransformationMethod;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.ytempest.daydayantis.utils.GeneralUtils;
+
 /**
  * @author ytempest
  *         Description：用于监听是否显示密码的CheckBox的状态
@@ -30,7 +32,6 @@ public class PasswordStatusChangeListener implements CompoundButton.OnCheckedCha
         }
 
         // 把光标移动到最后
-        Editable editable = mEtPassword.getText();
-        Selection.setSelection(editable, editable.length());
+        GeneralUtils.setCursorLast(mEtPassword);
     }
 }

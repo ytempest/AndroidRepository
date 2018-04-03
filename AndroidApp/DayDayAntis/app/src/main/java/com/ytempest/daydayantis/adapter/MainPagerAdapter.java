@@ -1,4 +1,4 @@
-package com.ytempest.daydayantis.fragment.adapter;
+package com.ytempest.daydayantis.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

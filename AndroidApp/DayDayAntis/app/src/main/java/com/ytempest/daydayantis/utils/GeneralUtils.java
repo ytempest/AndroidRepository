@@ -3,6 +3,8 @@ package com.ytempest.daydayantis.utils;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.text.Editable;
+import android.text.Selection;
 import android.widget.EditText;
 
 import com.ytempest.daydayantis.R;
@@ -12,6 +14,12 @@ import com.ytempest.daydayantis.R;
  *         Description：
  */
 public class GeneralUtils {
+
+    /**
+     * 防止创建对象
+     */
+    private GeneralUtils() {
+    }
 
     /**
      * 判断是否是合格的手机号码
@@ -59,6 +67,15 @@ public class GeneralUtils {
         stringBuilder.append(Integer.toHexString(Color.green(color)));
         stringBuilder.append(Integer.toHexString(Color.blue(color)));
         return stringBuilder.toString();
+    }
+
+    /**
+     * 将EditText的光标移到文本最后
+     */
+    public static void setCursorLast(EditText editText) {
+        // 把光标移动到最后
+        Editable editable = editText.getText();
+        Selection.setSelection(editable, editable.length());
     }
 
 }

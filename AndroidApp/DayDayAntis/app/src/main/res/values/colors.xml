@@ -52,8 +52,9 @@
     <color name="home_fragment_content_heading_bg">@color/rg_bg</color>
 
     <!-- HomeFragment中热点资讯的列表条目的文字颜色 -->
-    <color name="hot_info_item_content_color">#868686</color>
-    <color name="hot_info_item_date_color">#868686</color>
+    <color name="item_hot_info_bg">#ffffff</color>
+    <color name="item_hot_info_content_color">#868686</color>
+    <color name="item_hot_info_date_color">#868686</color>
 
     <!--———————————————————————-->
 
@@ -142,18 +143,28 @@
 
     <!-- 充值金币页面的每一行内容的背景颜色 -->
     <color name="activity_recharge_coin_row_content_bg">#f2f0f0</color>
+
+    <!-- item 背景的 selector 的颜色集合-->
+    <color name="activity_recharge_coin_row_content_normal_bg">@color/activity_recharge_coin_row_content_bg</color>
     <color name="activity_recharge_coin_row_content_press_bg">#e9e9e9</color>
+
+    <!-- 购买金币套餐列表文字的颜色集合 -->
+    <color name="item_package_list_bg">@color/activity_recharge_coin_row_content_bg</color>
+    <color name="item_package_list_purchase_coin_num">#e3604a</color>
+    <color name="item_package_list_purchase_coin_desc">#636262</color>
+
+
 
 
     <!--———————————————————————-->
 
-    <!-- 根布局的背景 -->
-    <color name="root_bg_color">#efeded</color>
+    <!-- MyCoinActivity界面的颜色集合 -->
+    <color name="activity_my_coin_headline_bg">#18aa91</color>
+    <color name="activity_my_coin_num_desc_text">#ffffff</color>
+    <color name="activity_my_coin_number_text">#ffffff</color>
 
-    <!-- 线条的背景灰色 -->
-    <color name="gray">#F4F4F4</color>
 
-    <!-- 标题黑色 -->
-    <color name="title_black">#121212</color>
+    <!--———————————————————————-->
+
 
 </resources>

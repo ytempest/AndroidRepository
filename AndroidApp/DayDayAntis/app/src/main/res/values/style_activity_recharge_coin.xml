@@ -31,7 +31,7 @@
     <!-- 付款模式的容器 -->
     <style name="activity_recharge_coin_pay_mode_container_style">
         <item name="android:clickable">true</item>
-        <item name="android:background">@drawable/selector_recharge_coin_pay_mode_bg</item>
+        <item name="android:background">@drawable/selector_recharge_coin_item_bg</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -53,6 +53,7 @@
     <style name="activity_recharge_coin_pay_mode_select_style">
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:clickable">false</item>
+        <item name="android:enabled">false</item>
         <item name="android:button">@drawable/selector_green_hook_bg</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

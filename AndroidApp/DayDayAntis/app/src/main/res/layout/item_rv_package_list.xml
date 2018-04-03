@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_recharge_coin_item_bg"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:clickable="true"
+    tools:context="com.ytempest.daydayantis.activity.MainActivity">
+
+    <TextView
+        android:id="@+id/tv_purchase_coin_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/item_package_list_purchase_coin_num"
+        android:textSize="@dimen/item_package_list_purchase_coin_num" />
+
+    <TextView
+        android:id="@+id/tv_purchase_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/item_package_list_purchase_coin_desc"
+        android:textSize="@dimen/item_package_list_purchase_coin_desc" />
+
+</LinearLayout>

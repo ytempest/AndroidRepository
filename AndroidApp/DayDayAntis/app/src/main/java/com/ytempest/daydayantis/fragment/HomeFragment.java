@@ -18,7 +18,7 @@ import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.view.recyclerview.division.DividerItemDecoration;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.activity.DetailLinkActivity;
-import com.ytempest.daydayantis.fragment.adapter.HotInfoAdapter;
+import com.ytempest.daydayantis.adapter.HotInfoAdapter;
 import com.ytempest.daydayantis.data.HomeDataResult;
 import com.ytempest.framelibrary.http.HttpCallBack;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
@@ -116,7 +116,7 @@ public class HomeFragment extends BaseFragment {
                     }
 
                     private void showHotInfo(final HomeDataResult.DataBean result) {
-                        mRvHotInfo.setAdapter(new HotInfoAdapter(mContext, result.getNews_list(), R.layout.item_rv_hot_info));
+                        mRvHotInfo.setAdapter(new HotInfoAdapter(mContext, result.getNews_list()));
 
                         LoaderOptions loaderOptions =
                                 new LoaderOptions.Builder()

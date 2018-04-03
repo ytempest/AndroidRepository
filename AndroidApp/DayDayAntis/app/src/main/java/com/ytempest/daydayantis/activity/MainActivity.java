@@ -11,11 +11,11 @@ import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.util.ActivityStackManager;
 import com.ytempest.daydayantis.R;
+import com.ytempest.daydayantis.adapter.MainPagerAdapter;
 import com.ytempest.daydayantis.fragment.CollectFragment;
 import com.ytempest.daydayantis.fragment.HomeFragment;
 import com.ytempest.daydayantis.fragment.MessageFragment;
 import com.ytempest.daydayantis.fragment.PersonalFragment;
-import com.ytempest.daydayantis.fragment.adapter.MainPagerAdapter;
 import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 

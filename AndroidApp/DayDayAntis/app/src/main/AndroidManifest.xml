@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -35,19 +34,18 @@
         <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".activity.RechargeCoinActivity" />
 
+        <activity android:name=".activity.MyCoinActivity" />
         <!-- 支付宝支付的 Activity -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:exported="true"
             android:launchMode="singleTop" />
 
-        <!-- 微信支付的 Activity  -->
+        <!-- 微信支付的 Activity -->
         <activity
             android:name=".pay.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
-
     </application>
-
 
 </manifest>

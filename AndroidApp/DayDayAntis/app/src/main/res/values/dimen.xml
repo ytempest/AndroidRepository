@@ -80,17 +80,22 @@
     <dimen name="activity_recharge_coin_num_input_text">17sp</dimen>
     <dimen name="activity_recharge_coin_num_tip">15sp</dimen>
     <dimen name="activity_recharge_coin_confirm_pay_text">20sp</dimen>
-
-
-
-
-
     <dimen name="activity_recharge_coin_pay_mode_text">18sp</dimen>
+
+    <!-- 购买金币套餐列表文字的文字大小集合 -->
+    <dimen name="item_package_list_purchase_coin_num">18sp</dimen>
+    <dimen name="item_package_list_purchase_coin_desc">16sp</dimen>
 
     <!--———————————————————————-->
 
     <!-- 选择图片的对话框的按钮文字的大小 -->
     <dimen name="dialog_choose_photo_button_text">17sp</dimen>
+
+    <!--———————————————————————-->
+
+    <!-- MyCoinActivity界面的文字大小集合 -->
+    <dimen name="activity_my_coin_num_desc_text">15sp</dimen>
+    <dimen name="activity_my_coin_number_text">60sp</dimen>
 
     <!--———————————————————————-->
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ytempest.daydayantis.activity.MyCoinActivity">
+
+
+    <LinearLayout
+        android:id="@+id/ll_root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_my_coin_headline_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:padding="6dp"
+            android:text="@string/activity_my_coin_num_desc_text"
+            android:textColor="@color/activity_my_coin_num_desc_text"
+            android:textSize="@dimen/activity_my_coin_num_desc_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/activity_my_coin_number_text"
+            android:textColor="@color/activity_my_coin_number_text"
+            android:textSize="@dimen/activity_my_coin_number_text" />
+
+        <ImageButton
+            android:id="@+id/bt_recharge_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/recharge_coin_bg" />
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <com.ytempest.baselibrary.view.load.LoadView
+        android:id="@+id/load_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

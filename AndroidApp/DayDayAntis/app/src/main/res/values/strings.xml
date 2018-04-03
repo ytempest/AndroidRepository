@@ -136,6 +136,13 @@
     <string name="activity_recharge_coin_pay_fail">支付失败</string>
     <string name="activity_recharge_coin_lose_login">登录过期，请你重新登录</string>
 
+    <!--————————————————————————-->
+
+    <!-- MyCoinActivity界面的文字集合 -->
+    <string name="activity_my_coin_title_bar_text">我的金币</string>
+    <string name="activity_my_coin_title_bar_right_text">账单</string>
+    <string name="activity_my_coin_num_desc_text">当前金币(个)</string>
+    <string name="activity_my_coin_number_text">0</string>
 
     <!--————————————————————————-->
 

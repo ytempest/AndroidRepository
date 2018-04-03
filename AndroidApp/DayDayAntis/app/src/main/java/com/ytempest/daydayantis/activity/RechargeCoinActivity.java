@@ -1,5 +1,9 @@
 package com.ytempest.daydayantis.activity;
 
+import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -13,17 +17,23 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.ytempest.baselibrary.http.HttpUtils;
 import com.ytempest.baselibrary.ioc.OnClick;
 import com.ytempest.baselibrary.ioc.ViewById;
+import com.ytempest.baselibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
+import com.ytempest.baselibrary.view.recyclerview.adapter.CommonViewHolder;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.common.TextWatcherAdapter;
 import com.ytempest.daydayantis.data.AlipayDataResult;
+import com.ytempest.daydayantis.data.PackageListData;
 import com.ytempest.daydayantis.data.UserDataResult;
 import com.ytempest.daydayantis.data.WxpayDataResult;
 import com.ytempest.daydayantis.pay.alipay.AlipayUtils;
+import com.ytempest.daydayantis.utils.GeneralUtils;
 import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
 import com.ytempest.framelibrary.view.Button.ModifiableButton;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
+
+import java.util.List;
 
 /**
  * @author ytempest
@@ -39,6 +49,10 @@ public class RechargeCoinActivity extends BaseSkinActivity {
 
     @ViewById(R.id.ll_root_view)
     private LinearLayout mRootView;
+
+    @ViewById(R.id.rv_package_list)
+    private RecyclerView mPackageList;
+
     @ViewById(R.id.et_coin_num)
     private EditText mEtCoinNum;
     @ViewById(R.id.cb_alipay)
@@ -94,6 +108,18 @@ public class RechargeCoinActivity extends BaseSkinActivity {
             }
         });
 
+        // 设置点击输入框就将光标移动到文本末尾
+        mEtCoinNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 把光标移动到最后
+                GeneralUtils.setCursorLast(mEtCoinNum);
+            }
+        });
+
+        // 初始化购买金币的套餐列表
+        requestPackageList();
+
     }
 
     @Override
@@ -102,6 +128,42 @@ public class RechargeCoinActivity extends BaseSkinActivity {
         mWXAPI = WXAPIFactory.createWXAPI(RechargeCoinActivity.this, "wxa8080d15a32e2ff7");
         // 将 App 注册到微信
         mWXAPI.registerApp("wxa8080d15a32e2ff7");
+
+
+    }
+
+    /**
+     * 向后台请求获取金币套餐列表数据
+     */
+    private void requestPackageList() {
+        // 请求数据
+        HttpUtils.with(RechargeCoinActivity.this)
+                .addParam("appid", "1")
+                .url("http://v2.ffu365.com/index.php?m=Api&c=Member&a=coinSale")
+                .post()
+                .execute(new HttpCallBack<PackageListData>() {
+                    @Override
+                    public void onPreExecute() {
+                    }
+
+                    @Override
+                    public void onSuccess(PackageListData result) {
+                        showPackageList(result.getData().getMeal());
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                    }
+                });
+    }
+
+    /**
+     * 显示金币套餐数据
+     */
+    private void showPackageList(List<PackageListData.DataBean.MealBean> data) {
+        mPackageList.setAdapter(new PackageListAdapter(RechargeCoinActivity.this, data));
+        mPackageList.setLayoutManager(new LinearLayoutManager(RechargeCoinActivity.this));
+        mPackageList.addItemDecoration(new DividerItemDecoration(RechargeCoinActivity.this, DividerItemDecoration.VERTICAL));
     }
 
 
@@ -248,6 +310,32 @@ public class RechargeCoinActivity extends BaseSkinActivity {
                 .url("http://v2.ffu365.com/index.php?m=Api&c=V2Payment&a=coinPrepareToPay")
                 .post()
                 .execute(httpCallBack);
+    }
+
+
+    /**
+     * @author ytempest
+     *         Description：金币套餐列表的RecyclerView适配器
+     */
+    private class PackageListAdapter extends CommonRecyclerAdapter<PackageListData.DataBean.MealBean> {
+
+        PackageListAdapter(Context context, List<PackageListData.DataBean.MealBean> dataList) {
+            super(context, dataList, R.layout.item_rv_package_list);
+        }
+
+        @Override
+        protected void bindViewData(CommonViewHolder holder, final PackageListData.DataBean.MealBean item) {
+            holder.setOnItemClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mEtCoinNum.setText(item.getMeal_coin());
+                    // 把光标移动到最后
+                    GeneralUtils.setCursorLast(mEtCoinNum);
+                }
+            });
+            holder.setText(R.id.tv_purchase_coin_num, item.getMeal_name());
+            holder.setText(R.id.tv_purchase_desc, item.getMeal_desc());
+        }
     }
 
 }

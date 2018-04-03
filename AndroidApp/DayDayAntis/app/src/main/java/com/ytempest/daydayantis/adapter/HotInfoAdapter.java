@@ -1,14 +1,13 @@
-package com.ytempest.daydayantis.fragment.adapter;
+package com.ytempest.daydayantis.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-
 import com.ytempest.baselibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
 import com.ytempest.baselibrary.view.recyclerview.adapter.CommonViewHolder;
-import com.ytempest.daydayantis.activity.DetailLinkActivity;
 import com.ytempest.daydayantis.R;
+import com.ytempest.daydayantis.activity.DetailLinkActivity;
 import com.ytempest.daydayantis.data.HomeDataResult;
 
 import java.util.List;
@@ -21,8 +20,8 @@ public class HotInfoAdapter extends CommonRecyclerAdapter<HomeDataResult.DataBea
 
     private Context mContext;
 
-    public HotInfoAdapter(Context context, List<HomeDataResult.DataBean.NewsListBean> dataList, int layoutId) {
-        super(context, dataList, layoutId);
+    public HotInfoAdapter(Context context, List<HomeDataResult.DataBean.NewsListBean> dataList) {
+        super(context, dataList, R.layout.item_rv_hot_info);
         mContext = context;
     }
 
