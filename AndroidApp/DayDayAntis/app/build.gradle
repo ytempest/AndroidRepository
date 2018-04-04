@@ -1,6 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            File strFile = new File("daydayantis.jks")
+            storeFile file(strFile)
+            storePassword "ytempest"
+            keyAlias "daydayantis"
+            keyPassword "ytempest"
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.ytempest.daydayantis"
@@ -33,4 +42,7 @@ dependencies {
     implementation files('libs/alipayutdid.jar')
     implementation files('libs/SocialSDK_WeiXin_1.jar')
     implementation files('libs/SocialSDK_WeiXin_2.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
+    implementation files('libs/httpmime-4.1.2.jar')
+    implementation files('libs/IndoorscapeAlbumPlugin.jar')
 }

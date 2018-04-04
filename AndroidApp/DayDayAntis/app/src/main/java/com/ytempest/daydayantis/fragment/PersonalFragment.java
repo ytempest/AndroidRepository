@@ -20,6 +20,7 @@ import com.ytempest.daydayantis.activity.RechargeCoinActivity;
 import com.ytempest.daydayantis.activity.UserInfoActivity;
 import com.ytempest.daydayantis.activity.UserLoginActivity;
 import com.ytempest.daydayantis.data.UserDataResult;
+import com.ytempest.daydayantis.map.MapAroundSearchActivity;
 import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.http.HttpCallBack;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
@@ -127,9 +128,18 @@ public class PersonalFragment extends BaseFragment {
     /**
      * 用户个人信息展示的点击事件
      */
-    @OnClick(R.id.ll_user_info)
+    @OnClick(R.id.tv_login_user_name)
     private void onUserInfoClick(View view) {
         startActivity(UserInfoActivity.class);
+    }
+
+
+    /**
+     * 用户的所属地区点击事件
+     */
+    @OnClick(R.id.tv_login_user_region)
+    private void onRegionClick(View view) {
+        startActivity(MapAroundSearchActivity.class);
     }
 
     /**
@@ -210,5 +220,6 @@ public class PersonalFragment extends BaseFragment {
             return false;
         }
     }
+
 }
 
