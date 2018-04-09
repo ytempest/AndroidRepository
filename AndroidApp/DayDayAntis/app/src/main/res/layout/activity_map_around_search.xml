@@ -6,9 +6,57 @@
     android:layout_height="match_parent"
     tools:context="com.ytempest.daydayantis.map.MapActivity">
 
+
     <com.baidu.mapapi.map.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+
+        <EditText
+            android:id="@+id/et_key_word"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_base_et_input_bg"
+            android:hint="关键词"
+            android:paddingLeft="6dp" />
+
+        <EditText
+            android:id="@+id/et_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_base_et_input_bg"
+            android:hint="数量"
+            android:inputType="number"
+            android:paddingLeft="6dp" />
+
+        <EditText
+            android:id="@+id/et_radius"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_base_et_input_bg"
+            android:hint="范围"
+            android:inputType="number"
+            android:paddingLeft="6dp" />
+
+        <Button
+            android:id="@+id/bt_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_green_button_bg"
+            android:text="搜索"
+            android:textColor="#fff"
+            android:textSize="16dp" />
+    </LinearLayout>
 
 </FrameLayout>

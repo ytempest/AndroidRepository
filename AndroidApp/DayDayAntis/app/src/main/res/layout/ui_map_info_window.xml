@@ -3,17 +3,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/marker_bg"
-    android:padding="10dp"
-    android:orientation="vertical" >
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <TextView
+        android:id="@+id/tv_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
         android:layout_gravity="center"
-        android:textColor="#24cfa2"
-        android:id="@+id/address"
+        android:gravity="center"
         android:paddingBottom="10dp"
-        android:text="蔡敏怡"
-        />
+        android:text="fdsfdsfasd"
+        android:textColor="#24cfa2"
+        android:textSize="14sp" />
 </LinearLayout>

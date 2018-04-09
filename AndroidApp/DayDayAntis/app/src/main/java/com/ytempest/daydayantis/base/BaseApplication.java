@@ -2,6 +2,7 @@ package com.ytempest.daydayantis.base;
 
 import android.app.Application;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.ytempest.baselibrary.exception.ExceptionCrashHandler;
 import com.ytempest.baselibrary.http.HttpUtils;
 import com.ytempest.baselibrary.imageloader.ImageLoaderManager;
@@ -19,6 +20,8 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // 初始化百度地图
+        SDKInitializer.initialize(getApplicationContext());
 
         // 初始化同意图片统一加载框架
         ImageLoaderManager.getInstance().init(new GlideImageLoader());

@@ -9,6 +9,6 @@ import java.io.Serializable;
  *         Description：
  */
 public class MarkerInfo implements Serializable {
-    public String mAddress;
+    public String mInfo;
     public LatLng mLatLng;
 }

@@ -103,7 +103,7 @@ public class MapActivity extends AppCompatActivity {
                 // 3.利用bundle 把值传给Marker
                 Bundle bundle = new Bundle();
                 MarkerInfo markerInfo = new MarkerInfo();
-                markerInfo.mAddress = location.getAddrStr();
+                markerInfo.mInfo = location.getAddrStr();
                 markerInfo.mLatLng = currentLocation;
                 bundle.putSerializable(MARKER_INFO, markerInfo);
                 marker.setExtraInfo(bundle);
@@ -122,8 +122,8 @@ public class MapActivity extends AppCompatActivity {
             View view = View.inflate(MapActivity.this, R.layout.ui_map_info_window, null);
             InfoWindow infoWindow = new InfoWindow(view, markerInfo.mLatLng, -50);
             Log.e(TAG, "onMarkerClick: infoWindow --> " + infoWindow);
-            TextView textView = view.findViewById(R.id.address);
-            textView.setText(markerInfo.mAddress);
+            TextView textView = view.findViewById(R.id.tv_info);
+            textView.setText(markerInfo.mInfo);
             mBaiduMap.showInfoWindow(infoWindow);
 
             return false;
