@@ -12,10 +12,12 @@ import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.util.ActivityStackManager;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.adapter.MainPagerAdapter;
+
 import com.ytempest.daydayantis.fragment.CollectFragment;
 import com.ytempest.daydayantis.fragment.HomeFragment;
 import com.ytempest.daydayantis.fragment.MessageFragment;
 import com.ytempest.daydayantis.fragment.PersonalFragment;
+import com.ytempest.daydayantis.aspect.net.CheckNetAspect;
 import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 
@@ -106,9 +108,10 @@ public class MainActivity extends BaseSkinActivity {
     /**
      * 发布按钮
      */
+    @CheckNetAspect
     @OnClick(R.id.ll_publish)
     public void publishClick(View view) {
-
+        showToastShort("success");
     }
 
     /**
