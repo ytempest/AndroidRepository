@@ -1,14 +1,6 @@
 apply plugin: 'com.android.library'
 
 android {
-    signingConfigs {
-        release {
-            keyAlias 'daydayantis'
-            keyPassword 'ytempest'
-            storeFile file('D:/Android/key/daydayantis.jks')
-            storePassword 'ytempest'
-        }
-    }
     compileSdkVersion 26
     defaultConfig {
         minSdkVersion 14

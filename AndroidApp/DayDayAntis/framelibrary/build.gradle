@@ -1,14 +1,6 @@
 apply plugin: 'com.android.library'
 
 android {
-    signingConfigs {
-        release {
-            keyAlias 'daydayantis'
-            keyPassword 'ytempest'
-            storeFile file('D:/Android/key/daydayantis.jks')
-            storePassword 'ytempest'
-        }
-    }
     compileSdkVersion 26
     defaultConfig {
         minSdkVersion 14
@@ -38,3 +30,4 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
 }
+

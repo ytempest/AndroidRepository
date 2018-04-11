@@ -21,6 +21,7 @@ import com.ytempest.daydayantis.activity.DetailLinkActivity;
 import com.ytempest.daydayantis.adapter.HotInfoAdapter;
 import com.ytempest.daydayantis.data.HomeDataResult;
 import com.ytempest.framelibrary.http.HttpCallBack;
+
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 
@@ -136,11 +137,13 @@ public class HomeFragment extends BaseFragment {
                 });
     }
 
+
     @OnClick(R.id.iv_advertise)
     private void onIvAdvertiseClick(View view) {
         String url = mHomeDataResult.getData().getAd_list().get(0).getLink();
         startActivity(getDetailLinkIntent(url));
     }
+
 
     @OnClick(R.id.iv_recommend)
     private void onIvRecommendClick(View view) {
