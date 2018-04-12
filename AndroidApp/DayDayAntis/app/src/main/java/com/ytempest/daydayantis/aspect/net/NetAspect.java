@@ -6,7 +6,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,17 +17,23 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：检测网络功能的切面处理类
  */
 @Aspect
 public class NetAspect {
 
+    /**
+     * CheckNetAspect注解必须是其全路径名 + 注解名称
+     */
     @Pointcut("execution(@com.ytempest.daydayantis.aspect.net.CheckNetAspect * *(..))")
     public void checkNetBehavior() {
 
     }
 
 
+    /**
+     * 标记了 CheckNetAspect注解的处理逻辑
+     */
     @Around("checkNetBehavior()")
     public Object checkNetAspect(ProceedingJoinPoint joinPoint) throws Throwable {
 
@@ -39,7 +44,6 @@ public class NetAspect {
             // 2.判断有没有网络  怎么样获取 context?
             Context context = getContext(joinPoint.getThis());
 
-            Log.e("222222222222", "checkNetAspect: --> " + networkAvailable(context));
             // 3.没有网络不要往下执行
             if (!networkAvailable(context)) {
                 Toast.makeText(context, "请检查您的网络...", Toast.LENGTH_LONG).show();
@@ -49,6 +53,7 @@ public class NetAspect {
 
         return joinPoint.proceed();
     }
+
 
     private Context getContext(Object object) {
         if (object instanceof Activity) {
