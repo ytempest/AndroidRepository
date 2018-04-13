@@ -12,6 +12,7 @@ import com.ytempest.smartknife_annotations.LinkView;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -77,6 +78,8 @@ public class SmartKnifeProcessor extends AbstractProcessor {
 
     /**
      * 在 getSupportedAnnotationTypes 方法中注册的注解都会走这个方法
+     *
+     * @param annotations 在 getSupportedAnnotationTypes() 方法中添加的注解都会在这个集合里面
      */
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnvironment) {
@@ -89,6 +92,11 @@ public class SmartKnifeProcessor extends AbstractProcessor {
         Set<Element> allElement = new LinkedHashSet<>();
         allElement.addAll(allLinkViewElement);
         allElement.addAll(allLinkClickElement);
+
+        // 判断是否有元素，如果没有就直接返回，防止多次执行下面的逻辑
+        if (!isSetHaveElement(allElement)) {
+            return false;
+        }
 
         // 把所有的注解按所属的类块进行分类
         Map<Element, List<Element>> blockElementMap = ClassGenerateHelper
@@ -192,7 +200,18 @@ public class SmartKnifeProcessor extends AbstractProcessor {
                 e.printStackTrace();
             }
         }
+        return false;
+    }
 
+    /**
+     * 判断 set 是否有数据
+     */
+    private boolean isSetHaveElement(Set<? extends Element> elements) {
+        if (elements != null) {
+            if (elements.size() != 0) {
+                return true;
+            }
+        }
         return false;
     }
 
