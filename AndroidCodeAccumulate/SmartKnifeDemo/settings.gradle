@@ -1,0 +1,1 @@
+include ':app', ':smartknife_annotations', ':smartknife_compiler', ':smartknife'
