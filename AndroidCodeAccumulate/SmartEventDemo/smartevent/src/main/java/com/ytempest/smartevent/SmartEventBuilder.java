@@ -1,6 +1,7 @@
 package com.ytempest.smartevent;
 
 
+import com.sun.istack.internal.NotNull;
 import com.ytempest.smartevent.meta.SubscriberInfoIndex;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class SmartEventBuilder {
                 private final AtomicInteger mCount = new AtomicInteger(1);
 
                 @Override
-                public Thread newThread(Runnable r) {
+                public Thread newThread(@NotNull Runnable r) {
                     return new Thread(r, "SmartEventThreadPool#" + mCount.getAndIncrement());
                 }
             });
