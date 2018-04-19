@@ -82,6 +82,7 @@ class ClassGenerateHelper {
         ClassName blockClassName = ClassName.bestGuess(blockElement.getSimpleName().toString());
         FieldSpec.Builder targetFieldBuilder = FieldSpec
                 .builder(blockClassName, "target", Modifier.PRIVATE);
+
         return targetFieldBuilder;
     }
 

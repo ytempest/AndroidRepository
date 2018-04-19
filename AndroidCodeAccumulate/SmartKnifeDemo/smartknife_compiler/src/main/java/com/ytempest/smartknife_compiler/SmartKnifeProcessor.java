@@ -102,6 +102,8 @@ public class SmartKnifeProcessor extends AbstractProcessor {
         Map<Element, List<Element>> blockElementMap = ClassGenerateHelper
                 .classifyElementAccordingBlock(allElement);
 
+        // 用于记录实例化View的id和名称
+        HashMap<Integer, String> viewRecordMap = new HashMap<>();
 
         // 生成每一个类块的的辅助类
         for (Map.Entry<Element, List<Element>> elementListEntry : blockElementMap.entrySet()) {
@@ -127,8 +129,7 @@ public class SmartKnifeProcessor extends AbstractProcessor {
 
             // 5、遍历类块中的所有注解
             ClassName viewUtilsClassName = ClassName.get(ClassGenerateHelper.SMART_KNIFE_PACKAGE, "ViewUtils");
-            // 用于记录实例化View的id和名称
-            HashMap<Integer, String> viewRecordMap = new HashMap<>();
+
             for (Element element : allElementList) {
 
                 // 检测Field或Method的修饰符是否正确
@@ -180,6 +181,8 @@ public class SmartKnifeProcessor extends AbstractProcessor {
                     unbindMethodBuilder.addStatement(viewFieldName + ".setOnClickListener(null)");
                 }
             }
+            // 清楚存储的View信息
+            viewRecordMap.clear();
 
 
             // 6、将方法添加的构建类的 builder 中
