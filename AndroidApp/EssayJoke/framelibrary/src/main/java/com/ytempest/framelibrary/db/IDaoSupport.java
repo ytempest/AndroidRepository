@@ -8,13 +8,15 @@ import java.util.List;
 
 /**
  * @author ytempest
+ *         Description: 对数据库操作的一些规范
  */
 public interface IDaoSupport<T> {
 
     /**
      * 初始化数据库引擎
+     *
      * @param sqLiteDatabase 数据库实例
-     * @param clazz 进行操作的表的Class对象
+     * @param clazz          进行操作的表的Class对象
      */
     void init(SQLiteDatabase sqLiteDatabase, Class<T> clazz);
 

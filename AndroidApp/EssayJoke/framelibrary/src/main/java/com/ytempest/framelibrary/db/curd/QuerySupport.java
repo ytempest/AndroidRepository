@@ -2,43 +2,59 @@ package com.ytempest.framelibrary.db.curd;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.ytempest.framelibrary.db.DaoUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- *
  * @author ytempest
- * @date 2017/3/7
- * Description: 专门用来查询的支持类
+ *         Description: 专门用来查询的支持类
  */
 public class QuerySupport<T> {
-    /** 查询的列 */
+    private static final String TAG = "QuerySupport";
+    /**
+     * 查询的列
+     */
     private String[] mQueryColumns;
-    /** 查询的条件 */
+    /**
+     * 查询的条件
+     */
     private String mQuerySelection;
-    /** 查询的参数 */
+    /**
+     * 查询的参数
+     */
     private String[] mQuerySelectionArgs;
-    /** 查询分组 */
+    /**
+     * 查询分组
+     */
     private String mQueryGroupBy;
-    /** 查询对结果集进行过滤 */
+    /**
+     * 查询对结果集进行过滤
+     */
     private String mQueryHaving;
-    /** 查询排序 */
+    /**
+     * 查询排序
+     */
     private String mQueryOrderBy;
-    /** 查询可用于分页 */
+    /**
+     * 查询可用于分页
+     */
     private String mQueryLimit;
 
-    private Class<T> mClass;
+    private Class<T> mTableClazz;
     private SQLiteDatabase mSQLiteDatabase;
 
-    public QuerySupport(SQLiteDatabase sqLiteDatabase, Class<T> clazz) {
-        this.mClass = clazz;
+    public QuerySupport(SQLiteDatabase sqLiteDatabase, Class<T> tableClazz) {
+        this.mTableClazz = tableClazz;
         this.mSQLiteDatabase = sqLiteDatabase;
     }
 
@@ -78,15 +94,16 @@ public class QuerySupport<T> {
     }
 
     public List<T> query() {
-        Cursor cursor = mSQLiteDatabase.query(DaoUtils.getTableName(mClass), mQueryColumns, mQuerySelection,
+        Cursor cursor = mSQLiteDatabase.query(DaoUtils.getTableName(mTableClazz), mQueryColumns, mQuerySelection,
                 mQuerySelectionArgs, mQueryGroupBy, mQueryHaving, mQueryOrderBy, mQueryLimit);
+
         clearQueryParams();
-        return cursorToList(cursor);
+        return getDataListFormCursor(cursor);
     }
 
     public List<T> queryAll() {
-        Cursor cursor = mSQLiteDatabase.query(DaoUtils.getTableName(mClass), null, null, null, null, null, null);
-        return cursorToList(cursor);
+        Cursor cursor = mSQLiteDatabase.query(DaoUtils.getTableName(mTableClazz), null, null, null, null, null, null);
+        return getDataListFormCursor(cursor);
     }
 
     /**
@@ -103,55 +120,69 @@ public class QuerySupport<T> {
     }
 
     /**
-     * 通过Cursor封装成查找对象
+     * 从 Cursor中获取数据，并将其封装在列表中
+     *
      * @return 对象集合列表
      */
-    private List<T> cursorToList(Cursor cursor) {
+    private List<T> getDataListFormCursor(Cursor cursor) {
         List<T> list = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 try {
-                    // 1. 实例化一个T对象
-                    T instance = mClass.newInstance();
-                    Field[] fields = mClass.getDeclaredFields();
+                    // 1、实例化一个T对象
+                    T instance = mTableClazz.newInstance();
+                    Field[] fields = mTableClazz.getDeclaredFields();
                     for (Field field : fields) {
                         field.setAccessible(true);
                         // 获取属性的名称
                         String fieldName = field.getName();
-						// 获取属性的类型
+                        // 获取属性的类型
                         Class<?> fieldType = field.getType();
                         // 获取角标
                         int index = cursor.getColumnIndex(fieldName);
                         if (index == -1) {
                             continue;
                         }
-                        // 2. 通过反射获取不同类型的get方法 getInt(int)、getLong(int)、getString(int)
-                        Method cursorMethod = cursorMethod(fieldType);
+                        // 2、通过反射获取Cursor不同类型的get方法 getInt(int)、getLong(int)、getString(int)
+                        Method cursorMethod = getCursorMethod(fieldType);
                         if (cursorMethod != null) {
-                            // 2.1 执行get方法获取cursor中的数据
+                            // 3、执行get方法获取cursor中的数据
                             Object value = cursorMethod.invoke(cursor, index);
                             if (value == null) {
                                 continue;
                             }
                             // 数据在数据库存储和在java中使用的时候，数据类型是不一样的
-                            // 3. 将从数据库获取的数据转换成java的基本数据
+                            // 3、将从数据库获取的数据转换成java的基本数据
                             value = transformSimpleData(fieldType, value);
-                            // 4. 将数据注入到属性中
+                            // 4、将数据注入到属性中
                             field.set(instance, value);
                         }
                     }
+
                     // 加入集合
                     list.add(instance);
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    Log.e(TAG, "getDataListFormCursor: please provide an empty constructor for class " + mTableClazz.getName());
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } while (cursor.moveToNext());
+
+            cursor.close();
         }
-        cursor.close();
         return list;
     }
 
-    @Nullable
+
+    /**
+     * 根据 fieldType 的类型，将 finalValue的数据转换成 Java的数据
+     */
     private Object transformSimpleData(Class<?> fieldType, Object finalValue) {
         if (fieldType == boolean.class || fieldType == Boolean.class) {
             if ("0".equals(String.valueOf(finalValue))) {
@@ -159,8 +190,10 @@ public class QuerySupport<T> {
             } else if ("1".equals(String.valueOf(finalValue))) {
                 finalValue = true;
             }
+
         } else if (fieldType == char.class || fieldType == Character.class) {
             finalValue = ((String) finalValue).charAt(0);
+
         } else if (fieldType == Date.class) {
             long date = (long) finalValue;
             if (date <= 0) {
@@ -173,30 +206,32 @@ public class QuerySupport<T> {
     }
 
     /**
+     * 获取 Cursor 类中的 getXXX 方法
+     *
      * @param type 数据类型的Class
      * @return getXXX方法的Method
-     * @throws Exception
      */
-    private Method cursorMethod(Class<?> type) throws Exception {
+    private Method getCursorMethod(Class<?> type) throws Exception {
         String methodName = getColumnMethodName(type);
         return Cursor.class.getMethod(methodName, int.class);
     }
 
     /**
      * 根据传入的数据类型，返回相应的getXXX方法的字符串（"getInt"、"getString"）
+     *
      * @param fieldType 数据类型的Class
      * @return "getXXX" 字符串
      */
     private String getColumnMethodName(Class<?> fieldType) {
         String typeName;
-		// 1. 判断数据类型是否基本数据类型
+        // 1、判断数据类型是否基本数据类型
         if (fieldType.isPrimitive()) {
-			// 1.1 是基本数据类型就将首字母转成大写（boolean -> Boolean）
+            // 如果是基本数据类型就将首字母转成大写（boolean -> Boolean）
             typeName = DaoUtils.capitalize(fieldType.getName());
         } else {
             typeName = fieldType.getSimpleName();
         }
-        // 2. 根据数据的类型不同拼接不同的getXXX方法
+        // 2、根据数据的类型不同拼接不同的 getXXX方法
         String methodName = "get" + typeName;
         if ("getBoolean".equals(methodName)) {
             methodName = "getInt";
