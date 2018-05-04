@@ -25,14 +25,13 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "HttpActivity";
     private File mFile = new File(Environment.getExternalStorageDirectory(), "test.apk");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     private String guessMimeType(File file) {

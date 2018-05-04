@@ -15,6 +15,7 @@ import java.io.IOException;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -35,6 +36,7 @@ public class CacheTestActivity extends AppCompatActivity {
 
 
         mCacheFile = new File(getExternalCacheDir(), "cacheTest");
+        test();
     }
 
 
@@ -71,6 +73,31 @@ public class CacheTestActivity extends AppCompatActivity {
                 response.body().string();
                 Log.e(TAG, "onResponse 本地缓存：" + response.cacheResponse());
                 Log.e(TAG, "onResponse: 网络数据 ：" + response.networkResponse());
+            }
+        });
+
+    }
+
+
+    public void  test() {
+        OkHttpClient client = new OkHttpClient
+                .Builder()
+                .build();
+
+        Request request1 = new Request.Builder()
+                .get()
+                .url("http://v2.ffu365.com/index.php?m=Api&c=Index&a=home&appid=1&uid=432")
+                .build();
+        Call call1 = client.newCall(request1);
+        call1.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.e(TAG, "onResponse: response --> " + response.body().string());
             }
         });
 

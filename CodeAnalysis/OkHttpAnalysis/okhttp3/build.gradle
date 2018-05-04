@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/jsr305-2.0.1.jar')
+    implementation files('libs/android.jar')
+    implementation files('libs/conscrypt-openjdk-uber-1.1.1.jar')
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
