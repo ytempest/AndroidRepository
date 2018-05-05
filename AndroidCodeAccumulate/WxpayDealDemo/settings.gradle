@@ -1,0 +1,1 @@
+include ':app', ':wxpay_compiler', ':pay', ':wxpay_annotation'
