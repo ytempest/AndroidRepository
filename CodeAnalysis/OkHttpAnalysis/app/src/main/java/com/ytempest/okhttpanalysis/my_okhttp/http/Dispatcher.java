@@ -1,4 +1,4 @@
-package com.ytempest.okhttpanalysis.sample3.http;
+package com.ytempest.okhttpanalysis.my_okhttp.http;
 
 import android.support.annotation.NonNull;
 

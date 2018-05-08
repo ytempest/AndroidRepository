@@ -22,7 +22,7 @@
                     </intent-filter>
                 </activity>-->
 
-        <activity android:name=".sample3.HttpActivity">
+        <activity android:name=".interceptor_analysis.CacheTestActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

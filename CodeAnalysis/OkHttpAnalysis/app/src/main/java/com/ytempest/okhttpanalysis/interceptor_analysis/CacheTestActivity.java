@@ -1,4 +1,4 @@
-package com.ytempest.okhttpanalysis.sample2;
+package com.ytempest.okhttpanalysis.interceptor_analysis;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.ytempest.okhttpanalysis.R;
-import com.ytempest.okhttpanalysis.sample2.cache.CacheRequestInterceptor;
-import com.ytempest.okhttpanalysis.sample2.cache.CacheResponseInterceptor;
+import com.ytempest.okhttpanalysis.interceptor_analysis.cache.CacheRequestInterceptor;
+import com.ytempest.okhttpanalysis.interceptor_analysis.cache.CacheResponseInterceptor;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,6 @@ import java.io.IOException;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

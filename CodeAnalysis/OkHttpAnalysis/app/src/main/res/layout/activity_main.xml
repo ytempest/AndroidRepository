@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ytempest.okhttpanalysis.sample1.MainActivity">
+    tools:context="com.ytempest.okhttpanalysis.upload_analysis_1_2.MainActivity">
 
     <Button
         android:onClick="upload"

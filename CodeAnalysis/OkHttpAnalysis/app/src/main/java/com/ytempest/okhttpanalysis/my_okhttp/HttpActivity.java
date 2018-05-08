@@ -1,4 +1,4 @@
-package com.ytempest.okhttpanalysis.sample3;
+package com.ytempest.okhttpanalysis.my_okhttp;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.ytempest.okhttpanalysis.R;
-import com.ytempest.okhttpanalysis.sample3.http.Call;
-import com.ytempest.okhttpanalysis.sample3.http.CallBack;
-import com.ytempest.okhttpanalysis.sample3.http.OkHttpClient;
-import com.ytempest.okhttpanalysis.sample3.http.Request;
-import com.ytempest.okhttpanalysis.sample3.http.RequestBody;
-import com.ytempest.okhttpanalysis.sample3.http.Response;
+import com.ytempest.okhttpanalysis.my_okhttp.http.Call;
+import com.ytempest.okhttpanalysis.my_okhttp.http.CallBack;
+import com.ytempest.okhttpanalysis.my_okhttp.http.OkHttpClient;
+import com.ytempest.okhttpanalysis.my_okhttp.http.Request;
+import com.ytempest.okhttpanalysis.my_okhttp.http.RequestBody;
+import com.ytempest.okhttpanalysis.my_okhttp.http.Response;
 
 import java.io.File;
 import java.io.IOException;

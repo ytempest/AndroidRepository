@@ -1,4 +1,4 @@
-package com.ytempest.okhttpanalysis.sample2.cache;
+package com.ytempest.okhttpanalysis.interceptor_analysis.cache;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

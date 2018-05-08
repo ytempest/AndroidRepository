@@ -1,4 +1,4 @@
-package com.ytempest.okhttpanalysis.sample1;
+package com.ytempest.okhttpanalysis.upload_analysis_1_2;
 
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.ytempest.okhttpanalysis.R;
-import com.ytempest.okhttpanalysis.sample1.ex.ExMultipartBody;
+import com.ytempest.okhttpanalysis.upload_analysis_1_2.solution_1.RequestBodyDelegate;
+import com.ytempest.okhttpanalysis.upload_analysis_1_2.solution_2.MultipartBodyDelegate;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
 
+        RequestBody fileRequestBody = RequestBody.create(MediaType.parse(guessMimeType(mFile)), mFile);
+        RequestBodyDelegate requestBodyDelegate = new RequestBodyDelegate(fileRequestBody);
         builder.addFormDataPart("platform", "android");
-        builder.addFormDataPart("file", mFile.getName(),
-                RequestBody.create(MediaType.parse(guessMimeType(mFile)), mFile));
+        builder.addFormDataPart("file", mFile.getName(), fileRequestBody);
 
-        ExMultipartBody exMultipartBody = new ExMultipartBody(builder.build(), new ExMultipartBody.OnUploadListener() {
+        MultipartBodyDelegate multipartBodyDelegate = new MultipartBodyDelegate(builder.build(), new MultipartBodyDelegate.OnUploadListener() {
             @Override
             public void onProgress(long maxLength, long currentLength) {
                 Log.e(TAG, "onProgress: maxLength --> " + maxLength + "  ||  currentLength --> " + currentLength);
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         Request request = new Request.Builder()
                 .url(url)
-                .post(exMultipartBody)
+                .post(multipartBodyDelegate)
                 .build();
 
         Call call = okHttpClient.newCall(request);

@@ -111,6 +111,7 @@ public final class StreamAllocation {
     boolean connectionRetryEnabled = client.retryOnConnectionFailure();
 
     try {
+      // 进行网络连接
       RealConnection resultConnection = findHealthyConnection(connectTimeout, readTimeout,
           writeTimeout, pingIntervalMillis, connectionRetryEnabled, doExtensiveHealthChecks);
       HttpCodec resultCodec = resultConnection.newCodec(client, chain, this);
@@ -132,6 +133,7 @@ public final class StreamAllocation {
       int writeTimeout, int pingIntervalMillis, boolean connectionRetryEnabled,
       boolean doExtensiveHealthChecks) throws IOException {
     while (true) {
+      // 找到网络连接
       RealConnection candidate = findConnection(connectTimeout, readTimeout, writeTimeout,
           pingIntervalMillis, connectionRetryEnabled);
 
@@ -254,6 +256,7 @@ public final class StreamAllocation {
     }
 
     // Do TCP + TLS handshakes. This is a blocking operation.
+    // 在这里开始进行网络连接
     result.connect(connectTimeout, readTimeout, writeTimeout, pingIntervalMillis,
         connectionRetryEnabled, call, eventListener);
     routeDatabase().connected(result.route());

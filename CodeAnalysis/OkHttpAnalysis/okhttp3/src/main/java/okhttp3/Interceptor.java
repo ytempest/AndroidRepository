@@ -17,6 +17,7 @@ package okhttp3;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 import javax.annotation.Nullable;
 
 /**
@@ -25,31 +26,39 @@ import javax.annotation.Nullable;
  * or response.
  */
 public interface Interceptor {
-  Response intercept(Chain chain) throws IOException;
-
-  interface Chain {
-    Request request();
-
-    Response proceed(Request request) throws IOException;
+    /**
+     * @param chain 下一个拦截器的 chain对象
+     */
+    Response intercept(Chain chain) throws IOException;
 
     /**
-     * Returns the connection the request will be executed on. This is only available in the chains
-     * of network interceptors; for application interceptors this is always null.
+     * Description：使用了责任链设计模式，这个Chain是抽象处理者对象，定义了处理逻辑的方法、获取
+     * 下一个处理者的方法、
      */
-    @Nullable Connection connection();
+    interface Chain {
+        Request request();
 
-    Call call();
+        Response proceed(Request request) throws IOException;
 
-    int connectTimeoutMillis();
+        /**
+         * Returns the connection the request will be executed on. This is only available in the chains
+         * of network interceptors; for application interceptors this is always null.
+         */
+        @Nullable
+        Connection connection();
 
-    Chain withConnectTimeout(int timeout, TimeUnit unit);
+        Call call();
 
-    int readTimeoutMillis();
+        int connectTimeoutMillis();
 
-    Chain withReadTimeout(int timeout, TimeUnit unit);
+        Chain withConnectTimeout(int timeout, TimeUnit unit);
 
-    int writeTimeoutMillis();
+        int readTimeoutMillis();
 
-    Chain withWriteTimeout(int timeout, TimeUnit unit);
-  }
+        Chain withReadTimeout(int timeout, TimeUnit unit);
+
+        int writeTimeoutMillis();
+
+        Chain withWriteTimeout(int timeout, TimeUnit unit);
+    }
 }

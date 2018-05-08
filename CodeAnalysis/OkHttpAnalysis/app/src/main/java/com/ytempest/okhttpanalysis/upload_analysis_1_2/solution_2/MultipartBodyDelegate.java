@@ -1,4 +1,4 @@
-package com.ytempest.okhttpanalysis.sample1.ex;
+package com.ytempest.okhttpanalysis.upload_analysis_1_2.solution_2;
 
 import android.support.annotation.Nullable;
 
@@ -16,7 +16,7 @@ import okio.Okio;
  * @author ytempest
  *         Description：使用静态代理的方法代理MultipartBody，去监听上传过程
  */
-public class ExMultipartBody extends RequestBody {
+public class MultipartBodyDelegate extends RequestBody {
 
     private MultipartBody mMultipartBody;
     private long mLength;
@@ -24,11 +24,11 @@ public class ExMultipartBody extends RequestBody {
 
     public OnUploadListener mOnUploadListener;
 
-    public ExMultipartBody(MultipartBody multipartBody) {
+    public MultipartBodyDelegate(MultipartBody multipartBody) {
         mMultipartBody = multipartBody;
     }
 
-    public ExMultipartBody(MultipartBody multipartBody, OnUploadListener onUploadListener) {
+    public MultipartBodyDelegate(MultipartBody multipartBody, OnUploadListener onUploadListener) {
         mMultipartBody = multipartBody;
         mOnUploadListener = onUploadListener;
     }
@@ -51,6 +51,7 @@ public class ExMultipartBody extends RequestBody {
             // 获取文件大小
             mLength = mMultipartBody.contentLength();
         }
+
 
         // 创建一个字节流写过程的代理，监听字节流的写操作过程
         ForwardingSink forwardingSink = new ForwardingSink(sink) {

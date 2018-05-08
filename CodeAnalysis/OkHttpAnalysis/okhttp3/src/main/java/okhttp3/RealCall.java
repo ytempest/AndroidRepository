@@ -210,22 +210,27 @@ final class RealCall implements Call {
      * @return 返回请求结果
      */
     Response getResponseWithInterceptorChain() throws IOException {
-        // Build a full stack of interceptors.
+        // 建立一个网络请求拦截器的责任链
         List<Interceptor> interceptors = new ArrayList<>();
+        // 添加用户自定义的网络拦截器
         interceptors.addAll(client.interceptors());
         interceptors.add(retryAndFollowUpInterceptor);
         interceptors.add(new BridgeInterceptor(client.cookieJar()));
         interceptors.add(new CacheInterceptor(client.internalCache()));
+        // 添加连接网络的拦截器，这个拦截器过后就表示已经连接网络了
         interceptors.add(new ConnectInterceptor(client));
         if (!forWebSocket) {
             interceptors.addAll(client.networkInterceptors());
         }
+        // 添加向服务器发起请求的拦截器（文件上传，表单提交都在这个拦截器里面）
         interceptors.add(new CallServerInterceptor(forWebSocket));
 
+        // 创建责任链的头部，并传入所有的处理者对象（即所有的Interceptor），并指定第一个处理者对象
         Interceptor.Chain chain = new RealInterceptorChain(interceptors, null, null, null, 0,
                 originalRequest, this, eventListener, client.connectTimeoutMillis(),
                 client.readTimeoutMillis(), client.writeTimeoutMillis());
 
+        // 开始在责任链中传递责任
         return chain.proceed(originalRequest);
     }
 }
