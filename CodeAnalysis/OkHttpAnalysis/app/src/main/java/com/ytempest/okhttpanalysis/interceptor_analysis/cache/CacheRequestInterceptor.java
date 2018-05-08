@@ -3,6 +3,7 @@ package com.ytempest.okhttpanalysis.interceptor_analysis.cache;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -11,6 +12,8 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * @author ytempest
  *         Description：拦截 request 请求，判断是否有网，没有网络同时缓存没有过期，那么就会读取缓存
@@ -18,17 +21,14 @@ import okhttp3.Response;
 public class CacheRequestInterceptor implements Interceptor {
 
     private Context mContext;
-
     public CacheRequestInterceptor(Context context) {
         mContext = context;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-
         // 获取拦截到的 request
         Request request = chain.request();
-
         if (!isNetworkAvailable()) {
             request = request.newBuilder()
                     // 当网络不可用的时候，设置只读缓存
@@ -40,11 +40,9 @@ public class CacheRequestInterceptor implements Interceptor {
         return chain.proceed(request);
     }
 
-
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isAvailable();
     }
-
 }

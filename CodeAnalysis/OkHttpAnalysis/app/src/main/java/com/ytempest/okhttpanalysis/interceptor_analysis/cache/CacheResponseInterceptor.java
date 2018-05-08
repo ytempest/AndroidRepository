@@ -11,10 +11,13 @@ import okhttp3.Response;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：这个拦截器会设置后台返回的数据的缓存的过期时间，这个拦截器要
+ *         和 CacheRequestInterceptor 配合使用
  */
 public class CacheResponseInterceptor implements Interceptor {
 
+    /** 缓存过期时间 */
+    private final int max_age_time = 70;
 
     private static final String TAG = "CacheResponse";
 
@@ -27,7 +30,7 @@ public class CacheResponseInterceptor implements Interceptor {
         CacheControl cacheControl = response.cacheControl();
         if (cacheControl != null) {
             Log.e(TAG, "intercept before change : " + cacheControl.toString());
-            String header = changeMaxAge(cacheControl.toString(), 70);
+            String header = changeMaxAge(cacheControl.toString(), max_age_time);
             if (header != null) {
                 Log.e(TAG, "intercept after change : " + header);
                 // 为response重新设置过期时间
@@ -44,12 +47,14 @@ public class CacheResponseInterceptor implements Interceptor {
     /**
      * 只更改CacheControl响应头中的过期时间，不会更改其他内容
      * 如果这个响应头没有过期时间这一个type，那么就直接返回null
+     *
+     * @param string  需要更改的 cacheControl
+     * @param seconds 缓存过期时间
      */
     private String changeMaxAge(String string, int seconds) {
         if (TextUtils.isEmpty(string)) {
             return "max-age=" + seconds;
         }
-
         int start = string.indexOf("max-age=");
         if (start != -1) {
             int end = string.indexOf(",", start);

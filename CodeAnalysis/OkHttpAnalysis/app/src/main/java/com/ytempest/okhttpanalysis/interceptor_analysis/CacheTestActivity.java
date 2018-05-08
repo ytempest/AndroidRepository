@@ -35,7 +35,6 @@ public class CacheTestActivity extends AppCompatActivity {
 
 
         mCacheFile = new File(getExternalCacheDir(), "cacheTest");
-        test();
     }
 
 
@@ -47,9 +46,9 @@ public class CacheTestActivity extends AppCompatActivity {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .cache(cache)
-                // 设置自定义拦截器，如果没有网络已经缓存没有过期，那么就会读缓存
+                // 设置自定义拦截器，如果没有网络以及缓存没有过期，那么就会读缓存
                 .addInterceptor(new CacheRequestInterceptor(CacheTestActivity.this))
-                // 设置网络拦截器，在有网的时候，过期时间内获取缓存，否则向服务器request
+                // 设置网络拦截器，设置后台返回的数据的缓存过期时间
                 .addNetworkInterceptor(new CacheResponseInterceptor())
                 .build();
 
@@ -68,8 +67,8 @@ public class CacheTestActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                // 必须先调用这一条语句，不然计算本地有缓存也无法读取缓存
-                response.body().string();
+                // 必须先调用这一条语句，不然就算本地有缓存也无法读取缓存
+                String realResult = response.body().string();
                 Log.e(TAG, "onResponse 本地缓存：" + response.cacheResponse());
                 Log.e(TAG, "onResponse: 网络数据 ：" + response.networkResponse());
             }
