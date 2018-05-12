@@ -216,6 +216,7 @@ final class RealCall implements Call {
         interceptors.addAll(client.interceptors());
         interceptors.add(retryAndFollowUpInterceptor);
         interceptors.add(new BridgeInterceptor(client.cookieJar()));
+        // client.internalCache()获取的就是用户定义的缓存Cache对象
         interceptors.add(new CacheInterceptor(client.internalCache()));
         // 添加连接网络的拦截器，这个拦截器过后就表示已经连接网络了
         interceptors.add(new ConnectInterceptor(client));

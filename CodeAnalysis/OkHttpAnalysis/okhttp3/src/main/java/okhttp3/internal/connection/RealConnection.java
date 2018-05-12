@@ -137,6 +137,13 @@ public final class RealConnection extends Http2Connection.Listener implements Co
         return result;
     }
 
+    /**
+     * 在这个方法中会使用 Socket 连接网络
+     *
+     * @param connectTimeout 连接超时
+     * @param readTimeout    读取超时
+     * @param writeTimeout   写入超时
+     */
     public void connect(int connectTimeout, int readTimeout, int writeTimeout,
                         int pingIntervalMillis, boolean connectionRetryEnabled, Call call,
                         EventListener eventListener) {
@@ -262,6 +269,9 @@ public final class RealConnection extends Http2Connection.Listener implements Co
         // https://github.com/square/okhttp/issues/3245
         // https://android-review.googlesource.com/#/c/271775/
         try {
+            // 这段代码很重要，通过这两段代码实现了 okio中的source和sink流与服务器的输入输出流绑定
+            // Okio.source(rawSocket)：这个方法会从 Socket对象中获取到服务器返回的输入流，然后封装成 Source对象
+            // Okio.sink(rawSocket)：这个方法会从 Socket对象中获取到服务器返回的输出流，然后封装成 Sink对象
             source = Okio.buffer(Okio.source(rawSocket));
             sink = Okio.buffer(Okio.sink(rawSocket));
         } catch (NullPointerException npe) {

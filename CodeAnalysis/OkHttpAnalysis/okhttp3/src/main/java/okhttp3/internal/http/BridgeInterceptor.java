@@ -34,9 +34,8 @@ import okio.Okio;
 import static okhttp3.internal.Util.hostHeader;
 
 /**
- * Bridges from application code to network code. First it builds a network request from a user
- * request. Then it proceeds to call the network. Finally it builds a user response from the network
- * response.
+ * Description：为用户构建可以连接网络的 Request，为Request添加一些请求头，如：Host、Connection、Cookie
+ * 如果还有RequestBody，还会添加 Content-Type、Content-Length等
  */
 public final class BridgeInterceptor implements Interceptor {
     private final CookieJar cookieJar;
@@ -48,9 +47,12 @@ public final class BridgeInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request userRequest = chain.request();
+
+        // 重新构建上一个拦截器穿过来的 Request，为这个Request添加一些请求头
         Request.Builder requestBuilder = userRequest.newBuilder();
 
         RequestBody body = userRequest.body();
+        // 判断是否有 RequestBody，如果有就为这个RequestBody添加一些请求头
         if (body != null) {
             MediaType contentType = body.contentType();
             if (contentType != null) {
@@ -83,6 +85,7 @@ public final class BridgeInterceptor implements Interceptor {
             requestBuilder.header("Accept-Encoding", "gzip");
         }
 
+        // 获取Request携带的Cookie，如果有Cookie，那么就为 Request添加Cookie到请求头中
         List<Cookie> cookies = cookieJar.loadForRequest(userRequest.url());
         if (!cookies.isEmpty()) {
             requestBuilder.header("Cookie", cookieHeader(cookies));
@@ -92,6 +95,7 @@ public final class BridgeInterceptor implements Interceptor {
             requestBuilder.header("User-Agent", Version.userAgent());
         }
 
+        // 把构建好的Request分发给下一个拦截器，然后获取返回的Response
         Response networkResponse = chain.proceed(requestBuilder.build());
 
         HttpHeaders.receiveHeaders(cookieJar, userRequest.url(), networkResponse.headers());
@@ -99,6 +103,7 @@ public final class BridgeInterceptor implements Interceptor {
         Response.Builder responseBuilder = networkResponse.newBuilder()
                 .request(userRequest);
 
+        // 如果在请求头中使用了gzip压缩，那么Response就使用gzip进行解压
         if (transparentGzip
                 && "gzip".equalsIgnoreCase(networkResponse.header("Content-Encoding"))
                 && HttpHeaders.hasBody(networkResponse)) {
@@ -112,11 +117,12 @@ public final class BridgeInterceptor implements Interceptor {
             responseBuilder.body(new RealResponseBody(contentType, -1L, Okio.buffer(responseBody)));
         }
 
+        // 返回处理好的Response
         return responseBuilder.build();
     }
 
     /**
-     * Returns a 'Cookie' HTTP request header with all cookies, like {@code a=b; c=d}.
+     * 这里将列表中的Cookie转换成HTTP中规范的Cookie格式
      */
     private String cookieHeader(List<Cookie> cookies) {
         StringBuilder cookieHeader = new StringBuilder();

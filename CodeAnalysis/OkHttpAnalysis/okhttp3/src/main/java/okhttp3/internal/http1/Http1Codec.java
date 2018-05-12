@@ -130,6 +130,12 @@ public final class Http1Codec implements HttpCodec {
     writeRequest(request.headers(), requestLine);
   }
 
+  /**
+   * 创建连接服务器后返回的ResponseBody
+   * @param response
+   * @return
+   * @throws IOException
+   */
   @Override public ResponseBody openResponseBody(Response response) throws IOException {
     streamAllocation.eventListener.responseBodyStart(streamAllocation.call);
     String contentType = response.header("Content-Type");
