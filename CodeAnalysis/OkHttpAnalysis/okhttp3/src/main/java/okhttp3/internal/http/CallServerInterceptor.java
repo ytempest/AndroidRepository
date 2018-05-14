@@ -51,6 +51,7 @@ public final class CallServerInterceptor implements Interceptor {
         long sentRequestMillis = System.currentTimeMillis();
 
         realChain.eventListener().requestHeadersStart(realChain.call());
+        // 1、这里会将请求头的一些数据写到 服务器的输出流中
         httpCodec.writeRequestHeaders(request);
         realChain.eventListener().requestHeadersEnd(realChain.call(), request);
 
@@ -76,7 +77,7 @@ public final class CallServerInterceptor implements Interceptor {
                 BufferedSink bufferedRequestBody = Okio.buffer(requestBodyOut);
 
                 // 把服务器返回的输出流传递给RequestBody，让其可以向服务器写东西
-                // 把表单的数据写到服务器的输出流
+                // 2、把表单的数据（如文件，图片，MP3等）写到服务器的输出流
                 request.body().writeTo(bufferedRequestBody);
                 // 关闭服务器的输出流
                 bufferedRequestBody.close();
@@ -94,13 +95,13 @@ public final class CallServerInterceptor implements Interceptor {
 
         if (responseBuilder == null) {
             realChain.eventListener().responseHeadersStart(realChain.call());
-            // 读取服务器返回的Response的头部信息
+            // 3、读取服务器返回的Response的头部信息到 Response中，并返回
             responseBuilder = httpCodec.readResponseHeaders(false);
         }
 
         Response response = responseBuilder
                 .request(request)
-                // 将三次握手相关的信息写入到 Response中
+                // 4、将三次握手相关的信息写入到 Response中
                 .handshake(streamAllocation.connection().handshake())
                 .sentRequestAtMillis(sentRequestMillis)
                 .receivedResponseAtMillis(System.currentTimeMillis())
@@ -132,7 +133,7 @@ public final class CallServerInterceptor implements Interceptor {
                     .build();
         } else {
             response = response.newBuilder()
-                    // 将服务器的Response写到这个Response中
+                    // 5、将服务器的Response写到这个Response中
                     .body(httpCodec.openResponseBody(response))
                     .build();
         }
