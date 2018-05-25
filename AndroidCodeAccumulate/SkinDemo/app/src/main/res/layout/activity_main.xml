@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.ytempest.skindemo.MainActivity">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="216dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/iv_image" />
+
+    <Button
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/bt_bg"
+        android:onClick="change"
+        android:text="换肤"
+        android:textColor="@color/bt_text" />
+
+    <Button
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/bt_bg"
+        android:onClick="recover"
+        android:text="恢复默认"
+        android:textColor="@color/bt_text" />
+
+
+    <TextView
+        android:id="@+id/tv_load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:text="加载中...."
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="18dp"
+        android:visibility="gone" />
+</LinearLayout>

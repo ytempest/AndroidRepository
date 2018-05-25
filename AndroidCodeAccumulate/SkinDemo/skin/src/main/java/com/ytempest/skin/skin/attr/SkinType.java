@@ -1,0 +1,103 @@
+package com.ytempest.skin.skin.attr;
+
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.ytempest.skin.skin.SkinManager;
+import com.ytempest.skin.skin.SkinResource;
+
+
+/**
+ * @author ytempest
+ *         Description: 记录了所有要换肤的属性，Button的textColor、background，ImageView的background、src
+ */
+public enum SkinType {
+
+    TEXT_COLOR("textColor") {
+        @Override
+        public void changeSkin(View view, String resName) {
+            SkinResource skinResource = getSkinResource();
+            ColorStateList color = skinResource.getColorByName(resName);
+            if (color == null) {
+                return;
+            }
+
+            if (view instanceof Button) {
+                ((Button) view).setTextColor(color);
+                return;
+            }
+
+            if (view instanceof TextView) {
+                ((TextView) view).setTextColor(color);
+            }
+
+
+        }
+    },
+    BACKGROUND("background") {
+        @Override
+        public void changeSkin(View view, String resName) {
+            // 背景可能是图片也可能是颜色
+            SkinResource skinResource = getSkinResource();
+            // 可能是图片
+            Drawable drawable = skinResource.getDrawableByName(resName);
+            if (drawable != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    view.setBackground(drawable);
+                } else {
+                    view.setBackgroundDrawable(drawable);
+                }
+                return;
+            }
+
+            // 可能是颜色
+            ColorStateList color = skinResource.getColorByName(resName);
+            if (color != null) {
+                view.setBackgroundColor(color.getDefaultColor());
+            }
+        }
+    },
+    SRC("src") {
+        @Override
+        public void changeSkin(View view, String resName) {
+            SkinResource skinResource = getSkinResource();
+            Drawable drawable = skinResource.getDrawableByName(resName);
+            if (drawable != null) {
+                ImageView imageView = (ImageView) view;
+                imageView.setImageDrawable(drawable);
+            }
+        }
+    };
+
+    /**
+     * 会根据名字调对应的方法
+     */
+    private String mResName;
+
+
+    SkinType(String resName) {
+        this.mResName = resName;
+    }
+
+    /**
+     * 更换皮肤
+     *
+     * @param view    需要换肤的View
+     * @param resName 需要换肤的属性的资源名
+     */
+    public abstract void changeSkin(View view, String resName);
+
+    public String getResName() {
+        return mResName;
+    }
+
+    protected SkinResource getSkinResource() {
+        return SkinManager.getInstance().getSkinResource();
+    }
+}
