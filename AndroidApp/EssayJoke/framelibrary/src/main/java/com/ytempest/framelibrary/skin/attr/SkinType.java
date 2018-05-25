@@ -2,12 +2,15 @@ package com.ytempest.framelibrary.skin.attr;
 
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ytempest.framelibrary.skin.SkinManager;
 import com.ytempest.framelibrary.skin.SkinResource;
+
 
 /**
  * @author ytempest
@@ -24,8 +27,16 @@ public enum SkinType {
                 return;
             }
 
-            TextView textView = (TextView) view;
-            textView.setTextColor(color);
+            if (view instanceof Button) {
+                ((Button) view).setTextColor(color);
+                return;
+            }
+
+            if (view instanceof TextView) {
+                ((TextView) view).setTextColor(color);
+            }
+
+
         }
     },
     BACKGROUND("background") {
@@ -36,7 +47,11 @@ public enum SkinType {
             // 可能是图片
             Drawable drawable = skinResource.getDrawableByName(resName);
             if (drawable != null) {
-                view.setBackground(drawable);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    view.setBackground(drawable);
+                } else {
+                    view.setBackgroundDrawable(drawable);
+                }
                 return;
             }
 
@@ -64,6 +79,7 @@ public enum SkinType {
      */
     private String mResName;
 
+
     SkinType(String resName) {
         this.mResName = resName;
     }
@@ -80,7 +96,7 @@ public enum SkinType {
         return mResName;
     }
 
-    public SkinResource getSkinResource() {
+    protected SkinResource getSkinResource() {
         return SkinManager.getInstance().getSkinResource();
     }
 }

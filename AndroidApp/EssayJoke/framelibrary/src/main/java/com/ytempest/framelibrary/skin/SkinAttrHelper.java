@@ -1,24 +1,23 @@
-package com.ytempest.framelibrary.skin.support;
+package com.ytempest.framelibrary.skin;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
+
 
 import com.ytempest.framelibrary.skin.attr.SkinAttr;
 import com.ytempest.framelibrary.skin.attr.SkinType;
-import com.ytempest.framelibrary.skin.attr.SkinView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @author ytempest
  *         Description: 换肤获取资源的支持类，
  *         提供获取一个View换肤需要的属性集合的方法
  */
-public class SkinAttrSupport {
+public class SkinAttrHelper {
 
     /**
      * 从 attrs 获取换肤需要的属性

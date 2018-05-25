@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.VectorEnabledTintResources;
+import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +16,16 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.ytempest.baselibrary.base.BaseActivity;
+import com.ytempest.framelibrary.skin.SkinAttrHelper;
 import com.ytempest.framelibrary.skin.SkinManager;
 import com.ytempest.framelibrary.skin.SkinResource;
 import com.ytempest.framelibrary.skin.attr.SkinAttr;
 import com.ytempest.framelibrary.skin.attr.SkinView;
-import com.ytempest.framelibrary.skin.callback.ISkinChangeListener;
+import com.ytempest.framelibrary.skin.callback.ISkinChangeProvider;
 import com.ytempest.framelibrary.skin.support.SkinAppCompatViewInflater;
-import com.ytempest.framelibrary.skin.support.SkinAttrSupport;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +34,14 @@ import java.util.List;
  *         Description: 拦截当前Activity的所有View，然后把每一个View需要换肤的属性集合保存起来，并判断是否要换肤
  *         使用该类时要先在业务层自定义一个Application类，然后在其中初始化
  */
-public abstract class BaseSkinActivity extends BaseActivity implements LayoutInflaterFactory, ISkinChangeListener {
-
-    private static final String TAG = "BaseSkinActivity";
+public abstract class SkinCompatActivity extends BaseActivity implements LayoutInflaterFactory, ISkinChangeProvider {
 
     /**
      * 自己的 View 加载类
      */
     private SkinAppCompatViewInflater mAppCompatViewInflater;
+    private boolean isInitialized = false;
+    private boolean isShouldBeUsed;
 
 
     @Override
@@ -65,21 +67,23 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
 
-        // 1. 让V7包创建兼容的 View
+        // 1、让V7包创建兼容的 View
         View view = createView(parent, name, context, attrs);
 
         if (view != null) {
-            // 2. 从拦截到的 View 的属性集合中获取需要换肤的属性集合
-            List<SkinAttr> skinAttrs = SkinAttrSupport.getSkinAttrs(context, attrs);
+            // 2、从拦截到的 View 的属性集合中获取需要换肤的属性集合
+            List<SkinAttr> skinAttrs = SkinAttrHelper.getSkinAttrs(context, attrs);
 
-            // 3. 生成换肤后的 SkinView
+            // 3、生成换肤后的 SkinView
             SkinView skinView = new SkinView(view, skinAttrs);
 
-            // 4. 统一交给 SkinManager 管理
+            // 4、统一交给 SkinManager 管理
             managerSkinView(skinView);
 
-            // 5. 判断要不要换肤
-            SkinManager.getInstance().checkSkinStatus(skinView);
+            // 5、判断是否有皮肤，如果有就为这个View换肤
+            if (SkinManager.getInstance().isExistSkin()) {
+                SkinManager.getInstance().changeOneViewSkin(skinView);
+            }
 
         }
         return view;
@@ -112,12 +116,19 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
             mAppCompatViewInflater = new SkinAppCompatViewInflater();
         }
 
+
         final boolean inheritContext = isPre21 && shouldInheritContext((ViewGroup) parent);
+
+
+        if (!isInitialized) {
+            isShouldBeUsed = isShouldBeUsed();
+            isInitialized = true;
+        }
 
         return mAppCompatViewInflater.createView(parent, name, context, attrs, inheritContext,
                 isPre21,
                 true,
-                VectorEnabledTintResources.shouldBeUsed());
+                isShouldBeUsed);
     }
 
     private boolean shouldInheritContext(ViewParent parent) {
@@ -152,4 +163,23 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
         SkinManager.getInstance().unregister(this);
         super.onDestroy();
     }
+
+
+    private boolean isShouldBeUsed() {
+        try {
+            Class<?> clazz = Class.forName("android.support.v7.widget.VectorEnabledTintResources");
+            Method shouldBeUsedMethod = clazz.getDeclaredMethod("shouldBeUsed");
+            return (boolean) shouldBeUsedMethod.invoke(null);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
+

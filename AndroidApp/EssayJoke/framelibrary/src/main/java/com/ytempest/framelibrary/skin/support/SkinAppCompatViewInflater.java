@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.appcompat.R;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
@@ -38,7 +37,6 @@ import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.TintContextWrapper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.InflateException;
@@ -70,6 +68,7 @@ public class SkinAppCompatViewInflater {
             = new ArrayMap<>();
 
     private final Object[] mConstructorArgs = new Object[2];
+    private Method mWrapMethod;
 
     public final View createView(View parent, final String name, @NonNull Context context,
                                  @NonNull AttributeSet attrs, boolean inheritContext,
@@ -85,8 +84,25 @@ public class SkinAppCompatViewInflater {
             // We then apply the theme on the mContext, if specified
             context = themifyContext(context, attrs, readAndroidTheme, readAppTheme);
         }
+
         if (wrapContext) {
-            context = TintContextWrapper.wrap(context);
+            // 因为这个类实在没办法拷贝了，所以尝试使用反射执行该方法
+            // context = TintContextWrapper.wrap(context);
+            try {
+                if (mWrapMethod == null) {
+                    Class<?> clazz = Class.forName("android.support.v7.widget.TintContextWrapper");
+                    mWrapMethod = clazz.getDeclaredMethod("wrap", Context.class);
+                }
+                context = (Context) mWrapMethod.invoke(null, context);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
 
         View view = null;
@@ -228,15 +244,15 @@ public class SkinAppCompatViewInflater {
      */
     private static Context themifyContext(Context context, AttributeSet attrs,
                                           boolean useAndroidTheme, boolean useAppTheme) {
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.View, 0, 0);
+        final TypedArray a = context.obtainStyledAttributes(attrs, android.support.v7.appcompat.R.styleable.View, 0, 0);
         int themeId = 0;
         if (useAndroidTheme) {
             // First try reading android:theme if enabled
-            themeId = a.getResourceId(R.styleable.View_android_theme, 0);
+            themeId = a.getResourceId(android.support.v7.appcompat.R.styleable.View_android_theme, 0);
         }
         if (useAppTheme && themeId == 0) {
             // ...if that didn't work, try reading app:theme (for legacy reasons) if enabled
-            themeId = a.getResourceId(R.styleable.View_theme, 0);
+            themeId = a.getResourceId(android.support.v7.appcompat.R.styleable.View_theme, 0);
 
             if (themeId != 0) {
                 Log.i(TAG, "app:theme is now deprecated. "
@@ -246,10 +262,10 @@ public class SkinAppCompatViewInflater {
         a.recycle();
 
         if (themeId != 0 && (!(context instanceof ContextThemeWrapper)
-                || ((ContextThemeWrapper) context).getThemeResId() != themeId)) {
+                || ((ContextThemeWrapperSupport) context).getThemeResId() != themeId)) {
             // If the mContext isn't a ContextThemeWrapper, or it is but does not have
             // the same theme as we need, wrap it in a new wrapper
-            context = new ContextThemeWrapper(context, themeId);
+            context = new ContextThemeWrapperSupport(context, themeId);
         }
         return context;
     }

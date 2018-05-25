@@ -1,27 +1,18 @@
 package com.ytempest.essayjoke;
 
 
-import android.Manifest;
-import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.widget.Toast;
-
 import com.ytempest.baselibrary.ioc.OnClick;
-import com.ytempest.baselibrary.permission.PermissionFail;
-import com.ytempest.baselibrary.permission.SmartPermission;
-import com.ytempest.baselibrary.permission.PermissionSucceed;
 import com.ytempest.essayjoke.fragment.FindFragment;
 import com.ytempest.essayjoke.fragment.HomeFragment;
 import com.ytempest.essayjoke.fragment.MessageFragment;
 import com.ytempest.essayjoke.fragment.NewFragment;
-import com.ytempest.framelibrary.base.BaseSkinActivity;
+import com.ytempest.framelibrary.base.SkinCompatActivity;
 
 /**
  * @author ytempest
  *         Description: 主界面
  */
-public class HomeActivity extends BaseSkinActivity {
+public class HomeActivity extends SkinCompatActivity {
 
     private HomeFragment mHomeFragment;
     private FindFragment mFindFragment;

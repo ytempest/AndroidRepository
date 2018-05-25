@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
  */
 public class SkinUtils {
 
-    private static SkinUtils mInstance;
+    private volatile static SkinUtils sSkinUtils;
     private Context mContext;
 
     private SkinUtils(Context context) {
@@ -17,34 +17,34 @@ public class SkinUtils {
     }
 
     public static SkinUtils getInstance(Context context) {
-        if (mInstance == null) {
+        if (sSkinUtils == null) {
             synchronized (SkinUtils.class) {
-                if (mInstance == null) {
-                    mInstance = new SkinUtils(context);
+                if (sSkinUtils == null) {
+                    sSkinUtils = new SkinUtils(context);
                 }
             }
         }
-        return mInstance;
+        return sSkinUtils;
     }
 
     /**
      * 保存皮肤的路径
      */
     public void saveSkinPath(String skinPath) {
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(SkinConfig.SKIN_INFO_NAME, Context.MODE_PRIVATE).edit();
-        editor.putString(SkinConfig.SKIN_PATH_NAME, skinPath).apply();
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(SkinConfig.SKIN_INFO, Context.MODE_PRIVATE).edit();
+        editor.putString(SkinConfig.SKIN_PATH, skinPath).apply();
     }
 
     /**
      * 获取皮肤路径
      */
     public String getSkinPath() {
-        return mContext.getSharedPreferences(SkinConfig.SKIN_INFO_NAME, Context.MODE_PRIVATE)
-                .getString(SkinConfig.SKIN_PATH_NAME, "");
+        return mContext.getSharedPreferences(SkinConfig.SKIN_INFO, Context.MODE_PRIVATE)
+                .getString(SkinConfig.SKIN_PATH, "");
     }
 
 
-    public void clearSkinInfo() {
+    public void clearSkinPath() {
         saveSkinPath("");
     }
 }

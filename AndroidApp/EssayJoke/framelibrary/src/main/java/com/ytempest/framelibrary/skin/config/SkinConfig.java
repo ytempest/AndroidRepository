@@ -8,25 +8,22 @@ public class SkinConfig {
     /**
      * 皮肤的 SP的文件名称
      */
-    public static final String SKIN_INFO_NAME = "skinInfo";
+    public static final String SKIN_INFO = "skin_info";
     /**
      * 标识皮肤的路径
      */
-    public static final String SKIN_PATH_NAME = "skinPath";
+    public static final String SKIN_PATH = "skin_path";
     /**
-     * 表示换肤成功
+     * 表示要加载的皮肤就是当前的皮肤
      */
-    public static final int SKIN_LOADED_SUCCESS = 1;
-    /**
-     * 表示当前app中没有该皮肤
-     */
-    public static final int SKIN_NOTEXIST = -1;
+    public static final int SKIN_HAD_LOADED = 1;
+
     /**
      * 表示资源包中的皮肤文件不存在
      */
-    public static final int SKIN_FILE_NOTEXIST = -2;
+    public static final int SKIN_NOT_EXIST = -1;
     /**
      * 表示皮肤文件不是一个apk
      */
-    public static final int SKIN_FILE_ERROR = -3;
+    public static final int SKIN_FILE_ERROR = -2;
 }
