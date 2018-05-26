@@ -11,7 +11,6 @@ public class UserInfoResult {
      * name : dy
      * sex : 男
      */
-
     private int age;
     private String name;
     private String sex;
