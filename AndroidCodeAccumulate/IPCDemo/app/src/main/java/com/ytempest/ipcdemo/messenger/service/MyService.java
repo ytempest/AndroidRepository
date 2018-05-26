@@ -1,4 +1,4 @@
-package com.ytempest.ipcdemo.service;
+package com.ytempest.ipcdemo.messenger.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -9,8 +9,6 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
-
-import com.ytempest.ipcdemo.UserAidl;
 
 public class MyService extends Service {
 

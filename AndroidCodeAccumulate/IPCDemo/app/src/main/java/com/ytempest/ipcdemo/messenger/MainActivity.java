@@ -1,4 +1,4 @@
-package com.ytempest.ipcdemo;
+package com.ytempest.ipcdemo.messenger;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,11 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.ytempest.ipcdemo.service.MyService;
+import com.ytempest.ipcdemo.R;
+import com.ytempest.ipcdemo.messenger.service.MyService;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "BinderPoolActivity";
 
     private Messenger mRemoteMessenger;
     private Messenger mClientMessenger = new Messenger(new MessageHandler());
