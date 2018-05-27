@@ -1,0 +1,17 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/javawriter-2.1.1.jar')
+    implementation files('libs/jsr305-2.0.1.jar')
+    implementation files('libs/okhttp-3.10.0.jar')
+    implementation files('libs/okio-1.14.0.jar')
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
