@@ -164,7 +164,9 @@ public final class Retrofit {
 
   ServiceMethod<?, ?> loadServiceMethod(Method method) {
     ServiceMethod<?, ?> result = serviceMethodCache.get(method);
-    if (result != null) return result;
+    if (result != null) {
+      return result;
+    }
 
     synchronized (serviceMethodCache) {
       result = serviceMethodCache.get(method);
