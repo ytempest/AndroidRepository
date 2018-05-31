@@ -23,11 +23,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "HttpActivity";
-    private File mFile = new File(Environment.getExternalStorageDirectory(), "test.apk");
+    private File mFile = new File(Environment.getExternalStorageDirectory(), "test2.apk");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +52,24 @@ public class MainActivity extends AppCompatActivity {
     public void upload(View view) {
         String url = "https://api.saiwuquan.com/api/upload";
 
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor()
+                        .setLevel(HttpLoggingInterceptor.Level.BODY))
+                .build();
+
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
 
+        Log.e(TAG, "upload: mFile.length --> " + mFile.length());
         RequestBody fileRequestBody = RequestBody.create(MediaType.parse(guessMimeType(mFile)), mFile);
         RequestBodyDelegate requestBodyDelegate = new RequestBodyDelegate(fileRequestBody);
         builder.addFormDataPart("platform", "android");
-        builder.addFormDataPart("file", mFile.getName(), fileRequestBody);
+        builder.addFormDataPart("file", mFile.getName(), requestBodyDelegate);
 
         MultipartBodyDelegate multipartBodyDelegate = new MultipartBodyDelegate(builder.build(), new MultipartBodyDelegate.OnUploadListener() {
             @Override
             public void onProgress(long maxLength, long currentLength) {
-                Log.e(TAG, "onProgress: maxLength --> " + maxLength + "  ||  currentLength --> " + currentLength);
+//                Log.e(TAG, "onProgress: maxLength --> " + maxLength + "  ||  currentLength --> " + currentLength);
             }
         });
 

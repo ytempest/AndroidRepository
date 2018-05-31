@@ -33,6 +33,11 @@ public class RequestBodyDelegate extends RequestBody {
     }
 
     @Override
+    public long contentLength() throws IOException {
+        return mRequestBody.contentLength();
+    }
+
+    @Override
     public void writeTo(BufferedSink sink) throws IOException {
 
         // 在这里实现 hook 服务器的输出流

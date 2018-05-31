@@ -22,7 +22,7 @@
                     </intent-filter>
                 </activity>-->
 
-        <activity android:name=".download.DownloadActivity">
+        <activity android:name=".upload_analysis_1_2.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

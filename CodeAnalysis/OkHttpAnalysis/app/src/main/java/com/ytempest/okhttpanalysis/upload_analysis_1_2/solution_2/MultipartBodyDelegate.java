@@ -33,11 +33,24 @@ public class MultipartBodyDelegate extends RequestBody {
         mOnUploadListener = onUploadListener;
     }
 
+
+    /**
+     * 这个方法要进行重写，为了返回正确的RequestBody的类型
+     */
     @Nullable
     @Override
     public MediaType contentType() {
         return mMultipartBody.contentType();
     }
+
+    /**
+     * 这个方法要进行重写，为了返回正确的RequestBody的长度
+     */
+    @Override
+    public long contentLength() throws IOException {
+        return mMultipartBody.contentLength();
+    }
+
 
 
     /**
