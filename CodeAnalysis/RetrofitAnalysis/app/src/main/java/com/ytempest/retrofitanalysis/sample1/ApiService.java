@@ -14,6 +14,10 @@ import retrofit2.http.POST;
  *         Description：
  */
 public interface ApiService {
+
+    /**
+     * 通过这个方法获取能进行登录的Call对象
+     */
     @FormUrlEncoded
     @POST("OkHttpServlet/login")
     Call<Result<UserInfoResult>> getUserInfo(
