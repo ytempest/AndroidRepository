@@ -1,4 +1,4 @@
-package com.ytempest.retrofitanalysis.sample2.test;
+package com.ytempest.retrofitanalysis.sample3.imitate.htpp;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -12,5 +12,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Target(PARAMETER)
 @Retention(RUNTIME)
-public @interface B {
+public @interface Field {
+    String value() default "";
 }
