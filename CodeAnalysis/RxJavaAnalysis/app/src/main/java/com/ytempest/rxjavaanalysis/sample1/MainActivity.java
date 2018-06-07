@@ -22,7 +22,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "DeepAnalysisActivity";
 
     private static final int SHOW_IMAGE = 100;
     private ImageView mImageView;

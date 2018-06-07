@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RxJavaAnalysis.iml" filepath="$PROJECT_DIR$/RxJavaAnalysis.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxjava2/rxjava2.iml" filepath="$PROJECT_DIR$/rxjava2/rxjava2.iml" />
     </modules>
   </component>
 </project>
