@@ -1,0 +1,14 @@
+sample2 要解决的问题：
+1、一个 Presenter 对应多个 Model 怎么解决？
+2. 动态创建 Presenter （一对多的问题）
+
+解决方案：
+1、一个 Presenter 对应多个 Model 怎么解决？
+如果是一个 Presenter对应一个 Model，那么怎么优化代码？可以通过在 BasePresenter类上使用泛型指定
+Model的类型；然后在 BasePresenter中对这个 Model进行初始化，就像 View层一样。
+一个 Presenter 对应多个 Model 的解决方案可以参考 《动态创建 Presenter》 这个问题的解决方案
+
+
+2、动态创建 Presenter （一对多的问题）
+通过在 BaseMVPActivity中反射注入每一个 Presenter，然后在 BaseMVPActivity中对这些 Presenter进行
+attach 和 detach

@@ -1,0 +1,7 @@
+sample3 要解决的问题：
+在 sample2中使用了 Presenter动态注入的方式解决了一个View对应多个 Presenter的问题；
+
+延伸出来的问题：
+现在的 View 一般是指Activity，但遇到 Fragment、ViewGroup的时候怎么办？
+解决方法：为每一种类型的View都创建一种类型的代理，然后在如BaseActivity、BaseFragment中使用代理类进
+行绑定和解绑，这样就可以将 Presenter的动态注入逻辑代码做到复用

@@ -1,0 +1,5 @@
+sample4 要解决的问题：
+1、使用@injectPresenter注解标记其他的类（如：TextView）时，不会抛异常
+2、如果 Activity没有实现 UserInfoContract.UserInfoView 接口不会立即抛异常
+
+
