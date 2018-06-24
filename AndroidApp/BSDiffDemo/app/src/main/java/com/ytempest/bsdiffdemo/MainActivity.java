@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         ///4、检验签名，就是获取本地apk的签名，与我们新版本的apk作对比
         try {
-            String currentApkSignature = PatchUtils.getSignature(getPackageResourcePath());
+            String currentApkSignature = PatchUtils.getSignature(currentApkPath);
             String newApkSignature = PatchUtils.getSignature(mNewApkPath);
             if (currentApkSignature.equals(newApkSignature)) {
                 Toast.makeText(this, "检验签名成功", Toast.LENGTH_SHORT).show();
@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+        e.printStackTrace();
+    }
 
         // 5、安装新版本的Apk
         Intent intent = new Intent(Intent.ACTION_VIEW);
