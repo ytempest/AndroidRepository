@@ -20,18 +20,14 @@ import com.ytempest.loadviewdemo.R;
  *         Description：加载数据时用于表示加载中的View
  */
 public class LoadView extends LinearLayout {
-
     /**
      * 动画的执行时间
      */
-    public static long ANIMATOR_TIME = 400;
-
-    private ShapeView mShapeView;
-    private View mShadowView;
+    private static final long ANIMATOR_TIME = 400;
     /**
      * 阴影部分变化的大小
      */
-    private float mShadowScaleX = 0.4f;
+    private static final float SHADOW_SCALE_X = 0.4f;
     /**
      * 图形下落或上抛的高度
      */
@@ -40,6 +36,9 @@ public class LoadView extends LinearLayout {
      * 标识是否停止动画
      */
     private boolean isStopAnimator = false;
+
+    private ShapeView mShapeView;
+    private View mShadowView;
 
     public LoadView(Context context) {
         this(context, null);
@@ -71,7 +70,7 @@ public class LoadView extends LinearLayout {
         ObjectAnimator shapeFall = ObjectAnimator.ofFloat(mShapeView, "translationY", 0, mAnimatorHeight);
         shapeFall.setInterpolator(new AccelerateInterpolator());
 
-        ObjectAnimator shadowShrink = ObjectAnimator.ofFloat(mShadowView, "scaleX", 1.0f, mShadowScaleX);
+        ObjectAnimator shadowShrink = ObjectAnimator.ofFloat(mShadowView, "scaleX", 1.0f, SHADOW_SCALE_X);
         shadowShrink.setInterpolator(new AccelerateInterpolator());
 
         AnimatorSet fallAnimatorSet = new AnimatorSet();
@@ -90,7 +89,7 @@ public class LoadView extends LinearLayout {
                 // 改变图形View的形状
                 mShapeView.exchangeShape();
                 // 开启图形View的旋转动画
-                mShapeView.startRotateAnimation();
+                mShapeView.startRotateAnimation(ANIMATOR_TIME);
                 // 开启上抛动画
                 startUpAnimation();
             }
@@ -105,7 +104,7 @@ public class LoadView extends LinearLayout {
         ObjectAnimator shapeUp = ObjectAnimator.ofFloat(mShapeView, "translationY", mAnimatorHeight, 0);
         shapeUp.setInterpolator(new DecelerateInterpolator());
 
-        ObjectAnimator shadowExpand = ObjectAnimator.ofFloat(mShadowView, "scaleX", mShadowScaleX, 1.0f);
+        ObjectAnimator shadowExpand = ObjectAnimator.ofFloat(mShadowView, "scaleX", SHADOW_SCALE_X, 1.0f);
         shadowExpand.setInterpolator(new DecelerateInterpolator());
 
         AnimatorSet upAnimatorSet = new AnimatorSet();
@@ -127,6 +126,7 @@ public class LoadView extends LinearLayout {
 
     /**
      * 获取图形动画执行的高度
+     *
      * @return 高度的像素值
      */
     private float getAnimationHeight() {

@@ -21,18 +21,18 @@ public class ShapeView extends View {
     /**
      * 表示绘制的是圆形
      */
-    private final static int SHAPE_CIRCLE = 100;
+    private static final  int SHAPE_CIRCLE = 100;
     /**
      * 表示绘制的是正方形
      */
-    private final static int SHAPE_SQUARE = 200;
+    private static final int SHAPE_SQUARE = 200;
     /**
      * 表示绘制的三角形
      */
-    private final static int SHAPE_TRIANGLE = 300;
+    private static final int SHAPE_TRIANGLE = 300;
 
     /**
-     * 默认绘制的正方形
+     * 默认绘制的圆形
      */
     private int mCurrentShape = SHAPE_CIRCLE;
 
@@ -43,6 +43,7 @@ public class ShapeView extends View {
     private int mHeight;
 
     private Paint mShapePaint;
+    private Path mPath;
 
     public ShapeView(Context context) {
         this(context, null);
@@ -55,20 +56,21 @@ public class ShapeView extends View {
     public ShapeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
-        initPaint();
+        initConfig();
     }
 
-    private void initPaint() {
+    private void initConfig() {
         mShapePaint = new Paint();
         mShapePaint.setAntiAlias(true);
+
+        mPath = new Path();
     }
 
-
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mWidth = MeasureSpec.getSize(widthMeasureSpec);
-        mHeight = MeasureSpec.getSize(heightMeasureSpec);
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        mWidth = getMeasuredWidth();
+        mHeight = getMeasuredHeight();
     }
 
     @Override
@@ -85,15 +87,14 @@ public class ShapeView extends View {
                 break;
             case SHAPE_TRIANGLE:
                 mShapePaint.setColor(getColor(R.color.load_view_shape_triangle_color));
-                Path path = new Path();
                 // 将path的点从当前View的左上角移动到指定的（x,y）位置
-                path.moveTo(mWidth / 2, 0);
+                mPath.moveTo(mWidth / 2, 0);
                 // 向（x,y）点画线
-                path.lineTo(0, (float) (Math.sqrt(3) / 2 * mHeight));
-                path.lineTo(mWidth, (float) (Math.sqrt(3) / 2 * mHeight));
+                mPath.lineTo(0, (float) (Math.sqrt(3) / 2 * mHeight));
+                mPath.lineTo(mWidth, (float) (Math.sqrt(3) / 2 * mHeight));
                 // 连接path的起点合拢path
-                path.close();
-                canvas.drawPath(path, mShapePaint);
+                mPath.close();
+                canvas.drawPath(mPath, mShapePaint);
                 break;
             default:
                 break;
@@ -124,18 +125,18 @@ public class ShapeView extends View {
     /**
      * 开启 ShapeView的旋转动画
      */
-    public void startRotateAnimation() {
+    public void startRotateAnimation(long duration) {
         switch (mCurrentShape) {
             case SHAPE_CIRCLE:
                 break;
             case SHAPE_SQUARE:
                 ObjectAnimator squareRotation = ObjectAnimator.ofFloat(this, "rotation", 0, 180);
-                squareRotation.setDuration(LoadView.ANIMATOR_TIME);
+                squareRotation.setDuration(duration);
                 squareRotation.start();
                 break;
             case SHAPE_TRIANGLE:
                 ObjectAnimator triangleRotation = ObjectAnimator.ofFloat(this, "rotation", 0, -120);
-                triangleRotation.setDuration(LoadView.ANIMATOR_TIME);
+                triangleRotation.setDuration(duration);
                 triangleRotation.start();
                 break;
             default:

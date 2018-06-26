@@ -1,14 +1,10 @@
 package com.ytempest.loadviewdemo;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-
-import com.ytempest.loadviewdemo.ui.LoadView;
 
 public class MainActivity extends AppCompatActivity {
 

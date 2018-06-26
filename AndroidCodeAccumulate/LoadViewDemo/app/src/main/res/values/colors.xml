@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- LoadView的ShapeView的背景色 -->
+    <color name="load_view_bg">#ffffff</color>
     <!-- LoadView的ShapeView的圆形的颜色 -->
     <color name="load_view_shape_circle_color">#aa738ffe</color>
     <!-- LoadView的ShapeView的正方形的颜色 -->
