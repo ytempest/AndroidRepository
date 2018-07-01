@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -22,16 +23,15 @@ import java.util.List;
  */
 public class BannerViewPager extends ViewPager {
 
-    private BannerAdapter mBannerAdapter;
     /**
      * 启动轮播的消息标志符
      */
     private final int SCROLL_MSG = 0x0011;
-
     /**
      * 页面切换间隔时间
      */
-    private int mCutDownTime = 4000;
+    private static final int SWITCH_TIME = 4000;
+    private BannerAdapter mBannerAdapter;
     /**
      * 自定义的页面切换的Scroller：用于改变ViewPager切换的速率
      */
@@ -46,11 +46,7 @@ public class BannerViewPager extends ViewPager {
     /**
      * 内存优化 --> 缓存View，然后复用View
      */
-    private List<View> mConvertViews;
-    /**
-     * 是否可以滚动
-     */
-    private boolean mScrollAble = true;
+    private static List<View> VIEW_CACHES;
     /**
      * BannerViewPager 页面的回调监听
      */
@@ -85,7 +81,6 @@ public class BannerViewPager extends ViewPager {
      */
     private boolean isPause = false;
 
-
     public BannerViewPager(Context context) {
         this(context, null);
     }
@@ -95,6 +90,15 @@ public class BannerViewPager extends ViewPager {
 
         mCurActivity = (Activity) context;
 
+        // 设置自定义 Scroller以改变ViewPager切换页面的速率
+        setupScroller(context);
+
+        VIEW_CACHES = new ArrayList<>();
+
+        initHandler();
+    }
+
+    private void setupScroller(Context context) {
         try {
             // 通过放射设置 ViewPager的 mBannerScroller 以改变 BannerViewPager 页面切换的速度
             Field field = ViewPager.class.getDeclaredField("mScroller");
@@ -110,14 +114,13 @@ public class BannerViewPager extends ViewPager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        mConvertViews = new ArrayList<>();
-
-        initHandler();
     }
 
     private void initHandler() {
-        mHandler = new Handler() {
+        if (mHandler != null) {
+            return;
+        }
+        mHandler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 // 每隔 指定的时间 后切换到下一页
@@ -154,13 +157,13 @@ public class BannerViewPager extends ViewPager {
         }
 
         // 判断是不是只有一条数据
-        mScrollAble = mBannerAdapter.getCount() != 1;
+        boolean scrollAvailable = mBannerAdapter.getCount() != 1;
 
-        if (mScrollAble && mHandler != null) {
+        if (scrollAvailable && mHandler != null) {
             // 清除消息
             mHandler.removeMessages(SCROLL_MSG);
             // 消息  延迟时间  让用户自定义  有一个默认  3500
-            mHandler.sendEmptyMessageDelayed(SCROLL_MSG, mCutDownTime);
+            mHandler.sendEmptyMessageDelayed(SCROLL_MSG, SWITCH_TIME);
         }
     }
 
@@ -179,7 +182,7 @@ public class BannerViewPager extends ViewPager {
      */
     public void resumeRoll() {
         isPause = false;
-        mHandler.sendEmptyMessageDelayed(SCROLL_MSG, mCutDownTime);
+        mHandler.sendEmptyMessageDelayed(SCROLL_MSG, SWITCH_TIME);
     }
 
     /**
@@ -194,12 +197,16 @@ public class BannerViewPager extends ViewPager {
     }
 
 
+    /**
+     * 当ViewPager被添加到Window的时候就会调用这个方法
+     */
     @Override
     protected void onAttachedToWindow() {
         if (mBannerAdapter != null) {
+            // 再次初始化Handler，以防Handler被回收了
             initHandler();
             startRoll();
-            // 管理Activity的生命周期
+            // 注册一个Activity的生命周期回调用于监听Activity的生命周期
             mCurActivity.getApplication().registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
         }
         super.onAttachedToWindow();
@@ -222,11 +229,11 @@ public class BannerViewPager extends ViewPager {
     /**
      * 从缓存中获取用户定义的View作为复用界面
      */
-    public View getConvertView() {
-        for (int i = 0; i < mConvertViews.size(); i++) {
+    private View getConvertView() {
+        for (int i = 0; i < VIEW_CACHES.size(); i++) {
             // 由于已经从ViewPager移除，所以用户定义的View没有依附于任何父布局
-            if (mConvertViews.get(i).getParent() == null) {
-                return mConvertViews.get(i);
+            if (VIEW_CACHES.get(i).getParent() == null) {
+                return VIEW_CACHES.get(i);
             }
         }
         return null;
@@ -290,7 +297,7 @@ public class BannerViewPager extends ViewPager {
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
             // 将从 ViewPager 中移出的 View缓存，以便复用
-            mConvertViews.add((View) object);
+            VIEW_CACHES.add((View) object);
         }
     }
 
@@ -299,9 +306,8 @@ public class BannerViewPager extends ViewPager {
      * Description：BannerViewPager 页面的监听器
      */
     public interface BannerItemClickListener {
-        public void onPageClick(int position);
+        void onPageClick(int position);
     }
-
 
 }
 

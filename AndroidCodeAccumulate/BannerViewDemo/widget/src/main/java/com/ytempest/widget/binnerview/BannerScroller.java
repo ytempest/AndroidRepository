@@ -42,6 +42,8 @@ public class BannerScroller extends Scroller {
      * 设置切换页面持续的时间
      */
     public void setScrollerDuration(int scrollerDuration) {
-        this.mScrollerDuration = scrollerDuration;
+        if (scrollerDuration > 0) {
+            this.mScrollerDuration = scrollerDuration;
+        }
     }
 }

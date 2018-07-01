@@ -9,7 +9,7 @@ import android.os.Bundle;
  *         Description：实现了 Application.ActivityLifecycleCallbacks的所有方法，子类
  *         继承这个类选择需要复写的方法，避免子类直接实现造成代码量过大
  */
-public class DefaultActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
+class DefaultActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 

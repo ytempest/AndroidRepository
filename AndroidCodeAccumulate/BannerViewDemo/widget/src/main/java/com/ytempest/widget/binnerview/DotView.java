@@ -16,33 +16,31 @@ import android.widget.ImageView;
  * @author ytempest
  *         Description：圆点指示器
  */
-public class DotIndicatorView extends ImageView {
+class DotView extends ImageView {
 
-    private Drawable mDrawable;
-
-    public DotIndicatorView(Context context) {
+    public DotView(Context context) {
         this(context, null);
     }
 
-    public DotIndicatorView(Context context, AttributeSet attrs) {
+    public DotView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DotIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DotView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mDrawable = getDrawable();
-        if (mDrawable != null) {
-            if (mDrawable instanceof BitmapDrawable) {
+        Drawable drawable = getDrawable();
+        if (drawable != null) {
+            if (drawable instanceof BitmapDrawable) {
                 super.onDraw(canvas);
                 return;
             }
 
             // 把指示点图片转为位图
-            Bitmap bitmap = drawableToBitmap(mDrawable);
+            Bitmap bitmap = drawableToBitmap(drawable);
 
             // 把指示点的Bitmap变为圆型
             Bitmap circleBitmap = getCircleBitmap(bitmap);

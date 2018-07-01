@@ -153,8 +153,8 @@ public class BannerView extends RelativeLayout {
     private void initView() {
         mBannerViewPager = (BannerViewPager) findViewById(R.id.banner_view_pager);
         mBannerTextView = (TextView) findViewById(R.id.tv_banner_text);
-        mDotContainerView = (LinearLayout) findViewById(R.id.dot_container);
-        mBannerBottomView = findViewById(R.id.banner_bottom_view);
+        mDotContainerView = (LinearLayout) findViewById(R.id.ll_dot_container);
+        mBannerBottomView = findViewById(R.id.rl_banner_bottom_view);
         mBannerBottomView.setBackgroundColor(mBottomColor);
     }
 
@@ -162,12 +162,14 @@ public class BannerView extends RelativeLayout {
      * 设置 BannerViewPager 适配器 并初始化轮播器
      */
     public void setAdapter(BannerAdapter adapter) {
+        if (mBannerAdapter != null) {
+            throw new IllegalArgumentException("you had set up the adapter, please set up again");
+        }
+
         mBannerAdapter = adapter;
 
         // 初始化 轮播器
         initBannerView();
-
-
     }
 
     private void initBannerView() {
@@ -179,11 +181,11 @@ public class BannerView extends RelativeLayout {
 
         mBannerViewPager.setBannerAdapter(mBannerAdapter);
 
-        // 监听 BannerViewPager 的滑动
+        // 监听 BannerViewPager 的滑动以处理页面切换和用户触摸页面时暂停轮播
         mBannerViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                // 改变指示点的状态
+                // 切换页面
                 pageSelect(position);
             }
 
@@ -210,15 +212,18 @@ public class BannerView extends RelativeLayout {
         // 设置 BannerViewPager 的位置以确保能无限轮播
         mBannerViewPager.setCurrentItem(0x6C413B80);
 
-        // 自适应高度 动态指定高度
+        // 如果用户没有设置宽高比例，那么么就return
         if (mHeightProportion == 0 || mWidthProportion == 0) {
             return;
         }
-        // 为什么要开线程
+
+        // 为什么要开线程？因为在初始化BannerView的时候是获取不到View的高度的，只能通过
+        // post一个Runnable去获取宽高，当执行这个run()方法的时候，View已经初始化完毕了
+        // 根据用户指定的宽高比例动态指定高度
         post(new Runnable() {
             @Override
             public void run() {
-                // 动态指定宽高  计算高度
+                // 获取BannerView的宽度
                 int width = getMeasuredWidth();
                 // 计算高度
                 int height = (int) (width * mHeightProportion / mWidthProportion);
@@ -241,23 +246,22 @@ public class BannerView extends RelativeLayout {
 
         mDotContainerView.removeAllViews();
 
+        // 添加相应数量的指示点
         for (int i = 0; i < count; i++) {
-            // 不断的往点的指示器添加圆点
-            DotIndicatorView indicatorView = new DotIndicatorView(mContext);
+            DotView dotView = new DotView(mContext);
             // 设置大小
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mDotSize, mDotSize);
             // 设置左右间距
             params.leftMargin = params.rightMargin = mDotDistance;
-            indicatorView.setLayoutParams(params);
+            dotView.setLayoutParams(params);
 
             if (i == 0) {
-                // 指示点选中的位置
-                indicatorView.setImageDrawable(mIndicatorFocusDrawable);
+                // 设置默认选中的指示点
+                dotView.setImageDrawable(mIndicatorFocusDrawable);
             } else {
-                // 指示点未选中的位置
-                indicatorView.setImageDrawable(mIndicatorNormalDrawable);
+                dotView.setImageDrawable(mIndicatorNormalDrawable);
             }
-            mDotContainerView.addView(indicatorView);
+            mDotContainerView.addView(dotView);
         }
     }
 
@@ -273,39 +277,49 @@ public class BannerView extends RelativeLayout {
     }
 
     /**
-     * 页面切换的回调
+     * 切换到新的页面
      *
      * @param position 新的页面的位置
      */
     private void pageSelect(int position) {
         // 1、把之前亮着的指示点 设置为默认
-        DotIndicatorView oldIndicatorView = (DotIndicatorView)
+        DotView oldDotView = (DotView)
                 mDotContainerView.getChildAt(mCurrentPosition);
-        oldIndicatorView.setImageDrawable(mIndicatorNormalDrawable);
+        oldDotView.setImageDrawable(mIndicatorNormalDrawable);
 
         // 2、把新位置的指示点 点亮  position：0 --> 2的31次方
-        mCurrentPosition = position % mBannerAdapter.getCount();
-        DotIndicatorView currentIndicatorView = (DotIndicatorView)
-                mDotContainerView.getChildAt(mCurrentPosition);
-        currentIndicatorView.setImageDrawable(mIndicatorFocusDrawable);
+        int newPosition = position % mBannerAdapter.getCount();
+        DotView currentDotView = (DotView)
+                mDotContainerView.getChildAt(newPosition);
+        currentDotView.setImageDrawable(mIndicatorFocusDrawable);
 
-        // 设置文字描述
-        String bannerDesc = mBannerAdapter.getBannerText(mCurrentPosition);
+
+        // 3、设置新页面的文字描述
+        String bannerDesc = mBannerAdapter.getBannerText(newPosition);
         mBannerTextView.setText(bannerDesc);
+
+        // 4、记录当前位置
+        mCurrentPosition = newPosition;
     }
 
     /**
      * 设置指示点和文字描述的位置
      */
     private void initDotIndicatorGravity() {
-        int gravity = getDotGravity();
-        mDotContainerView.setGravity(gravity);
-        if (gravity == Gravity.CENTER) {
+        int dotGravity = getDotGravity();
+        mDotContainerView.setGravity(dotGravity);
+
+        // 下面开始设置页面描述文字的位置
+
+        // 如果指示点在中间，那么文字会默认设置在左边
+        if (dotGravity == Gravity.CENTER) {
             return;
         }
+
+        // 根据指示点的位置反向设置文字，指示点在左，那么文字就会在右
         LayoutParams params = (LayoutParams) mBannerTextView.getLayoutParams();
         int textViewGravity;
-        if (gravity == Gravity.LEFT) {
+        if (dotGravity == Gravity.START) {
             textViewGravity = RelativeLayout.ALIGN_PARENT_RIGHT;
         } else {
             textViewGravity = RelativeLayout.ALIGN_PARENT_LEFT;
@@ -341,14 +355,14 @@ public class BannerView extends RelativeLayout {
     /**
      * 获取指示点的显示的位置
      */
-    public int getDotGravity() {
+    private int getDotGravity() {
         switch (mDotGravity) {
             case 0:
                 return Gravity.CENTER;
             case -1:
-                return Gravity.LEFT;
+                return Gravity.START;
             case 1:
-                return Gravity.RIGHT;
+                return Gravity.END;
             default:
                 break;
         }
@@ -367,7 +381,7 @@ public class BannerView extends RelativeLayout {
      * 隐藏页面指示器
      */
     public void hidePageIndicator() {
-        mDotContainerView.setVisibility(View.INVISIBLE);
+        mDotContainerView.setVisibility(View.GONE);
     }
 
     /**
