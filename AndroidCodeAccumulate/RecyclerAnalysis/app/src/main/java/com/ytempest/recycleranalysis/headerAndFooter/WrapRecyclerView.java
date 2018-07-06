@@ -1,15 +1,11 @@
 package com.ytempest.recycleranalysis.headerAndFooter;
 
 import android.content.Context;
-import android.graphics.Rect;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.SparseArray;
-import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -26,7 +22,7 @@ public class WrapRecyclerView extends RecyclerView {
     /**
      * 原RecyclerView显示数据的Adapter
      */
-    private RecyclerView.Adapter mAdapter;
+    private Adapter mOriginalAdapter;
     /**
      * 没有列表数据显示的View
      */
@@ -52,12 +48,12 @@ public class WrapRecyclerView extends RecyclerView {
     @Override
     public void setAdapter(Adapter adapter) {
         // 防止多次设置Adapter
-        if (mAdapter != null) {
-            mAdapter.unregisterAdapterDataObserver(mDataObserver);
-            mAdapter = null;
+        if (mOriginalAdapter != null) {
+            mOriginalAdapter.unregisterAdapterDataObserver(mDataObserver);
+            mOriginalAdapter = null;
         }
 
-        this.mAdapter = adapter;
+        this.mOriginalAdapter = adapter;
 
         // 对原Adapter进行装饰，扩展其功能
         if (adapter instanceof WrapRecyclerAdapter) {
@@ -70,7 +66,7 @@ public class WrapRecyclerView extends RecyclerView {
         super.setAdapter(mWrapRecyclerAdapter);
 
         // 为原Adapter设置观察者，监测原Adapter列表数据的变动
-        mAdapter.registerAdapterDataObserver(mDataObserver);
+        mOriginalAdapter.registerAdapterDataObserver(mDataObserver);
 
         if (getLayoutManager() instanceof GridLayoutManager) {
             // 解决网格布局中头布View和底部View都不占用一行的问题
@@ -82,12 +78,13 @@ public class WrapRecyclerView extends RecyclerView {
         }
     }
 
+
     /**
      * 重写该方法，返回原Adapter，防止因为加了头部View和底部View导致列表条目的变化
      */
     @Override
     public Adapter getAdapter() {
-        return mAdapter;
+        return mOriginalAdapter;
     }
 
 
@@ -95,7 +92,7 @@ public class WrapRecyclerView extends RecyclerView {
      * 添加头部View
      */
     public void addHeaderView(View headerView) {
-        if (mAdapter == null) {
+        if (mOriginalAdapter == null) {
             throw new NullPointerException("add Header view need before setAdapter() ！");
         }
         if (mWrapRecyclerAdapter != null) {
@@ -107,7 +104,7 @@ public class WrapRecyclerView extends RecyclerView {
      * 添加底部View
      */
     public void addFooterView(View footerView) {
-        if (mAdapter == null) {
+        if (mOriginalAdapter == null) {
             throw new NullPointerException("add Footer view need before setAdapter() ！");
         }
         if (mWrapRecyclerAdapter != null) {
@@ -143,7 +140,6 @@ public class WrapRecyclerView extends RecyclerView {
         mLoadingView.setVisibility(View.VISIBLE);
     }
 
-    private String TAG="WrapRecyclerView";
     /**
      * Adapter数据观察者，监测列表数据的变化
      */
@@ -154,10 +150,10 @@ public class WrapRecyclerView extends RecyclerView {
          */
         @Override
         public void onChanged() {
-            if (mAdapter == null) {
+            if (mOriginalAdapter == null) {
                 return;
             }
-            if (mWrapRecyclerAdapter != mAdapter) {
+            if (mWrapRecyclerAdapter != mOriginalAdapter) {
                 mWrapRecyclerAdapter.notifyDataSetChanged();
             }
             dataChanged();
@@ -168,10 +164,10 @@ public class WrapRecyclerView extends RecyclerView {
          */
         @Override
         public void onItemRangeChanged(int positionStart, int itemCount) {
-            if (mAdapter == null) {
+            if (mOriginalAdapter == null) {
                 return;
             }
-            if (mWrapRecyclerAdapter != mAdapter) {
+            if (mWrapRecyclerAdapter != mOriginalAdapter) {
                 mWrapRecyclerAdapter.notifyItemRangeChanged(positionStart, itemCount);
             }
             dataChanged();
@@ -182,10 +178,10 @@ public class WrapRecyclerView extends RecyclerView {
          */
         @Override
         public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
-            if (mAdapter == null) {
+            if (mOriginalAdapter == null) {
                 return;
             }
-            if (mWrapRecyclerAdapter != mAdapter) {
+            if (mWrapRecyclerAdapter != mOriginalAdapter) {
                 mWrapRecyclerAdapter.notifyItemRangeChanged(positionStart, itemCount, payload);
             }
             dataChanged();
@@ -196,10 +192,10 @@ public class WrapRecyclerView extends RecyclerView {
          */
         @Override
         public void onItemRangeInserted(int positionStart, int itemCount) {
-            if (mAdapter == null) {
+            if (mOriginalAdapter == null) {
                 return;
             }
-            if (mWrapRecyclerAdapter != mAdapter) {
+            if (mWrapRecyclerAdapter != mOriginalAdapter) {
                 mWrapRecyclerAdapter.notifyItemRangeInserted(positionStart, itemCount);
             }
             dataChanged();
@@ -210,10 +206,10 @@ public class WrapRecyclerView extends RecyclerView {
          */
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
-            if (mAdapter == null) {
+            if (mOriginalAdapter == null) {
                 return;
             }
-            if (mWrapRecyclerAdapter != mAdapter) {
+            if (mWrapRecyclerAdapter != mOriginalAdapter) {
                 mWrapRecyclerAdapter.notifyItemRangeRemoved(positionStart, itemCount);
             }
 
@@ -225,10 +221,10 @@ public class WrapRecyclerView extends RecyclerView {
          */
         @Override
         public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            if (mAdapter == null) {
+            if (mOriginalAdapter == null) {
                 return;
             }
-            if (mWrapRecyclerAdapter != mAdapter) {
+            if (mWrapRecyclerAdapter != mOriginalAdapter) {
                 mWrapRecyclerAdapter.notifyItemMoved(fromPosition, toPosition);
             }
             dataChanged();
@@ -253,7 +249,7 @@ public class WrapRecyclerView extends RecyclerView {
      * 更新数据
      */
     private void dataChanged() {
-        if (mAdapter.getItemCount() == 0) {
+        if (mOriginalAdapter.getItemCount() == 0) {
             if (mEmptyView == null) {
                 return;
             }
@@ -264,12 +260,4 @@ public class WrapRecyclerView extends RecyclerView {
             }
         }
     }
-
-    public abstract class ItemDecoration extends RecyclerView.ItemDecoration {
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
-
-        }
-    }
-
 }

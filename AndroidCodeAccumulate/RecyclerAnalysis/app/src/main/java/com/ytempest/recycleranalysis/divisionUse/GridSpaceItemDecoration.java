@@ -101,7 +101,7 @@ public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
      * 初始化RecyclerView网格布局的列数
      */
     private void initSpanCount(View parent) {
-        RecyclerView.LayoutManager layoutManager = ((RecyclerView) parent).getLayoutManager();
+        LayoutManager layoutManager = ((RecyclerView) parent).getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             mSpanCount = ((GridLayoutManager) layoutManager).getSpanCount();
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {

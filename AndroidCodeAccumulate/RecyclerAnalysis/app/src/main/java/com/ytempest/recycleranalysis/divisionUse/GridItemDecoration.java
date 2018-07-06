@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * @author ytempest
  *         Description：RecyclerView网格布局的分割线类
@@ -20,13 +22,13 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 默认分割线样式
      */
-    private static int[] DEFAULT_ATTRS = {android.R.attr.listDivider};
+    private static final int[] DEFAULT_ATTRS = {android.R.attr.listDivider};
     /**
      * 分割线图片
      */
     private Drawable mDivider;
     /**
-     * 网格布局的列数
+     * 网格布局的列数（如果是Vertical）或者行数（如果是Horizontal）
      */
     private int mSpanCount = 1;
 
@@ -50,6 +52,7 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         int right = mDivider.getIntrinsicWidth();
         int bottom = mDivider.getIntrinsicHeight();
 
+        // 获取当前View的位置
         int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
 
         if (isLastColumn(position, parent)) {
@@ -58,11 +61,13 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         if (isLastRow(position, parent)) {
             bottom = 0;
         }
+        // 使用View的一部分位置用来绘制分割线
         outRect.set(0, 0, right, bottom);
     }
 
+
     /**
-     * 判断 position 是否在最后一列
+     * 判断 position位置的View是否在最后一列
      */
     private boolean isLastColumn(int position, View parent) {
         RecyclerView.LayoutManager layoutManager = ((RecyclerView) parent).getLayoutManager();
@@ -75,7 +80,7 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     /**
-     * 判断 position 是否在最后一行
+     * 判断 position位置的View是否在最后一行
      */
     private boolean isLastRow(int position, View parent) {
         RecyclerView.LayoutManager layoutManager = ((RecyclerView) parent).getLayoutManager();
@@ -96,12 +101,15 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
      */
     private boolean isItemOffset(int curOrientation, int targetOrientation, int position) {
         if (curOrientation == targetOrientation) {
+            // 判断当前View是不是最后一列的View
             if ((position + 1) % mSpanCount == 0) {
                 return true;
             }
         } else {
-            int childCount = mChildCount - mChildCount % mSpanCount - 1;
-            if (position > childCount) {
+            // 判断当前View是否是最后一行的View
+            // 获取倒数第二列的最后一个View位置作为界限
+            int dividingPosition = mChildCount - mChildCount % mSpanCount - 1;
+            if (position > dividingPosition) {
                 return true;
             }
         }
@@ -119,7 +127,7 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     /**
-     * 绘制水平分割线
+     * 绘制水平分割线，没有计算padding值
      *
      * @param child RecyclerView绘制的当前的子View
      */
@@ -149,7 +157,7 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 设置分割线图片
      */
-    public void setDrawable(@NonNull Drawable drawable) {
+    public void setDrawable(Drawable drawable) {
         if (drawable == null) {
             throw new IllegalArgumentException("Drawable cannot be null.");
         }

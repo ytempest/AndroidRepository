@@ -7,6 +7,8 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * @author ytempest
  *         Description：使用装饰模式，对RecyclerView的Adapter扩展可以添加头部View以及底部View的功能
@@ -18,11 +20,11 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     /**
      * 头布局View集合的起点key，用于viewType识别
      */
-    private static int HEADER_BASE_ITEM_TYPE = 1000000;
+    private  int HEADER_BASE_ITEM_TYPE = 100;
     /**
      * 底布局View集合的起点key，用于viewType识别
      */
-    private static int FOOTER_BASE_ITEM_TYPE = 2000000;
+    private  int FOOTER_BASE_ITEM_TYPE = 200;
     /**
      * 具体构建角色：对该角色进行功能的扩展
      */
@@ -43,6 +45,7 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemViewType(int position) {
         if (isHeaderPosition(position)) {
+            // keyAt()方法获取的是View添加到SparseArray时的key
             return mHeaderViews.keyAt(position);
         } else if (isFooterPosition(position)) {
             int index = position - mAdapter.getItemCount() - mHeaderViews.size();
@@ -53,24 +56,33 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private boolean isFooterPosition(int position) {
-        return position >= mAdapter.getItemCount() + mHeaderViews.size();
+        return position >= (mAdapter.getItemCount() + mHeaderViews.size());
     }
 
     private boolean isHeaderPosition(int position) {
         return position < mHeaderViews.size();
     }
 
+    /**
+     * @param viewType 这个就是在 getItemViewType()方法返回的View的类型，由于我们添加的头部和底部View
+     *                 是使用 HEADER_BASE_ITEM_TYPE 和 FOOTER_BASE_ITEM_TYPE 来辨别的，所以如果是头部
+     *                 或底部，那么这个 viewType就是这两个参数
+     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (isHeaderViewType(viewType)) {
+            // 根据指定的viewType（其实就是mHeaderViews的索引）获取相应的头部View
             View headerView = mHeaderViews.get(viewType);
             return createHeaderFooterViewHolder(headerView);
-        } else if (isFooterViewType(viewType)) {
+        }
+        if (isFooterViewType(viewType)) {
             View footerView = mFooterViews.get(viewType);
             return createHeaderFooterViewHolder(footerView);
         }
         return mAdapter.onCreateViewHolder(parent, viewType);
     }
+
+
 
     private boolean isFooterViewType(int viewType) {
         int index = mFooterViews.indexOfKey(viewType);
@@ -100,7 +112,7 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemCount() {
         // RecyclerView列表的真正子View数目
-        return mAdapter.getItemCount() + mHeaderViews.size() + mFooterViews.size();
+        return mAdapter.getItemCount() + mFooterViews.size() + mHeaderViews.size();
     }
 
     /**
@@ -166,5 +178,6 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
         }
     }
+
 
 }

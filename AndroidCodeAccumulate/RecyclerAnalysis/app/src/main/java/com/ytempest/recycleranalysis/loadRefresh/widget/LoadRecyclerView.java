@@ -4,17 +4,17 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * @author ytempest
  *         Description：
  */
 public class LoadRecyclerView extends RefreshRecyclerView {
-
 
     /**
      * 默认的上拉状态
@@ -59,7 +59,7 @@ public class LoadRecyclerView extends RefreshRecyclerView {
     }
 
     @Override
-    public void setAdapter(Adapter adapter) {
+    public void setAdapter(RecyclerView.Adapter adapter) {
         super.setAdapter(adapter);
         addLoadView();
     }
@@ -105,7 +105,7 @@ public class LoadRecyclerView extends RefreshRecyclerView {
     }
 
     private void restoreLoadView() {
-        int currentBottomMargin = ((MarginLayoutParams) mLoadView.getLayoutParams()).bottomMargin;
+        int currentBottomMargin = ((ViewGroup.MarginLayoutParams) mLoadView.getLayoutParams()).bottomMargin;
         int finalBottomMargin = 0;
         if (mCurrentLoadStatus == LOAD_STATUS_LOOSE_PULL) {
             mCurrentLoadStatus = LOAD_STATUS_LOADING;
@@ -134,7 +134,7 @@ public class LoadRecyclerView extends RefreshRecyclerView {
 
     public void setLoadViewBottomMargin(int bottomMargin) {
 
-        MarginLayoutParams params = (MarginLayoutParams) mLoadView.getLayoutParams();
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mLoadView.getLayoutParams();
         if (bottomMargin < mLoadViewHeight) {
             bottomMargin = mLoadViewHeight;
         }

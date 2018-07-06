@@ -1,15 +1,17 @@
 package com.ytempest.recycleranalysis.loadRefresh;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
-
 import com.ytempest.recycleranalysis.R;
 import com.ytempest.recycleranalysis.loadRefresh.widget.RefreshViewCreator;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -25,7 +27,7 @@ public class DefaultRefreshCreator extends RefreshViewCreator {
     @Override
     public View getRefreshView(Context context, ViewGroup parent) {
         View refreshView = LayoutInflater.from(context).inflate(R.layout.layout_refresh_header_view, parent, false);
-        mRefreshIv = refreshView.findViewById(R.id.iv_refresh);
+        mRefreshIv = refreshView;
         return refreshView;
     }
 

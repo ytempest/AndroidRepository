@@ -56,8 +56,8 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
     /**
      * 根据viewType的种类创建ViewHolder
+     *
      * @param viewType 子View的布局id
-     * @return
      */
     @Override
     public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -66,8 +66,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
             mLayoutId = viewType;
         }
         View view = mInflater.inflate(mLayoutId, parent, false);
-        CommonViewHolder viewHolder = new CommonViewHolder(view);
-        return viewHolder;
+        return new CommonViewHolder(view);
     }
 
 
@@ -84,8 +83,9 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
     /**
      * 绑定数据到ViewHolder
+     *
      * @param holder 当前位置的ViewHolder
-     * @param item 当前位置的数据
+     * @param item   当前位置的数据
      */
     protected abstract void bindViewData(CommonViewHolder holder, T item);
 

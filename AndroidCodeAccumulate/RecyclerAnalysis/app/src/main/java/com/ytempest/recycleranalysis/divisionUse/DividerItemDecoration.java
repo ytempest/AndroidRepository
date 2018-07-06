@@ -19,9 +19,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] DEFAULT_ATTRS = new int[]{android.R.attr.listDivider};
 
-    public static final int HORIZONTAL = LinearLayoutManager.HORIZONTAL;
+    private static final int HORIZONTAL = LinearLayoutManager.HORIZONTAL;
 
-    public static final int VERTICAL = LinearLayoutManager.VERTICAL;
+    private static final int VERTICAL = LinearLayoutManager.VERTICAL;
 
     private Drawable mDivider;
 
@@ -43,7 +43,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 设置分割线图片
      */
-    public void setDrawable(@NonNull Drawable drawable) {
+    public void setDrawable(Drawable drawable) {
         if (drawable == null) {
             throw new IllegalArgumentException("Drawable cannot be null.");
         }
@@ -59,11 +59,14 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
      */
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        // 默认第一个view不留位置
+        // 默认第一个view不为分割线留位置，同时设定获取View的一部分高度作为分割线的空间
         if (parent.getChildLayoutPosition(view) != 0) {
             if (mOrientation == VERTICAL) {
+                // 表示将View的顶部的一部分位置留出来绘制分割线
                 outRect.set(0, mDivider.getIntrinsicHeight(), 0, 0);
             } else {
+
+                // 表示将View的左侧的一部分位置留出来绘制分割线
                 outRect.set(mDivider.getIntrinsicWidth(), 0, 0, 0);
             }
         }
@@ -95,6 +98,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
+            // 以当前View的底部位置到分界线的高度为分界线绘制的位置
             final int top = child.getBottom() + params.bottomMargin;
             final int bottom = top + mDivider.getIntrinsicHeight();
             mDivider.setBounds(left, top, right, bottom);

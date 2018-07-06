@@ -26,7 +26,7 @@ public class DivisionUseActivity extends AppCompatActivity {
 
     private static final String TAG = "DivisionUseActivity";
     private RecyclerView mRecyclerView;
-    private List<String> mDatas;
+    private List<String> mDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +50,15 @@ public class DivisionUseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.id_action_gridview:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(DivisionUseActivity.this, 3, RecyclerView.VERTICAL, false));
-//                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-                mRecyclerView.removeItemDecorationAt(0);
+                mRecyclerView.removeItemDecoration(mRecyclerView.getItemDecorationAt(0));
 //                mRecyclerView.addItemDecoration(new GridItemDecoration(DivisionUseActivity.this));
-                mRecyclerView.addItemDecoration(new GridItemDecoration(DivisionUseActivity.this));
-
+                GridItemDecoration decor = new GridItemDecoration(DivisionUseActivity.this);
+                mRecyclerView.addItemDecoration(decor);
                 break;
+
             case R.id.id_action_listview:
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-                mRecyclerView.removeItemDecorationAt(0);
+                mRecyclerView.removeItemDecoration(mRecyclerView.getItemDecorationAt(0));
                 DividerItemDecoration decoration = new DividerItemDecoration(DivisionUseActivity.this);
                 decoration.setDrawable(getResources().getDrawable(R.drawable.rv_division_image));
                 mRecyclerView.addItemDecoration(decoration);
@@ -71,9 +71,9 @@ public class DivisionUseActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        mDatas = new ArrayList<>();
+        mDataList = new ArrayList<>();
         for (int i = 1; i <= 26; i++) {
-            mDatas.add("" + i);
+            mDataList.add("" + i);
         }
     }
 
@@ -82,22 +82,21 @@ public class DivisionUseActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(DivisionUseActivity.this, LinearLayoutManager.VERTICAL, false));
 
-        mRecyclerView.setAdapter(new RecyclerAdapter(this, mDatas));
+        mRecyclerView.setAdapter(new RecyclerAdapter(this, mDataList));
 
         DividerItemDecoration decoration = new DividerItemDecoration(DivisionUseActivity.this);
         decoration.setDrawable(getResources().getDrawable(R.drawable.rv_division_image));
         mRecyclerView.addItemDecoration(decoration);
-
     }
 
-    public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
+    public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
         private List<String> mDataList;
         private LayoutInflater mInflater;
 
-        public RecyclerAdapter(Context context, List<String> datas) {
+        public RecyclerAdapter(Context context, List<String> list) {
             mInflater = LayoutInflater.from(context);
-            mDataList = datas;
+            mDataList = list;
         }
 
         @Override
@@ -116,14 +115,14 @@ public class DivisionUseActivity extends AppCompatActivity {
             return mDataList.size();
         }
 
-        public class RecyclerViewHolder extends RecyclerView.ViewHolder {
-            public TextView textView;
-
-            public RecyclerViewHolder(View itemView) {
-                super(itemView);
-                textView = itemView.findViewById(R.id.tv_recycler_view);
-            }
-        }
     }
 
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        public TextView textView;
+
+        public RecyclerViewHolder(View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.tv_recycler_view);
+        }
+    }
 }

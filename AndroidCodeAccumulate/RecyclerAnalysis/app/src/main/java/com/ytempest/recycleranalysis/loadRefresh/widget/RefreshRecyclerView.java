@@ -2,11 +2,8 @@ package com.ytempest.recycleranalysis.loadRefresh.widget;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -18,6 +15,7 @@ import com.ytempest.recycleranalysis.headerAndFooter.WrapRecyclerView;
  */
 public class RefreshRecyclerView extends WrapRecyclerView {
 
+    private static final String TAG = "RefreshRecyclerView";
     /**
      * 默认状态
      */
@@ -25,11 +23,11 @@ public class RefreshRecyclerView extends WrapRecyclerView {
     /**
      * 正在向下拉的状态
      */
-    public static int REFRESH_STATUS_ON_PULL = 0x0022;
+    public static int REFRESH_STATUS_PULLING = 0x0022;
     /**
      * 松开拖拽的状态
      */
-    public static int REFRESH_STATUS_LOOSE_PULL = 0x0033;
+    public static int REFRESH_STATUS_PULL_SUCCESS = 0x0033;
     /**
      * 正在刷新的状态
      */
@@ -65,7 +63,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
      */
     private boolean mCurrentDrag = false;
     /**
-     * 隐藏上拉刷新的topMargin
+     * 隐藏上拉刷新的topMargin，数值一般为上拉刷新View的高度的负数
      */
     private int mHideTopMargin;
     /**
@@ -112,6 +110,11 @@ public class RefreshRecyclerView extends WrapRecyclerView {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                // 如果正在刷新就return
+                if (mCurrentRefreshStatus == REFRESH_STATUS_REFRESHING) {
+                    return false;
+                }
+
                 // 记录手指按下的位置，之所以写在dispatchTouchEvent那是因为如果我们处理了条目点击事件，
                 // 那么就不会进入onTouchEvent里面，所以只能在这里获取
                 mFingerDown = ev.getRawY();
@@ -121,6 +124,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
             case MotionEvent.ACTION_UP:
                 // 如果有向下拉出刷新View
                 if (mCurrentDrag) {
+                    // 修复上拉刷新View过度拉伸，然后上拉刷新View恢复正确的高度
                     restoreRefreshView();
                 }
                 break;
@@ -138,7 +142,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
         final int currentTopMargin = ((MarginLayoutParams) mRefreshView.getLayoutParams()).topMargin;
         int finalTopMargin = mHideTopMargin;
         // 如果是松开刷新状态就将最终的topMargin设置为0，让View显示在RecyclerView顶部
-        if (mCurrentRefreshStatus == REFRESH_STATUS_LOOSE_PULL) {
+        if (mCurrentRefreshStatus == REFRESH_STATUS_PULL_SUCCESS) {
             finalTopMargin = 0;
             mCurrentRefreshStatus = REFRESH_STATUS_REFRESHING;
             if (mRefreshViewCreator != null) {
@@ -172,15 +176,21 @@ public class RefreshRecyclerView extends WrapRecyclerView {
         switch (e.getAction()) {
             case MotionEvent.ACTION_MOVE:
                 // 如果是在最顶部才处理，否则不需要处理
-                if (canScrollUp() || mRefreshView == null || mRefreshViewCreator == null ||
-                        mCurrentRefreshStatus == REFRESH_STATUS_REFRESHING) {
+                if (canScrollUp() || mRefreshView == null || mRefreshViewCreator == null) {
                     return super.onTouchEvent(e);
+                }
+
+                // 如果正在刷新也不处理
+                if (mCurrentRefreshStatus == REFRESH_STATUS_REFRESHING) {
+                    return false;
                 }
 
                 // 解决下拉刷新自动滚动问题
                 if (mCurrentDrag) {
                     scrollToPosition(0);
                 }
+
+                // 走到这里表示上拉刷新的View正在被拉出来
 
                 // 获取手指触摸拖拽的距离，如果向下拖拽distanceY是正数，向上则是负数
                 int distanceY = (int) ((e.getRawY() - mFingerDown) * mDragIndex);
@@ -210,12 +220,9 @@ public class RefreshRecyclerView extends WrapRecyclerView {
     /**
      * 判断是不是滚动到了最顶部，这个是从SwipeRefreshLayout里面copy过来的源代码
      */
+
     private boolean canScrollUp() {
-        if (Build.VERSION.SDK_INT < 14) {
-            return ViewCompat.canScrollVertically(this, -1) || this.getScaleY() > 0;
-        } else {
-            return ViewCompat.canScrollVertically(this, -1);
-        }
+        return canScrollVertically(-1);
     }
 
     /**
@@ -223,11 +230,14 @@ public class RefreshRecyclerView extends WrapRecyclerView {
      */
     private void updateRefreshStatus(int distanceY) {
         if (distanceY <= 0) {
+            // 也是说上拉View被拉出来后用户又将其往上完全推回去了
             mCurrentRefreshStatus = REFRESH_STATUS_NORMAL;
         } else if (distanceY < mRefreshViewHeight) {
-            mCurrentRefreshStatus = REFRESH_STATUS_ON_PULL;
+            // 上拉View被拉出来但是没有完全拉出来
+            mCurrentRefreshStatus = REFRESH_STATUS_PULLING;
         } else {
-            mCurrentRefreshStatus = REFRESH_STATUS_LOOSE_PULL;
+            // 完全拉出来了
+            mCurrentRefreshStatus = REFRESH_STATUS_PULL_SUCCESS;
         }
     }
 

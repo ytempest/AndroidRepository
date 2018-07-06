@@ -1,6 +1,5 @@
 package com.ytempest.recycleranalysis.commonRecyclerUse.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
@@ -64,13 +63,13 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
      *
      * @param loader 图片加载器，规范了加载图片的方式
      */
-    public CommonViewHolder setImageByUrl(int viewId, CommonViewHolder.CommonImageLoader loader) {
+    public CommonViewHolder setImageByUrl(int viewId, ImageLoader loader) {
         if (loader == null) {
-            throw new NullPointerException("CommonImageLoader is null!");
+            throw new NullPointerException("ImageLoader can't be null!");
         }
         ImageView imageView = getView(viewId);
         // 显示图片
-        loader.displayImage(imageView.getContext(), imageView, loader.getImageUrl());
+        loader.displayImage(imageView.getContext(), imageView);
         return this;
     }
 
@@ -94,22 +93,4 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
     public void setOnItemLongClickListener(View.OnLongClickListener listener) {
         itemView.setOnLongClickListener(listener);
     }
-
-    /**
-     * Description：图片加载器，通过实现 displayImage方法自定义图片加载的方式
-     */
-    public abstract static class CommonImageLoader {
-        private String mImagePath;
-
-        public CommonImageLoader(String imagePath) {
-            this.mImagePath = imagePath;
-        }
-
-        public String getImageUrl() {
-            return mImagePath;
-        }
-
-        public abstract void displayImage(Context context, ImageView imageView, String imagePath);
-    }
-
 }

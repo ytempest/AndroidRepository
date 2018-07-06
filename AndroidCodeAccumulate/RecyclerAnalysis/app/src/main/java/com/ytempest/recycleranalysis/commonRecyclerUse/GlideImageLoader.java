@@ -1,26 +1,37 @@
 package com.ytempest.recycleranalysis.commonRecyclerUse;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.CommonViewHolder;
-
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.request.RequestOptions;
+import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.ImageLoader;
 
 
 /**
  * @author ytempest
  *         Description：
  */
+public class GlideImageLoader extends ImageLoader {
 
-public  class GlideImageLoader extends CommonViewHolder.CommonImageLoader {
-
-    public GlideImageLoader(String imagePath) {
-        super(imagePath);
+    public GlideImageLoader(String imageUrl) {
+        super(imageUrl);
     }
 
     @Override
-    public void displayImage(Context context, ImageView imageView, String imagePath) {
-        Glide.with(context).load(imagePath).into(imageView);
+    public void displayImage(Context context, ImageView imageView) {
+        RequestBuilder<Drawable> load = Glide.with(context).load(imageUrl);
+
+        if (loaderOption != null) {
+            RequestOptions requestOptions = new RequestOptions().
+                    placeholder(loaderOption.placeHolder)
+                    .error(loaderOption.error);
+            load.apply(requestOptions);
+        }
+
+        load.into(imageView);
+
     }
 }

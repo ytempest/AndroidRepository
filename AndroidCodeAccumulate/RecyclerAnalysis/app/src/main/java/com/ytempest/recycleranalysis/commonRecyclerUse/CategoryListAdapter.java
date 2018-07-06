@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.ytempest.recycleranalysis.R;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.CommonRecyclerAdapter;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.CommonViewHolder;
+import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.LoaderOption;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.MultiTypeSupport;
 
 import java.util.List;
@@ -30,14 +31,14 @@ public class CategoryListAdapter extends CommonRecyclerAdapter<ChannelData> {
 
     @Override
     protected void bindViewData(final CommonViewHolder holder, ChannelData item) {
-
         switch (holder.getItemViewType()) {
-            case R.layout.channel_list_item_left :
+            case R.layout.channel_list_item_left:
             case R.layout.channel_list_item_right:
                 // 绑定数据
                 String str = item.getSubscribeCount() + " 订阅 | " +
                         "总帖数 <font color='#FF678D'>" + item.getTotalUpdates() + "</font>";
-                holder.setImageByUrl(R.id.iv_channel_icon, new GlideImageLoader("http://s0.pstatp.com/site/image/joke_zone/commenticon_discover@2x.png"))
+                String imageUrl = "http://s0.pstatp.com/site/image/joke_zone/commenticon_discover@2x.png";
+                holder.setImageByUrl(R.id.iv_channel_icon, new GlideImageLoader(imageUrl))
                         .setText(R.id.tv_channel_text, item.getIntro() + "")
                         .setText(R.id.tv_channel_topic, item.getName() + "")
                         .setText(R.id.tv_channel_update_info, Html.fromHtml(str));
@@ -51,8 +52,11 @@ public class CategoryListAdapter extends CommonRecyclerAdapter<ChannelData> {
                 break;
 
             case R.layout.channel_list_item_test:
+                String imageUrl2 = "http://s0.pstatp.com/site/image/joke_zone/commenticon_discover@2x.png";
+                GlideImageLoader loader = new GlideImageLoader(imageUrl2);
+                loader.setLoaderOption(new LoaderOption().placeHolder(R.drawable.channel_default_icon));
                 holder.setText(R.id.tv_test_item_text, "测试成功")
-                        .setImageByUrl(R.id.iv_test_item_image, new GlideImageLoader("http://s0.pstatp.com/site/image/joke_zone/commenticon_discover@2x.png"));
+                        .setImageByUrl(R.id.iv_test_item_image, loader);
 
                 holder.setOnViewClickListener(R.id.iv_test_item_image, new View.OnClickListener() {
                     @Override

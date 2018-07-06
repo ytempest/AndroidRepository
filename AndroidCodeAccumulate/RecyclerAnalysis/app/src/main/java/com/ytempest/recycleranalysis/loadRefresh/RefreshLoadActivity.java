@@ -8,7 +8,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.Toast;
 
 import com.ytempest.recycleranalysis.R;
 import com.ytempest.recycleranalysis.commonRecyclerUse.adapter.CommonRecyclerAdapter;
@@ -81,7 +82,7 @@ public class RefreshLoadActivity extends AppCompatActivity implements RefreshRec
 
     protected void initData() {
         for (int i = 'A'; i < 'O'; i++) {
-            mDataList.add("" + (char) i);
+            mDataList.add("" + i);
         }
     }
 
@@ -136,8 +137,15 @@ public class RefreshLoadActivity extends AppCompatActivity implements RefreshRec
 
 
         @Override
-        protected void bindViewData(CommonViewHolder holder, String item) {
+        protected void bindViewData(CommonViewHolder holder, final String item) {
             holder.setText(R.id.tv_num, item);
+            holder.setOnItemClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(RefreshLoadActivity.this, "No." + item, Toast.LENGTH_SHORT).show();
+
+                }
+            });
         }
     }
 }
