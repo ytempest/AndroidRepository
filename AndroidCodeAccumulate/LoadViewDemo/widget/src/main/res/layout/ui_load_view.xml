@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/load_view_bg"
+    android:padding="6dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.ytempest.widget.ShapeView
+        android:layout_margin="6dp"
+        android:id="@+id/iv_shape_view"
+        android:layout_width="25dp"
+        android:layout_height="25dp" />
+
+    <View
+        android:id="@+id/iv_shadow_view"
+        android:layout_width="25dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/shape_load_view_shadow" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="拼命加载中..."
+        android:textColor="@color/text_desc"
+        android:textSize="16sp" />
+
+</LinearLayout>

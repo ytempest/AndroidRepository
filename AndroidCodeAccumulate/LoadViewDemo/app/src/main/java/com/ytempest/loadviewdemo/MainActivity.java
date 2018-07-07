@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         mLoadView = findViewById(R.id.load_view);
         // 加载动画运行10秒后自动关闭
-        mHandler.sendEmptyMessageDelayed(1, 10000);
+//        mHandler.sendEmptyMessageDelayed(1, 10000);
 
     }
 }

@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@android:color/holo_green_light"
     android:orientation="vertical"
     tools:context="com.ytempest.loadviewdemo.MainActivity">
 
-    <com.ytempest.loadviewdemo.ui.LoadView
+    <com.ytempest.widget.LoadView
         android:id="@+id/load_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
