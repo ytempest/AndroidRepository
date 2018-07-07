@@ -1,5 +1,6 @@
 package com.ytempest.payment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -10,9 +11,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+
+import com.ytempest.payment.callback.OnInputFinishListener;
 
 /**
  * @author ytempest
@@ -63,7 +68,7 @@ public class PasswordEditText extends EditText {
     /**
      * 密码输入完成的监听器
      */
-    private PayView.OnInputFinishListener mOnInputFinishListener;
+    private OnInputFinishListener mOnInputFinishListener;
     private Paint mPaint;
     private Context mContext;
 
@@ -131,21 +136,53 @@ public class PasswordEditText extends EditText {
         attributes.recycle();
     }
 
-    private float dpToPx(float dp) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dp, mContext.getResources().getDisplayMetrics());
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
+        if (widthSpecMode == MeasureSpec.AT_MOST && heightSpecMode == MeasureSpec.AT_MOST) {
+            setDefaultDimension(-1, -1);
+        } else if (widthSpecMode == MeasureSpec.AT_MOST) {
+            setDefaultDimension(-1, MeasureSpec.getSize(heightMeasureSpec));
+        } else if (heightSpecMode == MeasureSpec.AT_MOST) {
+            setDefaultDimension(MeasureSpec.getSize(widthMeasureSpec), -1);
+        }
+    }
+
+    private void setDefaultDimension(int width, int height) {
+        WindowManager manager = ((Activity) mContext).getWindowManager();
+        DisplayMetrics metrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(metrics);
+        int defaultWidth = (int) (metrics.widthPixels * 0.8);
+        int defaultHeight = (int) (metrics.heightPixels * 0.09);
+        if (width < 0) {
+            width = defaultWidth;
+        }
+        if (height < 0) {
+            height = defaultHeight;
+        }
+        setMeasuredDimension(width, height);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (mPasswordItemWidth == 0) {
+            // 输入框一个条目的长度
+            mPasswordItemWidth = (getWidth() - 2 * mFrameSize - (mPasswordCount - 1) * mDivisionSize) / mPasswordCount;
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-        mPasswordItemWidth = (getWidth() - 2 * mFrameSize - (mPasswordCount - 1) * mDivisionSize) / mPasswordCount;
-
+        // 绘制密码框
         drawFrame(canvas);
-
+        // 绘制分割线
         drawDivision(canvas);
-
-        drawPassword(canvas);
+        // 绘制密码的圆点
+        drawPasswordPoint(canvas);
 
         if (mOnInputFinishListener != null) {
             String currentPassword = getText().toString().trim();
@@ -155,7 +192,7 @@ public class PasswordEditText extends EditText {
         }
     }
 
-    private void drawPassword(Canvas canvas) {
+    private void drawPasswordPoint(Canvas canvas) {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(mPointColor);
         String password = getText().toString().trim();
@@ -183,6 +220,7 @@ public class PasswordEditText extends EditText {
         float endY = getHeight() - mFrameSize;
         for (int i = 0; i < mPasswordCount - 1; i++) {
             startX = mFrameSize + (i + 1) * mPasswordItemWidth + i * mDivisionSize;
+            // x轴不需要留位置，因为画笔的大小就是分界线的大小
             endX = startX;
             canvas.drawLine(startX, startY, endX, endY, mPaint);
         }
@@ -192,8 +230,9 @@ public class PasswordEditText extends EditText {
      * 绘制密码框
      */
     private void drawFrame(Canvas canvas) {
+        // 创建输入框的四个位置，因为画笔绘制框的时候是绘制在RectF外围的，所以这里要将输入框的边框算进去
         RectF rectF = new RectF(mFrameSize, mFrameSize, getWidth() - mFrameSize, getHeight() - mFrameSize);
-        // 画空心
+        // 画空心，将会绕着RectF的外围画一圈
         mPaint.setStyle(Paint.Style.STROKE);
         // 给画笔设置大小
         mPaint.setStrokeWidth(mFrameSize);
@@ -233,8 +272,13 @@ public class PasswordEditText extends EditText {
         setText(newPassword);
     }
 
+    private float dpToPx(float dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dp, mContext.getResources().getDisplayMetrics());
+    }
 
-    public void setOnInputFinishListener(PayView.OnInputFinishListener listener) {
+
+    public void setOnInputFinishListener(OnInputFinishListener listener) {
         this.mOnInputFinishListener = listener;
     }
 

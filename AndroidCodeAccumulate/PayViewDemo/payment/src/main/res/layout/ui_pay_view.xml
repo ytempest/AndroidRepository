@@ -38,7 +38,7 @@
         android:layout_height="50dp"
         android:layout_margin="6dp" />
 
-    <com.ytempest.payment.PasswordKeyBoard
+    <com.ytempest.payment.KeyBoard
         android:id="@+id/pay_view_keyboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

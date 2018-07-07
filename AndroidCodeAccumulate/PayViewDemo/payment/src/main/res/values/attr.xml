@@ -4,20 +4,20 @@
     <!-- 自定义密码输入框的属性 -->
     <declare-styleable name="PasswordEditText">
         <!-- 密码框的边框大小 -->
-        <attr name="frameSize" format="dimension|reference" />
+        <attr name="frameSize" format="dimension" />
         <!-- 密码框的边框颜色 -->
-        <attr name="frameColor" format="dimension|reference" />
+        <attr name="frameColor" format="dimension" />
         <!-- 密码框的圆角的弧度 -->
-        <attr name="frameCorner" format="dimension|reference" />
+        <attr name="frameCorner" format="dimension" />
         <!-- 密码框分割线的大小 -->
-        <attr name="divisionSize" format="dimension|reference" />
+        <attr name="divisionSize" format="dimension" />
         <!-- 密码框分割线的颜色 -->
-        <attr name="divisionColor" format="dimension|reference" />
+        <attr name="divisionColor" format="dimension" />
         <!-- 密码圆点的半径 -->
-        <attr name="pointRadius" format="dimension|reference" />
+        <attr name="pointRadius" format="dimension" />
         <!-- 密码圆点的颜色 -->
-        <attr name="pointColor" format="color|reference" />
+        <attr name="pointColor" format="color" />
         <!-- 密码的位数 -->
-        <attr name="passwordCount" format="integer|reference" />
+        <attr name="passwordCount" format="integer" />
     </declare-styleable>
 </resources>

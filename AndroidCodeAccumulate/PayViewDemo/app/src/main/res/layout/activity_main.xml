@@ -11,6 +11,7 @@
 
     <com.ytempest.payment.PayView
         android:id="@+id/pay_view"
+        android:background="@android:color/holo_blue_dark"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ytempest.payment.PayView;
+import com.ytempest.payment.callback.OnInputFinishListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         mPayView = findViewById(R.id.pay_view);
 
-        mPayView.setOnInputFinishListener(new PayView.OnInputFinishListener() {
+        mPayView.setOnInputFinishListener(new OnInputFinishListener() {
             @Override
             public void onFinish(String password) {
                 Toast.makeText(MainActivity.this, "password:" + password, Toast.LENGTH_SHORT).show();
@@ -32,7 +33,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 }

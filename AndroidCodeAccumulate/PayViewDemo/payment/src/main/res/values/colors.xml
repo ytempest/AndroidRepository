@@ -2,8 +2,8 @@
 <resources>
 
     <!-- PayView的颜色集 -->
-    <color name="password_keyboard_bg">#E2E7ED</color>
-    <color name="password_keyboard_number_color">#353535</color>
+    <color name="keyboard_bg">#E2E7ED</color>
+    <color name="keyboard_number_color">#353535</color>
     <color name="selector_keyboard_number_normal_bg">#FFFFFF</color>
     <color name="selector_keyboard_number_pressed_bg">#E0E0E0</color>
 

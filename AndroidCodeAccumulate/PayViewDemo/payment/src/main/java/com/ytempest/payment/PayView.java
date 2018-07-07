@@ -6,6 +6,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.ytempest.payment.callback.OnInputFinishListener;
+import com.ytempest.payment.callback.OnKeyboardClickListener;
+
 
 /**
  * @author ytempest
@@ -14,8 +17,6 @@ import android.widget.LinearLayout;
 public class PayView extends LinearLayout {
 
     private PasswordEditText mPasswordEditText;
-
-    private PasswordKeyBoard mPasswordKeyBoard;
 
     private View mCloseView;
 
@@ -33,10 +34,10 @@ public class PayView extends LinearLayout {
         inflate(context, R.layout.ui_pay_view, this);
 
         mPasswordEditText = findViewById(R.id.pay_view_input);
-        mPasswordKeyBoard = findViewById(R.id.pay_view_keyboard);
         mCloseView = findViewById(R.id.pay_view_close);
+        KeyBoard keyBoard = findViewById(R.id.pay_view_keyboard);
 
-        mPasswordKeyBoard.setOnKeyboardClickListener(new OnKeyboardClickListener() {
+        keyBoard.setOnKeyboardClickListener(new OnKeyboardClickListener() {
             @Override
             public void onNumberClick(String number) {
                 mPasswordEditText.inputPassword(number);
@@ -55,34 +56,10 @@ public class PayView extends LinearLayout {
         mPasswordEditText.setOnInputFinishListener(listener);
     }
 
-    public void setOnClosePayViewListener(OnClickListener listener) {
+    public void setOnClosePayViewListener(OnClosePayViewListener listener) {
         mCloseView.setOnClickListener(listener);
     }
 
-
-    public interface OnInputFinishListener {
-        /**
-         * 当密码输入完成后会调用该方法
-         *
-         * @param password 输入的密码
-         */
-        void onFinish(String password);
-    }
-
-
-    public interface OnKeyboardClickListener {
-        /**
-         * 当点击了键盘上的某一个数字时会调用该方法
-         *
-         * @param number 当前点击的数字
-         */
-        void onNumberClick(String number);
-
-        /**
-         * 当点击了删除按钮的时候会调用该方法
-         */
-        void onDelete();
-    }
 
     /**
      * 点击PayView的关闭按钮会回调该接口
