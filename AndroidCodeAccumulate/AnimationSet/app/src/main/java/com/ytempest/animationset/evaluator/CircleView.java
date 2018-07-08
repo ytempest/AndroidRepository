@@ -15,9 +15,13 @@ import android.view.View;
  */
 public class CircleView extends View {
 
-    /** 圆的半径 = 50 */
+    /**
+     * 圆的半径 = 50
+     */
     public static final float RADIUS = 50f;
-    /** 当前点坐标 */
+    /**
+     * 当前点坐标
+     */
     public Point currentPoint;
 
     private Paint mPaint;
@@ -25,9 +29,11 @@ public class CircleView extends View {
     public CircleView(Context context) {
         this(context, null);
     }
+
     public CircleView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -46,9 +52,7 @@ public class CircleView extends View {
             // 记录当前点(坐标是(50,50))
             currentPoint = new Point(RADIUS, RADIUS);
             // 在当前点画一个圆:圆心 = (50,50),半径 = 50
-            float x = RADIUS;
-            float y = RADIUS;
-            canvas.drawCircle(x, y, RADIUS, mPaint);
+            canvas.drawCircle(RADIUS, RADIUS, RADIUS, mPaint);
         } else {
             // 在当前的点（这个点会在动画进行过程中变化）重新绘制圆
             float x = currentPoint.getX();
@@ -60,6 +64,7 @@ public class CircleView extends View {
 
     /**
      * 执行传入的属性动画
+     *
      * @param valueAnimator 要执行的属性动画
      */
     public void startValueAnimation(ValueAnimator valueAnimator) {
@@ -86,6 +91,7 @@ public class CircleView extends View {
     /**
      * 使用ObjectAnimator.ofObject() 方法没有传入起始值只传入结束值，那么
      * 在动画开始执行前会调用一次
+     *
      * @return 当面 View 的位置
      */
     public Point getCurrentPoint() {
@@ -95,6 +101,7 @@ public class CircleView extends View {
     /**
      * 该方法在 ObjectAnimation 执行过程中不断被调用，参数 currentPoint 其实
      * 就是 PointEvaluator 估值器的 evaluate() 方法返回值
+     *
      * @param currentPoint 要设置的 View 的位置
      */
     public void setCurrentPoint(Point currentPoint) {

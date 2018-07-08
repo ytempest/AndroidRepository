@@ -57,8 +57,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, TweenActivity.class));
-                //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                overridePendingTransition(R.anim.slide_start_in, R.anim.slide_start_out);
+                // 第一个参数是下一个Activity进入屏幕的动画
+                // 第二个参数是当前Activity离开屏幕的动画
+//                overridePendingTransition( android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(R.anim.start_slide_in, R.anim.start_slide_out);
             }
         });
 

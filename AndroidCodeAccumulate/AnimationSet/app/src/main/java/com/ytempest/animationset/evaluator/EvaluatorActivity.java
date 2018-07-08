@@ -1,14 +1,9 @@
 package com.ytempest.animationset.evaluator;
 
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.widget.Button;
 
 import com.ytempest.animationset.R;
@@ -32,7 +27,7 @@ public class EvaluatorActivity extends AppCompatActivity {
                 Point curPoint = new Point(mCircleView.currentPoint.getX(), mCircleView.currentPoint.getY());
                 Point nextPoint = new Point(800, 1250);
                 int curColor = mCircleView.getChangeColor();
-                int nextColor = 0xff23ff9f;
+                int nextColor = 0x23ff9f;
 
 //                ValueAnimator anim = ValueAnimator.ofObject(new PointEvaluator(), curPoint, nextPoint);
 //                anim.setDuration(1000);

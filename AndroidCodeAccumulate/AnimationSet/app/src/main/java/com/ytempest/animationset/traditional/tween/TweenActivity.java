@@ -157,7 +157,7 @@ public class TweenActivity extends AppCompatActivity {
                 alphaStart.setDuration(2000);
                 ScaleAnimation scale = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, mImageView.getWidth() / 2, mImageView.getHeight() / 2);
                 scale.setDuration(2000);
-                RotateAnimation rotate = new RotateAnimation(0.0f, 3*360f, mImageView.getWidth() / 2, mImageView.getHeight() / 2);
+                RotateAnimation rotate = new RotateAnimation(0.0f, 3 * 360f, mImageView.getWidth() / 2, mImageView.getHeight() / 2);
                 rotate.setDuration(2000);
                 TranslateAnimation translate = new TranslateAnimation(0.0f, 200f, 0.0f, 0.0f);
                 translate.setStartOffset(2000);
@@ -177,13 +177,13 @@ public class TweenActivity extends AppCompatActivity {
     }
 
     @Override
-    public void finish(){
+    public void finish() {
         super.finish();
 //        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-        overridePendingTransition(R.anim.slide_exit_in,R.anim.slide_exit_out);
+        // 第一个参数是下一个Activity进入屏幕的动画
+        // 第二个参数是当前Activity离开屏幕的动画
+        overridePendingTransition(R.anim.finish_slide_in, R.anim.finish_slide_out);
         // 采用overridePendingTransition(int enterAnim, int exitAnim)进行设置
-        // enterAnim：从Activity a跳转到Activity b，进入b时的动画效果资源ID
-        // exitAnim：从Activity a跳转到Activity b，离开a时的动画效果资源Id
         // 特别注意
         // overridePendingTransition()必须要在finish()后被调用才能生效
     }
