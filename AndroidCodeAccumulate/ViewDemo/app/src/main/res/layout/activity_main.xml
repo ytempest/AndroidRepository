@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#bababa"
+    android:orientation="vertical"
+    tools:context="com.ytempest.viewdemo.MainActivity">
+
+    <com.ytempest.viewdemo.view.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#56bfba">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#9de16f"
+            android:text="1111111"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#9de16f"
+            android:text="22"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#9de16f"
+            android:text="33333333333333333"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#9de16f"
+            android:text="444444444444"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#9de16f"
+            android:text="5555"
+            android:textSize="25sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#9de16f"
+            android:text="6666"
+            android:textSize="25sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#9de16f"
+            android:text="77777777777"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:background="#9de16f"
+            android:paddingBottom="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="50dp"
+            android:paddingTop="30dp"
+            android:text="8888"
+            android:textSize="25sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#9de16f"
+            android:text="99999999999999999999999999.99999"
+            android:textSize="25sp" />
+
+
+    </com.ytempest.viewdemo.view.TabLayout>
+
+
+    <TextView
+        android:layout_width="1200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="#9de16f"
+        android:text="999999999999999999999999999999"
+        android:textSize="25sp" />
+
+</LinearLayout>
