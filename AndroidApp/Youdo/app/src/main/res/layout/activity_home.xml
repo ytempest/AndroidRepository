@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BBBBBA"
+    android:orientation="vertical"
+    tools:context="com.ytempest.youdo.activity.HomeActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fff" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_tab_home"
+            android:gravity="center"
+            android:text="首页"
+            android:textColor="#393939" />
+
+        <RadioButton
+            android:id="@+id/rb_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_tab_message"
+            android:gravity="center|bottom"
+            android:text="消息"
+            android:textColor="#393939" />
+
+
+        <RadioButton
+            android:id="@+id/rb_person"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_tab_pserson"
+            android:gravity="center|bottom"
+            android:text="个人"
+            android:textColor="#393939" />
+    </RadioGroup>
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ytempest.youdo.activity.HomeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#FFCD48"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/bar_code_scan_icon" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_round_edittext"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="请输入宝贝关键字"
+            android:padding="6dp"
+            android:textColor="#353535"
+            android:textColorHint="#cacaca"
+            android:textCursorDrawable="@drawable/shape_edittext_cursor"
+            android:textSize="15dp" />
+
+        <ImageButton
+            android:layout_width="40dp"
+
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/category" />
+    </LinearLayout>
+</LinearLayout>

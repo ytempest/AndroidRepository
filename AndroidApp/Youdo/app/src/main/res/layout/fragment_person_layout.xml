@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7FA"
+    android:orientation="vertical"
+    tools:context="com.ytempest.youdo.activity.HomeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FCFCFB"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/default_user_avatar" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:padding="6dp"
+            android:text="您还没登录呢"
+            android:textColor="#4e4e4e"
+            android:textSize="17sp" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@drawable/selector_login_bt"
+            android:padding="6dp"
+            android:text="马上登录"
+            android:textColor="#515151" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#C9C9C8" />
+
+    <TextView
+        style="@style/person_list_text"
+        android:text="视频播放设置" />
+
+    <View style="@style/message_list_divider" />
+
+    <TextView
+        style="@style/person_list_text"
+        android:text="分享imooc给朋友" />
+
+    <View style="@style/message_list_divider" />
+
+    <TextView
+        style="@style/person_list_text"
+        android:text="我的二维码" />
+
+    <View style="@style/message_list_divider" />
+
+    <TextView
+        style="@style/person_list_text"
+        android:text="版本更新" />
+
+    <View style="@style/message_list_divider" />
+</LinearLayout>
