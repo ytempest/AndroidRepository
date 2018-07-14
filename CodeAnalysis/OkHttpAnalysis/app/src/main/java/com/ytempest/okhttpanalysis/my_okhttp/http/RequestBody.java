@@ -29,8 +29,11 @@ public class RequestBody {
 
     private Map<String, Object> params;
 
+    // 表单提交的规范
     private static final String boundary = createBoundary();
+    // 表单提交的每一个键值对的头部规范
     private static final String startBoundary = "--" + boundary;
+    // 表单提交的结束规范
     private static final String endBoundary = startBoundary + "--";
 
     private static String createBoundary() {
@@ -145,9 +148,8 @@ public class RequestBody {
                 String postTextStr = getText(key, (String) value);
                 sb.append(postTextStr);
                 outputStream.write(postTextStr.getBytes());
-            }
 
-            if (value instanceof Binary) {
+            } else if (value instanceof Binary) {
                 Binary binary = (Binary) value;
                 String postTextStr = getGeneralText(key, binary);
                 sb.append(postTextStr);
