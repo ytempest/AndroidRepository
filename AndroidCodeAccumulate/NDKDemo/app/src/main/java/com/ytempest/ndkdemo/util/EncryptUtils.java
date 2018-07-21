@@ -7,7 +7,7 @@ package com.ytempest.ndkdemo.util;
 public class EncryptUtils {
 
     static{
-        System.loadLibrary("ndk_file_crypt");
+        System.loadLibrary("file_crypt");
     }
 
     public static native void encrypt(String filePath, String encryptPath);

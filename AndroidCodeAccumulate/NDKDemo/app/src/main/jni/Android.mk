@@ -1,8 +1,13 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE    := file_crypt
+LOCAL_SRC_FILES := file_crypt.c
+include $(BUILD_SHARED_LIBRARY)
 
-LOCAL_MODULE    := ndk_file_crypt
-LOCAL_SRC_FILES := ndk_file_crypt.c
 
+include $(CLEAR_VARS)
+LOCAL_MODULE    := file_diff
+LOCAL_SRC_FILES := file_diff.c
+LOCAL_LDLIBS := -llog
 include $(BUILD_SHARED_LIBRARY)
