@@ -10,7 +10,9 @@
 long get_file_size(const char *file_path) {
     FILE *file_fp = fopen(file_path, "rb");
     fseek(file_fp, 0, SEEK_END);
-    return ftell(file_fp);
+    long size = ftell(file_fp);
+    fclose(file_fp);
+    return size;
 }
 
 void diff(const char *file_path, const char *file_pattern, int file_count) {
@@ -102,7 +104,7 @@ void merge(const char *merge_path, const char *patches_pattern, int file_count) 
         cur_patch = fopen(patches[i], "rb");
 
         // 判断是否存在这个文件
-        if (cur_patch == NULL){
+        if (cur_patch == NULL) {
             continue;
         }
 
