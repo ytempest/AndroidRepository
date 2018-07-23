@@ -106,5 +106,5 @@ public class PatchUtils {
      * @param newApkPath 新的apk路径
      * @param patchPath  差分包路径，从服务器上下载下来
      */
-    public static native void combine(String oldApkPath, String newApkPath, String patchPath);
+    public static native void patch(String oldApkPath, String newApkPath, String patchPath);
 }

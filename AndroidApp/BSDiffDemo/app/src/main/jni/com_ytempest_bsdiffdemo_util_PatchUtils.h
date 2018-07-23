@@ -9,10 +9,10 @@ extern "C" {
 #endif
 /*
  * Class:     com_ytempest_bsdiffdemo_util_PatchUtils
- * Method:    combine
+ * Method:    patch
  * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_ytempest_bsdiffdemo_util_PatchUtils_combine
+JNIEXPORT void JNICALL Java_com_ytempest_bsdiffdemo_util_PatchUtils_patch
   (JNIEnv *, jclass, jstring, jstring, jstring);
 
 #ifdef __cplusplus

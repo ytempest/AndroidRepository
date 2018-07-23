@@ -1652,7 +1652,7 @@ void usage ( Char *fullProgName )
       "              as `bzcat', default action is to decompress to stdout.\n"
       "\n"
       "   If no file names are given, bzip2 compresses or decompresses\n"
-      "   from standard input to standard output.  You can combine\n"
+      "   from standard input to standard output.  You can patch\n"
       "   short flags, so `-v -4' means the same as -v4 or -4v, &c.\n"
 #     if BZ_UNIX
       "\n"
