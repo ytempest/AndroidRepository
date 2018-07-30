@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical"
+        android:paddingBottom="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout style="@style/ll_item_style">
+
+                <ImageView
+                    android:id="@+id/btn_normal"
+                    style="@style/AudioImgStyle"
+                    android:onClick="onNormalClick"
+                    android:src="@drawable/record" />
+
+                <TextView
+                    style="@style/AudioTextStyle"
+                    android:text="原声" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/ll_item_style">
+
+                <ImageView
+                    android:id="@+id/btn_luoli"
+                    style="@style/AudioImgStyle"
+                    android:onClick="onLuoLiClick"
+                    android:src="@drawable/luoli" />
+
+                <TextView
+                    style="@style/AudioTextStyle"
+                    android:text="萝莉" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_item_style">
+
+                <ImageView
+                    android:id="@+id/btn_dashu"
+                    style="@style/AudioImgStyle"
+                    android:onClick="onDaShuClick"
+                    android:src="@drawable/dashu" />
+
+                <TextView
+                    style="@style/AudioTextStyle"
+                    android:text="大叔" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout style="@style/ll_item_style">
+
+                <ImageView
+                    android:id="@+id/btn_jingsong"
+                    style="@style/AudioImgStyle"
+                    android:onClick="onJingSongClick"
+                    android:src="@drawable/jingsong" />
+
+                <TextView
+                    style="@style/AudioTextStyle"
+                    android:text="惊悚" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/ll_item_style">
+
+                <ImageView
+                    android:id="@+id/btn_gaoguai"
+                    style="@style/AudioImgStyle"
+                    android:onClick="onGaoGuaiClick"
+                    android:src="@drawable/gaoguai" />
+
+                <TextView
+                    style="@style/AudioTextStyle"
+                    android:text="搞怪" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/ll_item_style">
+
+                <ImageView
+                    android:id="@+id/btn_kongling"
+                    style="@style/AudioImgStyle"
+                    android:onClick="onKongLingClick"
+                    android:src="@drawable/kongling" />
+
+                <TextView
+                    style="@style/AudioTextStyle"
+                    android:text="空灵" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onStartClick"
+                android:paddingTop="10dp"
+                android:text="录音" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
