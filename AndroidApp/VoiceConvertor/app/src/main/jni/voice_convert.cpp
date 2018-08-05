@@ -1,6 +1,6 @@
-#include <unistd.h>
 #include "inc/fmod.hpp"
 #include "com_ytempest_voiceconvertor_util_EffectUtils.h"
+#include <unistd.h>
 
 #include <android/log.h>
 
@@ -13,7 +13,6 @@
 #define MODE_JINGSONG 4     /* 惊悚声 */
 #define MODE_GAOGUAI  5     /* 搞怪声 */
 #define MODE_KONGLING 6     /* 空灵声 */
-
 
 using namespace FMOD;
 
@@ -124,6 +123,7 @@ JNIEXPORT void JNICALL Java_com_ytempest_voiceconvertor_util_EffectUtils_convert
             system->close();
             system->release();
         }
+        return;
         // 这里可以new一个Java的异常进行抛出
     }
 
@@ -133,14 +133,13 @@ JNIEXPORT void JNICALL Java_com_ytempest_voiceconvertor_util_EffectUtils_convert
     // 通过通道判断是否有音频正在播放
     while (isplaying) {
         channel->isPlaying(&isplaying);
-        // 为什么要睡眠一秒
+        // 为什么要睡眠1秒
         // usleep(1000 * 1000);
     }
 
-
     // 释放内存
-    env->ReleaseStringUTFChars(audio_path_str, audio_path_cstr);
     sound->release();
     system->close();
     system->release();
+    env->ReleaseStringUTFChars(audio_path_str, audio_path_cstr);
 }

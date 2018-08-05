@@ -42,28 +42,57 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onNormalClick(View view) {
-        Toast.makeText(this, mAudioPath, Toast.LENGTH_SHORT).show();
-        EffectUtils.convert(mAudioPath, EffectUtils.MODE_NORMAL);
+        new Thread() {
+            @Override
+            public void run() {
+                EffectUtils.convert(mAudioPath, EffectUtils.MODE_NORMAL);
+            }
+        }.start();
     }
 
     public void onLuoLiClick(View view) {
-        EffectUtils.convert(mAudioPath, EffectUtils.MODE_LUOLI);
+        new Thread() {
+            @Override
+            public void run() {
+                EffectUtils.convert(mAudioPath, EffectUtils.MODE_LUOLI);
+            }
+        }.start();
     }
 
     public void onDaShuClick(View view) {
-        EffectUtils.convert(mAudioPath, EffectUtils.MODE_DASHU);
+        new Thread() {
+            @Override
+            public void run() {
+                EffectUtils.convert(mAudioPath, EffectUtils.MODE_DASHU);
+            }
+        }.start();
     }
 
     public void onJingSongClick(View view) {
-        EffectUtils.convert(mAudioPath, EffectUtils.MODE_JINGSONG);
+        new Thread() {
+            @Override
+            public void run() {
+                EffectUtils.convert(mAudioPath, EffectUtils.MODE_JINGSONG);
+            }
+        }.start();
     }
 
     public void onGaoGuaiClick(View view) {
-        EffectUtils.convert(mAudioPath, EffectUtils.MODE_GAOGUAI);
+        new Thread() {
+            @Override
+            public void run() {
+                EffectUtils.convert(mAudioPath, EffectUtils.MODE_GAOGUAI);
+            }
+        }.start();
     }
 
     public void onKongLingClick(View view) {
-        EffectUtils.convert(mAudioPath, EffectUtils.MODE_KONGLING);
+        new Thread() {
+            @Override
+            public void run() {
+                EffectUtils.convert(mAudioPath, EffectUtils.MODE_KONGLING);
+            }
+        }.start();
     }
 
 
