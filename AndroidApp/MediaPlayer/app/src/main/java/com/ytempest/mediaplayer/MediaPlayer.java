@@ -1,11 +1,8 @@
 package com.ytempest.mediaplayer;
 
-import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.Surface;
 
 /**
