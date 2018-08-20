@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.ytempest.ndkdemo.util.DiffUtils;
 import com.ytempest.ndkdemo.util.EncryptUtils;
+import com.ytempest.ndkdemo.util.PosixThread;
+import com.ytempest.ndkdemo.util.UUIDUtils;
 
 import java.io.File;
 
@@ -35,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        UUIDUtils.getUUID();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                new PosixThread().thread();
+            }
+        }).start();
     }
 
     public void encryptClick(View view) {
