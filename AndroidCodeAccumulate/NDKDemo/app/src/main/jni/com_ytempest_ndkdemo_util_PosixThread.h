@@ -9,10 +9,26 @@ extern "C" {
 #endif
 /*
  * Class:     com_ytempest_ndkdemo_util_PosixThread
+ * Method:    init
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_ytempest_ndkdemo_util_PosixThread_init
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_ytempest_ndkdemo_util_PosixThread
  * Method:    thread
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_ytempest_ndkdemo_util_PosixThread_thread
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_ytempest_ndkdemo_util_PosixThread
+ * Method:    destory
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_ytempest_ndkdemo_util_PosixThread_destroy
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

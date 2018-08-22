@@ -33,17 +33,15 @@ public class MainActivity extends AppCompatActivity {
             + File.separator + "aaa" + File.separator + "xiaomi_merge.apk";
 
 
+    private PosixThread mPosixThread = new PosixThread();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        UUIDUtils.getUUID();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new PosixThread().thread();
-            }
-        }).start();
+
+        mPosixThread.init();
+        mPosixThread.thread();
     }
 
     public void encryptClick(View view) {
@@ -60,5 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void mergeClick(View view) {
         DiffUtils.merge(mMergeFile, mFilePattern, 5);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mPosixThread.destroy();
+        super.onDestroy();
     }
 }
