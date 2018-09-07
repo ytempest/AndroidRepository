@@ -50,7 +50,7 @@ include $(PREBUILT_SHARED_LIBRARY)
 # myapp
 include $(CLEAR_VARS)
 LOCAL_MODULE := media_play
-LOCAL_SRC_FILES := video_play.c audio_play.c
+LOCAL_SRC_FILES := media_play.c audio_play.c
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/ffmpeg
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/libyuv
 ##-landroid参数 for native windows

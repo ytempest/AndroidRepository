@@ -150,7 +150,7 @@ public class TCPClientActivity extends AppCompatActivity {
         }
 
         try {
-            // 获取服务端的输出流
+            // 获取服务端的输入流
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
             // 如果TCPClientActivity还没有finish，即客户端还没有关闭

@@ -161,7 +161,7 @@ JNIEXPORT void JNICALL Java_com_ytempest_mediaplayer_MediaPlayer_playAudio
 
                 // 释放byte数组局部引用，防止内存溢出
                 (*env)->DeleteLocalRef(env, jbyte_array);
-                //usleep(1000 * 16);
+                usleep(1000 * 16);
             }
         }
         // 释放 packet资源

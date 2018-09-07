@@ -154,7 +154,7 @@ JNIEXPORT void JNICALL Java_com_ytempest_mediaplayer_MediaPlayer_playVideo
                 ANativeWindow_unlockAndPost(nativeWindow);
 
                 // 睡眠16毫秒，这个有什么作用
-                // usleep(1000 * 16);
+                usleep(1000 * 16);
             }
         }
 
