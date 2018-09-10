@@ -22,18 +22,25 @@ public class DaoSupport<T> implements IDaoSupport<T> {
     private static final String TAG = "DaoSupport";
 
     private SQLiteDatabase mSqLiteDatabase;
-    /** 进行操作的表的泛型类 */
+    /**
+     * 进行操作的表的泛型类
+     */
     private Class<T> mClazz;
     private static final Object[] mPutMethodArgs = new Object[2];
-    /** 存储ContentValues的put()方法以提高性能 */
+    /**
+     * 存储ContentValues的put()方法以提高性能
+     */
     private static final Map<String, Method> mPutMethods = new ArrayMap<>();
-	/** 查询的支持类 */
-	private QuerySupport<T> mQuerySupport;
+    /**
+     * 查询的支持类
+     */
+    private QuerySupport<T> mQuerySupport;
 
     /**
      * 初始化数据库引擎，如果clazz表不存在则创建
+     *
      * @param sqLiteDatabase 数据库实例
-     * @param clazz 进行操作的表的Class对象
+     * @param clazz          进行操作的表的Class对象
      */
     @Override
     public void init(SQLiteDatabase sqLiteDatabase, Class<T> clazz) {
@@ -94,14 +101,14 @@ public class DaoSupport<T> implements IDaoSupport<T> {
 
     @Override
     public QuerySupport<T> getQuerySupport() {
-        if(mQuerySupport == null){
-            mQuerySupport = new QuerySupport<T>(mSqLiteDatabase,mClazz);
+        if (mQuerySupport == null) {
+            mQuerySupport = new QuerySupport<T>(mSqLiteDatabase, mClazz);
         }
         return mQuerySupport;
     }
 
     @Override
-    public int delete(String whereClause, String...whereArgs) {
+    public int delete(String whereClause, String... whereArgs) {
         return mSqLiteDatabase.delete(DaoUtils.getTableName(mClazz), whereClause, whereArgs);
     }
 

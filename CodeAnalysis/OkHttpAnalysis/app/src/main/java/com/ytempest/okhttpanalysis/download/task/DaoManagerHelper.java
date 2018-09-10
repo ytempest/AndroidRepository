@@ -10,7 +10,7 @@ import java.util.List;
  *         Description：
  */
 public class DaoManagerHelper {
-    private static DaoManagerHelper sInstance;
+    private volatile static DaoManagerHelper sInstance;
     private static IDaoSupport<DownloadEntity> mDaoSupport;
 
     private DaoManagerHelper() {

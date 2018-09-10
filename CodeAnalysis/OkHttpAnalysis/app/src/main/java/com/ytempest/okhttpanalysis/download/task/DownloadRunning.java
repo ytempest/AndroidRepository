@@ -21,6 +21,7 @@ class DownloadRunning implements Runnable {
     private DownloadCallback mCallback;
     private long mProgress;
 
+    private boolean isSaveProgress = false;
     private boolean isStop = false;
     private boolean isCancel = false;
 
@@ -35,6 +36,7 @@ class DownloadRunning implements Runnable {
     public void run() {
         // 重置下载状态
         resetDownloadStatus();
+
         InputStream inputStream = null;
         RandomAccessFile accessFile = null;
         try {
@@ -53,11 +55,14 @@ class DownloadRunning implements Runnable {
                 if (!isCancel) {
                     // 如果用户停止了下载任务
                     if (isStop) {
-                        // 保存进度到数据库，然后退出
-                        mEntity.progress = mProgress;
-                        DaoManagerHelper.getManager().addEntity(mEntity);
-                        Log.e(TAG, "run: 任务(" + mEntity.threadId + ")已经暂停");
+                        saveProgress(mEntity, mProgress);
+                        Log.i(TAG, "run: 任务[" + mEntity.threadId + "]已经暂停");
                         return;
+                    }
+
+                    if (isSaveProgress) {
+                        isSaveProgress = false;
+                        saveProgress(mEntity, mProgress);
                     }
 
                     mProgress += len;
@@ -74,11 +79,17 @@ class DownloadRunning implements Runnable {
             // 下载成功回调接口
             mCallback.onSucceed(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            mCallback.onFailure(e);
         } finally {
             Utils.close(inputStream);
             Utils.close(accessFile);
         }
+    }
+
+    private void saveProgress(DownloadEntity entity, long progress) {
+        // 保存进度到数据库
+        entity.progress = progress;
+        DaoManagerHelper.getManager().addEntity(entity);
     }
 
     private void resetDownloadStatus() {
@@ -86,6 +97,9 @@ class DownloadRunning implements Runnable {
         isCancel = false;
     }
 
+    public void save() {
+        isSaveProgress = true;
+    }
 
     public void stop() {
         isStop = true;

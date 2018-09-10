@@ -28,18 +28,24 @@ class DownloadTask {
     private List<DownloadRunning> mRunnableList;
 
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
-    private static final int THREAD_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
+    private static final int THREAD_COUNT = Math.max(2, Math.min(CPU_COUNT - 1, 4));
     private int mSucceedCount;
     private long mCurrentProgress;
 
     private static final int MAX_TASK_COUNT = 5;
-    private static List<DownloadTask> TASK_POOL = new ArrayList<>();
+    private static final List<DownloadTask> TASK_POOL = new ArrayList<>();
+    /**
+     * 该阈值用于和进度比较从而判断是否将下载进度保存到本地
+     */
+    private long threshold = 0;
 
     private DownloadTask(String url, long contentLength, DownloadCallback callback) {
         this.mUrl = url;
         this.mContentLength = contentLength;
         this.mCallback = callback;
         mRunnableList = new ArrayList<>();
+
+        threshold = contentLength / THREAD_COUNT;
     }
 
     private synchronized ExecutorService executorService() {
@@ -71,12 +77,12 @@ class DownloadTask {
 
         if (entities.size() == 0) {
             // 根据线程数量分配下载的子任务
-            for (int i = 0; i < THREAD_SIZE; i++) {
+            for (int i = 0; i < THREAD_COUNT; i++) {
                 // 查找该下载任务是否保存在数据库中，如果有，那么就断点下载
-                long threadSize = mContentLength / THREAD_SIZE;
+                long threadSize = mContentLength / THREAD_COUNT;
                 long start = i * threadSize;
                 long end = (i + 1) * threadSize - 1;
-                if (i == THREAD_SIZE - 1) {
+                if (i == THREAD_COUNT - 1) {
                     end = mContentLength - 1;
                 }
 
@@ -89,28 +95,37 @@ class DownloadTask {
         // 初始化总进度
         initCurrentProgress(entities);
 
+        // 计算阈值
+        threshold = calculateThreshold();
 
         // 判断该任务是否已经暂停了，如果已经是暂停了，那么就重启该任务
         if (mRunnableList.size() > 0) {
-            Log.e(TAG, "重启每一个下载子任务");
+            Log.i(TAG, "重启每一个下载子任务");
             // 重启每一个子任务
-            restart(entities);
+            restartTask(entities);
             return;
         }
 
-        // 如果该任务没有暂停过，或者被保存进度到了数据库
+        // 如果该任务没有暂停过
         for (DownloadEntity entity : entities) {
             DownloadRunning downloadRunning = new DownloadRunning(entity, entity.progress, new DownloadCallback() {
                 @Override
                 public void onFailure(IOException e) {
                     // TODO: 2018/5/9/009
                     // 如果其中一个线程出现问题，就停止其他线程
+                    mCallback.onFailure(e);
                 }
 
                 @Override
                 public void onProgress(long size, long blockSize) {
                     synchronized (DownloadTask.class) {
                         mCurrentProgress += blockSize;
+                        // 如果下载进度到达阈值就保存进度，并计算新的阈值
+                        if (mCurrentProgress > threshold) {
+                            Log.i(TAG, "onProgress: 自动保存下载进度");
+                            threshold += mContentLength / THREAD_COUNT;
+                            saveProgress();
+                        }
                         mCallback.onProgress(mContentLength, mCurrentProgress);
                     }
                 }
@@ -119,8 +134,8 @@ class DownloadTask {
                 public void onSucceed(File file) {
                     synchronized (DownloadTask.class) {
                         mSucceedCount++;
-                        Log.e(TAG, "onSucceed: 任务完成数量：" + mSucceedCount);
-                        if (mSucceedCount == THREAD_SIZE) {
+                        Log.i(TAG, "onSucceed: 任务完成数量：" + mSucceedCount);
+                        if (mSucceedCount == THREAD_COUNT) {
                             mCallback.onSucceed(file);
                             // 如果该下载任务保存在了数据库，那么就删除
                             DaoManagerHelper.getManager().deleteEntity(mUrl);
@@ -139,11 +154,30 @@ class DownloadTask {
 
     }
 
-    private void restart(List<DownloadEntity> entities) {
+    /**
+     * 根据已经下载的进度计算出下一个用于判断是否存储进度的阈值
+     */
+    private long calculateThreshold() {
+        long threadSize = mContentLength / THREAD_COUNT;
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            if ((i + 1) * threadSize > mCurrentProgress) {
+                return (i + 1) * threadSize;
+            }
+        }
+        return 0;
+    }
+
+    private void saveProgress() {
+        for (DownloadRunning downloadRunning : mRunnableList) {
+            downloadRunning.save();
+        }
+    }
+
+    private void restartTask(List<DownloadEntity> entities) {
         for (int i = 0; i < mRunnableList.size(); i++) {
             DownloadEntity entity = entities.get(i);
             DownloadRunning downloadRunning = mRunnableList.get(i);
-            downloadRunning.updateInfo(entity,entity.progress);
+            downloadRunning.updateInfo(entity, entity.progress);
             executorService().execute(downloadRunning);
         }
     }
@@ -151,7 +185,7 @@ class DownloadTask {
     private void initCurrentProgress(List<DownloadEntity> entities) {
         mCurrentProgress = 0;
         for (DownloadEntity entity : entities) {
-            Log.e(TAG, "子任务（" + entity.threadId + "）的进度是：" + entity.progress);
+            Log.i(TAG, "子任务[" + entity.threadId + "]的进度是：" + entity.progress);
             mCurrentProgress += entity.progress;
         }
     }
@@ -161,6 +195,9 @@ class DownloadTask {
         return mUrl;
     }
 
+    /**
+     * 从DownloadTask对象池中获取DownloadTask对象，如果对象池中没有对象则创建一个新的对象
+     */
     public static DownloadTask obtainDownloadTask(String url, long contentLength, DownloadCallback callback) {
         synchronized (TASK_POOL) {
             int size = TASK_POOL.size();

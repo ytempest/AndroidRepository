@@ -42,10 +42,12 @@ public class DownloadDispatcher {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                // 获取下载文件的长度
                 long contentLength = response.body().contentLength();
                 if (contentLength == -1) {
                     // 使用单线程下载，在这里也要处理下载进度
                     // TODO: 2018/5/10/010
+                    Log.e(TAG, "onResponse: 该文件应该使用单线程下载");
                     return;
                 }
 
@@ -62,6 +64,9 @@ public class DownloadDispatcher {
         });
     }
 
+    /**
+     * 判断该url的下载任务是否已经存在，如果存在则返回true，否则返回false
+     */
     private boolean isTaskRunning(String url) {
         if (mRunningTasks.size() > 0) {
             for (DownloadTask runningTask : mRunningTasks) {
@@ -74,10 +79,13 @@ public class DownloadDispatcher {
     }
 
 
+    /**
+     * 在暂停任务集合中查找该url的任务是否暂停，如果该url存在该集合则返回该url任务，否则返回null
+     */
     private DownloadTask getDownloadTakFormStop(String url) {
         for (DownloadTask stopTask : mStopTasks) {
             if (stopTask.getUrl().equals(url)) {
-                Log.e(TAG, "getDownloadTakFormStop: 该任务在暂停列表中");
+                Log.i(TAG, "getDownloadTakFormStop: 该任务在暂停列表中");
                 mStopTasks.remove(stopTask);
                 return stopTask;
             }

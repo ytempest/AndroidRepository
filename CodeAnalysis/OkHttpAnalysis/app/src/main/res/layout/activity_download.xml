@@ -34,4 +34,16 @@
         android:onClick="cancel"
         android:text="取消" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="broken"
+        android:text="崩溃" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="single"
+        android:text="单线程" />
+
 </LinearLayout>
