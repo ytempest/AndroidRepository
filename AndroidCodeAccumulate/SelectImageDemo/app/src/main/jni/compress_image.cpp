@@ -1,6 +1,3 @@
-//
-// Created by ytempest on 2018/2/3/003.
-//
 #include "compress_image.h"
 #include <string.h>
 #include <android/bitmap.h>
@@ -22,10 +19,8 @@ extern "C" {
 }
 
 // log打印
-#define LOG_TAG "jni"
-#define LOGW(...)  __android_log_write(ANDROID_LOG_WARN,LOG_TAG,__VA_ARGS__)
+#define LOG_TAG "compressimg"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 
 #define true 1
 #define false 0
@@ -46,7 +41,7 @@ my_error_exit(j_common_ptr cinfo) {
     my_error_ptr myerr = (my_error_ptr) cinfo->err;
     (*cinfo->err->output_message)(cinfo);
     error = (char *) myerr->pub.jpeg_message_table[myerr->pub.msg_code];
-    LOGE("jpeg_message_table[%d]:%s", myerr->pub.msg_code,
+    LOGI("jpeg_message_table[%d]:%s", myerr->pub.msg_code,
          myerr->pub.jpeg_message_table[myerr->pub.msg_code]);
     longjmp(myerr->setjmp_buffer, 1);
 }
@@ -114,8 +109,8 @@ int generateJPEG(BYTE *data, int w, int h, int quality,
 
 // 函数的实现  AS  1.5如果没代码提示 AS2.2   VS去写好 Unity3D
 // java 什么思想  C就是什么思想
-JNIEXPORT jint JNICALL Java_com_ytempest_selectimagedemo_ImageUtil_compressBitmap
-  (JNIEnv *env, jclass thiz, jobject bitmap, jint quality, jstring fileNameStr) {
+JNIEXPORT jint JNICALL Java_com_ytempest_selectimagedemo_ImageUtils_compressBitmap
+        (JNIEnv *env, jclass thiz, jobject bitmap, jstring fileNameStr, jint quality) {
     // 1. 解析RGB
     // 1.1 获取bitmap信息  w，h，format  Android的Native要有了解
     AndroidBitmapInfo info;
@@ -130,7 +125,7 @@ JNIEXPORT jint JNICALL Java_com_ytempest_selectimagedemo_ImageUtil_compressBitma
         return -1;
     }
 
-    LOGE("bitmap_height = %d,bitmap_width = %d,", bitmap_height, bitmap_width);
+    LOGI("bitmap_height = %d,bitmap_width = %d,", bitmap_height, bitmap_width);
 
     // 1.2 把bitmap解析到数组中，数组中保存的是rgb -> YCbCr
     // 1.2.1 锁定画布
@@ -175,7 +170,7 @@ JNIEXPORT jint JNICALL Java_com_ytempest_selectimagedemo_ImageUtil_compressBitma
 
     // 1.2.4 还差一个参数，jstring -> char*
     char *file_name = (char *) env->GetStringUTFChars(fileNameStr, NULL);
-    LOGE("file_name = %s", file_name);
+    LOGI("file_name = %s", file_name);
 
     // 2.调用第三方的提供好的方法   赋值的
     int result = generateJPEG(tempData, bitmap_width, bitmap_height, quality, file_name, true);
@@ -185,13 +180,13 @@ JNIEXPORT jint JNICALL Java_com_ytempest_selectimagedemo_ImageUtil_compressBitma
     env->ReleaseStringUTFChars(fileNameStr, file_name);
     // 释放bitmap,调用bitmap的recycle
     // 3.2 获取对象的class
-    jclass obj_clazz = env -> GetObjectClass(bitmap);
+    jclass obj_clazz = env->GetObjectClass(bitmap);
     // 3.3 通过class获取方法id
-    jmethodID method_id = env -> GetMethodID(obj_clazz,"recycle","()V");
+    jmethodID method_id = env->GetMethodID(obj_clazz, "recycle", "()V");
     // 3.4 调用方法释放Bitmap
-    env->CallVoidMethod(bitmap,method_id);
+    env->CallVoidMethod(bitmap, method_id);
 
-    LOGE("result = %d", result);
+    LOGI("result = %d", result);
 
     // 4.返回结果
     if (result == 0) {
