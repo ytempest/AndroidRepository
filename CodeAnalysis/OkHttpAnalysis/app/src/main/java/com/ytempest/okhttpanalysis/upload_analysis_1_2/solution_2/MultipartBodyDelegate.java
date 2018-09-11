@@ -2,6 +2,8 @@ package com.ytempest.okhttpanalysis.upload_analysis_1_2.solution_2;
 
 import android.support.annotation.Nullable;
 
+import com.ytempest.okhttpanalysis.upload_analysis_1_2.listener.OnUploadListener;
+
 import java.io.IOException;
 
 import okhttp3.MediaType;
@@ -19,7 +21,6 @@ import okio.Okio;
 public class MultipartBodyDelegate extends RequestBody {
 
     private MultipartBody mMultipartBody;
-    private long mLength;
     private long mCurrentLength;
 
     public OnUploadListener mOnUploadListener;
@@ -52,7 +53,6 @@ public class MultipartBodyDelegate extends RequestBody {
     }
 
 
-
     /**
      * 调用这个方法向服务器写数据
      *
@@ -60,11 +60,8 @@ public class MultipartBodyDelegate extends RequestBody {
      */
     @Override
     public void writeTo(BufferedSink sink) throws IOException {
-        if (mLength == 0) {
-            // 获取文件大小
-            mLength = mMultipartBody.contentLength();
-        }
-
+        // 获取文件大小
+        final long maxLength = mMultipartBody.contentLength();
 
         // 创建一个字节流写过程的代理，监听字节流的写操作过程
         ForwardingSink forwardingSink = new ForwardingSink(sink) {
@@ -74,7 +71,7 @@ public class MultipartBodyDelegate extends RequestBody {
                 mCurrentLength += byteCount;
                 if (mOnUploadListener != null) {
                     // 上传进度回调
-                    mOnUploadListener.onProgress(mLength, mCurrentLength);
+                    mOnUploadListener.onProgress(maxLength, mCurrentLength);
                 }
                 super.write(source, byteCount);
             }
@@ -85,14 +82,13 @@ public class MultipartBodyDelegate extends RequestBody {
 
         // 让原来的被代理对象处理逻辑
         mMultipartBody.writeTo(bufferedSink);
+
+        // 刷新，保证最后的文件流内容能刷新都服务器中
+        bufferedSink.flush();
     }
 
     public void setOnUploadListener(OnUploadListener onUploadListener) {
         mOnUploadListener = onUploadListener;
-    }
-
-    public interface OnUploadListener {
-        void onProgress(long maxLength, long currentLength);
     }
 
 

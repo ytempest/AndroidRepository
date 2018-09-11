@@ -68,34 +68,13 @@ public class CacheTestActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 // 必须先调用这一条语句，不然就算本地有缓存也无法读取缓存
+                // 如果有网络，那么realResult就是从网络获取的数据
+                // 如果网络不可用，那么realResult就是从缓存获取的数据（如果缓存没过期）
                 String realResult = response.body().string();
+                Log.e(TAG, "onResponse: realResult：" + realResult);
                 Log.e(TAG, "onResponse 本地缓存：" + response.cacheResponse());
                 Log.e(TAG, "onResponse: 网络数据 ：" + response.networkResponse());
-            }
-        });
-
-    }
-
-
-    public void  test() {
-        OkHttpClient client = new OkHttpClient
-                .Builder()
-                .build();
-
-        Request request1 = new Request.Builder()
-                .get()
-                .url("http://v2.ffu365.com/index.php?m=Api&c=Index&a=home&appid=1&uid=432")
-                .build();
-        Call call1 = client.newCall(request1);
-        call1.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.e(TAG, "onResponse: response --> " + response.body().string());
+                Log.e(TAG, "onResponse: --------------------------------------");
             }
         });
 

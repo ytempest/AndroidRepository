@@ -26,7 +26,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "HttpActivity";
-    private File mFile = new File(Environment.getExternalStorageDirectory(), "test.apk");
+    private File mFile = new File(Environment.getExternalStorageDirectory(), "test2.apk");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onResponse: 上传成功");
             }
         });
-
-        Log.e(TAG, "upload: ");
     }
 
 }

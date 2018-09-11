@@ -70,7 +70,7 @@ public class HttpActivity extends AppCompatActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("m", "Api");
         params.put("c", "Index");
-        params.put("a", "home");
+        params.put("OnUploadListener", "home");
         params.put("appid", "1");
         params.put("uid", "432");
 

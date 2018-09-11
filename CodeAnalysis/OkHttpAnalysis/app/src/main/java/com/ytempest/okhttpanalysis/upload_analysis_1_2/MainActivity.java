@@ -1,19 +1,21 @@
 package com.ytempest.okhttpanalysis.upload_analysis_1_2;
 
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.ytempest.okhttpanalysis.R;
-import com.ytempest.okhttpanalysis.upload_analysis_1_2.solution_1.RequestBodyDelegate;
+import com.ytempest.okhttpanalysis.upload_analysis_1_2.listener.OnUploadListener;
 import com.ytempest.okhttpanalysis.upload_analysis_1_2.solution_2.MultipartBodyDelegate;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -53,8 +55,11 @@ public class MainActivity extends AppCompatActivity {
         String url = "https://api.saiwuquan.com/api/upload";
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                // 添加日志打印
                 .addInterceptor(new HttpLoggingInterceptor()
-                        .setLevel(HttpLoggingInterceptor.Level.BODY))
+                        .setLevel(HttpLoggingInterceptor.Level.BASIC))
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .build();
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
@@ -62,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
         Log.e(TAG, "upload: mFile.length --> " + mFile.length());
         RequestBody fileRequestBody = RequestBody.create(MediaType.parse(guessMimeType(mFile)), mFile);
-        RequestBodyDelegate requestBodyDelegate = new RequestBodyDelegate(fileRequestBody);
+        // RequestBodyDelegate requestBodyDelegate = new RequestBodyDelegate(fileRequestBody);
         builder.addFormDataPart("platform", "android");
-        builder.addFormDataPart("file", mFile.getName(), requestBodyDelegate);
+        builder.addFormDataPart("file", mFile.getName(), fileRequestBody);
 
-        MultipartBodyDelegate multipartBodyDelegate = new MultipartBodyDelegate(builder.build(), new MultipartBodyDelegate.OnUploadListener() {
+        MultipartBodyDelegate multipartBodyDelegate = new MultipartBodyDelegate(builder.build(), new OnUploadListener() {
             @Override
             public void onProgress(long maxLength, long currentLength) {
-//                Log.e(TAG, "onProgress: maxLength --> " + maxLength + "  ||  currentLength --> " + currentLength);
+                Log.e(TAG, "onProgress: maxLength --> " + maxLength + "  ||  currentLength --> " + currentLength);
             }
         });
 
@@ -91,8 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onResponse: 上传成功");
             }
         });
-
-        Log.e(TAG, "upload: ");
     }
 
 }

@@ -21,6 +21,7 @@ import static android.content.ContentValues.TAG;
 public class CacheRequestInterceptor implements Interceptor {
 
     private Context mContext;
+
     public CacheRequestInterceptor(Context context) {
         mContext = context;
     }
@@ -30,6 +31,7 @@ public class CacheRequestInterceptor implements Interceptor {
         // 获取拦截到的 request
         Request request = chain.request();
         if (!isNetworkAvailable()) {
+            // 如果网络不可用
             request = request.newBuilder()
                     // 当网络不可用的时候，设置只读缓存
                     // 缓存的读取还依赖于缓存的过期时间，如果已经过期，那么缓存就无法读取
@@ -40,6 +42,9 @@ public class CacheRequestInterceptor implements Interceptor {
         return chain.proceed(request);
     }
 
+    /**
+     * 判断网络是否可用
+     */
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();

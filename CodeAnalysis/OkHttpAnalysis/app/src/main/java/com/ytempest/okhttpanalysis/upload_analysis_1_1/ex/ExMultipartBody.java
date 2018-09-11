@@ -39,6 +39,10 @@ public class ExMultipartBody extends RequestBody {
         return mMultipartBody.contentType();
     }
 
+    @Override
+    public long contentLength() throws IOException {
+        return mMultipartBody.contentLength();
+    }
 
     /**
      * 调用这个方法向服务器写数据
@@ -71,6 +75,9 @@ public class ExMultipartBody extends RequestBody {
 
         // 让原来的被代理对象处理逻辑
         mMultipartBody.writeTo(bufferedSink);
+
+        // 刷新，保证最后的文件流内容能刷新都服务器中
+        bufferedSink.flush();
     }
 
     public void setOnUploadListener(OnUploadListener onUploadListener) {
@@ -80,6 +87,5 @@ public class ExMultipartBody extends RequestBody {
     public interface OnUploadListener {
         void onProgress(long maxLength, long currentLength);
     }
-
 
 }

@@ -16,10 +16,11 @@ import okhttp3.Response;
  */
 public class CacheResponseInterceptor implements Interceptor {
 
-    /** 缓存过期时间 */
-    private final int max_age_time = 70;
-
-    private static final String TAG = "CacheResponse";
+    private static final String TAG = "CacheResponseIntercept";
+    /**
+     * 缓存过期时间,单位为秒
+     */
+    private final int maxAgeTime = 60 * 60;
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -30,7 +31,7 @@ public class CacheResponseInterceptor implements Interceptor {
         CacheControl cacheControl = response.cacheControl();
         if (cacheControl != null) {
             Log.e(TAG, "intercept before change : " + cacheControl.toString());
-            String header = changeMaxAge(cacheControl.toString(), max_age_time);
+            String header = changeMaxAge(cacheControl.toString(), maxAgeTime);
             if (header != null) {
                 Log.e(TAG, "intercept after change : " + header);
                 // 为response重新设置过期时间
@@ -46,7 +47,7 @@ public class CacheResponseInterceptor implements Interceptor {
 
     /**
      * 只更改CacheControl响应头中的过期时间，不会更改其他内容
-     * 如果这个响应头没有过期时间这一个type，那么就直接返回null
+     * 如果这个响应头没有过期时间这一个type，那么就直接返回原来的响应头
      *
      * @param string  需要更改的 cacheControl
      * @param seconds 缓存过期时间
@@ -65,6 +66,6 @@ public class CacheResponseInterceptor implements Interceptor {
             return string.replace(originalStr, "max-age=" + seconds);
 
         }
-        return null;
+        return string;
     }
 }
