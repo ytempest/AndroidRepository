@@ -158,14 +158,21 @@ public final class CacheStrategy {
          */
         private int ageSeconds = -1;
 
+        /**
+         * @param nowMillis     当前系统时间
+         * @param request       请求
+         * @param cacheResponse 缓存候补
+         */
         public Factory(long nowMillis, Request request, Response cacheResponse) {
             this.nowMillis = nowMillis;
             this.request = request;
             this.cacheResponse = cacheResponse;
 
+            // cacheResponse不为空表示该 Request存在本地缓存
             if (cacheResponse != null) {
                 this.sentRequestMillis = cacheResponse.sentRequestAtMillis();
                 this.receivedResponseMillis = cacheResponse.receivedResponseAtMillis();
+                // 遍历Response候补的头信息，并获取相关数据
                 Headers headers = cacheResponse.headers();
                 for (int i = 0, size = headers.size(); i < size; i++) {
                     String fieldName = headers.name(i);
@@ -208,13 +215,13 @@ public final class CacheStrategy {
          * Returns a strategy to use assuming the request can use the network.
          */
         private CacheStrategy getCandidate() {
-            // No cached response.
+            // 如果没有本地缓存
             if (cacheResponse == null) {
-                // 如果没有本地缓存，那么就创建一个缓存策略，并把本地缓存传null
+                // 如果没有本地缓存，那么就创建一个缓存策略，并把Response本地缓存传null
                 return new CacheStrategy(request, null);
             }
 
-            // 如果这个本地缓存没有经历过三次握手，那么就把这个本地缓存丢弃
+            // 如果这个请求是一个Https请求，但是Response本地缓存却没有经历过三次握手，那么把Response本地缓存传null
             if (request.isHttps() && cacheResponse.handshake() == null) {
                 return new CacheStrategy(request, null);
             }
@@ -229,6 +236,7 @@ public final class CacheStrategy {
             // 获取Request中的缓存控制字Cache-Control，判断Request中的Cache-Control是否设置了缓存策略
             CacheControl requestCaching = request.cacheControl();
             if (requestCaching.noCache() || hasConditions(request)) {
+                // 如果请求设置了不适用缓存，或者请求头中包含If-Modified-Since、If-None-Match，那么把Response本地缓存传null
                 return new CacheStrategy(request, null);
             }
 

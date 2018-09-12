@@ -56,8 +56,9 @@ public interface HttpCodec {
     /**
      * Parses bytes of a response header from an HTTP transport.
      *
-     * @param expectContinue true to return null if this is an intermediate response with a "100"
-     *                       response code. Otherwise this method never returns null.
+     *
+     * @param expectContinue 如果设置为true则表示如果这是一个带有 "100"的中间响应码，那么则返回null
+     *                       否则，这个方法永远不会返回null；（也就是说只有设置为true同时响应码为100才会返回null）
      */
     Response.Builder readResponseHeaders(boolean expectContinue) throws IOException;
 

@@ -44,6 +44,12 @@ public abstract class RequestBody {
 
     /**
      * Writes the content of this request to {@code sink}.
+     * 实现将RequestBody的内容写到Sink中，这个Sink其实是一个RealBufferedSink
+     * 这个Sink是服务器的输出流，其被包装的顺序为：
+     * （1）如果Request的RequestBody长度未知：
+     * --> Sink --> RealBufferedSink --> Http1Codec.ChunkedSink --> CountingSink --> RealBufferedSink
+     * （2）如果Request的RequestBody长度可知：
+     * --> Sink --> RealBufferedSink --> Http1Codec.FixedLengthSink --> CountingSink --> RealBufferedSink
      */
     public abstract void writeTo(BufferedSink sink) throws IOException;
 
@@ -114,6 +120,12 @@ public abstract class RequestBody {
                 return byteCount;
             }
 
+            /**
+             * 实现将RequestBody的数据写到Sink中，首先会调用RealBufferedSink的write()方法
+             * {@link okio.RealBufferedSink#write(byte[], int, int)}
+             *
+             * @param sink 这个Sink其实是一个RealBufferedSink
+             */
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
                 sink.write(content, offset, byteCount);

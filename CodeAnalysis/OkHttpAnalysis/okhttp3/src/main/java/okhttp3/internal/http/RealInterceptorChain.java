@@ -127,7 +127,8 @@ public final class RealInterceptorChain implements Interceptor.Chain {
     }
 
     /**
-     * 调用 chain 的 proceed() 方法就可以自动完成责任的传递
+     * 调用 chain 的 proceed() 方法就可以自动完成责任的传递，在责任传递过程中会自动
+     * 加上StreamAllocation、HttpCodec、RealConnection这三个参数
      */
     @Override
     public Response proceed(Request request) throws IOException {
@@ -155,13 +156,23 @@ public final class RealInterceptorChain implements Interceptor.Chain {
                     + " must call proceed() exactly once");
         }
 
-        // 获取下一个拦截器并封装成一个实际处理者对象
+        /*-----------    下面是OkHttp拦截器的核心代码    ---------*/
+
+        // 1、获取下一个拦截器并封装成一个实际处理者对象
         RealInterceptorChain next = new RealInterceptorChain(interceptors, streamAllocation, httpCodec,
                 connection, index + 1, request, call, eventListener, connectTimeout, readTimeout,
                 writeTimeout);
+
+        // 2、获取当前索引的拦截器
         Interceptor interceptor = interceptors.get(index);
-        // 调用当前拦截器的intercept方法，并把下一个实际处理者对象传进去
+        // 3、调用当前拦截器的intercept方法，并把下一个实际处理者对象传进去
         Response response = interceptor.intercept(next);
+
+        /*
+        * 结论：
+        * 由拦截器的拦截顺序，第一个拦截器能最先接触到Request，最后那个拦截器是最后接触到Request；
+        * 相反，最后一个拦截器却是最先接触到Response，第一个拦截器是最后接触到Response的
+        * */
 
         // Confirm that the next interceptor made its required call to chain.proceed().
         if (httpCodec != null && index + 1 < interceptors.size() && next.calls != 1) {

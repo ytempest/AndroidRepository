@@ -929,7 +929,7 @@ public class OkHttpClient implements Cloneable, Call.Factory, WebSocket.Factory 
     /**
      * Configure a factory to provide per-call scoped listeners that will receive analytic events
      * for this client.
-     *
+     *设置一个事件工厂，在创建RealCall后，会使用事件工厂生产一个事件监听器，然后设置到RealCall中
      * @see EventListener for semantics and restrictions on listener implementations.
      */
     public Builder eventListenerFactory(EventListener.Factory eventListenerFactory) {

@@ -123,10 +123,14 @@ public final class HttpLoggingInterceptor implements Interceptor {
     }
 
     public interface Logger {
+        /**
+         * @param message 需要打印的信息
+         */
         void log(String message);
 
         /**
          * A {@link Logger} defaults output appropriate for the current platform.
+         * 默认的日志打印类，可以自定义输出打印的方式
          */
         Logger DEFAULT = new Logger() {
             @Override
@@ -161,10 +165,16 @@ public final class HttpLoggingInterceptor implements Interceptor {
         return level;
     }
 
+    /**
+     * 日志打印的核心
+     *
+     * @param chain 下一个拦截器的 chain对象
+     */
     @Override
     public Response intercept(Chain chain) throws IOException {
         Level level = this.level;
 
+        // 获取请求，这个请求是最初的请求
         Request request = chain.request();
         // 如果不打印就直接传递请求
         if (level == Level.NONE) {
@@ -173,11 +183,14 @@ public final class HttpLoggingInterceptor implements Interceptor {
 
         // <-------------   1、这里开始打印 Request请求的信息    ------------->
 
+        // 1.1、获取一些信息
+        // 表示只打印 BODY部分
         boolean logBody = level == Level.BODY;
+        // 如果设置了HEADERS或者 BODY，那么都会打印头信息
         boolean logHeaders = logBody || level == Level.HEADERS;
 
         RequestBody requestBody = request.body();
-        // 1.1、标记 RequestBody中是否有上传文件
+        // 判断是否有RequestBody
         boolean hasRequestBody = requestBody != null;
 
         Connection connection = chain.connection();
@@ -189,7 +202,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
                 + ' ' + request.url()
                 + (connection != null ? " " + connection.protocol() : "");
 
-        // 1.3、如果设置的Level不是 BODY和 HEADERS，同时RequestBody中有上传文件那就打印上传文件的总长度
+        // 1.3、如果设置的Level不是 BODY和HEADERS，同时请求存在RequestBody，那么打印RequestBody的长度
         if (!logHeaders && hasRequestBody) {
             requestStartMessage += " (" + requestBody.contentLength() + "-byte body)";
         }
@@ -200,7 +213,8 @@ public final class HttpLoggingInterceptor implements Interceptor {
 
         // 1.5、如果Level设置了 BODY或者 HEADERS，那么 logHeader为true
         if (logHeaders) {
-            // 1.5.1、如果 RequestBody 有上传文件，那么直接打印
+            // 1.5.1、如果存在RequestBody，那么直接打印，这里如果上传大文件，那么有可能会打印大量
+            // 的log从而导致消耗大量的内存
             if (hasRequestBody) {
                 // Request body headers are only present when installed as a network interceptor. Force
                 // them to be included (when available) so there values are known.
@@ -223,24 +237,22 @@ public final class HttpLoggingInterceptor implements Interceptor {
             }
 
             if (!logBody || !hasRequestBody) {
-                // 1.5.3、如果Level没有设置 Body 或者 RequestBody没有上传文件的Body
+                // 1.5.3、如果Level没有设置 Body 或者 Request没有RequestBody
                 logger.log("--> END " + request.method());
-
 
             } else if (bodyHasUnknownEncoding(request.headers())) {
                 // 1.5.4、如果 Request使用的编码格式未知道，即Content-Encoding不是identity或gzip
                 logger.log("--> END " + request.method() + " (encoded body omitted)");
 
-
             } else {
-                ///1.5.4、来到这里就表明：Level设置了 Body或者 RequestBody有上传文件的Body
+                ///1.5.5、来到这里就表明：Level设置了 Body或者 Request存在RequestBody
 
                 // 将 RequestBody的数据读取到 buffer中
                 Buffer buffer = new Buffer();
                 requestBody.writeTo(buffer);
 
                 // 开始读取 RequestBody 中的键值对的类型（如：user=dy&pwd=123、上传文件的
-                // 键值对（比较复杂））
+                // 键值对（比较复杂）、上传文件的内容数据）
                 Charset charset = UTF8;
                 MediaType contentType = requestBody.contentType();
                 if (contentType != null) {

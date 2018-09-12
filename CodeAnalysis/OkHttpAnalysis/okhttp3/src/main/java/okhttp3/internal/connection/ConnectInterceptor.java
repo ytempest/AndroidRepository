@@ -46,7 +46,7 @@ public final class ConnectInterceptor implements Interceptor {
         // 调用 newStream() 方法会使用socket进行网络连接，连接成功后
         // newStream() --> Http1Codec
         HttpCodec httpCodec = streamAllocation.newStream(client, chain, doExtensiveHealthChecks);
-        // 获取到一个连接
+        // 获取连接到服务器的RealConnection连接
         RealConnection connection = streamAllocation.connection();
 
         // 把这一个连接传递到了下一个拦截器networkInterceptors（如果用户定义了NetworkInterceptor）

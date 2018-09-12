@@ -28,6 +28,7 @@ import javax.security.auth.login.LoginException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.EventListener;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -123,7 +124,20 @@ public class DownloadActivity extends AppCompatActivity {
                 .url(url)
                 .build();
 
-        Call call = new OkHttpClient().newCall(request);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .eventListenerFactory(new EventListener.Factory() {
+                    @Override
+                    public EventListener create(Call call) {
+                        return new EventListener() {
+                            @Override
+                            public void callStart(Call call) {
+                                super.callStart(call);
+                            }
+                        };
+                    }
+                }).build();
+
+        Call call = client.newCall(request);
 
         call.enqueue(new Callback() {
             @Override

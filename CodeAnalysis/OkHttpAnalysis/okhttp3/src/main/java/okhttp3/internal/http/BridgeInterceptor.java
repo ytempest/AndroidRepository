@@ -46,19 +46,25 @@ public final class BridgeInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+
+         /*---------- 这里开始处理Request ----------*/
         Request userRequest = chain.request();
 
-        // 重新构建上一个拦截器穿过来的 Request，为这个Request添加一些请求头
+        // 重新构建上一个拦截器传递过来的 Request，为这个Request添加一些请求头
         Request.Builder requestBuilder = userRequest.newBuilder();
 
         RequestBody body = userRequest.body();
-        // 判断是否有 RequestBody，如果有就为这个RequestBody添加一些请求头
+        // 1、判断是否有 RequestBody，如果有就为这个RequestBody添加Content-Type头信息，并根据请求体的长度
+        // 添加 Content-Length 或者 Transfer-Encoding:chunked 头信息
         if (body != null) {
             MediaType contentType = body.contentType();
             if (contentType != null) {
                 requestBuilder.header("Content-Type", contentType.toString());
             }
 
+            // 根据RequestBody的长度添加相应的头信息：
+            // （1）如果请求体长度已知，那么添加 Content-Length头信息，并移除Transfer-Encoding:chunked头信息
+            // （2）如果请求体长度未知，即为-1，那么添加 Transfer-Encoding:chunked头信息，并移除Content-Length头信息
             long contentLength = body.contentLength();
             if (contentLength != -1) {
                 requestBuilder.header("Content-Length", Long.toString(contentLength));
@@ -69,33 +75,40 @@ public final class BridgeInterceptor implements Interceptor {
             }
         }
 
+        // 2、添加 Host头信息
         if (userRequest.header("Host") == null) {
             requestBuilder.header("Host", hostHeader(userRequest.url(), false));
         }
 
+        // 3、添加 Connection:keep-alive 头信息
         if (userRequest.header("Connection") == null) {
             requestBuilder.header("Connection", "Keep-Alive");
         }
 
         // If we add an "Accept-Encoding: gzip" header field we're responsible for also decompressing
         // the transfer stream.
+        // 4、如果还没有添加Accept-Encoding: gzip 和Range 头信息，则会添加Accept-Encoding:gzip 头信息
         boolean transparentGzip = false;
         if (userRequest.header("Accept-Encoding") == null && userRequest.header("Range") == null) {
             transparentGzip = true;
             requestBuilder.header("Accept-Encoding", "gzip");
         }
 
-        // 获取Request携带的Cookie，如果有Cookie，那么就为 Request添加Cookie到请求头中
+        // 5、获取Request携带的Cookie，如果有Cookie，那么就为 Request添加Cookie到请求头中
         List<Cookie> cookies = cookieJar.loadForRequest(userRequest.url());
         if (!cookies.isEmpty()) {
             requestBuilder.header("Cookie", cookieHeader(cookies));
         }
 
+        // 6、添加存储客户端的一些信息的信息头：User-Agent
         if (userRequest.header("User-Agent") == null) {
             requestBuilder.header("User-Agent", Version.userAgent());
         }
 
-        // 把构建好的Request分发给下一个拦截器，然后获取返回的Response
+
+         /*---------- 这里开始处理Response ----------*/
+
+        // 6、把构建好的Request分发给下一个拦截器，然后获取返回的Response
         Response networkResponse = chain.proceed(requestBuilder.build());
 
         HttpHeaders.receiveHeaders(cookieJar, userRequest.url(), networkResponse.headers());
@@ -128,6 +141,7 @@ public final class BridgeInterceptor implements Interceptor {
         StringBuilder cookieHeader = new StringBuilder();
         for (int i = 0, size = cookies.size(); i < size; i++) {
             if (i > 0) {
+                // Cookie之间是以 ";" 进行分隔的
                 cookieHeader.append("; ");
             }
             Cookie cookie = cookies.get(i);

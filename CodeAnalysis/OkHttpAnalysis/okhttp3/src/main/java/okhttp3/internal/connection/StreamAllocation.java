@@ -105,18 +105,24 @@ public final class StreamAllocation {
 
     public HttpCodec newStream(
             OkHttpClient client, Interceptor.Chain chain, boolean doExtensiveHealthChecks) {
+        // 连接超时
         int connectTimeout = chain.connectTimeoutMillis();
+        // 读取超时
         int readTimeout = chain.readTimeoutMillis();
+        // 写入超时
         int writeTimeout = chain.writeTimeoutMillis();
         int pingIntervalMillis = client.pingIntervalMillis();
         boolean connectionRetryEnabled = client.retryOnConnectionFailure();
 
         try {
-            // 获取到一个健康的连接
+            // 在findHealthyConnection()方法会获取成功连接到服务器的RealConnection，这个RealConnection的
+            // 来源有三种；但是只有新创建的RealConnection会进行Socket连接，调用顺序为：
+            // findHealthyConnection —> findConnection —>
+            // RealConnection.connect —> RealConnection.connectSocket —> AndroidPlatform.connectSocket
             RealConnection resultConnection = findHealthyConnection(connectTimeout, readTimeout,
                     writeTimeout, pingIntervalMillis, connectionRetryEnabled, doExtensiveHealthChecks);
 
-            // 在这里将连接的一些参数(如：服务器的输入输出流)保存在 HttpCodec中
+            // newCodec()会将连接的一些参数(如：服务器的输入输出流)保存在 HttpCodec中
             HttpCodec resultCodec = resultConnection.newCodec(client, chain, this);
 
             synchronized (connectionPool) {
@@ -136,11 +142,12 @@ public final class StreamAllocation {
                                                  boolean doExtensiveHealthChecks) throws IOException {
         // 这是一个死循环
         while (true) {
-            // 获取一个真实的连接
+            // 获取一个真实的连接，也就是获取到RealConnection，再使用其进行Socket连接
             RealConnection candidate = findConnection(connectTimeout, readTimeout, writeTimeout,
                     pingIntervalMillis, connectionRetryEnabled);
 
             // If this is a brand new connection, we can skip the extensive health checks.
+            // 如果这是一个新创建的连接，那么可以跳过健康检测，直接return
             synchronized (connectionPool) {
                 if (candidate.successCount == 0) {
                     return candidate;
@@ -159,10 +166,12 @@ public final class StreamAllocation {
     }
 
     /**
-     * 返回一个真实连接，连接的获取优先级：存在的连接 --> 连接池中获取 --> 创建新的连接
+     * 首先，获取一个RealConnection，连接的获取优先级：
+     * 存在的连接 --> 从连接池中获取 --> 遍历连接池查找可以匹配的 --> 创建新的连接
+     * 然后，如果获取到连接那么就将这个连接return
+     * 最后，如果获取不到，那么就创建一个新的连接，并使用新创建的RealConnection进行Socket连接，连接成功后return该连接
      */
-    private RealConnection findConnection(int connectTimeout, int readTimeout, int writeTimeout,
-                                          int pingIntervalMillis, boolean connectionRetryEnabled) throws IOException {
+    private RealConnection findConnection(int connectTimeout, int readTimeout, int writeTimeout, int pingIntervalMillis, boolean connectionRetryEnabled) throws IOException {
         boolean foundPooledConnection = false;
         RealConnection result = null;
         Route selectedRoute = null;
@@ -177,6 +186,8 @@ public final class StreamAllocation {
             // already-allocated connection may have been restricted from creating new streams.
             releasedConnection = this.connection;
             toClose = releaseIfNoNewStreams();
+
+            /*---------- 获取RealConnection ----------*/
             // 第一、如果有存在的连接
             if (this.connection != null) {
                 // We had an already-allocated connection and it's good.
@@ -188,11 +199,12 @@ public final class StreamAllocation {
                 releasedConnection = null;
             }
 
-            // 第二、没有存在的连接，那么尝试从连接池中获取
+            // 第二、result为空表示没有存在的连接，那么尝试从连接池中获取
             if (result == null) {
                 // Attempt to get a connection from the pool.
                 Internal.instance.get(connectionPool, address, this, null);
                 if (connection != null) {
+                    // 设置foundPooledConnection为true，表示找到了一个连接
                     foundPooledConnection = true;
                     result = connection;
                 } else {
@@ -205,13 +217,20 @@ public final class StreamAllocation {
         if (releasedConnection != null) {
             eventListener.connectionReleased(call, releasedConnection);
         }
+        // 如果从连接池中获取到一个RealConnection连接就回到Call事件监听器
         if (foundPooledConnection) {
+            // 回调Call事件监听回调
             eventListener.connectionAcquired(call, result);
         }
+        // 如果找到了RealConnection就返回
         if (result != null) {
             // If we found an already-allocated or pooled connection, we're done.
             return result;
         }
+        /*
+        * 如果是前面两种情况，那么获取到RealConnection连接后就会调用Call的事件监听回调，
+        * 然后将获取到的连接return
+        * */
 
         // If we need a route selection, make one. This is a blocking operation.
         boolean newRouteSelection = false;
@@ -220,12 +239,14 @@ public final class StreamAllocation {
             routeSelection = routeSelector.next();
         }
 
+        // 锁定连接池
         synchronized (connectionPool) {
             if (canceled) throw new IOException("Canceled");
 
             if (newRouteSelection) {
                 // Now that we have a set of IP addresses, make another attempt at getting a connection from
                 // the pool. This could match due to connection coalescing.
+                // 三、这里会尝试第二次从连接池中获取连接，因为某种原因，有可能有某个连接满足我们需要的连接
                 List<Route> routes = routeSelection.getAll();
                 for (int i = 0, size = routes.size(); i < size; i++) {
                     Route route = routes.get(i);
@@ -239,7 +260,7 @@ public final class StreamAllocation {
                 }
             }
 
-            // 第三、如果连接池中也没有，那么创建一个新的连接
+            // 第四、如果第二次也没有从连接池中获取到，那么创建一个新的连接
             if (!foundPooledConnection) {
                 if (selectedRoute == null) {
                     selectedRoute = routeSelection.next();
@@ -255,24 +276,30 @@ public final class StreamAllocation {
         }
 
         // If we found a pooled connection on the 2nd time around, we're done.
+        // 如果第二次从连接池中获取到了RealConnection，那么还是可以回调Call事件监听，然后return连接
         if (foundPooledConnection) {
             eventListener.connectionAcquired(call, result);
             return result;
         }
 
-        // 走到这里表示已经获取到了一个 连接，那么有了这个连接就可以使用 Socket进行网络连接
+         /*---------- 使用RealConnection进行连接 ----------*/
+        // 走到这里表示使用第四种方式创建了一个新连接，那么有了这个连接就需要使用 Socket进行网络连接
 
         // Do TCP + TLS handshakes. This is a blocking operation.
-        // 在这里开始使用 Socket进行网络连接
+        // result就是获取到的RealConnection连接
+        // 使用RealConnection进行Socket连接，并封装服务器返回的输入输出流到RealConnection中
         result.connect(connectTimeout, readTimeout, writeTimeout, pingIntervalMillis,
                 connectionRetryEnabled, call, eventListener);
+
         routeDatabase().connected(result.route());
 
         Socket socket = null;
+        // 锁定连接池，准备保存新创建的连接
         synchronized (connectionPool) {
             reportedAcquired = true;
 
             // Pool the connection.
+            // 将新创建的RealConnection连接保存在连接池中
             Internal.instance.put(connectionPool, result);
 
             // If another multiplexed connection to the same address was created concurrently, then
@@ -284,6 +311,7 @@ public final class StreamAllocation {
         }
         closeQuietly(socket);
 
+        // 最后回调Call事件监听器
         eventListener.connectionAcquired(call, result);
         return result;
     }

@@ -36,6 +36,14 @@ final class RealBufferedSink implements BufferedSink {
         return buffer;
     }
 
+    /**
+     * 这个方法会被 Http1Codec.ChunkedSink的write()方法 或者  Http1Codec.FixedLengthSink的write()方法调用
+     * 那么接着会调用最初封装了服务器输出流的Sink类的write()方法，位置在
+     * {@link Okio#sink(OutputStream, Timeout)}
+     *
+     * @param source    要写入服务器输出流的数据
+     * @param byteCount 数据的长度
+     */
     @Override
     public void write(Buffer source, long byteCount)
             throws IOException {
@@ -97,10 +105,17 @@ final class RealBufferedSink implements BufferedSink {
         return emitCompleteSegments();
     }
 
+    /**
+     * 实现将 source的数据写到服务器的输出流中
+     * 这个方法会调用 CallServerInterceptor.CountingSink的write方法
+     * {@link okhttp3.internal.http.CallServerInterceptor.CountingSink#write(Buffer, long)}
+     */
     @Override
     public BufferedSink write(byte[] source, int offset, int byteCount) throws IOException {
         if (closed) throw new IllegalStateException("closed");
+        // 首先将请求体的数据写到缓存区
         buffer.write(source, offset, byteCount);
+        // 然后调用 emitCompleteSegments()方法将缓存区的数据写到Sink流
         return emitCompleteSegments();
     }
 
@@ -203,7 +218,7 @@ final class RealBufferedSink implements BufferedSink {
     }
 
     /**
-     * 将文件的字节流（已经写到了buffer中）写到服务中
+     * 将请求体的内容写到代理流，即sink中，这个sink有可能是CallServerInterceptor.CountingSink、Sink
      */
     @Override
     public BufferedSink emitCompleteSegments() throws IOException {
@@ -211,8 +226,7 @@ final class RealBufferedSink implements BufferedSink {
         long byteCount = buffer.completeSegmentByteCount();
 
         if (byteCount > 0) {
-            // sink：服务器的输出流
-            // 将文件字节流写到服务器中
+            // sink：被封装了的服务器的输出流
             sink.write(buffer, byteCount);
         }
         return this;

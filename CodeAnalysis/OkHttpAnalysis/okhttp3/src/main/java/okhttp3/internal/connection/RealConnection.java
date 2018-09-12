@@ -74,6 +74,10 @@ import static java.net.HttpURLConnection.HTTP_PROXY_AUTH;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static okhttp3.internal.Util.closeQuietly;
 
+/**
+ * @author ytempest
+ *         Description：这是OkHttp的连接对象，保存了连接了服务器的Socket、服务器的输入输出流，连接协议等数据
+ */
 public final class RealConnection extends Http2Connection.Listener implements Connection {
     private static final String NPE_THROW_WITH_NULL = "throw with null exception";
     private static final int MAX_TUNNEL_ATTEMPTS = 21;
@@ -140,7 +144,8 @@ public final class RealConnection extends Http2Connection.Listener implements Co
     }
 
     /**
-     * 在这个方法中会使用 Socket 连接网络
+     * 在这个方法中会使用 Socket 连接网络，同时将获取到的服务器输入输出流封装成Okio中的Source和Sink，
+     * 并将服务器的输入输出流保存到当前对象的sourc、sink成员变量中
      *
      * @param connectTimeout 连接超时
      * @param readTimeout    读取超时
@@ -167,9 +172,11 @@ public final class RealConnection extends Http2Connection.Listener implements Co
             }
         }
 
+        // 这是一个死循环，只有Socket连接成功或者连接失败才能跳出循环
         while (true) {
             try {
                 if (route.requiresTunnel()) {
+                    // 这里表示要求使用隧道进行连接
                     connectTunnel(connectTimeout, readTimeout, writeTimeout, call, eventListener);
                     if (rawSocket == null) {
                         // We were unable to connect the tunnel but properly closed down our resources.
@@ -179,7 +186,10 @@ public final class RealConnection extends Http2Connection.Listener implements Co
                     // 使用 Socket连接到网络
                     connectSocket(connectTimeout, readTimeout, call, eventListener);
                 }
+                // 建立协议，如：TLS
                 establishProtocol(connectionSpecSelector, pingIntervalMillis, call, eventListener);
+
+                // 最后，完成Socket连接后，调用Call事件回调监听
                 eventListener.connectEnd(call, route.socketAddress(), route.proxy(), protocol);
                 break;
             } catch (IOException e) {
@@ -193,6 +203,7 @@ public final class RealConnection extends Http2Connection.Listener implements Co
                 protocol = null;
                 http2Connection = null;
 
+                // Socket连接出错，调用Call的事件回调监听
                 eventListener.connectFailed(call, route.socketAddress(), route.proxy(), null, e);
 
                 if (routeException == null) {
@@ -246,6 +257,8 @@ public final class RealConnection extends Http2Connection.Listener implements Co
 
     /**
      * 完成在原始套接字上建立完整的HTTP或HTTPS连接所需的所有工作。
+     * 具体逻辑：调用AndroidPlatform的 connectSocket()方法完成对Android平台的Socket的连接，连接成功后
+     * 对服务器返回的输入输出流封装成Okio中的Sink、Source
      */
     private void connectSocket(int connectTimeout, int readTimeout, Call call,
                                EventListener eventListener) throws IOException {
@@ -256,9 +269,13 @@ public final class RealConnection extends Http2Connection.Listener implements Co
                 ? address.socketFactory().createSocket()
                 : new Socket(proxy);
 
+        // 回调Call的事件监听
         eventListener.connectStart(call, route.socketAddress(), proxy);
         rawSocket.setSoTimeout(readTimeout);
         try {
+            // 首先获取当前的平台，这里是Android，所以获取到的是AndroidPlatform
+            // 然后会调用 AndroidPlatform的 connectSocket()方法
+            // AndroidPlatform的 connectSocket()方法只是调用了 Socket的connect()方法完成了连接工作
             Platform.get().connectSocket(rawSocket, route.socketAddress(), connectTimeout);
         } catch (ConnectException e) {
             ConnectException ce = new ConnectException("Failed to connect to " + route.socketAddress());
@@ -266,12 +283,15 @@ public final class RealConnection extends Http2Connection.Listener implements Co
             throw ce;
         }
 
+        // 来到这表示Socket连接成功，没有报错，下面开始封装服务器返回的输入输出流
+
         // The following try/catch block is a pseudo hacky way to get around a crash on Android 7.0
         // More details:
         // https://github.com/square/okhttp/issues/3245
         // https://android-review.googlesource.com/#/c/271775/
         try {
             // 这段代码很重要，通过这两段代码实现了 okio中的source和sink流与服务器的输入输出流绑定
+            // 这里会对服务器的输入输出流进行两次封装
             // Okio.source(rawSocket)：这个方法会从 Socket对象中获取到服务器返回的输入流，然后封装成 Source对象
             // Okio.sink(rawSocket)：这个方法会从 Socket对象中获取到服务器返回的输出流，然后封装成 Sink对象
             source = Okio.buffer(Okio.source(rawSocket));
@@ -283,6 +303,15 @@ public final class RealConnection extends Http2Connection.Listener implements Co
         }
     }
 
+    /**
+     * 开始进行建立协议的连接，如：TLS
+     *
+     * @param connectionSpecSelector
+     * @param pingIntervalMillis
+     * @param call
+     * @param eventListener
+     * @throws IOException
+     */
     private void establishProtocol(ConnectionSpecSelector connectionSpecSelector,
                                    int pingIntervalMillis, Call call, EventListener eventListener) throws IOException {
         if (route.address().sslSocketFactory() == null) {
@@ -298,8 +327,13 @@ public final class RealConnection extends Http2Connection.Listener implements Co
             return;
         }
 
+        // 调用Call事件的监听，告知开始建立TLS连接
         eventListener.secureConnectStart(call);
+
+        // 开始进行TLS连接
         connectTls(connectionSpecSelector);
+
+        // 调用Call事件的监听，告知建立TLS连接结束
         eventListener.secureConnectEnd(call, handshake);
 
         if (protocol == Protocol.HTTP_2) {
@@ -317,6 +351,12 @@ public final class RealConnection extends Http2Connection.Listener implements Co
         http2Connection.start();
     }
 
+    /**
+     * 建立TLS连接
+     *
+     * @param connectionSpecSelector
+     * @throws IOException
+     */
     private void connectTls(ConnectionSpecSelector connectionSpecSelector) throws IOException {
         Address address = route.address();
         SSLSocketFactory sslSocketFactory = address.sslSocketFactory();

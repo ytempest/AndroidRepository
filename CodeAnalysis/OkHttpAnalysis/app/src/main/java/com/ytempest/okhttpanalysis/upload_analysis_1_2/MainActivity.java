@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.FileNameMap;
 import java.net.URLConnection;
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;

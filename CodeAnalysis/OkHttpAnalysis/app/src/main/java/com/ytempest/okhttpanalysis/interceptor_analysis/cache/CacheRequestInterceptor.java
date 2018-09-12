@@ -3,7 +3,6 @@ package com.ytempest.okhttpanalysis.interceptor_analysis.cache;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import java.io.IOException;
 
@@ -11,8 +10,6 @@ import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * @author ytempest

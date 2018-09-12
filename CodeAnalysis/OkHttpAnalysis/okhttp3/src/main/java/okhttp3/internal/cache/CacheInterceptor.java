@@ -63,14 +63,17 @@ public final class CacheInterceptor implements Interceptor {
      */
     @Override
     public Response intercept(Chain chain) throws IOException {
-        // 根据Request从缓存中获取Response
+
+        /*---------- 缓存策略的逻辑 --------*/
+
+        // 根据Request从缓存中获取Response作为一个候补
         Response cacheCandidate = cache != null
                 ? cache.get(chain.request())
                 : null;
 
         long now = System.currentTimeMillis();
 
-        // 获取缓存策略
+        // 获取缓存策略，传递当前时间用于判断缓存是否过期
         CacheStrategy strategy = new CacheStrategy.Factory(now, chain.request(), cacheCandidate).get();
         Request networkRequest = strategy.networkRequest;
         Response cacheResponse = strategy.cacheResponse;
@@ -86,7 +89,7 @@ public final class CacheInterceptor implements Interceptor {
             closeQuietly(cacheCandidate.body());
         }
 
-        // 第一处不往下传递Request，而是直接返回本地缓存的Response
+        // 第一处不往下传递Request，而是构建一个空的Response返回
         // 当被禁止使用联网获取数据同时本地缓存又不足，那么就会返回一个没有数据的RequestBody的
         // Response，同时响应码是504
         if (networkRequest == null && cacheResponse == null) {
@@ -102,13 +105,17 @@ public final class CacheInterceptor implements Interceptor {
         }
 
         // 第二处不往下传递Request，而是直接返回本地缓存的Response
-        // 如果缓存策略中的Request为空，即通过检测，发现Response满足可使用的条件
+        // 如果缓存策略中的Request为空，但是Response本地缓存不为空，那么就会构建一个Response返回
         if (networkRequest == null) {
             return cacheResponse.newBuilder()
                     .cacheResponse(stripBody(cacheResponse))
                     .build();
         }
 
+        /*---------- 向服务器进行Request并获取Response的逻辑 --------*/
+        // 来到这里表示 networkRequest不为空，那么就开始传递责任，将该Request传递给下一个拦截器
+
+        // 这是服务器返回的Response
         Response networkResponse = null;
         try {
             // 把Request发送给下一个拦截器，让它处理，连接网络获取后台的数据
@@ -121,14 +128,17 @@ public final class CacheInterceptor implements Interceptor {
 
         // 如果发起网络请求获取Response数据后，我们也存在Response本地缓存，那么就更新这个本地缓存
         if (cacheResponse != null) {
-            // 如果网络请求后的Response状态码是304，即没有修改过，那么我们还是可以使用这个
+            // 如果网络请求后的Response状态码是304，即数据没有修改过，那么我们还是可以使用这个
             // 本地缓存的，这不过要对请求头和过期时间要做一下修改
             if (networkResponse.code() == HTTP_NOT_MODIFIED) {
                 Response response = cacheResponse.newBuilder()
+                        // 合并服务器返回的Response和本地缓存的Response的头信息
                         .headers(combine(cacheResponse.headers(), networkResponse.headers()))
                         .sentRequestAtMillis(networkResponse.sentRequestAtMillis())
                         .receivedResponseAtMillis(networkResponse.receivedResponseAtMillis())
+                        // 为Response添加本地缓存的Response
                         .cacheResponse(stripBody(cacheResponse))
+                        // 为Response添加服务器返回的Response
                         .networkResponse(stripBody(networkResponse))
                         .build();
                 networkResponse.body().close();
@@ -137,24 +147,24 @@ public final class CacheInterceptor implements Interceptor {
                 // Content-Encoding header (as performed by initContentStream()).
                 cache.trackConditionalCacheHit();
 
-                // 更新这个Request的本地Response缓存
+                // 更新这个cacheResponse的本地缓存
                 cache.update(cacheResponse, response);
 
-                // 返回网络请求后的response
+                // 返回网络请求后的response，里面附带了Response本地缓存和服务器返回的Response
                 return response;
             } else {
                 closeQuietly(cacheResponse.body());
             }
         }
 
-        // 走到这里表明，该Request没有本地缓存，同时Request已经进行网络连接获取到了Response
+        // 走到这里表明，该Request没有本地缓存
 
         Response response = networkResponse.newBuilder()
                 .cacheResponse(stripBody(cacheResponse))
                 .networkResponse(stripBody(networkResponse))
                 .build();
 
-        // 如果设置了缓存Cache对象
+        // 如果设置了缓存Cache对象，那么就将该服务器返回的Response缓存起来
         if (cache != null) {
             if (HttpHeaders.hasBody(response) && CacheStrategy.isCacheable(response, networkRequest)) {
                 // 将该Response缓存起来

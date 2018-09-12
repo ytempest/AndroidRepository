@@ -103,39 +103,51 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
     }
 
     /**
-     * 在这个方法处理重试和重定向
+     * 由拦截器的拦截顺序可以知道，这个拦截器是第一个接触到Request的系统拦截器（用户设置的一个
+     * 拦截会首先接触到Request），在这个方法会处理重试和重定向
      *
      * @param chain 下一个拦截器的 chain对象，即 BridgeInterceptor拦截器
-     * @return
+     * @return 返回一个Response数据
      * @throws IOException
      */
     @Override
     public Response intercept(Chain chain) throws IOException {
+
+        /*---------- 这里开始处理Request ----------*/
+
+        // 1、先获取Request对象
         Request request = chain.request();
+
+        // 2、获取相关的参数
         RealInterceptorChain realChain = (RealInterceptorChain) chain;
         Call call = realChain.call();
         EventListener eventListener = realChain.eventListener();
 
-        // 这个对象比较重要，但是记得了干什么的了
+        // 初始化 StreamAllocation，这个对象在责任链传递过程中非常重要
+        // 但是记得了干什么的了
         // TODO: 2018/5/11/011
         StreamAllocation streamAllocation = new StreamAllocation(client.connectionPool(),
-                createAddress(request.url()), call, eventListener, callStackTrace);
+                createAddress(request.url())/*将Request的一些信息封装成一个Address*/, call, eventListener, callStackTrace);
         this.streamAllocation = streamAllocation;
 
         int followUpCount = 0;
         Response priorResponse = null;
-        // 这是一个死循环，只有两种情况可以跳出：1、return Response, 2、throws IOException
+        // 这是一个死循环，只有两种情况可以跳出：
+        // （1）return Response：也就是请求结束，返回数据
+        // （2）throws IOException：也就是出现异常，比如：用户取消了请求、重定向的次数超过20次
         while (true) {
+            // 如果用户调用 RealCall的cancel()取消了请求，那么canceled为true
             if (canceled) {
                 streamAllocation.release();
                 throw new IOException("Canceled");
             }
 
             Response response;
+            // 表示释放连接，如果没有发生异常，那么就不会释放
             boolean releaseConnection = true;
             try {
                 // RetryAndFollowUpInterceptor已经处理完了对Request的逻辑，现在把责任下发到下一个拦截器
-                // 获取到 下一个拦截器返回的 Response后，会对这个Response进行一些处理
+                // 获取到下一个拦截器返回的 Response后，会对这个Response进行一些处理
                 response = realChain.proceed(request, streamAllocation, null, null);
                 releaseConnection = false;
             } catch (RouteException e) {
@@ -161,7 +173,10 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
                 }
             }
 
+
+            /*---------- 这里开始处理Response ----------*/
             // 如果执行到这里表示，请求成功，这过程中并没有发生异常，或者说异常已经被处理
+            // 下面开始处理后面拦截器返回的 Response
 
             // 第一次循环肯定是null，第二次循环后不会null
             if (priorResponse != null) {
@@ -188,12 +203,12 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
                 if (!forWebSocket) {
                     streamAllocation.release();
                 }
-                // 这里会跳出死循环，把Response返回给上一级
+                // 由于完成了所有重定向，所以会跳出死循环，把Response返回给上一级
                 return response;
             }
 
-            // 走到这里表示重定向失败
 
+            /*------- 走到这里表示重定向失败 --------*/
             closeQuietly(response.body());
 
             // 如果重定向的次数超过20次，那么就直接抛异常
@@ -225,10 +240,17 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
         }
     }
 
+    /**
+     * 将 Request的一些信息（主机号、端口号、DNS、主机名、证书、代理、协议等）封装成一个 Address
+     * 如果该url是一个Https请求，那么还会将SSL相关的参数封装到Address中
+     *
+     * @param url 请求的HttpUrl
+     */
     private Address createAddress(HttpUrl url) {
         SSLSocketFactory sslSocketFactory = null;
         HostnameVerifier hostnameVerifier = null;
         CertificatePinner certificatePinner = null;
+        // 判断是否是Https请求，如果是就添加SSL相关的参数
         if (url.isHttps()) {
             sslSocketFactory = client.sslSocketFactory();
             hostnameVerifier = client.hostnameVerifier();
@@ -312,7 +334,7 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
         final String method = userResponse.request().method();
         // 根据响应码处理相应的逻辑，如重定向
         switch (responseCode) {
-            case HTTP_PROXY_AUTH:
+            case HTTP_PROXY_AUTH: /* 407状态码 */
                 Proxy selectedProxy = route != null
                         ? route.proxy()
                         : client.proxy();
@@ -321,21 +343,21 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
                 }
                 return client.proxyAuthenticator().authenticate(route, userResponse);
 
-            case HTTP_UNAUTHORIZED:
+            case HTTP_UNAUTHORIZED: /* 401状态码 */
                 return client.authenticator().authenticate(route, userResponse);
 
-            case HTTP_PERM_REDIRECT:
-            case HTTP_TEMP_REDIRECT:
+            case HTTP_PERM_REDIRECT: /* 308状态码：重定向状态码 */
+            case HTTP_TEMP_REDIRECT: /* 307状态码：重定向状态码 */
                 // "If the 307 or 308 status code is received in response to a request other than GET
                 // or HEAD, the user agent MUST NOT automatically redirect the request"
                 if (!method.equals("GET") && !method.equals("HEAD")) {
                     return null;
                 }
                 // fall-through
-            case HTTP_MULT_CHOICE:
-            case HTTP_MOVED_PERM:
-            case HTTP_MOVED_TEMP:
-            case HTTP_SEE_OTHER:
+            case HTTP_MULT_CHOICE: /* 300状态码 */
+            case HTTP_MOVED_PERM: /* 301状态码 */
+            case HTTP_MOVED_TEMP: /* 302状态码 */
+            case HTTP_SEE_OTHER: /* 303状态码 */
                 // 当这个状态码是303，表示由于请求对应的资源存在着另一个URI，应使用GET方法定向获取请求的资源
 
                 if (!client.followRedirects()) return null;
@@ -380,7 +402,7 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
                 // 返回一个重定向的 url
                 return requestBuilder.url(url).build();
 
-            case HTTP_CLIENT_TIMEOUT:
+            case HTTP_CLIENT_TIMEOUT: /* 408状态码：请求超时 */
                 // 408's are rare in practice, but some servers like HAProxy use this response code. The
                 // spec says that we may repeat the request without modifications. Modern browsers also
                 // repeat the request (even non-idempotent ones.)
@@ -405,7 +427,7 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
 
                 return userResponse.request();
 
-            case HTTP_UNAVAILABLE:
+            case HTTP_UNAVAILABLE:  /* 503状态码：服务器不可用 */
                 if (userResponse.priorResponse() != null
                         && userResponse.priorResponse().code() == HTTP_UNAVAILABLE) {
                     // We attempted to retry and got another timeout. Give up.
