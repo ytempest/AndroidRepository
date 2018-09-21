@@ -3,7 +3,6 @@ package com.ytempest.smarteventdemo.base;
 import android.app.Application;
 
 import com.ytempest.smartevent.SmartEvent;
-import com.ytempest.smartevent.SmartEventIndex;
 
 /**
  * @author ytempest
@@ -15,7 +14,7 @@ public class BaseApplication extends Application {
         super.onCreate();
 
         SmartEvent.builder()
-                .addSubscriberInfoIndex(new SmartEventIndex())
+          //    .addSubscriberInfoIndex(new SmartEventIndex())
                 .installDefaultSmartEvent();
 
     }

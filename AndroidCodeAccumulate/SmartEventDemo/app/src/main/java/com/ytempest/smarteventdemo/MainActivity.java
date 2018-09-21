@@ -41,8 +41,23 @@ public class MainActivity extends SecondActivity {
     public void onTextChange(final Message msg) {
         if (msg.arg1 == 100) {
             String string = msg.obj.toString();
-            Log.e(TAG, "onTextChange: msg --> " + string);
+            Log.e(TAG, "onTextChange: msg1 --> " + string);
+
             mTextView.setText(string);
+
+
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100)
+    public void onTextChange1(final Message msg) {
+        if (msg.arg1 == 100) {
+            String string = msg.obj.toString();
+            Log.e(TAG, "onTextChange: msg1 --> " + string);
+
+            mTextView.setText(string);
+
+
         }
     }
 

@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.ytempest.smartevent.SmartEvent;
 import com.ytempest.smartevent.Subscribe;
+import com.ytempest.smartevent.ThreadMode;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -26,6 +27,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100)
     public void onReturnClick(final View view) {
         Message message = Message.obtain();
         message.arg1 = 100;
