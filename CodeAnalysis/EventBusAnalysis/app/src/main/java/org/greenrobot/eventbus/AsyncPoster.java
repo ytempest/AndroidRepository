@@ -18,8 +18,11 @@ package org.greenrobot.eventbus;
 
 /**
  * Posts events in background.
- * 
+ *
  * @author Markus
+ *         Description：：会使用EventBus的线程池处理任务，如果用户没有设置，那么这个线程池默认为
+ *         EventBusBuilder中创建的CachedThreadPool线程池；它是直接放到线程池中执行的，由于它没有
+ *         进行加锁，所以有可能下一个任务会先与上一个任务执行
  */
 class AsyncPoster implements Runnable, Poster {
 
@@ -40,7 +43,7 @@ class AsyncPoster implements Runnable, Poster {
     @Override
     public void run() {
         PendingPost pendingPost = queue.poll();
-        if(pendingPost == null) {
+        if (pendingPost == null) {
             throw new IllegalStateException("No pending post available");
         }
         eventBus.invokeSubscriber(pendingPost);

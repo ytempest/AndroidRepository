@@ -47,10 +47,16 @@ final class PendingPostQueue {
         notifyAll();
     }
 
+    /**
+     * 将队首元素出队
+     */
     synchronized PendingPost poll() {
+        // 获取队首元素
         PendingPost pendingPost = head;
+        // 将队首指针指向下一个队列元素
         if (head != null) {
             head = head.next;
+            // 如果下一个队列元素就是最后一个元素，那么就将队尾指针置null
             if (head == null) {
                 tail = null;
             }

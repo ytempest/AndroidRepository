@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.SubscriberMethod;
 
 /**
  * Uses {@link SubscriberMethodInfo} objects to create {@link SubscriberMethod} objects on demand.
- * 这个类封装了一个订阅对象，以及该订阅对象的所有订阅方法
+ * Description：这个类封装了一个订阅对象，以及该订阅对象的所有订阅方法
  */
 public class SimpleSubscriberInfo extends AbstractSubscriberInfo {
 
@@ -31,7 +31,7 @@ public class SimpleSubscriberInfo extends AbstractSubscriberInfo {
     }
 
     /**
-     * 获取当前封装类封装的所有订阅方法
+     * 获取当前订阅对象的所有订阅方法
      */
     @Override
     public synchronized SubscriberMethod[] getSubscriberMethods() {

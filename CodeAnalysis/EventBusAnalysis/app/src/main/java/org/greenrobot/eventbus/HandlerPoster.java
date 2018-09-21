@@ -37,6 +37,7 @@ public class HandlerPoster extends Handler implements Poster {
     private final EventBus eventBus;
     private boolean handlerActive;
 
+    // maxMillisInsideHandleMessage默认设置为10
     protected HandlerPoster(EventBus eventBus, Looper looper, int maxMillisInsideHandleMessage) {
         super(looper);
         this.eventBus = eventBus;

@@ -26,19 +26,32 @@ public interface MainThreadSupport {
 
     Poster createPoster(EventBus eventBus);
 
+    /**
+     * Description：主线程的支持类，通过这个类可以判断当前线程是否为主线程，以及可以获取到
+     * 主线程的Handler
+     */
     class AndroidHandlerMainThreadSupport implements MainThreadSupport {
 
+        /**
+         * 主线程的Looper
+         */
         private final Looper looper;
 
         public AndroidHandlerMainThreadSupport(Looper looper) {
             this.looper = looper;
         }
 
+        /**
+         * 判断当前线程是否为主线程
+         */
         @Override
         public boolean isMainThread() {
             return looper == Looper.myLooper();
         }
 
+        /**
+         * 创建一个主线程的Handler
+         */
         @Override
         public Poster createPoster(EventBus eventBus) {
             return new HandlerPoster(eventBus, looper, 10);

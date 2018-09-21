@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // 指定 EventBus3.0索引的生成的包以及索引类名
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [eventBusIndex: 'org.greenrobot.eventbusperf.MyEventBusIndex']

@@ -13,7 +13,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        EventBus.builder().ignoreGeneratedIndex(true).addIndex(new MyEventBusIndex()).installDefaultEventBus();
-
+        // ignoreGeneratedIndex()：如果为true则表示忽略注解生成器生成的MyEventBusIndex
+        // addIndex()：添加注解生成器生成的索引类
+        // installDefaultEventBus()：安装默认配置的EventBus
+        EventBus.builder().ignoreGeneratedIndex(false).addIndex(new MyEventBusIndex()).installDefaultEventBus();
     }
 }

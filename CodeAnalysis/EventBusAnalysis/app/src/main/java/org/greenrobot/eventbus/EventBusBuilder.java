@@ -49,7 +49,7 @@ public class EventBusBuilder {
     ExecutorService executorService = DEFAULT_EXECUTOR_SERVICE;
     List<Class<?>> skipMethodVerificationForClasses;
     /**
-     * 索引类默认为null，需要在外部进行设置才能使用
+     * 这是一个索引类集合，可以存储多个索引类，默认为null，需要在外部进行设置才能使用
      */
     List<SubscriberInfoIndex> subscriberInfoIndexes;
     Logger logger;
@@ -140,6 +140,7 @@ public class EventBusBuilder {
 
     /**
      * Forces the use of reflection even if there's a generated index (default: false).
+     * 如果设置为true表示忽略使用索引类
      */
     public EventBusBuilder ignoreGeneratedIndex(boolean ignoreGeneratedIndex) {
         this.ignoreGeneratedIndex = ignoreGeneratedIndex;
@@ -155,12 +156,13 @@ public class EventBusBuilder {
     }
 
     /**
-     * 添加索引对象，这个索引类是在编译的时候生成的
+     * 添加索引对象到索引类集合中，这个索引类是在编译的时候生成的
      */
     public EventBusBuilder addIndex(SubscriberInfoIndex index) {
         if (subscriberInfoIndexes == null) {
             subscriberInfoIndexes = new ArrayList<>();
         }
+        // 添加到索引类集合
         subscriberInfoIndexes.add(index);
         return this;
     }
@@ -188,10 +190,16 @@ public class EventBusBuilder {
     }
 
 
+    /**
+     * 获取Android的主线程支持类，根据是否可以获取到主线程的Looper对象进行判断，如果可以获取到，那
+     * 返回一个 MainThreadSupport.AndroidHandlerMainThreadSupport对象，否则返回一个null
+     */
     MainThreadSupport getMainThreadSupport() {
         if (mainThreadSupport != null) {
             return mainThreadSupport;
+
         } else if (AndroidLogger.isAndroidLogAvailable()) {
+            // 获取Android主线程的Looper对象，如果获取不到则返回null
             Object looperOrNull = getAndroidMainLooperOrNull();
             return looperOrNull == null ? null :
                     new MainThreadSupport.AndroidHandlerMainThreadSupport((Looper) looperOrNull);
@@ -200,6 +208,9 @@ public class EventBusBuilder {
         }
     }
 
+    /**
+     * 获取Android的主线程的Looper对象，如果获取不到则返回null
+     */
     Object getAndroidMainLooperOrNull() {
         try {
             return Looper.getMainLooper();

@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private TextView mTextView;
-    private boolean isRegister =false;
+    private boolean isRegister = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.ASYNC, priority = 100, sticky = false)
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = true)
     public void onChangeText(String string) {
         Log.e(TAG, "对普通事件进行处理：" + string);
         mTextView.setText(string);
