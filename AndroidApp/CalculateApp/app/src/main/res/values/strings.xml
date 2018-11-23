@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">CalculateApp</string>
+
+    <!-- 按钮的文字集合 -->
+    <string name="bt_11">C</string>
+    <string name="bt_12">(</string>
+    <string name="bt_13">)</string>
+    <string name="bt_21">7</string>
+    <string name="bt_22">8</string>
+    <string name="bt_23">9</string>
+    <string name="bt_24">×</string>
+    <string name="bt_31">4</string>
+    <string name="bt_32">5</string>
+    <string name="bt_33">6</string>
+    <string name="bt_34">÷</string>
+    <string name="bt_41">1</string>
+    <string name="bt_42">2</string>
+    <string name="bt_43">3</string>
+    <string name="bt_44">-</string>
+    <string name="bt_51">0</string>
+    <string name="bt_52">.</string>
+    <string name="bt_53">+</string>
+    <string name="bt_54">＝</string>
+</resources>

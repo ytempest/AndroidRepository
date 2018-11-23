@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- CalculatorTextView的颜色集 -->
+    <color name="calculator_tv_bg">#F1F3F3</color>
+    <color name="calculator_tv_text_color">#636060</color>
+
+    <!-- 按钮顶层容器的背景颜色 -->
+    <color name="button_container_bg">#cccdcd</color>
+
+    <!-- 一般按钮的字体颜色 -->
+    <color name="base_button_text_color">#6F7480</color>
+
+    <!-- 普通按钮的正常显示和按下时显示的颜色-->
+    <color name="button_base_normal_color">#FFFFFF</color>
+    <color name="button_base_press_color">#efefef</color>
+
+    <!-- 等于按钮的颜色集 -->
+    <!-- 按钮的正常显示和按下时显示的颜色-->
+    <color name="button_equal_normal_color">#FB7730</color>
+    <color name="button_equal_press_color">#ea6a25</color>
+    <!-- 等于按钮的文字颜色 -->
+    <color name="button_equal_text_color">#FFFFFF</color>
+
+    <!-- 复位按钮的文字颜色 -->
+    <color name="button_reset_text_color">#FF5D00</color>
+</resources>

@@ -1,0 +1,47 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- 每一行Button的容器样式-->
+    <style name="row_container_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- 每一个Button的基本样式-->
+    <style name="base_row_button_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">0.3dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- 一般的Button的样式 -->
+    <style name="row_button_style" parent="base_row_button_style">
+        <item name="android:background">@drawable/selector_base_button_bg</item>
+        <item name="android:textColor">@color/base_button_text_color</item>
+    </style>
+
+
+    <!-- 复位按钮的样式-->
+    <style name="row_reset_button_style" parent="row_button_style">
+        <item name="android:textColor">@color/button_reset_text_color</item>
+    </style>
+
+    <!-- 等于按钮的样式 -->
+    <style name="row_equal_button_style" parent="base_row_button_style">
+        <item name="android:background">@drawable/selector_equal_button_bg</item>
+        <item name="android:textColor">@color/button_equal_text_color</item>
+    </style>
+
+</resources>

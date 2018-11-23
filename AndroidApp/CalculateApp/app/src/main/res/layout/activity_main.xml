@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ytempest.calculateapp.MainActivity">
+
+    <com.ytempest.calculateapp.view.CalculatorTextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:background="@color/calculator_tv_bg"
+        android:gravity="right|bottom"
+        android:padding="16dp"
+        android:textColor="@color/calculator_tv_text_color" />
+
+    <LinearLayout
+        android:id="@+id/ll_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:background="@color/button_container_bg"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/row_container_style">
+
+            <TextView
+                android:id="@+id/bt_reset"
+                style="@style/row_reset_button_style"
+                android:text="@string/bt_11" />
+
+            <TextView
+                android:id="@+id/bt_left_bracket"
+                style="@style/row_button_style"
+                android:text="@string/bt_12" />
+
+            <TextView
+                android:id="@+id/bt_right_bracket"
+                style="@style/row_button_style"
+                android:text="@string/bt_13" />
+
+            <ImageButton
+                android:id="@+id/bt_clear"
+                style="@style/row_button_style"
+                android:src="@drawable/clear_button_image" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/row_container_style">
+
+            <TextView
+                android:id="@+id/bt_seven"
+                style="@style/row_button_style"
+                android:text="@string/bt_21" />
+
+            <TextView
+                android:id="@+id/bt_eight"
+                style="@style/row_button_style"
+                android:text="@string/bt_22" />
+
+            <TextView
+                android:id="@+id/bt_nine"
+                style="@style/row_button_style"
+                android:text="@string/bt_23" />
+
+            <TextView
+                android:id="@+id/bt_division"
+                style="@style/row_button_style"
+                android:text="@string/bt_24" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/row_container_style">
+
+            <TextView
+                android:id="@+id/bt_four"
+                style="@style/row_button_style"
+                android:text="@string/bt_31" />
+
+            <TextView
+
+                android:id="@+id/bt_five"
+                style="@style/row_button_style"
+                android:text="@string/bt_32" />
+
+            <TextView
+                android:id="@+id/bt_six"
+                style="@style/row_button_style"
+                android:text="@string/bt_33" />
+
+            <TextView
+                android:id="@+id/bt_multiplicative"
+                style="@style/row_button_style"
+                android:text="@string/bt_34" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/row_container_style">
+
+            <TextView
+                android:id="@+id/bt_one"
+                style="@style/row_button_style"
+                android:text="@string/bt_41" />
+
+            <TextView
+                android:id="@+id/bt_two"
+                style="@style/row_button_style"
+                android:text="@string/bt_42" />
+
+            <TextView
+                android:id="@+id/bt_three"
+                style="@style/row_button_style"
+                android:text="@string/bt_43" />
+
+            <TextView
+                android:id="@+id/bt_subtraction"
+                style="@style/row_button_style"
+                android:text="@string/bt_44" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/row_container_style">
+
+            <TextView
+                android:id="@+id/bt_zero"
+                style="@style/row_button_style"
+                android:text="@string/bt_51" />
+
+            <TextView
+                android:id="@+id/bt_point"
+                style="@style/row_button_style"
+                android:text="@string/bt_52" />
+
+            <TextView
+                android:id="@+id/bt_add"
+                style="@style/row_button_style"
+                android:text="@string/bt_53" />
+
+            <TextView
+                android:id="@+id/bt_equal"
+                style="@style/row_equal_button_style"
+                android:text="@string/bt_54" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
