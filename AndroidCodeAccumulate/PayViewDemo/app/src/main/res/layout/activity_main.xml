@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:background="@color/colorPrimary"
+    android:gravity="bottom"
     android:orientation="vertical"
     tools:context="com.ytempest.payviewdemo.MainActivity">
 
     <com.ytempest.payment.PayView
         android:id="@+id/pay_view"
-        android:background="@android:color/holo_blue_dark"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="wrap_content" />
 </LinearLayout>

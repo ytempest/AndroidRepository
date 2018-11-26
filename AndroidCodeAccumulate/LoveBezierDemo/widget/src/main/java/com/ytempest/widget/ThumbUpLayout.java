@@ -12,9 +12,12 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import static android.content.ContentValues.TAG;

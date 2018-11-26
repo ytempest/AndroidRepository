@@ -29,10 +29,11 @@
             android:text="停止" />
     </LinearLayout>
 
+
     <com.ytempest.widget.SplashLoadView
-        app:loadingBackground="@android:color/holo_green_light"
         android:id="@+id/splash_load_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:loadingBackground="#8cf5ad" />
 
 </LinearLayout>
