@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Retrofit retrofit = new Retrofit.Builder()
+       Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.200.100/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -57,7 +57,7 @@ public abstract class BaseMVPActivity extends AppCompatActivity implements BaseV
                     field.setAccessible(true);
                     field.set(this, presenter);
 
-                    // attach这个 Presenter
+                    // 将Viewattach到这个Presenter
                     presenter.attach(this);
 
                     // 将这个 Presenter保存起来，要用于 detach

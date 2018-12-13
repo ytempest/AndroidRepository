@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：用于标记要进行动态创建的Presenter对象
  */
 
 @Target(ElementType.FIELD)

@@ -77,6 +77,7 @@ class Platform {
     static class Java8 extends Platform {
         @Override
         boolean isDefaultMethod(Method method) {
+            // 判断这个method是否为接口中的default修饰的默认方法，如果是则为true
             return method.isDefault();
         }
 

@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：通过模板模式，将 Presenter的创建交给子类，然后将Presenter的解绑统一在父类
+ *         中进行实现
  */
 public abstract class BaseMVPActivity<P extends BasePresenter>
         extends AppCompatActivity implements BaseView {

@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：数据模型层，负责实现获取指定数据的功能
  */
 public class UserInfoModel implements UserInfoContract.UserInfoModel {
     @Override

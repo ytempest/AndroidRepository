@@ -103,7 +103,7 @@ public final class Retrofit {
         // 1、判断 service是不是一个接口，同时这个接口不能继承其他接口
         Utils.validateServiceInterface(service);
 
-        // 2、提前检测 api接口中的所有方法是否正确
+        // 2、提前检测 api接口中的所有方法是否正确，然后将method封装成ServiceMethod并缓存到serviceMethodCache中
         if (validateEagerly) {
             eagerlyValidateMethods(service);
         }
@@ -124,12 +124,14 @@ public final class Retrofit {
                     public Object invoke(Object proxy, Method method, @Nullable Object[] args)
                             throws Throwable {
                         // 1、如果该接口对象调用方法属于Object的，那么就直接执行然后返回
+                        // getDeclaringClass()：该方法会返回这个method所在的类的Class，即这个method在哪一个父类或子类声明的
                         if (method.getDeclaringClass() == Object.class) {
                             return method.invoke(this, args);
                         }
 
-                        // platform.isDefaultMethod(method)直接返回了 false，所以当前版本不用关注
-                        // 在以后的版本中可以看看
+                        // platform.isDefaultMethod(method)：如果是Android则直接返回了false，如果是
+                        // Java8则调用了isDefault()方法（isDefault()用于判断这个method是否为接口中的
+                        // 使用default修饰的默认方法）
                         if (platform.isDefaultMethod(method)) {
                             return platform.invokeDefaultMethod(method, service, proxy, args);
                         }
@@ -159,13 +161,17 @@ public final class Retrofit {
         Platform platform = Platform.get();
         for (Method method : service.getDeclaredMethods()) {
             // platform.isDefaultMethod(method)直接返回了false
-            // 可以会在 Retrofit后续的升级中做一些处理
+            // 可能会在 Retrofit后续的升级中做一些处理
             if (!platform.isDefaultMethod(method)) {
+                // 将method加载到serviceMethodCache缓存中
                 loadServiceMethod(method);
             }
         }
     }
 
+    /**
+     * 将method封装成ServiceMethod并缓存起来，最后return
+     */
     ServiceMethod<?, ?> loadServiceMethod(Method method) {
         // 1、如果设置了属性 validateEagerly 为true，那么是可以在缓存中获取到这个ServiceMethod的，
         // 因为在前面已经加载了一遍了
@@ -225,6 +231,8 @@ public final class Retrofit {
      * 遍历 callAdapterFactories（CallAdapter工厂集合，用户可以添加，但是这个工厂集合会在Retrofit
      * 构建的时候默认添加一个 DefaultCallAdapterFactory工厂），根据 returnType和 annotations让能对
      * 这两个数据进行处理的 CallAdapter工厂生产符合条件的 CallAdapter适配器，并返回
+     *
+     * @param skipPast 是否跳过指定的CallAdapter工厂
      */
     public CallAdapter<?, ?> nextCallAdapter(@Nullable CallAdapter.Factory skipPast, Type returnType,
                                              Annotation[] annotations) {
@@ -510,7 +518,7 @@ public final class Retrofit {
         }
 
         /**
-         * 添加一个 Converter转换器工厂
+         * 添加一个 Converter转换器工厂，用于将后台返回的Response数据转换成指定的对象
          * Add converter factory for serialization and deserialization of objects.
          */
         public Builder addConverterFactory(Converter.Factory factory) {

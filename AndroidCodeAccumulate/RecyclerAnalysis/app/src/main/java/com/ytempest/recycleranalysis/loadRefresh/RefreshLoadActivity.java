@@ -69,6 +69,8 @@ public class RefreshLoadActivity extends AppCompatActivity implements RefreshRec
     }
 
     private void initView() {
+
+
         mRecyclerView = (LoadRecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.addRefreshViewCreator(new DefaultRefreshCreator());
         mRecyclerView.addLoadViewCreator(new DefaultLoadCreator());

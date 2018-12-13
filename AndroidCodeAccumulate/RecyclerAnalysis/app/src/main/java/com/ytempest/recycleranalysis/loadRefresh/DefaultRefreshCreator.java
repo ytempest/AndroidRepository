@@ -1,7 +1,6 @@
 package com.ytempest.recycleranalysis.loadRefresh;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import android.view.animation.RotateAnimation;
 
 import com.ytempest.recycleranalysis.R;
 import com.ytempest.recycleranalysis.loadRefresh.widget.RefreshViewCreator;
-
-import static android.content.ContentValues.TAG;
 
 
 /**

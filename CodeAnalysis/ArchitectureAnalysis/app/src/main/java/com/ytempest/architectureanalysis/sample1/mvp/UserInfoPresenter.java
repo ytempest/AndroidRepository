@@ -8,7 +8,8 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：解耦关联层，负责根据事件类型回调 M层和 V层的接口，实现事件的处理；如：
+ *         根据用户名和密码，实现将该用户的信息显示到界面上
  */
 public class UserInfoPresenter extends BasePresenter<UserInfoContract.UserInfoView>
         implements UserInfoContract.UserInfoPresenter {
@@ -26,7 +27,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.UserInfoVi
         getView().onLoading();
 
         mModel.getUser(name, pwd).subscribe(new Observer<UserInfoResult>() {
-            @Override
+                @Override
             public void onSubscribe(Disposable d) {
 
             }

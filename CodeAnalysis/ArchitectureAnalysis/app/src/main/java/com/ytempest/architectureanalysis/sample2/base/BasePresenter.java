@@ -35,8 +35,6 @@ public class BasePresenter<V extends BaseView, M extends BaseModel> {
                 });
 
         mModel = createModel();
-
-
     }
 
     @SuppressWarnings("unchecked")

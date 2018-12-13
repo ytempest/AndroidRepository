@@ -21,6 +21,7 @@ public class MVPActivity extends BaseMVPActivity<UserInfoPresenter>
 
         mTextView = findViewById(R.id.text);
 
+        // Presenter负责事件的处理，这里模拟已经获取到了事件，然后Presenter现在开始进行处理
         mPresenter.getUser("dy", "123");
     }
 

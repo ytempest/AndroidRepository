@@ -310,6 +310,9 @@ final class Utils {
         return ResponseBody.create(body.contentType(), body.contentLength(), buffer);
     }
 
+    /**
+     * 判断这个Class是否为一个接口，同时这个接口不能继承其他接口
+     */
     static <T> void validateServiceInterface(Class<T> service) {
         if (!service.isInterface()) {
             throw new IllegalArgumentException("API declarations must be interfaces.");

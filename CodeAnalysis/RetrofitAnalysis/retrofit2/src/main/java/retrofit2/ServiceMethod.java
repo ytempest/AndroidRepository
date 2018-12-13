@@ -175,6 +175,7 @@ final class ServiceMethod<R, T> {
     static final class Builder<T, R> {
         final Retrofit retrofit;
         final Method method;
+        // 方法上标记的所有注解
         final Annotation[] methodAnnotations;
         // 接口方法中的所有参数的注解
         final Annotation[][] parameterAnnotationsArray;
@@ -332,6 +333,9 @@ final class ServiceMethod<R, T> {
             }
         }
 
+        /**
+         * 解析方法上的注解，解析请求方式
+         */
         private void parseMethodAnnotation(Annotation annotation) {
             // 1、下面的代码检测网络请求的方式
             if (annotation instanceof DELETE) {
@@ -412,6 +416,8 @@ final class ServiceMethod<R, T> {
             }
 
             // Get the relative URL path and existing query string, if present.
+            // 获取请求地址的相对地址，也就是？符号之前的一段地址
+            // 如：http://192.168.200.100/login？user=yy&pwd=123；相对地址为/login
             int question = value.indexOf('?');
             if (question != -1 && question < value.length() - 1) {
                 // Ensure the query string does not have any named parameters.

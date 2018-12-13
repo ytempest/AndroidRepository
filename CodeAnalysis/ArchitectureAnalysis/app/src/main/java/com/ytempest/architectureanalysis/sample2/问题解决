@@ -1,6 +1,6 @@
 sample2 要解决的问题：
 1、一个 Presenter 对应多个 Model 怎么解决？
-2. 动态创建 Presenter （一对多的问题）
+2. 动态创建 Presenter （解决一个Activity对应多个Presenter的问题）
 
 解决方案：
 1、一个 Presenter 对应多个 Model 怎么解决？

@@ -25,10 +25,10 @@ public class BasePresenter<V extends BaseView> {
                 new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        if (mView != null) {
-                            return method.invoke(mView, args);
+                        if (mView == null) {
+                            return null;
                         }
-                        return null;
+                        return method.invoke(mView, args);
                     }
                 });
     }
