@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3f67f8"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <com.ytempest.circleindicatorview.view.CircleIndicatorView
+        android:id="@+id/circle_index_view"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        app:dashedLineColor="#ffffff"
+        app:inLineColor="#bcbcbc"
+        app:largeTextSize="18dp"
+        app:outLineColor="#ffffff"
+        app:smallTextSize="15dp"
+        app:textColor="#37c1eb" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="click"
+        android:text="click" />
+</LinearLayout>

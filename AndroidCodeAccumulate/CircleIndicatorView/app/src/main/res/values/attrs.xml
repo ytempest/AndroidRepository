@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CircleIndicatorView">
+        <!-- 小文字的大小 -->
+        <attr name="largeTextSize" format="dimension" />
+        <!-- 大文字的大小 -->
+        <attr name="smallTextSize" format="dimension" />
+        <!-- 上层弧线的颜色 -->
+        <attr name="outLineColor" format="color" />
+        <!-- 下层弧线的颜色 -->
+        <attr name="inLineColor" format="color" />
+        <!-- 文字颜色 -->
+        <attr name="textColor" format="color" />
+        <!-- 虚线间隔 -->
+        <attr name="dashedLineColor" format="color" />
+    </declare-styleable>
+
+
+</resources>
