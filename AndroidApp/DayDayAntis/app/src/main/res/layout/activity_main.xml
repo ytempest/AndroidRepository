@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/activity_main_bg"
     tools:context="com.ytempest.daydayantis.activity.MainActivity">
 
     <com.ytempest.baselibrary.view.NotScrollViewPager
+        android:background="@color/activity_main_scroll_view_bg"
         android:id="@+id/vp_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"

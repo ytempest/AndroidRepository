@@ -31,6 +31,7 @@ import java.util.List;
  * @author ytempest
  *         Description: 拦截当前Activity的所有View，然后把每一个View需要换肤的属性集合保存起来，并判断是否要换肤
  *         使用该类时要先在业务层自定义一个Application类，然后在其中初始化
+ *         使用方法：需要在Application进行注册
  */
 public abstract class BaseSkinActivity extends BaseActivity implements LayoutInflaterFactory, ISkinChangeListener {
 

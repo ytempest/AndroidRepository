@@ -40,7 +40,7 @@
                 android:inputType="number" />
         </LinearLayout>
 
-        <com.ytempest.framelibrary.view.Button.VerifyButton
+        <com.ytempest.framelibrary.view.button.VerifyButton
             android:id="@+id/vbt_get_code"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -75,7 +75,7 @@
     </LinearLayout>
 
 
-    <com.ytempest.framelibrary.view.Button.ModifiableButton
+    <com.ytempest.framelibrary.view.button.ModifiableButton
         android:id="@+id/mbt_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

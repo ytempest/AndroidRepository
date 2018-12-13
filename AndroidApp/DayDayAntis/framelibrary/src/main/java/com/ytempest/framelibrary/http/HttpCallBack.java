@@ -10,14 +10,15 @@ import java.util.Map;
 
 /**
  * @author ytempest
- * Description: 继承底层的回调方法，实现一些业务逻辑一直需要使用的东西
+ *         Description: 继承底层的回调方法，实现一些业务逻辑一直需要使用的东西
  */
 public abstract class HttpCallBack<T> implements EngineCallBack {
     @Override
     public void onPreExecute(Context context, Map<String, Object> params) {
         // 大大方方的添加公用参数  与项目业务逻辑有关
-		// 这里的参数是写死了，而在实际开发中需要动态获取
+        // 这里的参数是写死了，而在实际开发中需要动态获取
         // 项目名称  mContext
+        params.put("appid", "1");
 /*        params.put("app_name","joke_essay");
         params.put("version_name","5.7.0");
         params.put("ac","wifi");
@@ -51,6 +52,7 @@ public abstract class HttpCallBack<T> implements EngineCallBack {
 
     /**
      * 返回可以直接操作的对象
+     *
      * @param result 可以直接操作的对象
      */
     public abstract void onSuccess(T result);

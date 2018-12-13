@@ -89,7 +89,6 @@ public class LoadView extends LinearLayout {
                 if (isStopAnimator) {
                     return;
                 }
-                Log.e("AAAAAAAAAAAAAAAAAAAAA", "onAnimationEnd: ");
                 // 改变图形View的形状
                 mShapeView.exchangeShape();
                 // 开启图形View的旋转动画

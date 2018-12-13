@@ -30,7 +30,7 @@ import com.ytempest.daydayantis.utils.GeneralUtils;
 import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
-import com.ytempest.framelibrary.view.Button.ModifiableButton;
+import com.ytempest.framelibrary.view.button.ModifiableButton;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 import java.util.List;
@@ -234,13 +234,13 @@ public class RechargeCoinActivity extends BaseSkinActivity {
         alipayUtils.setPayListener(new AlipayUtils.PayListener() {
             @Override
             public void paySuccess() {
-                showToastShort(R.string.activity_recharge_coin_pay_success);
+                showToastShort(getStringById(R.string.activity_recharge_coin_pay_success));
                 finish();
             }
 
             @Override
             public void payFail() {
-                showToastShort(R.string.activity_recharge_coin_pay_fail);
+                showToastShort(getStringById(R.string.activity_recharge_coin_pay_fail));
             }
         });
     }
@@ -297,7 +297,7 @@ public class RechargeCoinActivity extends BaseSkinActivity {
     private void startPay(String coinNumber, String payWay, HttpCallBack<?> httpCallBack) {
         String userInfo = UserInfoUtils.getUserInfo(RechargeCoinActivity.this);
         if (TextUtils.isEmpty(userInfo)) {
-            showToastShort(R.string.activity_recharge_coin_lose_login);
+            showToastShort(getStringById(R.string.activity_recharge_coin_lose_login));
             startActivity(UserLoginActivity.class);
             return;
         }
@@ -337,5 +337,4 @@ public class RechargeCoinActivity extends BaseSkinActivity {
             holder.setText(R.id.tv_purchase_desc, item.getMeal_desc());
         }
     }
-
 }

@@ -16,14 +16,12 @@ import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.security.MD5Utils;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.activity.MyCoinActivity;
-import com.ytempest.daydayantis.activity.RechargeCoinActivity;
 import com.ytempest.daydayantis.activity.UserInfoActivity;
 import com.ytempest.daydayantis.activity.UserLoginActivity;
 import com.ytempest.daydayantis.data.UserDataResult;
 import com.ytempest.daydayantis.map.MapAroundSearchActivity;
 import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.http.HttpCallBack;
-import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 /**
  * @author ytempest
@@ -59,13 +57,13 @@ public class PersonalFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        DefaultNavigationBar navigationBar =
+/*        DefaultNavigationBar navigationBar =
                 new DefaultNavigationBar.Builder(mContext, mRootView)
                         .hideLeftIcon()
                         .setTitle(getResources().getString(R.string.app_name))
                         .setTitleColor(R.color.title_bar_text_color)
                         .setBackground(R.color.title_bar_bg_color)
-                        .build();
+                        .build();*/
     }
 
     @Override

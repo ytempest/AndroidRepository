@@ -2,7 +2,6 @@ package com.ytempest.baselibrary.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,7 @@ public class AlertDialog extends Dialog {
         private final AlertController.AlertParams P;
 
         public Builder(Context context) {
-            this(context, R.style.dialog);
+            this(context, R.style.alert_dialog);
             if (context == context.getApplicationContext()) {
                 throw new IllegalArgumentException("AlertDialog 的上下文不能使用ApplicationContext！ ");
             }

@@ -22,8 +22,8 @@ import com.ytempest.daydayantis.utils.GeneralUtils;
 import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
-import com.ytempest.framelibrary.view.Button.ModifiableButton;
-import com.ytempest.framelibrary.view.Button.VerifyButton;
+import com.ytempest.framelibrary.view.button.ModifiableButton;
+import com.ytempest.framelibrary.view.button.VerifyButton;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 /**
@@ -166,7 +166,6 @@ public class UserRegisterActivity extends BaseSkinActivity {
     }
 
 
-
     @Override
     protected void initData() {
 
@@ -220,14 +219,14 @@ public class UserRegisterActivity extends BaseSkinActivity {
                             mVerifyButton.startCountDown(60);
                         } else {
                             mVerifyButton.switchNormalStatus();
-                            showToastShort(getResources().getString(R.string.activity_user_register_code_get_fail_text));
+                            showToastShort(getStringById(R.string.activity_user_register_code_get_fail_text));
                         }
                     }
 
                     @Override
                     public void onError(Exception e) {
                         mVerifyButton.switchNormalStatus();
-                        showToastShort(getResources().getString(R.string.activity_user_register_internet_error_text));
+                        showToastShort(getStringById(R.string.activity_user_register_internet_error_text));
                     }
                 });
     }
@@ -235,6 +234,7 @@ public class UserRegisterActivity extends BaseSkinActivity {
     @OnClick(R.id.mbt_register)
     private void onRegisterClick(View view) {
         HttpUtils.with(UserRegisterActivity.this)
+                .post()
                 .addParam("appid", "1")
                 .addParam("verify_code", mEtVerificationCode.getText().toString().trim())
                 .addParam("cell_phone", mEtPhone.getText().toString().trim())
@@ -253,7 +253,6 @@ public class UserRegisterActivity extends BaseSkinActivity {
 
                     @Override
                     public void onError(Exception e) {
-                        showToastShort(getResources().getString(R.string.activity_user_register_internet_error_text));
                     }
                 });
     }
@@ -275,6 +274,7 @@ public class UserRegisterActivity extends BaseSkinActivity {
             String userInfo = gson.toJson(result.getData());
             // 存储用户数据
             UserInfoUtils.saveUserInfo(UserRegisterActivity.this, userInfo);
+            // 关闭注册和登录的两个界面
             ActivityStackManager.getInstance().finishActivity(UserRegisterActivity.class);
             ActivityStackManager.getInstance().finishActivity(UserLoginActivity.class);
         }

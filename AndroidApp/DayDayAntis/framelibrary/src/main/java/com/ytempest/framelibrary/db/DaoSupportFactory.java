@@ -7,23 +7,25 @@ import java.io.File;
 
 /**
  * @author ytempest
- * Description:数据库引擎工厂
+ *         Description:数据库引擎工厂
  */
 public class DaoSupportFactory {
 
-    private static DaoSupportFactory mFactory;
+    private static volatile DaoSupportFactory mFactory;
 
-    /** 持有外部数据库的引用 */
+    /**
+     * 持有外部数据库的引用
+     */
     private SQLiteDatabase mSqLiteDatabase;
 
     private DaoSupportFactory() {
         // 判断是否有存储卡，有则把数据库放到内存卡里面；不放在内部存储，6.0要动态申请权限
         File dbRoot = new File(Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + File.separator + "nhdz" + File.separator + "database");
+                .getAbsolutePath() + File.separator + "daydayantis" + File.separator + "database");
         if (!dbRoot.exists()) {
             dbRoot.mkdirs();
         }
-        File dbFile = new File(dbRoot, "nhdz.db");
+        File dbFile = new File(dbRoot, "daydayantis.db");
 
         // 打开或者创建一个数据库
         mSqLiteDatabase = SQLiteDatabase.openOrCreateDatabase(dbFile, null);
@@ -43,7 +45,7 @@ public class DaoSupportFactory {
     public <T> IDaoSupport<T> getDao(Class<T> clazz) {
         IDaoSupport<T> daoSupport = new DaoSupport<>();
         // 初始化数据库引擎以及clazz表
-        daoSupport.init(mSqLiteDatabase,clazz);
+        daoSupport.init(mSqLiteDatabase, clazz);
         return daoSupport;
     }
 }

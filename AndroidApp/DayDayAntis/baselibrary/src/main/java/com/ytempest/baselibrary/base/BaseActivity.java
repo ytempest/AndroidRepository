@@ -81,9 +81,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 启动Activity，带结果
      */
-    protected void startActivityForResult(Class<?> clazz,int requetCode) {
+    protected void startActivityForResult(Class<?> clazz, int requestCode) {
         Intent intent = new Intent(this, clazz);
-        startActivityForResult(intent, requetCode);
+        startActivityForResult(intent, requestCode);
     }
 
     /**
@@ -101,18 +101,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    protected void showToastShort(@StringRes int resId) {
-        Toast.makeText(BaseActivity.this, resId, Toast.LENGTH_SHORT).show();
-    }
-
-
-
     protected void showToastLong(String tip) {
         Toast.makeText(BaseActivity.this, tip, Toast.LENGTH_LONG).show();
     }
 
-    protected void showToastLong(@StringRes int resId) {
-        Toast.makeText(BaseActivity.this, resId, Toast.LENGTH_LONG).show();
+
+    protected String getStringById(@StringRes int resId) {
+        return getResources().getString(resId);
     }
 
     // 只能放一些通用的方法，基本每个Activity都需要使用的方法，readDataBase最好不要放进来 ，

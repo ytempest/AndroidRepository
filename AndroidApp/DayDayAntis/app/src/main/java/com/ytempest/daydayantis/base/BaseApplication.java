@@ -23,7 +23,7 @@ public class BaseApplication extends Application {
         // 初始化百度地图
         SDKInitializer.initialize(getApplicationContext());
 
-        // 初始化同意图片统一加载框架
+        // 初始化图片统一加载框架
         ImageLoaderManager.getInstance().init(new GlideImageLoader());
 
         // 初始化网络引擎

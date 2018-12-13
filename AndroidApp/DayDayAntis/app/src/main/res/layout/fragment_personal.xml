@@ -7,7 +7,6 @@
         android:id="@+id/ll_personal_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/fragment_personal_bg"
         android:orientation="vertical">
 
 
@@ -173,15 +172,15 @@
 
             <TextView
                 style="@style/fragment_personal_problem_list_style"
-                android:text="常见问题" />
-
-            <TextView
-                style="@style/fragment_personal_problem_list_style"
-                android:text="常见问题" />
+                android:text="@string/personal_fragment_night_mode_text" />
 
             <TextView
                 style="@style/fragment_personal_problem_list_style"
                 android:text="@string/personal_fragment_problem_list_text" />
+
+            <TextView
+                style="@style/fragment_personal_problem_list_style"
+                android:text="@string/personal_fragment_check_update_text" />
 
             <TextView
                 android:id="@+id/tv_exit_login"

@@ -43,7 +43,9 @@
     <string name="ll_technology_manger_center">技术管理中心</string>
 
     <!-- PersonalFragment 中的底部问题的文字-->
+    <string name="personal_fragment_night_mode_text">夜间模式</string>
     <string name="personal_fragment_problem_list_text">常见问题</string>
+    <string name="personal_fragment_check_update_text">检查更新</string>
     <string name="personal_fragment_exit_login">退出登录</string>
 
 

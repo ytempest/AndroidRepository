@@ -1,18 +1,17 @@
-package com.ytempest.framelibrary.view.Button;
+package com.ytempest.framelibrary.view.button;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 
 /**
  * @author ytempest
- *         Description：
+ *         Description：实现了倒计时功能的Button
  */
 public class VerifyButton extends ModifiableButton {
 
-    private static String TAG = "VerifyButton";
+    private static final String TAG = "VerifyButton";
 
     private boolean mIsStopCountDown = false;
     private boolean mIsInCountDown = false;
@@ -24,11 +23,10 @@ public class VerifyButton extends ModifiableButton {
         public boolean handleMessage(Message msg) {
             mTimerCount--;
             if (mTimerCount > 0) {
-                countDown();
+                countDown(mTimerCount);
             } else {
                 stopCountDown();
             }
-
             return false;
         }
     });
@@ -51,26 +49,39 @@ public class VerifyButton extends ModifiableButton {
     private void stopCountDown() {
         mIsStopCountDown = true;
         mIsInCountDown = false;
+        // 切换按钮状态
         switchNormalStatus();
         if (mOnCountDownListener != null) {
             mOnCountDownListener.onFinish();
         }
     }
 
-    private void countDown() {
-        setText(getFormatDuring());
+    private void countDown(int timerCount) {
+        setText(getFormatDuring(timerCount));
         if (!mIsStopCountDown) {
             mHandler.sendEmptyMessageDelayed(0, 1000);
         }
     }
 
+    private String getFormatDuring(int timerCount) {
+        String result = timerCount < 10 ? "0" + timerCount : "" + timerCount;
+        result += "s后重获";
+        return result;
+    }
+
+    /**
+     * 开始倒计时，从count一直到 0
+     */
     public void startCountDown(int count) {
         mTimerCount = count;
         mIsStopCountDown = false;
         switchDisableStatus();
-        countDown();
+        countDown(count);
     }
 
+    /**
+     * 开始发送短信请求
+     */
     public void startRequestCode() {
         switchRequestCodeStatus();
     }
@@ -81,11 +92,6 @@ public class VerifyButton extends ModifiableButton {
         setText("获取中...");
     }
 
-    public String getFormatDuring() {
-        String result = mTimerCount < 10 ? "0" + mTimerCount : "" + mTimerCount;
-        result += "s后重获";
-        return result;
-    }
 
     public boolean isInCountDown() {
         return mIsInCountDown;
@@ -97,7 +103,7 @@ public class VerifyButton extends ModifiableButton {
         mOnCountDownListener = onCountDownListener;
     }
 
-    public interface OnCountDownListener{
+    public interface OnCountDownListener {
         void onFinish();
     }
 

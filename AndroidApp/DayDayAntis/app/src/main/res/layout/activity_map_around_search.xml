@@ -45,7 +45,7 @@
             android:layout_marginRight="6dp"
             android:layout_weight="1"
             android:background="@drawable/shape_base_et_input_bg"
-            android:hint="范围"
+            android:hint="范围/米"
             android:inputType="number"
             android:paddingLeft="6dp" />
 

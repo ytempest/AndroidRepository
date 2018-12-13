@@ -26,6 +26,7 @@ import com.ytempest.baselibrary.ioc.ViewById;
 import com.ytempest.baselibrary.permission.PermissionFail;
 import com.ytempest.baselibrary.permission.PermissionSucceed;
 import com.ytempest.baselibrary.permission.SmartPermission;
+import com.ytempest.baselibrary.util.ActivityStackManager;
 import com.ytempest.baselibrary.view.dialog.AlertDialog;
 import com.ytempest.daydayantis.R;
 import com.ytempest.daydayantis.data.BaseDataResult;
@@ -41,8 +42,6 @@ import java.io.OutputStream;
 import java.util.Map;
 
 public class UserInfoActivity extends BaseSkinActivity {
-
-
 
     private final int REQUEST_ALBUM_OR_PHONE = 100;
     private final int REQUEST_CAMERA = 200;
@@ -277,7 +276,7 @@ public class UserInfoActivity extends BaseSkinActivity {
 
                     @Override
                     public void onSuccess(BaseDataResult result) {
-                        showToastShort(result.getErrmsg());
+                        ActivityStackManager.getInstance().finishActivity(UserInfoActivity.this);
                     }
 
                     @Override

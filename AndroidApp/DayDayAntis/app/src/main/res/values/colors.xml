@@ -12,7 +12,7 @@
 
     <!-- 条目被点击时的背景色 -->
     <color name="base_item_normal_bg">#f6f6f6</color>
-    <color name="base_item_press_bg">#d3d3d3</color>
+    <color name="base_item_press_bg">#dbdbdb</color>
 
     <!-- 绿色按钮的背景颜色 -->
     <color name="shape_green_button_normal_bg">#02A38B</color>
@@ -25,7 +25,7 @@
     <!--———————————————————————-->
 
     <!-- MainActivity 布局的背景色 -->
-    <color name="activity_main_bg">#0ad479</color>
+    <color name="activity_main_scroll_view_bg">#dedbdb</color>
 
     <!-- 主页 RadioButton 选择的颜色 -->
     <color name="rb_text_press_color">#24cfa2</color>
@@ -36,8 +36,8 @@
 
     <!--———————————————————————-->
 
-    <!-- HomeFragment中的主内容的条目被点击时的背景色 -->
-    <color name="fragment_home_bg">#c8c5c5</color>
+    <!-- HomeFragment中的背景色 -->
+    <!--<color name="fragment_home_bg">#c8c5c5</color>-->
 
     <!-- HomeFragment中的大图片的背景颜色 -->
     <color name="fragment_home_big_image_bg">#f5f2f2</color>
@@ -59,7 +59,7 @@
     <!--———————————————————————-->
 
     <!-- PersonalFragment 的背景颜色 -->
-    <color name="fragment_personal_bg">#dedbdb</color>
+    <!--<color name="fragment_personal_bg">#dedbdb</color>-->
 
     <!-- PersonalFragment 的用户登录头部的背景色 -->
     <color name="fragment_personal_head_user_bg">#626870</color>

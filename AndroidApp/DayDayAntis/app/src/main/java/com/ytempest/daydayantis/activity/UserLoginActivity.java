@@ -20,7 +20,7 @@ import com.ytempest.daydayantis.utils.GeneralUtils;
 import com.ytempest.daydayantis.utils.UserInfoUtils;
 import com.ytempest.framelibrary.base.BaseSkinActivity;
 import com.ytempest.framelibrary.http.HttpCallBack;
-import com.ytempest.framelibrary.view.Button.ModifiableButton;
+import com.ytempest.framelibrary.view.button.ModifiableButton;
 import com.ytempest.framelibrary.view.navigation.DefaultNavigationBar;
 
 /**
@@ -79,7 +79,7 @@ public class UserLoginActivity extends BaseSkinActivity {
                         .setBackground(R.color.title_bar_bg_color)
                         .setRightText(R.string.activity_user_login_title_bar_right_text)
                         .setRightTextColor(R.color.title_bar_text_color)
-                        .setRightClickListener(new View.OnClickListener() {
+                        .setRightTextClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 startActivity(UserRegisterActivity.class);

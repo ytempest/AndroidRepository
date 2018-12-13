@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
  */
 public class SpUtils {
 
-    private static SpUtils mInstance;
+    private static volatile SpUtils mInstance;
     private Context mContext;
 
     private SpUtils(Context context) {
@@ -30,12 +30,12 @@ public class SpUtils {
 
     public void putBoolean(String tag, String key, boolean value) {
         SharedPreferences sp = mContext.getSharedPreferences(tag, Context.MODE_PRIVATE);
-        sp.edit().putBoolean(key, value).commit();
+        sp.edit().putBoolean(key, value).apply();
     }
 
     public void putString(String tag, String key, String value) {
         SharedPreferences sp = mContext.getSharedPreferences(tag, Context.MODE_PRIVATE);
-        sp.edit().putString(key, value).commit();
+        sp.edit().putString(key, value).apply();
     }
 
     public boolean getBoolean(String tag, String key, boolean defaultValue) {
@@ -47,4 +47,4 @@ public class SpUtils {
         SharedPreferences sp = mContext.getSharedPreferences(tag, Context.MODE_PRIVATE);
         return sp.getString(key, defaultValue);
     }
-    }
+}

@@ -42,7 +42,7 @@
             android:checked="false" />
     </LinearLayout>
 
-    <com.ytempest.framelibrary.view.Button.ModifiableButton
+    <com.ytempest.framelibrary.view.button.ModifiableButton
         android:id="@+id/mbt_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

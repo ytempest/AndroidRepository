@@ -6,7 +6,6 @@
         android:id="@+id/ll_home_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/fragment_home_bg"
         android:orientation="vertical">
 
 

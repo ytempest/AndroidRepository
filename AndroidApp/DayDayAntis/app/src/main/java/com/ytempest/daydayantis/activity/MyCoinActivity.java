@@ -1,7 +1,5 @@
 package com.ytempest.daydayantis.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -41,7 +39,7 @@ public class MyCoinActivity extends BaseSkinActivity {
                         .setBackground(R.color.title_bar_bg_color)
                         .setRightText(R.string.activity_my_coin_title_bar_right_text)
                         .setRightTextColor(R.color.title_bar_text_color)
-                        .setRightClickListener(new View.OnClickListener() {
+                        .setRightTextClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // TODO: 2018/4/3/003

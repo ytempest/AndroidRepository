@@ -3,43 +3,61 @@
 
     <!-- 导航条的样式 -->
     <style name="navigation_bar_style">
-        <item name="android:paddingLeft">0.0dp</item>
-        <item name="android:paddingRight">0.0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/navigation_bar_bg</item>
         <item name="android:layout_height">@dimen/navigation_bar_height</item>
     </style>
 
-    <!-- 导航条标题的样式 -->
-    <style name="navigation_title_style">
-        <item name="android:textSize">@dimen/navigation_bar_title_text_size</item>
-        <item name="android:textColor">@color/navigation_title_color</item>
+    <!-- 导航条中间View的样式 -->
+    <style name="navigation_center_view_style">
+        <item name="android:textSize">@dimen/navigation_center_view_text_size</item>
+        <item name="android:textColor">@color/navigation_center_view_text_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginLeft">75dp</item>
+        <item name="android:layout_marginRight">75dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- 导航条左右两边View的基本样式 -->
+    <style name="navigation_left_right_base_view_style">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <!-- 导航条左边View的样式 -->
+    <style name="navigation_left_view_style" parent="navigation_left_right_base_view_style">
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <!-- 导航条左边文字的样式 -->
+    <style name="navigation_left_text_style" parent="navigation_left_view_style">
+        <item name="android:textSize">@dimen/navigation_left_text_size</item>
+        <item name="android:textColor">@color/navigation_left_text_color</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+    </style>
+
+    <!-- 导航条右边View的样式 -->
+    <style name="navigation_right_view_style" parent="navigation_left_right_base_view_style">
+        <item name="android:layout_alignParentRight">true</item>
     </style>
 
     <!-- 导航条右边文字的样式 -->
-    <style name="navigation_right_text_style">
-        <item name="android:textSize">@dimen/navigation_bar_right_text_size</item>
-        <item name="android:textColor">@color/navigation_title_color</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@null</item>
-        <item name="android:paddingLeft">5.0dp</item>
-        <item name="android:paddingRight">5.0dp</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginLeft">0.0dp</item>
-        <item name="android:layout_marginRight">10.0dp</item>
+    <style name="navigation_right_text_style" parent="navigation_right_view_style">
+        <item name="android:textSize">@dimen/navigation_right_text_size</item>
+        <item name="android:textColor">@color/navigation_right_text_color</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
     </style>
 
-    <!-- 导航条后退view的样式 -->
-    <style name="navigation_back_view_style" parent="@style/navigation_right_text_style">
-        <item name="android:gravity">center</item>
-        <item name="android:src">@drawable/selector_dialog_back_view</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:layout_marginLeft">0.0dp</item>
-        <item name="android:layout_marginRight">0.0dp</item>
-        <item name="android:text">@null</item>
-        <item name="android:drawableLeft">@null</item>
-    </style>
 
     <!-- PasswordKeyboard键盘上的数字样式 -->
     <style name="password_keyboard_text_style">

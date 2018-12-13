@@ -2,24 +2,20 @@ package com.ytempest.framelibrary.view.navigation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ytempest.baselibrary.view.navigation.AbsNavigationBar;
+import com.ytempest.baselibrary.view.navigation.AbstractNavigationBar;
 import com.ytempest.framelibrary.R;
-
-import java.io.Serializable;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * @author ytempest
- *         Description: 基于 ABSNavigationBar 框架，构建满足业务功能的 Navigation
+ *         Description: 基于 AbstractNavigationBar 框架，构建满足业务功能的 Navigation
  */
 public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.DefaultNavigationParams> extends
-        AbsNavigationBar<DefaultNavigationBar.Builder.DefaultNavigationParams> {
+        AbstractNavigationBar<DefaultNavigationBar.Builder.DefaultNavigationParams> {
 
     public DefaultNavigationBar(Builder.DefaultNavigationParams params) {
         super(params);
@@ -35,15 +31,27 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
      */
     @Override
     public void applyView() {
-        setTextByStatus(R.id.tv_title, getParams().mTitle, getParams().mTitleId);
-        setTextByStatus(R.id.tv_right_text, getParams().mRightText, getParams().mRightTextId);
-        setOnClickListener(R.id.tv_right_text, getParams().mRightClickListener);
-        setOnClickListener(R.id.ib_back, getParams().mLeftClickListener);
-        setVisibility(R.id.ib_back, getParams().isLeftIconVisible);
-        setBackground(getParams().mBackgroundResId);
-        setTextColor(R.id.tv_title, getParams().mTitleColor);
-        setTextColor(R.id.tv_right_text, getParams().mRightTextColor);
-        setDrawable(R.id.ib_back, getParams().mLeftIconId);
+        Builder.DefaultNavigationParams params = getParams();
+        setTextByStatus(R.id.tv_center_view, params.mTitle, params.mTitleId);
+        setTextByStatus(R.id.tv_left_text, params.mLeftText, params.mLeftTextId);
+        setTextByStatus(R.id.tv_right_text, params.mRightText, params.mRightTextId);
+
+        setOnClickListener(R.id.iv_left_view, params.mLeftIconClickListener);
+        setOnClickListener(R.id.tv_left_text, params.mLeftTextClickListener);
+        setOnClickListener(R.id.iv_right_view, params.mRightIconClickListener);
+        setOnClickListener(R.id.tv_right_text, params.mRightTextClickListener);
+
+        setVisibility(R.id.iv_left_view, params.isLeftIconVisible);
+        setVisibility(R.id.tv_left_text, params.isLeftTextVisible);
+        setVisibility(R.id.iv_right_view, params.isRightIconVisible);
+        setVisibility(R.id.tv_right_text, params.isRightTextVisible);
+
+        setBackground(params.mBackgroundResId);
+        setTextColor(R.id.tv_center_view, params.mTitleColorId);
+        setTextColor(R.id.tv_left_text, params.mLeftTextColorId);
+        setTextColor(R.id.tv_right_text, params.mRightTextColorId);
+        setDrawable(R.id.iv_left_view, params.mLeftIconId);
+        setDrawable(R.id.iv_right_view, params.mRightIconId);
     }
 
     private void setTextByStatus(int viewId, String text, int textId) {
@@ -55,7 +63,7 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
     }
 
 
-    public static class Builder extends AbsNavigationBar.Builder {
+    public static class Builder extends AbstractNavigationBar.Builder {
 
         DefaultNavigationParams P;
 
@@ -79,67 +87,86 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             return this;
         }
 
-        public Builder setRightText(String rightText) {
-            P.mRightText = rightText;
-            return this;
-        }
-
-        public Builder setRightText(int rightTextId) {
-            P.mRightTextId = rightTextId;
-            return this;
-        }
-
-        /**
-         * 设置左边的点击事件
-         */
-        public Builder setLeftClickListener(View.OnClickListener rightListener) {
-            P.mLeftClickListener = rightListener;
-            return this;
-        }
-
-        /**
-         * 设置右边的点击事件
-         */
-        public Builder setRightClickListener(View.OnClickListener rightListener) {
-            P.mRightClickListener = rightListener;
-            return this;
-        }
-
-        /**
-         * 设置右边的图片
-         */
-        public Builder setLeftIcon(int leftRes) {
-            P.mLeftIconId = leftRes;
-            return this;
-        }
-
-        /**
-         * 设置右边的图片
-         */
-        public Builder setRightIcon(int rightRes) {
-            return this;
-        }
-
         public Builder hideLeftIcon() {
             P.isLeftIconVisible = View.GONE;
             return this;
         }
 
-        /**
-         * 设置背景颜色
-         */
+        public Builder setLeftIcon(@DrawableRes int leftIconRes) {
+            P.mLeftIconId = leftIconRes;
+            P.isLeftIconVisible = View.VISIBLE;
+            return this;
+        }
+
+        public Builder setRightIcon(@DrawableRes int rightIconRes) {
+            P.mRightIconId = rightIconRes;
+            P.isRightIconVisible = View.VISIBLE;
+            return this;
+        }
+
+        public Builder setLeftText(String leftText) {
+            P.mLeftText = leftText;
+            P.isLeftTextVisible = View.VISIBLE;
+            P.isLeftIconVisible = View.GONE;
+            return this;
+        }
+
+        public Builder setLeftText(int leftTextId) {
+            P.mLeftTextId = leftTextId;
+            P.isLeftTextVisible = View.VISIBLE;
+            P.isLeftIconVisible = View.GONE;
+            return this;
+        }
+
+        public Builder setRightText(String rightText) {
+            P.mRightText = rightText;
+            P.isRightTextVisible = View.VISIBLE;
+            return this;
+        }
+
+        public Builder setRightText(int rightTextId) {
+            P.mRightTextId = rightTextId;
+            P.isRightTextVisible = View.VISIBLE;
+            return this;
+        }
+
+        public Builder setLeftIconClickListener(View.OnClickListener leftIconClickListener) {
+            P.mLeftIconClickListener = leftIconClickListener;
+            return this;
+        }
+
+        public Builder setLeftTextClickListener(View.OnClickListener leftTextClickListener) {
+            P.mLeftTextClickListener = leftTextClickListener;
+            return this;
+        }
+
+        public Builder setRightIconClickListener(View.OnClickListener rightIcontListener) {
+            P.mRightIconClickListener = rightIcontListener;
+            return this;
+        }
+
+        public Builder setRightTextClickListener(View.OnClickListener rightTextListener) {
+            P.mRightTextClickListener = rightTextListener;
+            return this;
+        }
+
         public Builder setBackground(@DrawableRes int resId) {
             P.mBackgroundResId = resId;
             return this;
         }
 
-        public Builder setTitleColor(@DrawableRes int colorId) {
-            P.mTitleColor = colorId;
+        public Builder setTitleColor(@ColorRes int colorId) {
+            P.mTitleColorId = colorId;
             return this;
         }
 
-        public Builder setRightTextColor(@DrawableRes int colorId) {
-            P.mRightTextColor = colorId;
+        public Builder setLeftTextColor(@ColorRes int colorId) {
+            P.mLeftTextColorId = colorId;
+            return this;
+        }
+
+        public Builder setRightTextColor(@ColorRes int colorId) {
+            P.mRightTextColorId = colorId;
             return this;
         }
 
@@ -148,29 +175,41 @@ public class DefaultNavigationBar<D extends DefaultNavigationBar.Builder.Default
             return new DefaultNavigationBar(P);
         }
 
+        static class DefaultNavigationParams extends AbsNavigationParams {
+            String mTitle;
+            int mTitleId = -1;
 
-        public static class DefaultNavigationParams extends AbsNavigationParams {
+            String mLeftText;
+            int mLeftTextId = -1;
+            String mRightText;
+            int mRightTextId = -1;
 
-            public String mTitle;
-            public int mTitleId;
-            public int mLeftIconId = R.drawable.navigation_back_normal;
-            public String mRightText;
-            public int mRightTextId;
-            public View.OnClickListener mRightClickListener;
-            public View.OnClickListener mLeftClickListener = new View.OnClickListener() {
+            int mLeftIconId = R.drawable.icon_navigation_bar_left_icon;
+            int mRightIconId = -1;
+
+            int isLeftIconVisible = View.VISIBLE;
+            int isLeftTextVisible = -1;
+            int isRightIconVisible = -1;
+            int isRightTextVisible = -1;
+
+            int mBackgroundResId = -1;
+            int mTitleColorId = -1;
+            int mLeftTextColorId = -1;
+            int mRightTextColorId = -1;
+
+            View.OnClickListener mLeftIconClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // 关闭当前Activity
                     ((Activity) mContext).finish();
                 }
             };
-            public int isLeftIconVisible = View.VISIBLE;
-            public int mBackgroundResId = R.color.navigation_bar_bg;
-            public int mTitleColor = R.color.navigation_title_color;
-            public int mRightTextColor = R.color.navigation_right_color;
+            View.OnClickListener mLeftTextClickListener;
+            View.OnClickListener mRightTextClickListener;
+            View.OnClickListener mRightIconClickListener;
 
 
-            public DefaultNavigationParams(Context context, ViewGroup parent) {
+            DefaultNavigationParams(Context context, ViewGroup parent) {
                 super(context, parent);
             }
         }

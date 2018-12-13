@@ -21,18 +21,25 @@ public class DaoSupport<T> implements IDaoSupport<T> {
     private static final String TAG = "DaoSupport";
 
     private SQLiteDatabase mSqLiteDatabase;
-    /** 进行操作的表的泛型类 */
+    /**
+     * 进行操作的表的泛型类
+     */
     private Class<T> mClazz;
     private static final Object[] mPutMethodArgs = new Object[2];
-    /** 存储ContentValues的put()方法以提高性能 */
+    /**
+     * 存储ContentValues的put()方法以提高性能
+     */
     private static final Map<String, Method> mPutMethods = new ArrayMap<>();
-	/** 查询的支持类 */
-	private QuerySupport<T> mQuerySupport;
+    /**
+     * 查询的支持类
+     */
+    private QuerySupport<T> mQuerySupport;
 
     /**
      * 初始化数据库引擎，如果clazz表不存在则创建
+     *
      * @param sqLiteDatabase 数据库实例
-     * @param clazz 进行操作的表的Class对象
+     * @param clazz          进行操作的表的Class对象
      */
     @Override
     public void init(SQLiteDatabase sqLiteDatabase, Class<T> clazz) {
@@ -47,7 +54,6 @@ public class DaoSupport<T> implements IDaoSupport<T> {
 
         Field[] fields = mClazz.getDeclaredFields();
         for (Field field : fields) {
-            field.setAccessible(true);
             String fieldName = field.getName();
             String fieldType = field.getType().getSimpleName();
             //  1.1 type需要转换成数据库的数据类型 int --> integer, String -->text;
@@ -70,7 +76,6 @@ public class DaoSupport<T> implements IDaoSupport<T> {
      */
     @Override
     public long insert(T obj) {
-
         // 将obj封装成ContentValues
         ContentValues values = contentValuesByObj(obj);
 
@@ -80,7 +85,7 @@ public class DaoSupport<T> implements IDaoSupport<T> {
 
     @Override
     public void insert(List<T> list) {
-        // 批量插入采用 事物
+        // 批量插入采用事务
         mSqLiteDatabase.beginTransaction();
         for (T data : list) {
             // 调用单条插入
@@ -93,14 +98,14 @@ public class DaoSupport<T> implements IDaoSupport<T> {
 
     @Override
     public QuerySupport<T> getQuerySupport() {
-        if(mQuerySupport == null){
-            mQuerySupport = new QuerySupport<T>(mSqLiteDatabase,mClazz);
+        if (mQuerySupport == null) {
+            mQuerySupport = new QuerySupport<T>(mSqLiteDatabase, mClazz);
         }
         return mQuerySupport;
     }
 
     @Override
-    public int delete(String whereClause, String...whereArgs) {
+    public int delete(String whereClause, String... whereArgs) {
         return mSqLiteDatabase.delete(DaoUtils.getTableName(mClazz), whereClause, whereArgs);
     }
 

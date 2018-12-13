@@ -1,4 +1,4 @@
-package com.ytempest.framelibrary.view.Button;
+package com.ytempest.framelibrary.view.button;
 
 
 import android.annotation.SuppressLint;
@@ -27,9 +27,8 @@ public class ModifiableButton extends Button {
      */
     protected int mDisableBackgroundRes = 0;
 
-    protected Drawable mNormalBackground;
     protected ColorStateList mNormalTextColor;
-    protected CharSequence mNormalText;
+    protected Drawable mNormalBackground;
 
 
     public ModifiableButton(Context context) {
@@ -50,7 +49,6 @@ public class ModifiableButton extends Button {
     }
 
     private void initOriginParams() {
-        mNormalText = getText();
         mNormalTextColor = getTextColors();
         mNormalBackground = getBackground();
     }
@@ -68,15 +66,18 @@ public class ModifiableButton extends Button {
 
     @SuppressLint("NewApi")
     public void switchNormalStatus() {
-        setEnabled(true);
-        setText(mNormalText);
-        setTextColor(mNormalTextColor);
-        setBackground(mNormalBackground);
+        if (!isEnabled()) {
+            setEnabled(true);
+            setTextColor(mNormalTextColor);
+            setBackground(mNormalBackground);
+        }
     }
 
     public void switchDisableStatus() {
-        setEnabled(false);
-        setTextColor(mDisableTextColor);
-        setBackgroundResource(mDisableBackgroundRes);
+        if (isEnabled()) {
+            setEnabled(false);
+            setTextColor(mDisableTextColor);
+            setBackgroundResource(mDisableBackgroundRes);
+        }
     }
 }

@@ -66,13 +66,13 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initView() {
-        List<Fragment> mFragments = new ArrayList<>();
-        mFragments.add(new HomeFragment());
-        mFragments.add(new CollectFragment());
-        mFragments.add(new MessageFragment());
-        mFragments.add(new PersonalFragment());
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new HomeFragment());
+        fragments.add(new CollectFragment());
+        fragments.add(new MessageFragment());
+        fragments.add(new PersonalFragment());
 
-        mViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), mFragments));
+        mViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
         // 缓存ViePager的页数，缓存当前页面的左右两边各3个
         mViewPager.setOffscreenPageLimit(3);
     }
@@ -111,7 +111,7 @@ public class MainActivity extends BaseSkinActivity {
     @CheckNetAspect
     @OnClick(R.id.ll_publish)
     public void publishClick(View view) {
-        showToastShort("success");
+        showToastShort("该功能待实现");
     }
 
     /**

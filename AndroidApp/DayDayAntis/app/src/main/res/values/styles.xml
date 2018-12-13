@@ -33,9 +33,5 @@
         <item name="android:scrollbars">none</item>
     </style>
 
-    <style name="aa">
-        <item name="android:background">@null</item>
-    </style>
-
 
 </resources>

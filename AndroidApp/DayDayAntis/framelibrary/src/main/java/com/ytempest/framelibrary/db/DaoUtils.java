@@ -6,7 +6,7 @@ import java.util.Locale;
 
 /**
  * @author ytempest
- * Description: 数据库辅助类
+ *         Description: 数据库辅助类
  */
 public class DaoUtils {
 
@@ -14,43 +14,43 @@ public class DaoUtils {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-	/**
-	 * 返回clazz的实体名
-	 */	
+    /**
+     * 返回clazz的实体名
+     */
     public static String getTableName(Class<?> clazz) {
         return clazz.getSimpleName();
     }
 
-	/**
-	 * 根据传入的type类型字符串返回数据库的数据类型
-	 */	
+    /**
+     * 根据传入的type类型字符串返回数据库的数据类型
+     */
     public static String getColumnType(String type) {
         String value = null;
-        if (type.contains("String")) {
+        if ("String".contains(type)) {
             value = "text";
-        } else if (type.contains("char")) {
+        } else if ("char".contains(type) || "Character".contains(type)) {
             value = "varchar";
-        } else if (type.contains("int")) {
+        } else if ("int".contains(type) || "Integer".contains(type)) {
             value = "integer";
-        } else if (type.contains("long")) {
+        } else if ("long".equalsIgnoreCase(type)) {
             value = "long";
-        } else if (type.contains("boolean")) {
+        } else if ("boolean".equalsIgnoreCase(type)) {
             value = "boolean";
-        } else if (type.contains("float")) {
+        } else if ("float".equalsIgnoreCase(type)) {
             value = "float";
-        } else if (type.contains("double")) {
+        } else if ("double".equalsIgnoreCase(type)) {
             value = "double";
-        }  
+        }
         return value;
     }
 
-	/**
-	 * 将string的首字母转成大写
-	 */
+    /**
+     * 将string的首字母转成大写
+     */
     public static String capitalize(String string) {
         if (!TextUtils.isEmpty(string)) {
             return string.substring(0, 1).toUpperCase(Locale.US) + string.substring(1);
         }
-        return string == null ? null : "";
+        return string;
     }
 }
