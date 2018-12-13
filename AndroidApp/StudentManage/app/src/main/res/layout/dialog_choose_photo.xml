@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/dialog_choose_photo_root_style">
+
+    <Button
+        android:id="@+id/bt_form_phone"
+        style="@style/dialog_choose_photo_button_style"
+        android:text="从手机选择" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/button_rectangle_corner_size"
+        android:layout_marginRight="@dimen/button_rectangle_corner_size"
+        android:background="@color/dialog_choose_photo_divider_line" />
+
+    <Button
+        android:id="@+id/bt_form_camera"
+        style="@style/dialog_choose_photo_button_style"
+        android:text="拍照" />
+
+
+    <Button
+        android:id="@+id/bt_cancel"
+        style="@style/dialog_choose_photo_button_style"
+        android:layout_marginTop="15dp"
+        android:text="取消" />
+
+</LinearLayout>

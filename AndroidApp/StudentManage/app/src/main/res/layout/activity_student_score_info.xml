@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    tools:context="com.ytempest.studentmanage.activity.StudentScoreInfoActivity">
+
+    <LinearLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/common_row_container_style">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="头像：" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/iv_user_image"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:padding="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+
+                style="@style/common_row_title_tv_style"
+                android:text="学号：" />
+
+            <TextView
+                android:id="@+id/tv_id"
+                style="@style/user_info_row_content_tv_style" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="姓名：" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                style="@style/user_info_row_content_tv_style" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="院系：" />
+
+            <TextView
+                android:id="@+id/tv_user_department"
+                style="@style/user_info_row_content_tv_style" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="专业：" />
+
+            <TextView
+                android:id="@+id/tv_user_major"
+                style="@style/user_info_row_content_tv_style" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="班级：" />
+
+            <TextView
+                android:id="@+id/tv_class"
+                style="@style/user_info_row_content_tv_style" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="联系电话：" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                style="@style/user_info_row_content_tv_style" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="*平时成绩：" />
+
+
+            <EditText
+                android:id="@+id/et_daily_score"
+                style="@style/common_row_content_et_style"
+                android:hint="请输入平时成绩"
+                android:inputType="number"
+                android:maxLength="3" />
+
+            <ImageView style="@style/common_row_right_arrow_iv_style" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="*期末成绩：" />
+
+
+            <EditText
+                android:id="@+id/et_exam_score"
+                style="@style/common_row_content_et_style"
+                android:hint="请输入期末成绩"
+                android:inputType="number"
+                android:maxLength="3" />
+
+            <ImageView style="@style/common_row_right_arrow_iv_style" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="*总成绩：" />
+
+            <TextView
+                android:id="@+id/tv_final_score"
+                style="@style/common_row_content_et_style"
+                android:hint="总成绩" />
+
+
+            <ImageView style="@style/common_row_right_arrow_iv_style" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/common_row_container_style"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                style="@style/common_row_title_tv_style"
+                android:text="*所得学分：" />
+
+            <TextView
+                android:id="@+id/tv_final_credit"
+                style="@style/common_row_content_et_style"
+                android:hint="所得学分" />
+
+
+            <ImageView style="@style/common_row_right_arrow_iv_style" />
+        </LinearLayout>
+
+
+        <com.ytempest.framelibrary.view.button.ModifiableButton
+            android:id="@+id/bt_update_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/selector_green_button_bg"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="修改成绩"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            app:disable_bg="@drawable/shape_disable_button_bg" />
+
+    </LinearLayout>
+
+</ScrollView>

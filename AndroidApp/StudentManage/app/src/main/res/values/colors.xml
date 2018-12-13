@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#73D6DC</color>
+    <color name="colorPrimaryDark">#73D6DC</color>
+    <color name="colorAccent">#73D6DC</color>
+
+    <!-- Fragment或者Activity的背景颜色 -->
+    <color name="base_bg">#f4f4f4</color>
+
+    <!-- 首页底部按钮组文字正常颜色和按下时的颜色-->
+    <color name="rb_text_normal_color">#636363</color>
+    <color name="rb_text_press_color">#32CDC6</color>
+    <!-- 首页底部按钮组的背景颜色-->
+    <color name="rg_bg">#ebebeb</color>
+
+    <!-- 登录界面标题背景和文字颜色 -->
+    <color name="title_bar_text_color">#f0f0f0</color>
+    <color name="title_bar_bg_color">#73D6DC</color>
+
+    <!-- 登录按钮的正常颜色和按下的颜色 -->
+    <color name="shape_green_button_normal_bg">#73D6DC</color>
+    <color name="shape_green_button_press_bg">#5ec1c8</color>
+    <!-- 登录按钮不可用时的颜色 -->
+    <color name="shape_disable_button_color">#d3d3d3</color>
+
+
+    <!-- 选择图片的对话框的按钮文字的颜色 -->
+    <color name="dialog_choose_photo_button_text">@color/colorPrimaryDark</color>
+    <color name="dialog_choose_photo_divider_line">#c1bcbc</color>
+
+</resources>

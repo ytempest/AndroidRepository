@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:orientation="vertical"
+    tools:context="com.ytempest.studentmanage.activity.InsertTeacherActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/common_row_container_style">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/head" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/iv_teacher_image"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
+                    android:layout_marginRight="16dp"
+                    android:padding="16dp"
+                    android:src="@drawable/icon_add_head" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:inputType="number"
+                    android:text="@string/teacher_id" />
+
+                <EditText
+                    android:id="@+id/et_teacher_id"
+                    style="@style/common_row_content_et_style"
+                    android:enabled="false"
+                    android:hint="@string/auto_generate" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/password" />
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/et_teacher_password"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_password"
+                    android:text="123456" />
+
+                <CheckBox
+                    android:id="@+id/cb_teacher_reset_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingRight="16dp"
+                    android:text="@string/reset_password"
+                    android:visibility="gone" />
+
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/name" />
+
+                <EditText
+                    android:id="@+id/et_teacher_name"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_name" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/sex" />
+
+                <RadioGroup
+                    android:id="@+id/rg_teacher_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/male"
+                        style="@style/radio_button_style"
+                        android:text="@string/male" />
+
+                    <RadioButton
+                        android:id="@+id/female"
+                        style="@style/radio_button_style"
+                        android:layout_marginLeft="50dp"
+                        android:text="@string/female" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/department" />
+
+
+                <TextView
+                    android:id="@+id/tv_teacher_department"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/select_department" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/identity" />
+
+                <EditText
+                    android:id="@+id/tv_teacher_identity"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_identity" />
+
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/political_status" />
+
+                <EditText
+                    android:id="@+id/et_teacher_political_status"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_political_status"
+                    android:text="共产党员" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/nationality" />
+
+                <EditText
+                    android:id="@+id/et_teacher_nationality"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_nationality"
+                    android:text="汉" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/teacher_enrollment_date" />
+
+                <EditText
+                    android:id="@+id/et_teacher_enrollment_date"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_teacher_enrollment_date"
+                    android:inputType="date"
+                    android:text="2015-09-03" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/phone" />
+
+                <EditText
+                    android:id="@+id/et_teacher_phone"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_phone"
+                    android:inputType="phone" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/address" />
+
+                <EditText
+                    android:id="@+id/et_teacher_address"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_address" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/state" />
+
+                <RadioGroup
+                    android:id="@+id/rg_teacher_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/dismiss"
+                        style="@style/radio_button_style"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:text="辞退" />
+
+                    <RadioButton
+                        android:id="@+id/normal"
+                        style="@style/radio_button_style"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:text="正常" />
+
+                    <RadioButton
+                        android:id="@+id/quit"
+                        style="@style/radio_button_style"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:text="离职" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_teacher_insert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/selector_green_button_bg"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/add"
+                android:textColor="#FFF"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

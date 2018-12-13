@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:orientation="vertical">
+
+
+    <LinearLayout style="@style/common_row_container_style">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="@string/department" />
+
+        <TextView
+            android:id="@+id/tv_department_name"
+            style="@style/common_row_content_et_style"
+            android:gravity="left"
+            android:hint="@string/select_department"
+            android:maxLines="3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="@string/major_id" />
+
+
+        <EditText
+            android:id="@+id/et_major_id"
+            style="@style/common_row_content_et_style"
+            android:enabled="false"
+            android:gravity="left"
+            android:hint="@string/auto_generate"
+            android:inputType="number"
+            android:maxLines="2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="@string/major" />
+
+        <EditText
+            android:id="@+id/et_major_name"
+            style="@style/common_row_content_et_style"
+            android:gravity="left"
+            android:hint="@string/input_major"
+            android:maxLines="3" />
+
+        <ImageView style="@style/common_row_right_arrow_iv_style" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="@string/major_introduction" />
+
+        <EditText
+            android:id="@+id/et_major_introduce"
+            style="@style/common_row_content_et_style"
+            android:gravity="left"
+            android:hint="@string/input_major_introduction"
+            android:maxLines="100" />
+
+        <ImageView style="@style/common_row_right_arrow_iv_style" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp">
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/bt_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
+        android:text="@string/add"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+
+</LinearLayout>
+

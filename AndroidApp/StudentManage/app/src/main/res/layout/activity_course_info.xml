@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:orientation="vertical"
+    tools:context="com.ytempest.studentmanage.activity.CourseInfoActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/course_name" />
+
+                <TextView
+                    android:id="@+id/tv_course_name"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/course_department" />
+
+                <TextView
+                    android:id="@+id/tv_course_department"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/introduction" />
+
+
+                <TextView
+                    android:id="@+id/tv_course_intro"
+                    style="@style/user_info_row_content_tv_style"
+                    android:gravity="center_vertical"
+                    android:maxLines="10" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/class_time" />
+
+                <TextView
+                    android:id="@+id/tv_course_time"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/state" />
+
+                <TextView
+                    android:id="@+id/tv_course_state"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/course_teacher" />
+
+                <TextView
+                    android:id="@+id/tv_course_teacher"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/credit" />
+
+                <TextView
+                    android:id="@+id/tv_course_credit"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/daily_score" />
+
+                <TextView
+                    android:id="@+id/tv_course_daily_score"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/exam_score" />
+
+                <TextView
+                    android:id="@+id/tv_course_exam_score"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/final_score" />
+
+                <TextView
+                    android:id="@+id/tv_course_final_score"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/final_credit" />
+
+                <TextView
+                    android:id="@+id/tv_course_final_credit"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/complete_state" />
+
+                <TextView
+                    android:id="@+id/tv_course_complete_state"
+                    style="@style/user_info_row_content_tv_style" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_circle_corner_bg"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="专业编号：" />
+
+
+        <EditText
+            android:id="@+id/et_major_id"
+            style="@style/common_row_content_et_style"
+            android:enabled="false"
+            android:gravity="left"
+            android:hint="请输入专业编号"
+            android:inputType="number"
+            android:maxLines="2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="专业名称：" />
+
+        <EditText
+            android:id="@+id/et_major_name"
+            style="@style/common_row_content_et_style"
+            android:gravity="left"
+            android:hint="请输入专业名称"
+            android:maxLines="3" />
+
+        <ImageView style="@style/common_row_right_arrow_iv_style" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="专业简介：" />
+
+        <EditText
+            android:id="@+id/et_major_introduce"
+            style="@style/common_row_content_et_style"
+            android:gravity="left"
+            android:hint="请输入专业简介"
+            android:maxLines="100" />
+
+        <ImageView style="@style/common_row_right_arrow_iv_style" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="院系编号：" />
+
+        <EditText
+            android:id="@+id/et_department_id"
+            style="@style/common_row_content_et_style"
+            android:enabled="false"
+            android:gravity="left"
+            android:maxLines="2" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="院系名称：" />
+
+        <EditText
+            android:id="@+id/et_department_name"
+            style="@style/common_row_content_et_style"
+            android:enabled="false"
+            android:gravity="left"
+            android:maxLines="3" />
+
+    </LinearLayout>
+
+    <com.ytempest.framelibrary.view.button.ModifiableButton
+        android:id="@+id/bt_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
+        android:text="修改"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        app:disable_bg="@drawable/shape_disable_button_bg" />
+
+
+</LinearLayout>
+

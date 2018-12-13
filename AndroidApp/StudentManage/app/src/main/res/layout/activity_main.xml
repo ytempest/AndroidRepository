@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ytempest.studentmanage.activity.MainActivity">
+
+    <com.ytempest.baselibrary.view.NotScrollViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/rg_bg"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_indicator_manage"
+            style="@style/rb_button_style"
+            android:drawableTop="@drawable/selector_rb_home_bg"
+            android:text="@string/indicator_manage"
+            android:visibility="gone" />
+
+        <RadioButton
+            android:id="@+id/rb_indicator_course"
+            style="@style/rb_button_style"
+            android:drawableTop="@drawable/selector_rb_message_bg"
+            android:text="@string/indicator_course" />
+
+        <RadioButton
+            android:id="@+id/rb_indicator_personal"
+            style="@style/rb_button_style"
+            android:drawableTop="@drawable/selector_rb_personal_bg"
+            android:text="@string/indicator_personal" />
+    </RadioGroup>
+</LinearLayout>

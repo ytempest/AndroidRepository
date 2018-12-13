@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ytempest.studentmanage.fragment.ManageFragment">
+
+
+    <Button
+        android:id="@+id/bt_manage_student"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
+        android:text="学生管理"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+
+    <Button
+        android:id="@+id/bt_manage_teacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
+        android:text="教师管理"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+
+    <Button
+        android:id="@+id/bt_manage_department"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
+        android:text="院系管理"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/bt_manage_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
+        android:text="专业管理"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/bt_manage_class"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
+        android:text="班级管理"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+
+</LinearLayout>

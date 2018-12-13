@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 导航条的样式 -->
+    <style name="navigation_bar_style">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/navigation_bar_bg</item>
+        <item name="android:layout_height">@dimen/navigation_bar_height</item>
+    </style>
+
+    <!-- 导航条中间View的样式 -->
+    <style name="navigation_center_view_style">
+        <item name="android:textSize">@dimen/navigation_center_view_text_size</item>
+        <item name="android:textColor">@color/navigation_center_view_text_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginLeft">75dp</item>
+        <item name="android:layout_marginRight">75dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- 导航条左右两边View的基本样式 -->
+    <style name="navigation_left_right_base_view_style">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <!-- 导航条左边View的样式 -->
+    <style name="navigation_left_view_style" parent="navigation_left_right_base_view_style">
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <!-- 导航条左边文字的样式 -->
+    <style name="navigation_left_text_style" parent="navigation_left_view_style">
+        <item name="android:textSize">@dimen/navigation_left_text_size</item>
+        <item name="android:textColor">@color/navigation_left_text_color</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+    </style>
+
+    <!-- 导航条右边View的样式 -->
+    <style name="navigation_right_view_style" parent="navigation_left_right_base_view_style">
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <!-- 导航条右边文字的样式 -->
+    <style name="navigation_right_text_style" parent="navigation_right_view_style">
+        <item name="android:textSize">@dimen/navigation_right_text_size</item>
+        <item name="android:textColor">@color/navigation_right_text_color</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+    </style>
+
+
+    <!-- PasswordKeyboard键盘上的数字样式 -->
+    <style name="password_keyboard_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:textColor">@color/password_keyboard_number_color</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_password_keyboard_number</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <!-- PasswordKeyboard键盘每一行的LinearLayout的样式 -->
+    <style name="password_keyboard_row_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- 圆形ImageView的自定义样式-->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color|integer" />
+    </declare-styleable>
+
+
+</resources>

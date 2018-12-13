@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ytempest.studentmanage">
+
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".base.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.UserLoginActivity" />
+        <activity android:name=".activity.UserInfoActivity" />
+        <activity android:name=".activity.UpdatePasswordActivity" />
+        <activity android:name=".activity.CourseInfoActivity" />
+        <activity android:name=".activity.StudentListActivity" />
+        <activity android:name=".activity.StudentScoreInfoActivity" />
+        <activity android:name=".activity.ManageStudentActivity" />
+        <activity android:name=".activity.InsertStudentActivity" />
+        <activity android:name=".activity.ManageTeacherActivity" />
+        <activity android:name=".activity.ManageDepartmentActivity" />
+        <activity android:name=".activity.ManageMajorActivity" />
+        <activity android:name=".activity.InsertMajorActivity" />
+        <activity android:name=".activity.ManageClassActivity" />
+        <activity android:name=".activity.ClassInfoActivity" />
+        <activity android:name=".activity.InsertClassActivity" />
+        <activity android:name=".activity.UpdateStudentActivity" />
+        <activity android:name=".activity.InsertTeacherActivity" />
+        <activity android:name=".activity.UpdateTeacherActivity" />
+
+
+    </application>
+
+</manifest>

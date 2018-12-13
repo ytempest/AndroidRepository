@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 登录以及注册页面中的输入框以及登录按钮的圆角大小 -->
+    <dimen name="button_rectangle_corner_size">6dp</dimen>
+
+</resources>

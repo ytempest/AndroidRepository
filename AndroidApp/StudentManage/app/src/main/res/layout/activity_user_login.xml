@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ytempest.studentmanage.activity.UserLoginActivity">
+
+    <LinearLayout
+        style="@style/et_input_container_style"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/et_account"
+            style="@style/et_input_style"
+            android:drawableLeft="@drawable/login_user_name_icon"
+            android:hint="@string/input_account"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/et_input_container_style"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/et_password"
+            style="@style/et_input_style"
+            android:drawableLeft="@drawable/login_user_password_icon"
+            android:hint="@string/input_password"
+            android:inputType="textPassword" />
+
+        <CheckBox
+            android:id="@+id/cb_password_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:button="@drawable/selector_login_password_status"
+            android:checked="false" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_user_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_student"
+            style="@style/radio_button_style"
+            android:checked="true"
+            android:text="@string/student" />
+
+        <RadioButton
+            android:id="@+id/rb_teacher"
+            style="@style/radio_button_style"
+            android:text="@string/teacher" />
+
+        <RadioButton
+            android:id="@+id/rb_manager"
+            style="@style/radio_button_style"
+            android:text="@string/manager" />
+
+    </RadioGroup>
+
+    <com.ytempest.framelibrary.view.button.ModifiableButton
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/selector_green_button_bg"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        app:disable_bg="@drawable/shape_disable_button_bg" />
+
+    <TextView
+        android:id="@+id/tv_protocol"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="16dp" />
+
+</LinearLayout>

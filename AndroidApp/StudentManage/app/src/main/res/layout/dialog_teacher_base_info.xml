@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_circle_corner_bg"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="头像：" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_base_teacher_image"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:padding="16dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="姓名：" />
+
+        <TextView
+            android:id="@+id/tv_base_teacher_name"
+            style="@style/user_info_row_content_tv_style"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="职务：" />
+
+        <TextView
+            android:id="@+id/tv_base_teacher_identity"
+
+            style="@style/user_info_row_content_tv_style"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="联系电话：" />
+
+        <TextView
+            android:id="@+id/tv_base_teacher_phone"
+
+            style="@style/user_info_row_content_tv_style"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/common_row_container_style"
+        android:layout_marginTop="1dp"
+        android:background="@null">
+
+        <TextView
+            style="@style/common_row_title_tv_style"
+            android:text="办公室地址：" />
+
+        <TextView
+            android:id="@+id/tv_base_teacher_address"
+            style="@style/user_info_row_content_tv_style"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

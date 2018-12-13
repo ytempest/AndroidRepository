@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 用户账号的最小位数 -->
+    <integer name="user_account_min_count">3</integer>
+
+    <!-- 用户账号的最大位数 -->
+    <integer name="user_account_max_count">18</integer>
+
+    <!-- 用户密码的最小位数 -->
+    <integer name="user_password_min_count">3</integer>
+
+    <!-- 用户密码的最大位数 -->
+    <integer name="user_password_max_count">18</integer>
+
+</resources>

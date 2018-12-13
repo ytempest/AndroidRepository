@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:orientation="vertical"
+    tools:context="com.ytempest.studentmanage.activity.UserInfoActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/common_row_container_style">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/head" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/iv_user_image"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
+                    android:padding="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/student_id" />
+
+                <TextView
+                    android:id="@+id/tv_user_account"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/name" />
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/sex" />
+
+                <TextView
+                    android:id="@+id/tv_user_sex"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/phone" />
+
+
+                <EditText
+                    android:id="@+id/et_user_phone"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_phone"
+                    android:inputType="phone" />
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/address" />
+
+                <EditText
+                    android:id="@+id/et_user_address"
+                    style="@style/common_row_content_et_style"
+                    android:hint="@string/input_address" />
+
+
+                <ImageView style="@style/common_row_right_arrow_iv_style" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/department" />
+
+                <TextView
+                    android:id="@+id/tv_user_department"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/major" />
+
+                <TextView
+                    android:id="@+id/tv_user_major"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/grade" />
+
+                <TextView
+                    android:id="@+id/tv_user_grade"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/classes" />
+
+                <TextView
+                    android:id="@+id/tv_user_class"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/political_status" />
+
+                <TextView
+                    android:id="@+id/tv_user_political_status"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    android:id="@+id/tv_user_start_time"
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/student_enrollment_date" />
+
+                <TextView
+                    android:id="@+id/tv_user_enrollment_date"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/common_row_container_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/common_row_title_tv_style"
+                    android:text="@string/state" />
+
+                <TextView
+                    android:id="@+id/tv_user_state"
+                    style="@style/user_info_row_content_tv_style" />
+
+            </LinearLayout>
+
+            <com.ytempest.framelibrary.view.button.ModifiableButton
+                android:id="@+id/bt_user_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/selector_green_button_bg"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="确定修改"
+                android:textColor="#FFF"
+                android:textSize="20sp"
+                app:disable_bg="@drawable/shape_disable_button_bg" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
