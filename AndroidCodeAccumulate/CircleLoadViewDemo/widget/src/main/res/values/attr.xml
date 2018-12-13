@@ -9,6 +9,7 @@
         <attr name="circleRadius" format="dimension" />
         <!-- 加载界面的背景颜色 -->
         <attr name="loadingBackground" format="color" />
+        <attr name="dd" format="reference" />
     </declare-styleable>
 
 </resources>

@@ -22,9 +22,9 @@ import android.view.animation.LinearInterpolator;
  */
 public class SplashLoadView extends View {
 
-    private int ROTATION_TIME = 1450;
-    private int MERGE_TIME = 200;
-    private int EXPAND_TIME = 400;
+    private static final int ROTATION_TIME = 1450;
+    private static final int MERGE_TIME = 200;
+    private static final int EXPAND_TIME = 400;
     /**
      * 标志是否正在加载
      */
@@ -126,14 +126,14 @@ public class SplashLoadView extends View {
     /**
      * Description：动画状态
      */
-    private abstract class SplashStatus {
-        public abstract void draw(Canvas canvas);
+    private interface SplashStatus {
+        void draw(Canvas canvas);
     }
 
     /**
      * Description：旋转动画状态
      */
-    private class RotationStatus extends SplashStatus {
+    private class RotationStatus implements SplashStatus {
         private float mCurrentAngle = 0;
         private ValueAnimator mRotation;
         private float mRadius;
@@ -212,7 +212,7 @@ public class SplashLoadView extends View {
     /**
      * Description：展开动画状态
      */
-    private class ExpandStatus extends SplashStatus {
+    private class ExpandStatus implements SplashStatus {
 
         private float mRadius;
         private float mMaxRadius;
