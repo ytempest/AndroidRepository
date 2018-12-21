@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- BannerView 的颜色集 -->
-    <color name="banner_bottom_bar_bg_day">#65000000</color>
-    <color name="dot_select_color">#FE9F00</color>
-    <color name="dot_normal_color">#50ffffff</color>
-    <color name="white">#FFFFFF</color>
-</resources>
