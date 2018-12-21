@@ -62,6 +62,10 @@ public final class CacheStrategy {
     public final @Nullable
     Response cacheResponse;
 
+    /**
+     * @param networkRequest 如果不为空，则表明需要请求服务器
+     * @param cacheResponse  如果不为空，则表示有本地缓存
+     */
     CacheStrategy(Request networkRequest, Response cacheResponse) {
         this.networkRequest = networkRequest;
         this.cacheResponse = cacheResponse;
@@ -217,11 +221,13 @@ public final class CacheStrategy {
         private CacheStrategy getCandidate() {
             // 如果没有本地缓存
             if (cacheResponse == null) {
-                // 如果没有本地缓存，那么就创建一个缓存策略，并把Response本地缓存传null
+                // 如果没有本地缓存，那么就创建一个缓存策略，
+                // 并把Response本地缓存传null，表示本地缓存不可用
                 return new CacheStrategy(request, null);
             }
 
-            // 如果这个请求是一个Https请求，但是Response本地缓存却没有经历过三次握手，那么把Response本地缓存传null
+            // 如果这个请求是一个Https请求，但是Response本地缓存却没有经历过三次握手，
+            // 那么把Response本地缓存传null，表示本地缓存不可用
             if (request.isHttps() && cacheResponse.handshake() == null) {
                 return new CacheStrategy(request, null);
             }
@@ -240,9 +246,11 @@ public final class CacheStrategy {
                 return new CacheStrategy(request, null);
             }
 
+            //------- 处理Request中的 Cache-Control请求头的指令 ------start
+
             // 从本地缓存中获取控制字Cache-Control，判断Response中的Cache-Control是否设置了immutable
             CacheControl responseCaching = cacheResponse.cacheControl();
-            // 如果本地缓存的缓存策略有 immutable，表明这个缓存不可改变，那么直接返回这个缓存
+            // 如果请求头的Cache-Control为immutable，表明这个缓存不可改变，那么直接返回这个缓存
             if (responseCaching.immutable()) {
                 return new CacheStrategy(null, cacheResponse);
             }
@@ -276,8 +284,12 @@ public final class CacheStrategy {
                 return new CacheStrategy(null, builder.build());
             }
 
+            //------- 处理Request中的 Cache-Control请求头的指令 ------end
+
             // Find a condition to add to the request. If the condition is satisfied, the response body
             // will not be transmitted.
+            // 请求条件, 当etag、lastModified、servedDate这三种属性任何一个存在时
+            //需要向服务器确认缓存的有效性
             String conditionName;
             String conditionValue;
             if (etag != null) {
@@ -292,9 +304,12 @@ public final class CacheStrategy {
                 conditionValue = servedDateString;
             } else {
                 // No condition! Make a regular request.
+                // 如果没有缓存，则按正常流程进行请求
                 return new CacheStrategy(request, null);
             }
 
+
+            // 来到这里表示，该请求有本地缓存，但是需要构造一个请求询问服务器资源是否过期
             Headers.Builder conditionalRequestHeaders = request.headers().newBuilder();
             Internal.instance.addLenient(conditionalRequestHeaders, conditionName, conditionValue);
 

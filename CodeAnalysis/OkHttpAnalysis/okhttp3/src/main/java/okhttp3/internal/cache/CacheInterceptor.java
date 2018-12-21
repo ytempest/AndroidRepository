@@ -64,34 +64,37 @@ public final class CacheInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
 
-        /*---------- 缓存策略的逻辑 --------*/
-
-        // 根据Request从缓存中获取Response作为一个候补
+        // 根据Request从本地获取 Response的缓存
         Response cacheCandidate = cache != null
                 ? cache.get(chain.request())
                 : null;
+        // 实际上是类似map,将返回内容的URL的MD5的值当key,返回内容当response
+        // 然后从cache文件里面查询是否存在该缓存
 
         long now = System.currentTimeMillis();
 
-        // 获取缓存策略，传递当前时间用于判断缓存是否过期
+        // 根据当前的时间,以及缓存策略,来获取Response
+        // 通过缓存策略工厂获取缓存策略，传递当前时间用于判断缓存是否过期
         CacheStrategy strategy = new CacheStrategy.Factory(now, chain.request(), cacheCandidate).get();
         Request networkRequest = strategy.networkRequest;
         Response cacheResponse = strategy.cacheResponse;
+
+        //---------- 缓存策略：使用本地缓存  -------start
 
         if (cache != null) {
             cache.trackResponse(strategy);
         }
 
 
-        // 如果本地保存有该Request的缓存，但是该缓存过期了，或者其他原因导致缓存用不了，那么就关闭RequestBody
+        // 如果本地保存有该请求的Response缓存，但是该缓存过期了，或者其他原因导致缓存用不了，那么就关闭RequestBody
         if (cacheCandidate != null && cacheResponse == null) {
             // The cache candidate wasn't applicable. Close it.
             closeQuietly(cacheCandidate.body());
         }
 
         // 第一处不往下传递Request，而是构建一个空的Response返回
-        // 当被禁止使用联网获取数据同时本地缓存又不足，那么就会返回一个没有数据的RequestBody的
-        // Response，同时响应码是504
+        // 不进行网络请求，且缓存以及过期了，那么就会返回一个没有数据的RequestBody的
+        // Response，错误码为504
         if (networkRequest == null && cacheResponse == null) {
             return new Response.Builder()
                     .request(chain.request())
@@ -105,15 +108,20 @@ public final class CacheInterceptor implements Interceptor {
         }
 
         // 第二处不往下传递Request，而是直接返回本地缓存的Response
-        // 如果缓存策略中的Request为空，但是Response本地缓存不为空，那么就会构建一个Response返回
+        // 不进行网络请求，但是本地有Response缓存，那么返回本地缓存的response
         if (networkRequest == null) {
             return cacheResponse.newBuilder()
                     .cacheResponse(stripBody(cacheResponse))
                     .build();
         }
 
-        /*---------- 向服务器进行Request并获取Response的逻辑 --------*/
-        // 来到这里表示 networkRequest不为空，那么就开始传递责任，将该Request传递给下一个拦截器
+        //---------- 缓存策略：使用本地缓存 -------end
+
+
+
+        //---------- 缓存策略：需要请求服务器  -------
+        // 来到这里表示 networkRequest不为空，那么就开始调用责任链后面的拦截器，将该Request传递给下一个拦截器
+        // cacheResponse如果不为空，则表示需要请求服务器询问资源是否可用
 
         // 这是服务器返回的Response
         Response networkResponse = null;
@@ -121,15 +129,17 @@ public final class CacheInterceptor implements Interceptor {
             // 把Request发送给下一个拦截器，让它处理，连接网络获取后台的数据
             networkResponse = chain.proceed(networkRequest);
         } finally {
+            // 请求异常，关闭缓存避免泄露
             if (networkResponse == null && cacheCandidate != null) {
                 closeQuietly(cacheCandidate.body());
             }
         }
 
-        // 如果发起网络请求获取Response数据后，我们也存在Response本地缓存，那么就更新这个本地缓存
+        // 需要请求网络，同时又有本地缓存的情况
+        // (比如：需要向服务器确认缓存是否可用的情况)
         if (cacheResponse != null) {
-            // 如果网络请求后的Response状态码是304，即数据没有修改过，那么我们还是可以使用这个
-            // 本地缓存的，这不过要对请求头和过期时间要做一下修改
+            // 如果网络请求后的Response状态码是304，即数据没有修改过，而304的返回时是不带body的，那么我们
+            // 需要使用本地缓存的，这不过要对请求头和过期时间要做一下修改；然后更新本地的 response缓存
             if (networkResponse.code() == HTTP_NOT_MODIFIED) {
                 Response response = cacheResponse.newBuilder()
                         // 合并服务器返回的Response和本地缓存的Response的头信息
@@ -157,8 +167,7 @@ public final class CacheInterceptor implements Interceptor {
             }
         }
 
-        // 走到这里表明，该Request没有本地缓存
-
+        // 走到这里表明，该Request没有本地 Response缓存
         Response response = networkResponse.newBuilder()
                 .cacheResponse(stripBody(cacheResponse))
                 .networkResponse(stripBody(networkResponse))
