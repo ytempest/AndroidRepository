@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LoadView的ShapeView的圆形的颜色 -->
+    <color name="load_view_shape_circle_color">#aa738ffe</color>
+    <!-- LoadView的ShapeView的正方形的颜色 -->
+    <color name="load_view_shape_square_color">#aae84e40</color>
+    <!-- LoadView的ShapeView的三角形的颜色 -->
+    <color name="load_view_shape_triangle_color">#aa72d572</color>
+    <!-- LoadView中的阴影颜色-->
+    <color name="load_view_shadow_color">#42808080</color>
+    <!-- LoadView中的文字描述 -->
+    <color name="load_view_text_desc">#8c696767</color>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_marginRight="10dip"
+        android:src="@drawable/head" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_head"
+        android:text="ytempest"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/t_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginTop="0.5dip"
+        android:layout_toRightOf="@+id/iv_head"
+        android:text="18:33"
+        android:textColor="#777"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_head"
+        android:layout_marginTop="10dip"
+        android:text="说到反射，想必这里就有人觉得会不会存在性能问题，实际上，从ART以来，反射的性能影响其实已经降低了很多"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <com.ytempest.framelibrary.PicturesLayout
+        android:id="@+id/picture_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginTop="10dip"
+        android:orientation="vertical" />
+
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:layout_below="@+id/l_pictures"
+        android:layout_marginLeft="3dip"
+        android:layout_marginRight="3dip"
+        android:layout_marginTop="10dip"
+        android:background="#E1E1E1" />-->
+
+</RelativeLayout>
